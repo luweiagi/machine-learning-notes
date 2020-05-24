@@ -7,7 +7,7 @@
 >
 > 我的微信公众号：
 >
-> ![weixin_gongzhonghao](pic/weixin_gongzhonghao.jpg)
+> ![weixin_gongzhonghao](pic/weixin_gongzhonghao.png)
 
 
 

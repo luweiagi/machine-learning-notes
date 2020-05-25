@@ -1,6 +1,5 @@
 # 语言模型和中文分词
 
-* [返回顶层目录](../../../README.md)
 * [返回上层目录](../natural-language-processing.md)
 
 

@@ -1,6 +1,5 @@
-# YouTube深度学习推荐系统
+# YouTubeDNN:Deep Neural Networks for YouTube Recommendations
 
-* [返回顶层目录](../../../../README.md)
 * [返回上层目录](../youtube.md)
 * [论文解读](#论文解读)
 * [十大工程问题](#十大工程问题)

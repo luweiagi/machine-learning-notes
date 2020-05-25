@@ -1,6 +1,5 @@
 # 链表
 
-* [返回顶层目录](../../../../README.md)
 * [返回上层目录](../jianzhi-offer.md)
 * [剑指offer6：从尾到头打印链表](#剑指offer6：从尾到头打印链表)
 * [剑指offer22：链表中倒数第k个节点](#剑指offer22：链表中倒数第k个节点)
@@ -469,7 +468,7 @@ public:
 
 # 参考资料
 
-- [剑指Offer系列刷题笔记汇总](https://cuijiahua.com/blog/2018/02/basis_67.html)
+* [剑指Offer系列刷题笔记汇总](https://cuijiahua.com/blog/2018/02/basis_67.html)
 
 本文参考此博客。
 

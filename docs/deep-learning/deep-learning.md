@@ -1,6 +1,6 @@
 # 深度学习
 
-* [返回顶层目录](../README.md#目录)
+* [返回上层目录](../README.md#目录)
 * [深度学习概论](deep-learning-introduction/deep-learning-introduction.md)
 * [ANN人工神经网络](artificial-neural-network/artificial-neural-network.md)
 * [知识点](tips/tips.md)

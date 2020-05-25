@@ -1,6 +1,6 @@
 # 强化学习概论
 
-* [返回顶层目录](../../README.md)
+* [返回上层目录](../reinforcement-learning.md)
 * [本章在学习地图中的位置](#本章在学习地图中的位置)
 * [认识强化学习](#认识强化学习)
   * [什么是强化学习](#什么是强化学习)
@@ -501,7 +501,7 @@ https://github.com/gabrieledcjr/TicTacToe/blob/master/tictactoeRL.py
 
 # 参考文献
 
-- [《强化学习理论与实践》第一章：强化学习概述](http://www.shenlanxueyuan.com/my/course/96)
+* [《强化学习理论与实践》第一章：强化学习概述](http://www.shenlanxueyuan.com/my/course/96)
 
 本文主要参考此视频课程。
 

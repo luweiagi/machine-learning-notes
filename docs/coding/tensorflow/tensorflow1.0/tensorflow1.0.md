@@ -1,6 +1,5 @@
 # TensorFlow1.0
 
-* [返回顶层目录](../../../README.md)
 * [返回上层目录](../tensorflow.md)
 * [TensorFlow基础](basis/basis.md)
 * [TensorFlow基础概念解析](basic-concept-analysis/basic-concept-analysis.md)

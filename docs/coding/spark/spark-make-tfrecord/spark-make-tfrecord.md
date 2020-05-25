@@ -1,6 +1,5 @@
 # 利用spark生成tfrecord文件
 
-* [返回顶层目录](../../../README.md)
 * [返回上层目录](../spark.md)
 
 

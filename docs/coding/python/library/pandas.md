@@ -1,6 +1,5 @@
 # pandas
 
-* [返回顶层目录](../../README.md#目录)
 * [返回上层目录](python.md#python)
 * [pandas简介](#pandas简介)
 

@@ -1,6 +1,5 @@
 # python简介
 
-* [返回顶层目录](../../../README.md)
 * [返回上层目录](../python.md)
 * [python介绍](#python介绍)
 * [机器学习用到的python](#机器学习用到的python)

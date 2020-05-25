@@ -1,6 +1,5 @@
 # matplotlib
 
-* [返回顶层目录](../../README.md#目录)
 * [返回上层目录](python.md#python)
 
 # matplotlib简介
@@ -508,6 +507,6 @@ plt.xlabel(u'横坐标')
 
 # 参考资料
 
-- [如何系统地学习Python 中 matplotlib, numpy, scipy, pandas？](https://www.zhihu.com/question/37180159)
+* [如何系统地学习Python 中 matplotlib, numpy, scipy, pandas？](https://www.zhihu.com/question/37180159)
 
 matplotlib简介中的简单介绍就是复制的这里。

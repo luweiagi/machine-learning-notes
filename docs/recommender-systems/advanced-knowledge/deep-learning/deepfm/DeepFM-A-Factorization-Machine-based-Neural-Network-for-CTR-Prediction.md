@@ -1,6 +1,5 @@
-# DeepFM
+# DeepFM: A Factorization-Machine based Neural Network for CTR Prediction
 
-* [返回顶层目录](../../../../../README.md)
 * [返回上层目录](../deep-learning.md)
 * [DeepFM架构](#DeepFM架构)
 * [DeepFM原理](#DeepFM原理)

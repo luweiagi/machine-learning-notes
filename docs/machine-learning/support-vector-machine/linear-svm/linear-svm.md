@@ -1,6 +1,5 @@
 # 线性支持向量机与软间隔最大化
 
-* [返回顶层目录](../../README.md)
 
 * [返回上层目录](../support-vector-machine.md)
 

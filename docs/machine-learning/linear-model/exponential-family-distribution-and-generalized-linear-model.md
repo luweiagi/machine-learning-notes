@@ -1,6 +1,5 @@
 # 指数族分布与广义线性模型
 
-* [返回顶层目录](../../README.md)
 * [返回上层目录](linear-model.md)
 * [指数族分布](#指数族分布)
   * [指数族分布的一般形式](#指数族分布的一般形式)
@@ -1033,7 +1032,7 @@ regression本质上是一种model fitting的方法，而linear，curve，logisti
 
 # 参考资料
 
-- [指数族分布是如何被构造的或怎样被发现？为什么将伯努利分布写成指数族分布后可以导出logistic函数？](https://www.zhihu.com/question/52240493/answer/282469915)
+* [指数族分布是如何被构造的或怎样被发现？为什么将伯努利分布写成指数族分布后可以导出logistic函数？](https://www.zhihu.com/question/52240493/answer/282469915)
 - 《Graphical models, exponential families and variations inference》
 
 "指数族分布"一节部分参考此知乎回答。

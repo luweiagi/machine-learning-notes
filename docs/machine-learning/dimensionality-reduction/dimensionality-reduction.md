@@ -1,6 +1,5 @@
 # 降维
 
-* [返回顶层目录](../../README.md)
 * [降维概述](#流降维概述)
 * 线性降维
   * [PCA主成分分析](principal-component-analysis.md)

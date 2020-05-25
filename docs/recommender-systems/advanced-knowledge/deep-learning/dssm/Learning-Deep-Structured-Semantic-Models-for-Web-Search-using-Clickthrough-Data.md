@@ -1,12 +1,10 @@
-# DSSM基于深度学习的语义模型
+# DSSM: Learning Deep Structured Semantic Models for Web Search using Clickthrough Data
 
-- [返回顶层目录](../../../../../README.md)
-- [返回上层目录](../deep-learning.md)
-
+* [返回上层目录](../deep-learning.md)
 * [简介](#简介)
 * [DSSM原理](#DSSM原理)
   * [计算语义特征的DNN模型](#计算语义特征的DNN模型)
-  * [word hash](#word hash)
+  * [word-hash](#word-hash)
   * [DSSM的损失函数](#DSSM的损失函数)
 * [实验](#实验)
 
@@ -87,7 +85,7 @@ $$
 
 输入的$x$向量的维度等于单词表的大小，但是单词表在现实中是非常大的，所以将其直接作为神经网络的输入，对神经网络的前向传播和模型训练都不可接受。所以这里对DNN的第一层使用了“word hash”，这一层的权重被设置为不可学习（固定权重的线性变换）。
 
-## word hash
+## word-hash
 
 word hash用于减小输入x（词袋向量）的维度，它基于n-gram，最终被表征为n-gram字符的向量。例如good这个单词，先加上起始结束标志#，即```#good#```，基于3-gram可被拆分为：```#go, goo, ood, od#```。
 

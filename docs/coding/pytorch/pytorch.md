@@ -1,6 +1,5 @@
 # PyTorch
 
-* [返回顶层目录](../../README.md)
 
 
 

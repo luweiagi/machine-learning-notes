@@ -1,6 +1,5 @@
 # RDD编程
 
-* [返回顶层目录](../../../README.md)
 * [返回上层目录](../spark.md)
 
 
@@ -534,7 +533,7 @@ In-Memory Cluster Computing](https://www.usenix.org/system/files/conference/nsdi
 
 # 参考资料
 
-- [spark RDD算子（一） parallelize，makeRDD，textFile](https://blog.csdn.net/T1DMzks/article/details/70189509)
+* [spark RDD算子（一） parallelize，makeRDD，textFile](https://blog.csdn.net/T1DMzks/article/details/70189509)
 
 "输入"参考此文章。
 

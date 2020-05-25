@@ -1,7 +1,6 @@
 # 动态规划
 
-- [返回顶层目录](../../../../README.md)
-- [返上层目录](../algorithms.md)
+* [返上层目录](../algorithms.md)
 
 
 

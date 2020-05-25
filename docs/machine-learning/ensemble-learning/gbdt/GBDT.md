@@ -1,6 +1,5 @@
 # GBDT
 
-* [返回顶层目录](../../../README.md)
 * [返回上层目录](../ensemble-learning.md)
 * [GBDT概述](#GBDT概述)
   * [DT：回归树 Regression Decision Tree](#DT：回归树 Regression Decision Tree)

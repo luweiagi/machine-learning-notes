@@ -1,6 +1,5 @@
 # PCA主成分分析
 
-* [返回顶层目录](../../README.md)
 * [返回上层目录](dimensionality-reduction.md)
 
 

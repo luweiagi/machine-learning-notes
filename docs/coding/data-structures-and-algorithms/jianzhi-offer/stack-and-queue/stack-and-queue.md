@@ -1,6 +1,5 @@
 # 栈和队列
 
-* [返回顶层目录](../../../../README.md)
 * [返回上层目录](../jianzhi-offer.md)
 * [剑指offer9：用两个栈实现队列](#剑指offer9：用两个栈实现队列)
 * [剑指offer30：包含min函数的栈](#剑指offer30：包含min函数的栈)
@@ -146,7 +145,7 @@ private:
 
 # 参考资料
 
-- [剑指Offer系列刷题笔记汇总](https://cuijiahua.com/blog/2018/02/basis_67.html)
+* [剑指Offer系列刷题笔记汇总](https://cuijiahua.com/blog/2018/02/basis_67.html)
 
 本文参考此博客。
 

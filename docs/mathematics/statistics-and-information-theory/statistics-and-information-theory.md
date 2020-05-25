@@ -1,11 +1,12 @@
-# 概率论
+# 概率统计和信息论
 
-* [返回顶层目录](../../content/README.md#目录)
-* [综述概率论基本定义](review-of-statistics.md)
-* [概率论与贝叶斯先验](probability-and-bayesian-prior.md)
-* [贝叶斯概率](bayes-probability.md)
-* [概率符号说明](probability-symbol-explaination.md)
-* [共轭先验](conjugate-prior.md)
+* [返回上层目录](../mathematics.md)
+* [概率统计基本概念](statistics-basic-concepts/statistics-basic-concepts.md)
+* [概率论与贝叶斯先验](probability-and-bayesian-prior/probability-and-bayesian-prior.md)
+* [贝叶斯概率](bayes-probability/bayes-probability.md)
+* [正态分布](normal-distribution/normal-distribution.md)
+* [共轭先验](conjugate-prior/conjugate-prior.md)
+* [信息论](information-theory/information-theory.md)
 
 
 

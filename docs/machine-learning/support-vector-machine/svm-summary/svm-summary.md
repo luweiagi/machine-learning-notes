@@ -1,6 +1,5 @@
 # SVM总结
 
-* [返回顶层目录](../../README.md)
 
 
 * [返回上层目录](../support-vector-machine.md)
@@ -121,7 +120,7 @@ svm考虑**局部**（支持向量），而logistic回归考虑**全局**，就�
 
 “SVM的正则化”参考此知乎专栏文章。
 
-- [支持向量机SVM（一）](https://www.cnblogs.com/jerrylead/archive/2011/03/13/1982639.html)
+* [支持向量机SVM（一）](https://www.cnblogs.com/jerrylead/archive/2011/03/13/1982639.html)
 
 这份材料从前几节讲的logistic回归出发，引出了SVM，既揭示了模型间的联系，也让人觉得过渡更自然。“逻辑回归和SVM的区别”一节参考了此博客。
 

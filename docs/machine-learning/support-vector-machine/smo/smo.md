@@ -1,6 +1,5 @@
 # 序列最小最优化算法SMO
 
-* [返回顶层目录](../../README.md)
 * [返回上层目录](../support-vector-machine.md)
 
 * [坐标下降（上升）法](#坐标下降（上升）法)
@@ -426,7 +425,7 @@ SMO算法是支持向量机学习的一种快速方法，其特点是不断地�
 
 "SMO算法"参考了此博客。
 
-- [坐标上升/下降算法](https://blog.csdn.net/u010626937/article/details/75044343)
+* [坐标上升/下降算法](https://blog.csdn.net/u010626937/article/details/75044343)
 
 "坐标下降（上升）法"参考了此博客。
 

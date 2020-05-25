@@ -1,6 +1,5 @@
 # 排序
 
-* [返回顶层目录](../../../../README.md)
 * [返上层目录](../algorithms.md)
 * [堆排序](heap-sort.md)
 * [归并排序](merge-sort.md)

@@ -1,6 +1,5 @@
 # LSTM长短期记忆网络
 
-* [返回顶层目录](../../README.md#目录)
 * [什么是LSTM](#什么是LSTM)
   * [LSTM的结构](#LSTM的结构)
   * [LSTM的流程](#LSTM的流程)

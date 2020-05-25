@@ -1,6 +1,5 @@
 # 其他
 
-* [返回顶层目录](../../../../README.md)
 * [返回上层目录](../jianzhi-offer.md)
 * [剑指offer15：二进制中1的个数](#剑指offer15：二进制中1的个数)
 * [剑指offer16：数值的整数次方](#剑指offer16：数值的整数次方)
@@ -890,7 +889,7 @@ public:
 
 # 参考资料
 
-- [剑指Offer系列刷题笔记汇总](https://cuijiahua.com/blog/2018/02/basis_67.html)
+* [剑指Offer系列刷题笔记汇总](https://cuijiahua.com/blog/2018/02/basis_67.html)
 
 本文参考此博客。
 

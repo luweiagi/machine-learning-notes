@@ -1,6 +1,5 @@
 # 语法
 
-* [返回顶层目录](../../../README.md)
 * [返回上层目录](../python.md)
 * [基础语法](basis/basis.md)
 * [数据结构](data-structure/data-structure.md)

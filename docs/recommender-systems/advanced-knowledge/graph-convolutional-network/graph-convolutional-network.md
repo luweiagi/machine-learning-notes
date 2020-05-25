@@ -1,8 +1,7 @@
 # 图卷积网络
 
-* [返回顶层目录](../../../../../README.md)
 * [返回上层目录](../deep-learning.md)
-* [Graph Convolutional Neural Networks for Web-Scale Recommender Systems KDD2018](Graph-Convolutional-Neural-Networks-for-Web-Scale-Recommender-Systems.md)
+* [Graph Convolutional Neural Networks for Web-Scale Recommender Systems KDD2018](gcn-web-scale/Graph-Convolutional-Neural-Networks-for-Web-Scale-Recommender-Systems.md)
 
 
 

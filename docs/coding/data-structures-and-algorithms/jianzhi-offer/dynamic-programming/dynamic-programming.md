@@ -1,6 +1,5 @@
 # 动态规划
 
-* [返回顶层目录](../../../../README.md)
 * [返回上层目录](../jianzhi-offer.md)
 * [剑指offer14：剪绳子](#剑指offer14：剪绳子)
 
@@ -63,7 +62,7 @@ int main()
 
 # 参考资料
 
-- [面试题：剪绳子──动态规划 or 贪心算法](https://blog.csdn.net/sinat_36161667/article/details/80785142)
+* [面试题：剪绳子──动态规划 or 贪心算法](https://blog.csdn.net/sinat_36161667/article/details/80785142)
 
 本文参考此博客。
 

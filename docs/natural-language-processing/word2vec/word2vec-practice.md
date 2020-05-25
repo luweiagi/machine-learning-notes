@@ -1,7 +1,6 @@
 # word2vector实践
 
-- [返回顶层目录](../../../README.md)
-- [返回上层目录](word2vec.md)
+* [返回上层目录](word2vec.md)
 
 
 

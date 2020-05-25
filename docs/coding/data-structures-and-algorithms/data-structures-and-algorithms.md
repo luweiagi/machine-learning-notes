@@ -1,6 +1,5 @@
 # 数据结构与算法
 
-* [返回顶层目录](../../README.md)
 * [数据结构](data-structures/data-structures.md)
 * [算法思想](algorithms/algorithms.md)
 * [剑指offer](jianzhi-offer/jianzhi-offer.md)

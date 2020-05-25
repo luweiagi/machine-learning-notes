@@ -1,6 +1,5 @@
 # Linux常用命令
 
-* [返回顶层目录](../../../README.md)
 * [返回上层目录](../linux.md)
 * [查看文件](#)
   * [head/tail/sed查看或截取超大文件](#head/tail/sed查看或截取超大文件)
@@ -90,7 +89,7 @@ less abc.txt
 
 参考资料：
 
-- [Linux less命令](https://www.runoob.com/linux/linux-comm-less.html)
+* [Linux less命令](https://www.runoob.com/linux/linux-comm-less.html)
 
 
 
@@ -179,7 +178,7 @@ scp /tmp/Anaconda3-2019.03-Linux-x86_64.sh  ml004.dx:/tmp/
 
 参考资料：
 
-- [Linux zip命令](https://www.runoob.com/linux/linux-comm-zip.html)
+* [Linux zip命令](https://www.runoob.com/linux/linux-comm-zip.html)
 
 
 
@@ -244,7 +243,7 @@ wc testfile testfile_1 testfile_2
 
 参考资料：
 
-- [Linux wc命令](https://www.runoob.com/linux/linux-comm-wc.html)
+* [Linux wc命令](https://www.runoob.com/linux/linux-comm-wc.html)
 
 
 
@@ -949,7 +948,7 @@ chown -R James:users  *
 
 参考资料：
 
-- [Linux权限详解（chmod、600、644、666、700、711、755、777、4755、6755、7755）](https://blog.csdn.net/u013197629/article/details/73608613)
+* [Linux权限详解（chmod、600、644、666、700、711、755、777、4755、6755、7755）](https://blog.csdn.net/u013197629/article/details/73608613)
 
 
 
@@ -1137,7 +1136,7 @@ crontab的运行记录在/var/log/cron-201xxxxx中，直接vim打开这个文件
 
 参考资料：
 
-- [Linux crontab命令](https://www.runoob.com/linux/linux-comm-crontab.html)
+* [Linux crontab命令](https://www.runoob.com/linux/linux-comm-crontab.html)
 
 
 

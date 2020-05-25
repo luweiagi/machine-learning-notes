@@ -1,6 +1,5 @@
-# DSIN：用于点击率预估的深度会话兴趣网络
+# DSIN:Deep Session Interest Network for Click-Through Rate Prediction
 
-* [返回顶层目录](../../../../README.md)
 * [返回上层目录](../alibaba.md)
 * [问题背景](#问题背景)
 * [模型结构](#模型结构)

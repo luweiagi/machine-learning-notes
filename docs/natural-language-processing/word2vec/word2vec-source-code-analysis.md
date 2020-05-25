@@ -1,6 +1,5 @@
 # word2vec源码解析
 
-* [返回顶层目录](../../../README.md)
 * [返回上层目录](word2vec.md)
 
 
@@ -190,7 +189,7 @@ void InitUnigramTable() {
 
 # TensorFlow上构建Word2Vec词嵌入模型
 
-- [在TensorFlow上构建Word2Vec词嵌入模型](https://zhuanlan.zhihu.com/p/42067012)
+* [在TensorFlow上构建Word2Vec词嵌入模型](https://zhuanlan.zhihu.com/p/42067012)
 
 本文详细介绍了 word2vector 模型的模型架构，以及 TensorFlow 的实现过程，包括数据准备、建立模型、构建验证集，并给出了运行结果示例。
 

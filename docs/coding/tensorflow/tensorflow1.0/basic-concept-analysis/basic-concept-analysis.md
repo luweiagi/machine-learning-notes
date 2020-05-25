@@ -1,6 +1,5 @@
 # TensorFlow基础概念解析
 
-* [返回顶层目录](../../../../README.md)
 * [返回上层目录](../tensorflow1.0.md)
 * [理解TensorFlow](#理解TensorFlow)
 * [计算图](#计算图)

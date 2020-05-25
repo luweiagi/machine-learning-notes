@@ -39,5 +39,18 @@ find ./ -name "*.md" | xargs sed -i "" "s/[$][$]/\$/g"
 find ./ -name "*.md" | xargs sed -i "" "s/vvvv/\$\$/g"
 ```
 
+批量替换内容
 
+```shell
+# ==================批量替换内容==================
+
+find ./ -name "*.md" | xargs sed -i "" "s/- \[/\* \[/g"
+```
+
+批量删除内容
+
+```shell
+# ==================批量删除内容==================
+find ./ -name "*.md" | xargs sed -i "" "s/xxx/d"
+```
 

@@ -1,7 +1,6 @@
 # Tensorflow分布式架构
 
-- [返回顶层目录](../../../../README.md)
-- [返回上层目录](../tensorflow1.0.md)
+* [返回上层目录](../tensorflow1.0.md)
 
 
 

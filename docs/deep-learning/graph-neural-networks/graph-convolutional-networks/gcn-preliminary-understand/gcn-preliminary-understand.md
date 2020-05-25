@@ -1,12 +1,11 @@
 # GCN图卷积网络初步理解
 
-- [返回顶层目录](../../../../README.md#目录)
-- [返回上层目录](../graph-convolutional-networks.md)
-- [GCN是做什么的](#GCN是做什么的)
-- [GCN长啥样，吓人吗](#GCN长啥样，吓人吗)
-- [GCN为什么是这个样子](#GCN为什么是这个样子)
-- [GCN有多牛](#GCN有多牛)
-- [其他关于GCN的点滴](#其他关于GCN的点滴)
+* [返回上层目录](../graph-convolutional-networks.md)
+* [GCN是做什么的](#GCN是做什么的)
+* [GCN长啥样，吓人吗](#GCN长啥样，吓人吗)
+* [GCN为什么是这个样子](#GCN为什么是这个样子)
+* [GCN有多牛](#GCN有多牛)
+* [其他关于GCN的点滴](#其他关于GCN的点滴)
 
 
 

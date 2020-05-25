@@ -1,7 +1,6 @@
 # 基于TenserFlow的目标识别与分类
 
-- [返回顶层目录](../../../../README.md)
-- [返回上层目录](../tensorflow1.0.md)
+* [返回上层目录](../tensorflow1.0.md)
 
 
 

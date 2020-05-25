@@ -1,6 +1,5 @@
 # Logistic回归-对数几率回归
 
-* [返回顶层目录](../../README.md#目录)
 * [返回上层目录](linear-model.md)
 * [对Logistic回归的直观认识](#对Logistic回归的直观认识)
 * [Logistic回归介绍](#Logistic回归介绍)
@@ -436,7 +435,7 @@ $$
 
 "对Logistic回归的直观认识"参考了知乎回答。
 
-- [机器学习——1. 分类和回归的解决与区别](http://lib.csdn.net/article/machinelearning/3000)
+* [机器学习——1. 分类和回归的解决与区别](http://lib.csdn.net/article/machinelearning/3000)
 
 "Logistic回归解法思路"这一节就是参考的这个文章。
 

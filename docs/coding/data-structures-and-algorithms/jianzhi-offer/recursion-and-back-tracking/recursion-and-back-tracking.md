@@ -1,6 +1,5 @@
 # 递归和回溯法
 
-* [返回顶层目录](../../../../README.md)
 * [返回上层目录](../jianzhi-offer.md)
 * [递归](#递归)
   * [剑指offer10：裴波那契数列](#剑指offer10：裴波那契数列)
@@ -245,7 +244,7 @@ private:
 
 # 参考资料
 
-- [剑指Offer系列刷题笔记汇总](https://cuijiahua.com/blog/2018/02/basis_67.html)
+* [剑指Offer系列刷题笔记汇总](https://cuijiahua.com/blog/2018/02/basis_67.html)
 
 本文参考此博客。
 

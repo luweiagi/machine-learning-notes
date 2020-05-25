@@ -1,6 +1,5 @@
 # word2vec算法原理
 
-* [返回顶层目录](../../../README.md)
 * [返回上层目录](word2vec.md)
 
 http://suhui.github.io/word2vec
@@ -206,8 +205,8 @@ The best tutorials I found online were done by [Alex Minnaar](http://alexminnaar
 
 He’s since taken the tutorials down, but I have PDF copies here:
 
-- [Part I - The Skip-Gram Model](http://mccormickml.com/assets/word2vec/Alex_Minnaar_Word2Vec_Tutorial_Part_I_The_Skip-Gram_Model.pdf)
-- [Part II - Continuous Bag-of-Words Model](http://mccormickml.com/assets/word2vec/Alex_Minnaar_Word2Vec_Tutorial_Part_II_The_Continuous_Bag-of-Words_Model.pdf)
+* [Part I - The Skip-Gram Model](http://mccormickml.com/assets/word2vec/Alex_Minnaar_Word2Vec_Tutorial_Part_I_The_Skip-Gram_Model.pdf)
+* [Part II - Continuous Bag-of-Words Model](http://mccormickml.com/assets/word2vec/Alex_Minnaar_Word2Vec_Tutorial_Part_II_The_Continuous_Bag-of-Words_Model.pdf)
 
 
 

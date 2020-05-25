@@ -1,6 +1,5 @@
 # 流形学习
 
-* [返回顶层目录](../../README.md)
 * [返回上层目录](dimensionality-reduction.md)
 * [流形学习概述](#流形学习概述)
 

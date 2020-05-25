@@ -464,19 +464,19 @@ print ([id(ele) for ele in wilber])
 
 # 参考资料
 
-- [如何理解 C++ 中的深拷贝和浅拷贝？](#如何理解 C++ 中的深拷贝和浅拷贝？)
+* [如何理解 C++ 中的深拷贝和浅拷贝？](#如何理解 C++ 中的深拷贝和浅拷贝？)
 
 浅拷贝深拷贝的概念和区别主要是参考的这个知乎提问中的高票答案。
 
-- [深拷贝与浅拷贝-知乎专栏](#https://zhuanlan.zhihu.com/p/28935492)
+* [深拷贝与浅拷贝-知乎专栏](#https://zhuanlan.zhihu.com/p/28935492)
 
 python函数关于深浅拷贝的例子一就是参考并复制的这篇文章。
 
-- [python的复制，深拷贝和浅拷贝的区别](http://www.cnblogs.com/xueli/p/4952063.html)
+* [python的复制，深拷贝和浅拷贝的区别](http://www.cnblogs.com/xueli/p/4952063.html)
 
 python函数关于深浅拷贝的例子二就是参考并复制的这篇文章。
 
-- [图解Python深拷贝和浅拷贝](http://www.cnblogs.com/wilber2013/p/4645353.html)
+* [图解Python深拷贝和浅拷贝](http://www.cnblogs.com/wilber2013/p/4645353.html)
 
 python函数关于深浅拷贝的例子三就是参考并复制的这篇文章。
 

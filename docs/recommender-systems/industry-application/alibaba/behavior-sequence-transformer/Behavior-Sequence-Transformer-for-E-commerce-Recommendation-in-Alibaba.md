@@ -1,7 +1,6 @@
 # Behavior Sequence Transformer for E-commerce Recommendation in Alibaba
 
-- [返回顶层目录](../../../README.md)
-- [返回上层目录](../industry-application.md)
+* [返回上层目录](../industry-application.md)
 
 
 

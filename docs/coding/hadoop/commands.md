@@ -1,6 +1,5 @@
 # Hadoop常用命令
 
-* [返回顶层目录](../../README.md)
 * [返回上层目录](hadoop.md)
 
 

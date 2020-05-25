@@ -1,6 +1,5 @@
 # scipy
 
-* [返回顶层目录](../../README.md#目录)
 * [返回上层目录](python.md#python)
 * [scipy简介](#scipy简介)
 
@@ -36,6 +35,6 @@ SciPy方便、易于使用、专为科学和工程设计的Python工具包.它�
 
 # 参考资料
 
-- [如何系统地学习Python 中 matplotlib, numpy, scipy, pandas？](https://www.zhihu.com/question/37180159)
+* [如何系统地学习Python 中 matplotlib, numpy, scipy, pandas？](https://www.zhihu.com/question/37180159)
 
 SciPy简介中的简单介绍就是复制的这里。

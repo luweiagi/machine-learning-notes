@@ -1,6 +1,5 @@
 # 集成学习
 
-* [返回顶层目录](../../README.md)
 * [集成学习概述](#集成学习概述)
 * [Bagging](#Bagging)
   * [随机森林](random-forest/random-forest.md)
@@ -87,7 +86,7 @@ AdaBoost的巧妙之处就在于它将这些想法自然且有效地实现在一
 
 # 参考资料
 
-- [百度百科：Boosting](https://baike.baidu.com/item/Boosting/1403912?fr=aladdin)
+* [百度百科：Boosting](https://baike.baidu.com/item/Boosting/1403912?fr=aladdin)
 
 “Boosting概述”一节参考此文章。
 

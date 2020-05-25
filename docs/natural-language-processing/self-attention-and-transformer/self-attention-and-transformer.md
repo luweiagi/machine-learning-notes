@@ -1,6 +1,5 @@
 # Self-Attention机制和Transformer
 
-* [返回顶层目录](../../../README.md)
 * [返回上层目录](../natural-language-processing.md)
 * [模型的思想](#模型的思想)
   * [RNN的缺陷](#RNN的缺陷)
@@ -8,10 +7,10 @@
 * [Transformer模型架构](#Transformer模型架构)
 * [Encoder模块](#Encoder模块)
   * [Self-Attention机制](#Self-Attention机制)
-  * [multi-headed Attention](#multi-headed Attention)
+  * [multi-headed-Attention](#multi-headed-Attention)
   * [词向量Embedding输入](#词向量Embedding输入)
   * [位置编码](#位置编码)
-  * [skip connection和Layer Normalization](#skip connection和Layer Normalization)
+  * [skip-connection和Layer-Normalization](#skip-connection和Layer-Normalization)
   * [Encoder模块汇总](#Encoder模块汇总)
 * [Decoder模块](#Decoder模块)
   * [Decoder的Mask-Multi-Head-Attention输入端](#Decoder的Mask-Multi-Head-Attention输入端)
@@ -170,7 +169,7 @@ $$
 
 注意，上式中的$d_k$是向量$q$或$k$的维度，这两个向量的维度一定是一样的，因为要做点积。但是$v$的维度和向量$q$或$k$的维度不一定相同。**上式为什么要除以$\sqrt{d_k}$呢？**因为为了防止维数过高时$QK^T$的值过大导致softmax函数反向传播时发生梯度消失。那为什么是$\sqrt{d_k}$而不是$d_k$呢？这就是个经验值，从理论上来说，就是还需要让$QK^T$的值适度增加，但不能过度增加，如果是$d_k$的话，可能就不增加了。
 
-## multi-headed Attention
+## multi-headed-Attention
 
 如果用不同的$W^Q$、$W^K$、$W^v$，就能得到不同的$Q$、$K$、$V$。multi-headed Attention就是指用了很多个不同的$W^Q$、$W^K$、$W^v$。
 
@@ -246,7 +245,7 @@ Positional Encoding的**物理意义**是：把50个Positional Encoding两两互
 
 ![positional-encoding-4](pic/positional-encoding-4.jpg)
 
-## skip connection和Layer Normalization
+## skip-connection和Layer-Normalization
 
 Add & Norm模块接在Encoder端和Decoder端每个子模块的后面，其中Add表示残差连接，Norm表示LayerNorm，残差连接来源于论文[*Deep Residual Learning for Image Recognition*](https://arxiv.org/abs/1512.03385)，LayerNorm来源于论文[*Layer Normalization*](https://arxiv.org/abs/1607.06450)，因此Encoder端和Decoder端每个子模块实际的输出为：
 $$

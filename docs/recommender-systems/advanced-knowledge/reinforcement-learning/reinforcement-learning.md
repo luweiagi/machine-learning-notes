@@ -1,8 +1,7 @@
 # reinforcement-learning
 
-* [返回顶层目录](../../../../README.md)
 * [返回上层目录](../advanced-knowledge.md)
-* [DRN-A-Deep-Reinforcement-Learning-Framework-for-News-Recommendation](DRN-A-Deep-Reinforcement-Learning-Framework-for-News-Recommendation.md)
+* [DRN: A Deep Reinforcement Learning Framework for News Recommendation WWW2018](drn/DRN-A-Deep-Reinforcement-Learning-Framework-for-News-Recommendation.md)
 
 
 

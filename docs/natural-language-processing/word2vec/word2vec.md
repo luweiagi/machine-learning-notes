@@ -1,10 +1,9 @@
 # word2vec
 
-- [返回顶层目录](../../../README.md)
-- [word2vector概述](word2vec-introduction.md)
-- [word2vector算法原理](word2vec-algorithm-principle.md)
-- [word2vector代码解析](word2vec-source-code-analysis.md)
-- [word2vector实践](word2vect-practice.md)
+* [word2vector概述](word2vec-introduction.md)
+* [word2vector算法原理](word2vec-algorithm-principle.md)
+* [word2vector代码解析](word2vec-source-code-analysis.md)
+* [word2vector实践](word2vect-practice.md)
 
 # word2vector概述
 

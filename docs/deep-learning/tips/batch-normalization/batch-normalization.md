@@ -1,6 +1,5 @@
 # Batch Normalization
 
-* [返回顶层目录](../../../README.md#目录)
 * [返回上层目录](../tips.md)
 * [BN用在哪里](#BN用在哪里)
 * [BN怎么操作](#BN怎么操作)
@@ -124,7 +123,7 @@ BN就是调整每层网络输出数据的分布，使其进入激活函数的作
 
 ===
 
-- [Batch Normalization导读](https://blog.csdn.net/malefactor/article/details/51476961#comments)
+* [Batch Normalization导读](https://blog.csdn.net/malefactor/article/details/51476961#comments)
 
 这是张俊林写的，需要好好读一下。
 

@@ -1,6 +1,5 @@
 # XGBoost实践
 
-* [返回顶层目录](../../../README.md)
 * [返回上层目录](XGBoost.md)
 * [XGBoost常见面试题](#XGBoost常见面试题)
   * [简单介绍一下XGBoost ](#简单介绍一下XGBoost )

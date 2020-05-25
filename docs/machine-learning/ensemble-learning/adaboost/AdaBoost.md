@@ -1,6 +1,5 @@
 # AdaBoost
 
-* [返回顶层目录](../../../README.md)
 * [返回上层目录](../ensemble-learning.md)
 * [AdaBoost概述](#AdaBoost概述)
 * [AdaBoost算法](#AdaBoost算法)

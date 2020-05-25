@@ -1,6 +1,5 @@
 # c++
 
-* [返回顶层目录](../../../../README.md)
 * [返回上层目录](../programming-language.md)
 * [STL容器](#STL容器)
   * [顺序容器](#顺序容器)
@@ -249,7 +248,7 @@ s.push_back(1 + '0');
 
 # 参考资料
 
-- [C++模版与STL库介绍](https://wenku.baidu.com/view/93f33b3b192e45361066f5eb.html)
+* [C++模版与STL库介绍](https://wenku.baidu.com/view/93f33b3b192e45361066f5eb.html)
 
 “c++中常见的STL容器类型”参考此课件。
 

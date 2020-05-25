@@ -1,6 +1,5 @@
 # TensorFlow2.0
 
-* [返回顶层目录](../../../README.md)
 * [返回上层目录](../tensorflow.md)
 
 

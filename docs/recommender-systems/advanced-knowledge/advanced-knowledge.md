@@ -1,8 +1,8 @@
 # 进阶知识
 
-* [返回顶层目录](../../README.md)
+* [返回上层目录](../recommender-systems.md)
 * [机器学习](machine-learning/machine-learning.md)
-* [Embedding](embedding/embedding.md)
+* [Graph Embedding](graph-embedding/graph-embedding.md)
 * [深度学习](deep-learning/deep-learning.md)
 * [图卷积网络](graph-convolutional-network/graph-convolutional-network.md)
 * [强化学习](reinforcement-learning/reinforcement-learning.md)

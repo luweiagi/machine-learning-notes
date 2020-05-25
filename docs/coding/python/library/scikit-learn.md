@@ -1,7 +1,6 @@
 # scikit-learn
 
-- [返回顶层目录](../../README.md#目录)
-- [返回上层目录](python.md#python)
+* [返回上层目录](python.md#python)
 
 
 
@@ -27,7 +26,7 @@
 
 # 参考资料
 
-- [如何系统地学习Python 中 matplotlib, numpy, scipy, pandas？](https://www.zhihu.com/question/37180159)
+* [如何系统地学习Python 中 matplotlib, numpy, scipy, pandas？](https://www.zhihu.com/question/37180159)
 
 scikit-learn简介中的简单介绍就是复制的这里。
 

@@ -1,6 +1,5 @@
 # 数据结构
 
-* [返回顶层目录](../../../README.md)
 * [返回上层目录](../data-structures-and-algorithms.md)
 * 数组
 * 字符串

@@ -1,6 +1,5 @@
 # CNN卷积神经网络
 
-* [返回顶层目录](../../README.md)
 * [卷积神经网络可视化认识](#卷积神经网络可视化认识)
 * [卷积神经网络的直观解释](#卷积神经网络的直观解释)
   * [LeNet架构（1990s）](#LeNet架构（1990s）)
@@ -72,10 +71,10 @@
     * [损失函数的选择](#损失函数的选择)
     * [检查求导是否正确](#检查求导是否正确)
 * [梯度下降法的改进—动量法](#梯度下降法的改进—动量法)
-  - [梯度下降法存在的问题](#梯度下降法存在的问题)
-  - [动量法](#动量法)
+  * [梯度下降法存在的问题](#梯度下降法存在的问题)
+  * [动量法](#动量法)
 * [项目实践](#项目实践)
-  - [LeNet5手写数字识别的C++实现](#LeNet5手写数字识别的C++实现)
+  * [LeNet5手写数字识别的C++实现](#LeNet5手写数字识别的C++实现)
 
 
 
@@ -1684,10 +1683,10 @@ GitHub地址：https://github.com/luweikxy/CNN_LeNet
 
 “损失函数”一节参考了上述文章。
 
-- [Notes on Convolutional Neural Networks](https://www.cnblogs.com/shouhuxianjian/p/4529202.html)
-- [Deep Learning论文笔记之（四）CNN卷积神经网络推导和实现](https://blog.csdn.net/zouxy09/article/details/9993371)
-- [卷积神经网络算法的实现](https://blog.csdn.net/qq_31780525/article/details/71389982)
-- [Deep learning：五十一(CNN的反向求导及练习)](http://www.cnblogs.com/tornadomeet/p/3468450.html)
+* [Notes on Convolutional Neural Networks](https://www.cnblogs.com/shouhuxianjian/p/4529202.html)
+* [Deep Learning论文笔记之（四）CNN卷积神经网络推导和实现](https://blog.csdn.net/zouxy09/article/details/9993371)
+* [卷积神经网络算法的实现](https://blog.csdn.net/qq_31780525/article/details/71389982)
+* [Deep learning：五十一(CNN的反向求导及练习)](http://www.cnblogs.com/tornadomeet/p/3468450.html)
 
 "CNN训练原理"参考了上述博客。
 

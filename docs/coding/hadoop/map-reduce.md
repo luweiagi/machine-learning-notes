@@ -1,6 +1,5 @@
 # MapReduce
 
-* [返回顶层目录](../../README.md)
 * [返回上层目录](hadoop.md)
 
 # 对MapReduce的理解

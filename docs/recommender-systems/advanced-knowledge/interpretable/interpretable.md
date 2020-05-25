@@ -1,6 +1,5 @@
 # 可解释性
 
-* [返回顶层目录](../../../../README.md)
 * [返回上层目录](../advanced-knowledge.md)
 
 

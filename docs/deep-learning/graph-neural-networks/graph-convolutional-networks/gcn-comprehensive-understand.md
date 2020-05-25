@@ -1,32 +1,31 @@
 # GCN图卷积网络全面理解
 
-- [返回顶层目录](../../../README.md#目录)
-- [返回上层目录](graph-convolutional-networks.md)
-- [前言](#前言)
-- [离散卷积定义及其作用](#离散卷积定义及其作用)
-- [GCN中的Graph指什么](#GCN中的Graph指什么)
-- [提取拓扑图空间特征的两种方式](#提取拓扑图空间特征的两种方式)
-  - [空间域Spatial Domian](#空间域Spatial Domian)
-  - [频谱域Spectral Domain](#频谱域Spectral Domain)
-- [拉普拉斯矩阵](#拉普拉斯矩阵)
-  - [拉普拉斯矩阵定义](#拉普拉斯矩阵定义)
-  - [无向图的拉普拉斯矩阵的性质](#无向图的拉普拉斯矩阵的性质)
-  - [为什么GCN要用拉普拉斯矩阵](#为什么GCN要用拉普拉斯矩阵)
-  - [拉普拉斯矩阵谱分解](#拉普拉斯矩阵谱分解)
-- [图上的傅立叶变换](#图上的傅立叶变换)
-  - [傅里叶正变换：从Spatial域到Spectral域](#傅里叶正变换：从Spatial域到Spectral域)
-  - [傅里叶逆变换：从spectral域到spatial域](#傅里叶逆变换：从spectral域到spatial域)
-- [图上的卷积](#图上的卷积)
-- [GCN结构的演进](#GCN结构的演进)
-  - [演进1原始方法](#演进1原始方法)
-  - [演进2减少参数数量](#演进2减少参数数量)
-  - [演进3降低计算复杂度](#演进3降低计算复杂度)
-  - [演进4GCN](#演进4GCN)
-- [在GCN中的Local Connectivity和Parameter Sharing](#在GCN中的Local Connectivity和Parameter Sharing)
-  - [GCN中的Local Connectivity](#GCN中的Local Connectivity)
-  - [GCN中的Parameter Sharing](#GCN中的Parameter Sharing)
-- [关于有向图问题](#关于有向图问题)
-- [结语](#结语)
+* [返回上层目录](graph-convolutional-networks.md)
+* [前言](#前言)
+* [离散卷积定义及其作用](#离散卷积定义及其作用)
+* [GCN中的Graph指什么](#GCN中的Graph指什么)
+* [提取拓扑图空间特征的两种方式](#提取拓扑图空间特征的两种方式)
+  * [空间域Spatial-Domian](#空间域Spatial-Domian)
+  * [频谱域Spectral-Domain](#频谱域Spectral-Domain)
+* [拉普拉斯矩阵](#拉普拉斯矩阵)
+  * [拉普拉斯矩阵定义](#拉普拉斯矩阵定义)
+  * [无向图的拉普拉斯矩阵的性质](#无向图的拉普拉斯矩阵的性质)
+  * [为什么GCN要用拉普拉斯矩阵](#为什么GCN要用拉普拉斯矩阵)
+  * [拉普拉斯矩阵谱分解](#拉普拉斯矩阵谱分解)
+* [图上的傅立叶变换](#图上的傅立叶变换)
+  * [傅里叶正变换：从Spatial域到Spectral域](#傅里叶正变换：从Spatial域到Spectral域)
+  * [傅里叶逆变换：从spectral域到spatial域](#傅里叶逆变换：从spectral域到spatial域)
+* [图上的卷积](#图上的卷积)
+* [GCN结构的演进](#GCN结构的演进)
+  * [演进1原始方法](#演进1原始方法)
+  * [演进2减少参数数量](#演进2减少参数数量)
+  * [演进3降低计算复杂度](#演进3降低计算复杂度)
+  * [演进4GCN](#演进4GCN)
+* [在GCN中的Local-Connectivity和Parameter-Sharing](#在GCN中的Local-Connectivity和Parameter-Sharing)
+  * [GCN中的Local-Connectivity](#GCN中的Local-Connectivity)
+  * [GCN中的Parameter-Sharing](#GCN中的Parameter-Sharing)
+* [关于有向图问题](#关于有向图问题)
+* [结语](#结语)
 
 
 
@@ -90,7 +89,7 @@ CNN是Computer Vision里的大法宝，效果为什么好呢？原因在上面�
 
 GCN的本质目的就是用来提取拓扑图的空间特征，那么实现这个目标只有graph convolution这一种途径吗？当然不是，在spatial domain(vertex domain)和spectral domain实现目标是两种最主流的方式。
 
-##空间域Spatial Domian
+##空间域Spatial-Domian
 
 Spatial domain，翻译过来就是空间域，是最直观感受GCN逐层传播算法的域，即：节点v的Embedding是其所有邻居节点Embedding(包括自己的Embedding)的聚合结果。因此在一些文献上spatial domain又被称做”vertex domain”。
 
@@ -114,7 +113,7 @@ d.提取特征的效果可能没有卷积好
 
 当然，对这个思路喜欢的读者可以继续搜索相关文献，学术的魅力在于百家争鸣嘛！
 
-##频谱域Spectral Domain
+##频谱域Spectral-Domain
 
 但是与CNN所应用的图像不同，空间域中图节点邻居的数目不是一定的，而且节点之间没有相对的次序性。**这就产生了一个问题，对于不同邻居个数的节点，卷积怎么定义呢？这就引出了spectral domain的概念**。spectral domain，即频谱域，借助卷积定理，我们可以通过定义频谱域上的卷积操作来得到空间域图上的卷积操作。
 
@@ -732,7 +731,7 @@ Y\in \mathbb{R}^{N\times F}
 $$
 是卷积之后的节点矩阵。
 
-# 在GCN中的Local Connectivity和Parameter Sharing
+# 在GCN中的Local-Connectivity和Parameter-Sharing
 
 CNN中有两大核心思想：**网络局部连接，卷积核参数共享**。这两点内容的详细理解可以看这个回答。
 
@@ -742,7 +741,7 @@ CNN中有两大核心思想：**网络局部连接，卷积核参数共享**。�
 
 ![graph-structure](pic/graph-structure.jpg)
 
-## GCN中的Local Connectivity
+## GCN中的Local-Connectivity
 
 (a)如果利用第一代GCN，卷积运算矩阵
 $$
@@ -770,7 +769,7 @@ $$
 
 看一下图的邻接结构，卷积运算矩阵的非0元素都在localize的位置上。
 
-## GCN中的Parameter Sharing
+## GCN中的Parameter-Sharing
 
 相关内容比较多，作者专门写了一篇文章，感兴趣的朋友可以阅读一下。
 

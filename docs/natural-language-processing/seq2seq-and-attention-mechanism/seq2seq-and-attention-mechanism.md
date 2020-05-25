@@ -1,15 +1,14 @@
 # Seq2Seq和注意力机制
 
-- [返回顶层目录](../../../README.md)
-- [返回上层目录](../natural-language-processing.md)
-- [RNN的多种结构](#RNN的多种结构)
-- [Seq2Seq模型](#Seq2Seq模型)
-- [Encoder-Decoder结构](#Encoder-Decoder结构)
-  - [Encoder-Decoder介绍](#Encoder-Decoder介绍)
-  - [Encoder-Decoder分析](#Encoder-Decoder分析)
-- [Attention机制](#Attention机制)
-  - [Encoder-Decoder结构的局限性](#Encoder-Decoder结构的局限性)
-  - [Attention机制原理](#Attention机制原理)
+* [返回上层目录](../natural-language-processing.md)
+* [RNN的多种结构](#RNN的多种结构)
+* [Seq2Seq模型](#Seq2Seq模型)
+* [Encoder-Decoder结构](#Encoder-Decoder结构)
+  * [Encoder-Decoder介绍](#Encoder-Decoder介绍)
+  * [Encoder-Decoder分析](#Encoder-Decoder分析)
+* [Attention机制](#Attention机制)
+  * [Encoder-Decoder结构的局限性](#Encoder-Decoder结构的局限性)
+  * [Attention机制原理](#Attention机制原理)
 
 
 

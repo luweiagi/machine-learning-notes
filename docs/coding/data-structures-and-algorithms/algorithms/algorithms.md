@@ -1,6 +1,5 @@
 # 算法
 
-* [返回顶层目录](../../../README.md)
 * [返回上层目录](../data-structures-and-algorithms.md)
 * [排序](sort/sort.md)
 * [递归](recursion/recursion.md)

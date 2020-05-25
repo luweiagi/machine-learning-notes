@@ -1,9 +1,8 @@
 # leetcode
 
-* [返回顶层目录](../../../README.md)
 * [返回上层目录](../data-structures-and-algorithms.md)
 * 按分类
-  - [动态规划](dynamic-programming/dynamic-programming.md)
+  * [动态规划](dynamic-programming/dynamic-programming.md)
 * 按题目编号
   * [1-50题](#1-50题)
   * [51-100题](#51-100题)

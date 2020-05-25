@@ -1,7 +1,6 @@
 # graphsage
 
-- [返回顶层目录](../../../README.md#目录)
-- [返回上层目录](graph-convolutional-networks.md)
+* [返回上层目录](graph-convolutional-networks.md)
 
 
 

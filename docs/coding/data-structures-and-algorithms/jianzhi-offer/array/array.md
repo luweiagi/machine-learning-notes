@@ -1,6 +1,5 @@
 # 数组
 
-* [返回顶层目录](../../../../README.md)
 * [返回上层目录](../jianzhi-offer.md)
 * [剑指Offer4：二维数组中的查找](#剑指Offer4：二维数组中的查找)
 * [剑指Offer11：旋转数组的最小数字](#剑指Offer11：旋转数组的最小数字)
@@ -748,7 +747,7 @@ public:
 
 # 参考资料
 
-- [剑指Offer系列刷题笔记汇总](https://cuijiahua.com/blog/2018/02/basis_67.html)
+* [剑指Offer系列刷题笔记汇总](https://cuijiahua.com/blog/2018/02/basis_67.html)
 
 本文参考此博客。
 

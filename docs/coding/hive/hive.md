@@ -1,5 +1,7 @@
 # HIVE常用函数
 
+* [返回上层目录](../coding.md)
+
 
 
 
@@ -7,7 +9,7 @@
 
 
 
-# 主要函数
+# 表操作查询
 
 ## ALTER TABLE
 
@@ -58,6 +60,14 @@ ALTER TABLE xxx.xxxx DROP IF EXISTS PARTITION(partition_date='20191002', partiti
 
 ```sql
 LOAD DATA INPATH 'hdfs://nameservice/user/xxxxxxxx/' OVERWRITE INTO TABLE xxx.xxxxxxxx;
+```
+
+
+
+## desc table查询表的详细信息
+
+```sql
+desc xxx.table
 ```
 
 

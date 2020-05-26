@@ -1,6 +1,7 @@
 # 支持向量机
 
 
+* [返回上层目录](../machine-learning.md)
 * [线性可分支持向量机与硬间隔最大化](linear-separable-svm/linear-separable-svm.md)
 * [线性支持向量机与软间隔最大化](linear-svm/linear-svm.md)
 * [非线性支持向量机与核函数](nonlinear-svm-and-kernel-function/nonlinear-svm-and-kernel-function.md)

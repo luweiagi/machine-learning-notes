@@ -1,14 +1,13 @@
 # 线性模型
 
 
-* [最大熵模型](maximum-entropy-model.md)
-* [指数族分布与广义线性模型](exponential-family-distribution-and-generalized-linear-model.md)
+* [返回上层目录](../machine-learning.md)
+* [最大熵模型](maximum-entropy-model/maximum-entropy-model.md)
+* [指数族分布与广义线性模型](exponential-family-distribution-and-generalized-linear-model/exponential-family-distribution-and-generalized-linear-model.md)
 
 
-* [线性回归](linear-regression.md)
-  * [Ridge回归（岭回归）](linear-regression.md#Ridge回归（岭回归）)
-  * [Lasso回归](linear-regression.md#Lasso回归)
-* [逻辑回归(对数几率回归)](logistic-regression.md)
+* [线性回归](linear-regression/linear-regression.md)
+* [逻辑回归](logistic-regression/logistic-regression.md)
 
 # 为什么线性模型有用
 

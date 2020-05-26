@@ -1,9 +1,10 @@
 # Hadoop
 
 
-* [Hadoop简介](hadoop-introduction.md)
-* [MapReduce](map-reduce.md)
-* [Hadoop常用命令](commands.md)
+* [返回上层目录](../coding.md)
+* [Hadoop简介](hadoop-introduction/hadoop-introduction.md)
+* [Hadoop常用命令](commands/commands.md)
+* [MapReduce](map-reduce/map-reduce.md)
 
 
 

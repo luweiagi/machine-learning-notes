@@ -1,5 +1,6 @@
 # GRU门控循环单元
 
+* [返回上层目录](../deep-learning.md)
 * [什么是GRU](#什么是GRU)
 * [GRU的运作方式](GRU的运作方式)
 

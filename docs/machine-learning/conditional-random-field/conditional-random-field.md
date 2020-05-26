@@ -1,21 +1,6 @@
 # CRF条件随机场
 
-
-
-
-[如何直观地理解条件随机场，并通过PyTorch简单地实现](https://mp.weixin.qq.com/s?__biz=MzA3MzI4MjgzMw==&mid=2650742297&idx=3&sn=7c0fa6f3468f3813e309d0bb274be849&chksm=871ada67b06d53711a2f9142b7fa39ab5e060298ce90233f78cee6c4d7ffca3f34fb540b288a&mpshare=1&scene=1&srcid=0515I9LFZDhoQjEUOxM255qV#rd)
-
-
-
-条件随机场(CRF) - 1 - 简介（产生式模型和判别式模型）
-
-https://blog.csdn.net/xueyingxue001/article/details/51498902
-
-
-
-CRF模型族及其在语音识别中的应用（概率图模型讲得很好，可参考）
-
-http://mi.eng.cam.ac.uk/~cz277/doc/Slides-CRFASR-CSLT.pdf
+[返回上层目录](../machine-learning.md)
 
 
 
@@ -828,6 +813,20 @@ https://blog.csdn.net/QFire/article/details/81065256
 ===
 
 [如何用简单易懂的例子解释条件随机场（CRF）模型？它和HMM有什么区别？](https://www.zhihu.com/question/35866596/answer/236886066)
+
+[如何直观地理解条件随机场，并通过PyTorch简单地实现](https://mp.weixin.qq.com/s?__biz=MzA3MzI4MjgzMw==&mid=2650742297&idx=3&sn=7c0fa6f3468f3813e309d0bb274be849&chksm=871ada67b06d53711a2f9142b7fa39ab5e060298ce90233f78cee6c4d7ffca3f34fb540b288a&mpshare=1&scene=1&srcid=0515I9LFZDhoQjEUOxM255qV#rd)
+
+
+
+条件随机场(CRF) - 1 - 简介（产生式模型和判别式模型）
+
+https://blog.csdn.net/xueyingxue001/article/details/51498902
+
+
+
+CRF模型族及其在语音识别中的应用（概率图模型讲得很好，可参考）
+
+http://mi.eng.cam.ac.uk/~cz277/doc/Slides-CRFASR-CSLT.pdf
 
 
 

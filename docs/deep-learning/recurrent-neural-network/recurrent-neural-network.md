@@ -1,5 +1,6 @@
 # RNN循环神经网络
 
+* [返回上层目录](../deep-learning.md)
 * [为什么需要RNN](#为什么需要RNN)
 * [RNN原理](*RNN原理)
 * [RNN的不同架构](*RNN的不同架构)

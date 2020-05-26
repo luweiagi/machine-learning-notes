@@ -64,9 +64,10 @@
     * [AMSGrad](mathematics/gradient-update-algorithm/offline-learning/amsgrad/amsgrad.md)
     * [AdasMax](mathematics/gradient-update-algorithm/offline-learning/adamax/adamax.md)
   * [在线学习](mathematics/gradient-update-algorithm/online-learning/online-learning.md)
-    * [FTRL](mathematics/gradient-update-algorithm/online-learning/FTRL/FTRL.md)
+    * [FTRL](mathematics/gradient-update-algorithm/online-learning/ftrl/ftrl.md)
 
-# 编程基础
+# [编程基础](coding/coding.md)
+* [计算机科目](coding/cs/cs.md)
 * [linux](coding/linux/linux.md)
   * [linux常用命令](coding/linux/linux-command/linux-command.md)
   * [shell](coding/linux/shell/shell.md)
@@ -111,9 +112,9 @@
     * [c++](coding/data-structures-and-algorithms/programming-language/c++/c++.md)
 * [Hadoop](coding/hadoop/hadoop.md)
   * [Hadoop简介](coding/hadoop/hadoop-introduction.md)
-* [MapReduce](coding/hadoop/map-reduce.md)
-* [Hive](coding/hive/hive.md)
-- Spark
+  * [MapReduce](coding/hadoop/map-reduce.md)
+  * [Hive](coding/hive/hive.md)
+- [Spark](coding/spark/spark.md)
 * [TensorFlow](coding/tensorflow/tensorflow.md)
   * [TensorFlow1.0](coding/tensorflow/tensorflow1.0/tensorflow1.0.md)
     * [TensorFlow基础](coding/tensorflow/tensorflow1.0/basis/basis.md)
@@ -130,12 +131,10 @@
 * [k近邻](machine-learning/k-nearest-neighbor/k-nearest-neighbor.md)
 * [朴素贝叶斯](machine-learning/naive-bayes/naive-bayes.md)
 * [线性模型](machine-learning/linear-model/linear-model.md)
-  * [最大熵模型](machine-learning/linear-model/maximum-entropy-model.md)
-  * [指数族分布与广义线性模型](machine-learning/linear-model/exponential-family-distribution-and-generalized-linear-model.md)
-  * [线性回归](machine-learning/linear-model/linear-regression.md#线性回归)
-    * [Ridge回归（岭回归）](machine-learning/linear-model/linear-regression.md#Ridge回归（岭回归）)
-    * [Lasso回归](machine-learning/linear-model/linear-regression.md#Lasso回归)
-  * [Logistic回归-对数几率回归](machine-learning/linear-model/logistic-regression.md)
+  * [最大熵模型](machine-learning/linear-model/maximum-entropy-model/maximum-entropy-model.md)
+  * [指数族分布与广义线性模型](machine-learning/linear-model/exponential-family-distribution-and-generalized-linear-model/exponential-family-distribution-and-generalized-linear-model.md)
+  * [线性回归](machine-learning/linear-model/linear-regression/linear-regression.md)
+  * [Logistic回归](machine-learning/linear-model/logistic-regression/logistic-regression.md)
 * [决策树](machine-learning/decision-tree/decision-tree.md)
 * [支持向量机](machine-learning/support-vector-machine/support-vector-machine.md)
   * [线性可分支持向量机与硬间隔最大化](machine-learning/support-vector-machine/linear-separable-svm/linear-separable-svm.md)
@@ -144,6 +143,7 @@
   * [序列最小最优化算法SMO](machine-learning/support-vector-machine/smo/smo.md)
   * [SVM总结](machine-learning/support-vector-machine/svm-summary/svm-README.md)
 * [集成学习](machine-learning/ensemble-learning/ensemble-learning.md)
+  * [集成学习概述](machine-learning/ensemble-learning/ensemble-learning-introduction/ensemble-learning-introduction.md)
   * Bagging
     * [随机森林](machine-learning/ensemble-learning/random-forest/random-forest.md)
   * Boosting
@@ -155,8 +155,9 @@
         * [XGBoost实践](machine-learning/ensemble-learning/xgboost/XGBoost-practice.md)
   * Stacking
 * [降维](machine-learning/dimensionality-reduction/dimensionality-reduction.md)
-  * [PCA主成分分析](machine-learning/dimensionality-reduction/principal-component-analysis.md)
-  * [流形学习](machine-learning/dimensionality-reduction/manifold-learning.md)
+  * [降维概述](machine-learning/dimensionality-reduction/dimensionality-reduction-introduction/dimensionality-reduction-introduction.md)
+  * [PCA主成分分析](machine-learning/dimensionality-reduction/principal-component-analysis/principal-component-analysis.md)
+  * [流形学习](machine-learning/dimensionality-reduction/manifold-learning/manifold-learning.md)
 * [EM算法](machine-learning/expectation-maximization-algorithm/expectation-maximization-algorithm.md)
 * [概率图模型](machine-learning/probability-graphical-model/probability-graphical-model.md)
   * [概率图模型简介](machine-learning/probability-graphical-model/probability-graphical-model-introduction/probability-graphical-model-introduction.md)
@@ -164,10 +165,10 @@
 * [HMM隐马尔科夫模型](machine-learning/hidden-markov-model/hidden-markov-model.md)
 * [CRF条件随机场](machine-learning/conditional-random-field/conditional-random-field.md)
 * [聚类](machine-learning/clustering/clustering.md)
-  * [k均值聚类](machine-learning/clustering/k-means-clustering.md)
-  * [高斯混合模型](machine-learning/clustering/gaussian-mixture-model.md)
+  * [k均值聚类](machine-learning/clustering/k-means-clustering/k-means-clustering.md)
+  * [高斯混合模型](machine-learning/clustering/gaussian-mixture-model/gaussian-mixture-model.md)
 * [主题模型](machine-learning/topic-model/topic-model.md)
-  * [LDA隐狄利克雷分布](machine-learning/topic-model/latent-dirichlet-allocation.md)
+  * [LDA隐狄利克雷分布](machine-learning/topic-model/latent-dirichlet-allocation/latent-dirichlet-allocation.md)
 * [知识点](machine-learning/tips/tips.md)
   * [损失函数](machine-learning/tips/loss-function/loss-function.md)
   * [负采样](machine-learning/tips/negtive-sampling/negtive-sampling.md)
@@ -192,7 +193,7 @@
     * [GCN图卷积网络全面理解](deep-learning/graph-neural-networks/graph-convolutional-networks/gcn-comprehensive-understand.md)
     * [SEMI-SUPERVISED CLASSIFICATION WITH GRAPH CONVOLUTIONAL NETWORKS ICLR2017](deep-learning/graph-neural-networks/graph-convolutional-networks/SEMI-SUPERVISED-CLASSIFICATION-WITH-GRAPH-CONVOLUTIONAL-NETWORKS.md)
 * [神经网络架构搜索](deep-learning/neural-architecture-search/neural-architecture-search.md)
-  * [Weight-Agnostic-Neural-Networks Google2019](deep-learning/neural-architecture-search/Weight-Agnostic-Neural-Networks.md)
+  * [Weight-Agnostic-Neural-Networks Google2019](deep-learning/neural-architecture-search/weight-agnostic-nn/Weight-Agnostic-Neural-Networks.md)
 
 # [强化学习](reinforcement-learning/reinforcement-learning.md)
 * [强化学习概论](reinforcement-learning/reinforcement-learning-introduction/reinforcement-learning-introduction.md)
@@ -214,13 +215,18 @@
 * [word2vec](natural-language-processing/word2vec/word2vec.md)
 * [Seq2Seq模型和Attention机制](natural-language-processing/seq2seq-and-attention-mechanism/seq2seq-and-attention-mechanism.md)
 * [Self-Attention和Transformer](natural-language-processing/self-attention-and-transformer/self-attention-and-transformer.md)
+* [BERT](natural-language-processing/bert/bert.md)
 
 # 知识图谱
 
 # [推荐系统](recommender-systems/recommender-systems.md)
 * [推荐系统概述](recommender-systems/recommender-systems-introduction/recommender-systems-introduction.md)
 * 基础知识
+  * 协同过滤
+  * 用户画像
 * [进阶知识](recommender-systems/advanced-knowledge/advanced-knowledge.md)
+  * [排序模型概述](recommender-systems/advanced-knowledge/rank-model-introduction/rank-model-introduction.md)
+  * [召回模型概述](recommender-systems/advanced-knowledge/recall-model-introduction/recall-model-introduction.md)
   * [机器学习](recommender-systems/advanced-knowledge/machine-learning/machine-learning.md)
     * [Factorization Machines ICDM2010](recommender-systems/advanced-knowledge/machine-learning/fm/Factorization-Machines.md)
   * [Graph Embedding](recommender-systems/advanced-knowledge/graph-embedding/graph-embedding.md)

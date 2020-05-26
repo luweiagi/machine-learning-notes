@@ -1,5 +1,7 @@
 # GAN生成对抗网络
 
+* [返回上层目录](../deep-learning.md)
+
 
 
 

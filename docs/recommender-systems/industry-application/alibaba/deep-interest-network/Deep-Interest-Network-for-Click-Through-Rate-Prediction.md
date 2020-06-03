@@ -11,7 +11,7 @@
 * [原理](#原理)
   * [Base-Model](#Base-Model)
   * [DIN-Design](#DIN-Design)
-  * [Dice:Data-Dependent-Activation-Function](#Dice:Data-Dependent-Activation-Function)
+  * [Dice:Data-Dependent-Activation-Function](#Dice：Data-Dependent-Activation-Function)
   * [Adaptive-Regularization](#Adaptive-Regularization)
 * [实现](#实现)
   * [组成部分](#组成部分)
@@ -205,7 +205,7 @@ V_u=f(V_a)=\sum_{i=1}^Nw_i\times V_i=\sum_{i=1}^Ng(V_i,V_a)\times V_i
 $$
 其中，Vi表示behavior id i的嵌入向量，比如good_id,shop_id等。Vu是所有behavior ids的加权和，表示的是用户兴趣。候选广告影响着每个behavior id的权重，也就是Local Activation。权重表示的是：每一个behavior id针对当前的候选广告Va，对总的用户兴趣表示的Embedding Vector的贡献大小。在实际实现中，权重用激活函数Dice的输出来表示，输入是Vi和Va。
 
-## Dice:Data-Dependent-Activation-Function
+## Dice：Data-Dependent-Activation-Function
 
 PReLU其实是ReLU的改良版，ReLU可以看作是`x*Max(x,0)`，相当于输出x经过了一个在0点的阶跃整流器。由于ReLU在x小于0的时候，梯度为0，可能导致网络停止更新，PReLU对整流器的左半部分形式进行了修改，使得x小于0时输出不为0。
 

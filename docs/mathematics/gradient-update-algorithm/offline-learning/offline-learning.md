@@ -1,6 +1,6 @@
 # 梯度下降算法
 
-* [返回上层目录](../offline-learning.md)
+* [返回上层目录](../gradient-update-algorithm.md)
 * [梯度下降算法的演化](gradient-descent-algorithms-evolution/gradient-descent-algorithms-evolution.md)
 * [随机梯度下降SGD](sgd/sgd.md)
 * [动量法Momentum](momentum/momentum.md)

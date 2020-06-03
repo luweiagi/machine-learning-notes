@@ -6,6 +6,7 @@
 * [机器学习](machine-learning/machine-learning.md)
 * [Graph Embedding](graph-embedding/graph-embedding.md)
 * [深度学习](deep-learning/deep-learning.md)
+* [多任务学习](multy-task-learning/multy-task-learning.md)
 * [图卷积网络](graph-convolutional-network/graph-convolutional-network.md)
 * [强化学习](reinforcement-learning/reinforcement-learning.md)
 

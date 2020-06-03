@@ -9,14 +9,14 @@
   * [特征处理](#特征处理)
   * [评价指标](#评价指标)
 * [原理](#原理)
-  * [Base Model](#Base Model)
-  * [DIN Design](#DIN Design)
-  * [Dice: Data Dependent Activation Function](#Dice: Data Dependent Activation Function)
-  * [Adaptive Regularization](#Adaptive Regularization)
+  * [Base-Model](#Base-Model)
+  * [DIN-Design](#DIN-Design)
+  * [Dice:Data-Dependent-Activation-Function](#Dice:Data-Dependent-Activation-Function)
+  * [Adaptive-Regularization](#Adaptive-Regularization)
 * [实现](#实现)
   * [组成部分](#组成部分)
   * [架构图](#架构图)
-  * [Common Feature Trick](#Common Feature Trick)
+  * [Common-Feature-Trick](#Common-Feature-Trick)
   * [结果展示](#结果展示)
 * [总结](#总结)
 
@@ -152,7 +152,7 @@ $$
 
 用户访问阿里巴巴的电商网站，看到推荐的广告时，大部分人都是没有一个明确的目标的，他自己也不知道要买什么。所以，用一个高效的方法从用户丰富的历史行为数据中获取用户的兴趣信息并进行推荐，就非常关键了。
 
-## Base Model
+## Base-Model
 
 ![DIN-base-model](pic/DIN-base-model.png)
 
@@ -167,7 +167,7 @@ $$
 
 Base Model上线后表现很好，现在也在承担着阿里线上广告展示系统的大部分流量。（论文发表时）
 
-## DIN Design
+## DIN-Design
 
 但是，仔细的研究下Base Model中Pooling Layer就会发现，Pooling操作损失了很多信息，所以有了后面DIN的完整模型。
 
@@ -205,7 +205,7 @@ V_u=f(V_a)=\sum_{i=1}^Nw_i\times V_i=\sum_{i=1}^Ng(V_i,V_a)\times V_i
 $$
 其中，Vi表示behavior id i的嵌入向量，比如good_id,shop_id等。Vu是所有behavior ids的加权和，表示的是用户兴趣。候选广告影响着每个behavior id的权重，也就是Local Activation。权重表示的是：每一个behavior id针对当前的候选广告Va，对总的用户兴趣表示的Embedding Vector的贡献大小。在实际实现中，权重用激活函数Dice的输出来表示，输入是Vi和Va。
 
-## Dice: Data Dependent Activation Function
+## Dice:Data-Dependent-Activation-Function
 
 PReLU其实是ReLU的改良版，ReLU可以看作是`x*Max(x,0)`，相当于输出x经过了一个在0点的阶跃整流器。由于ReLU在x小于0的时候，梯度为0，可能导致网络停止更新，PReLU对整流器的左半部分形式进行了修改，使得x小于0时输出不为0。
 
@@ -237,7 +237,7 @@ p(s)的计算分为两步：
 
 Dice可以看作是PReLu的通用化，也即PReLu是Dice的特例。当E(s)=0且Var[s]=0时，Dice就成了PReLu。
 
-## Adaptive Regularization
+## Adaptive-Regularization
 
 由于深度模型比较复杂，输入又非常稀疏，导致参数非常多，不出意外的过拟合了。
 
@@ -300,7 +300,7 @@ DIN在阿里内部的实现，使用了多个GPU。并行化是基于**模型并
 
 ![DIN-XDL-platform](pic/DIN-XDL-platform.jpg)
 
-## Common Feature Trick
+## Common-Feature-Trick
 
 对于一个用户，一次pageview中假设展示了200个商品。那么每个商品就对应一条样本。但是，这200条样本中是有很多`Common Feature`的。所以DIN的实现中并没有把用户都展开，类似于下图：
 

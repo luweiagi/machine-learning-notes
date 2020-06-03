@@ -179,6 +179,7 @@
 * [ANN人工神经网络](deep-learning/artificial-neural-network/artificial-neural-network.md)
 * [知识点](deep-learning/tips/tips.md)
   * [Batch Normalization](deep-learning/tips/batch-normalization/batch-normalization.md)
+  * [深度学习的高阶特征交叉原理](deep-learning/tips/feature-crossing/feature-crossing.md)
 * [CNN卷积神经网络](deep-learning/convolutional-neural-network/convolutional-neural-network.md)
 * [深度学习优化算法](deep-learning/deep-learning-optimization-algorithm/deep-learning-optimization-algorithm.md)
 * [RNN循环神经网络](deep-learning/recurrent-neural-network/recurrent-neural-network.md)

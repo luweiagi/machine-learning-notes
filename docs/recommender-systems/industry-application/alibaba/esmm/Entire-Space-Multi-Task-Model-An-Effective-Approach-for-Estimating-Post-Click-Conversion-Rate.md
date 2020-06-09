@@ -36,7 +36,7 @@ ESMM模型的tensorflow实现:《[构建分布式Tensorflow模型系列:CVR预�
 认识到点击（CTR）、转化（CVR）、点击然后转化（CTCVR）是三个不同的任务后，我们再来看三者的关联：
 $$
 \begin{aligned}
-\underbrace{p(z\text{&}y=1|x)}_{pCTCVR}=\underbrace{p(z=1|y=1,x)}_{pCVR}\underbrace{p(y=1|x)}_{pCTR}
+\underbrace{p(z\&y=1|x)}_{pCTCVR}=\underbrace{p(z=1|y=1,x)}_{pCVR}\underbrace{p(y=1|x)}_{pCTR}
 \end{aligned}
 $$
 其中z, y分别表示conversion和click。注意到，在全部样本空间中，CTR对应的label为click，而CTCVR对应的label为click & conversion，**这两个任务是可以使用全部样本的**。**那为啥不绕个弯，通过这学习两个任务，再根据上式隐式地学习CVR任务呢？**ESMM正是这么做的，具体结构如下：
@@ -70,7 +70,7 @@ $$
 \begin{aligned}
 &L(\theta_{cvr},\theta{ctr})\\
 =&\sum^N_{i=1}l(y_i,f(x_i;\theta_{ctr}))\\
-+&\sum^N_{i=1}l(y_i\text{&}z_i,f(x_i;\theta_{ctr})\times f(x_i;\theta_{cvr}))
++&\sum^N_{i=1}l(y_i\&z_i,f(x_i;\theta_{ctr})\times f(x_i;\theta_{cvr}))
 \end{aligned}
 $$
 即利用CTCVR和CTR的监督信息来训练网络，隐式地学习CVR，这正是ESMM的精华所在，至于这么做的必要性以及合理性，本节开头已经充分论述了。
@@ -83,7 +83,7 @@ $$
 
 即，模型中左侧的model预估的，不是
 $$
-\underbrace{p(z\text{&}y=1|x)}_{pCTCVR}
+\underbrace{p(z\&y=1|x)}_{pCTCVR}
 $$
 而是
 $$

@@ -57,7 +57,7 @@
 
 [LIBLINEAR: A Library for Large Linear Classification](https://www.csie.ntu.edu.tw/~cjlin/papers/liblinear.pdf)，这是机器学习打基础最好的资料
 
-
+[镶嵌在互联网技术上的明珠：漫谈深度学习时代点击率预估技术进展](https://zhuanlan.zhihu.com/p/54822778) 对整体的把握非常有帮助！
 
 ## 召回
 

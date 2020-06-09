@@ -6,6 +6,12 @@
 
 附一些机器学习的参考资料：
 
+# 论文
+
+查论文附带的源码:[paper with code](https://www.paperswithcode.com/)
+
+
+
 # 视频
 
 ## 李宏毅
@@ -61,4 +67,10 @@ https://www.bilibili.com/video/av67224054?p=1
 [LIBLINEAR: A Library for Large Linear Classification](https://www.csie.ntu.edu.tw/~cjlin/papers/liblinear.pdf)
 
 这里面的代码和论文都值得一看，对理解机器学习有好处。
+
+
+
+# 数据结构算法
+
+[九章算法班](https://www.jiuzhang.com/course/71/?utm_source=sc-zhihu-lm0604)
 

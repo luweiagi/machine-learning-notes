@@ -3,6 +3,11 @@
 * [返回上层目录](../linear-algebra.md)
 
 
+
+[向量，矩阵和张量的导数 | 简单的数学](https://zhuanlan.zhihu.com/p/142668996)
+
+
+
 矩阵求导术（上）
 
 [https://zhuanlan.zhihu.com/p/24709748](https://zhuanlan.zhihu.com/p/24709748)

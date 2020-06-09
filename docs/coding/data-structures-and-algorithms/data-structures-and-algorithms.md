@@ -7,7 +7,17 @@
 * [leetcode](leetcode/leetcode.md)
 * [编程语言](programming-language/programming-language.md)
 
-**算法 - Algorithms**
+
+
+# 题目类型分类
+
+![practice-classify](/Users/momo/Desktop/machine-learning-notes/docs/coding/data-structures-and-algorithms/pic/practice-classify.jpg)
+
+
+
+# 数据结构算法的组成
+
+## 算法
 
 1. 排序算法：快速排序、归并排序、计数排序
 2. 搜索算法：回溯、递归、剪枝技巧
@@ -15,7 +25,7 @@
 4. 动态规划：背包问题、最长子序列、计数问题
 5. 基础技巧：分治、倍增、二分、贪心
 
-**数据结构 - Data Structures**
+## 数据结构
 
 1. 数组与链表：单 / 双向链表、跳舞链
 2. 栈与队列

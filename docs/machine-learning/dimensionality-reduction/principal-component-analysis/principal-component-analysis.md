@@ -45,6 +45,16 @@ pdf: *[A Tutorial on Principal Component Analysis](https://www.cc.gatech.edu/~ls
 
 ## 实例
 
+对于512维度进行不同维度压缩后保留的信息：
+
+```
+256:0.9998875105696291
+128:0.8964985919468982
+64:0.6758438520261455
+```
+
+
+
 
 
 # 总结
@@ -69,7 +79,7 @@ PCA算法的主要缺点有：
 
 # 参考资料
 
-
+* [如何通俗易懂地讲解什么是 PCA 主成分分析？](https://www.zhihu.com/question/41120789/answer/481966094)
 
 
 

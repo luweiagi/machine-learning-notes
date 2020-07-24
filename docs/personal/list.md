@@ -59,9 +59,19 @@
 
 [镶嵌在互联网技术上的明珠：漫谈深度学习时代点击率预估技术进展](https://zhuanlan.zhihu.com/p/54822778) 对整体的把握非常有帮助！
 
+论文题目：CATN:  Cross-Domain Recommendation for Cold-Start Users via Aspect Transfer Network（一篇用户跨域冷启动的论文，主要涉及用户相关领域的偏好迁移）
+论文地址：<https://arxiv.org/abs/2005.10549>
+
+注：可以用于不同机型上的初始化冷启动
+
+ 今晚7点9号会议室，我来为大家分享一篇有关知识蒸馏的文章：Privileged Features Distillation at Taobao Recommendations
+提前将网址和PPT发出来，有兴趣的同学可以先看看哈<https://arxiv.org/abs/1907.05171>
+
 ## 召回
 
 •[MIND][arxiv 19][Alibaba] Multi-Interest Network with Dynamic Routing for Recommendation at Tmall
+
+李思臻已经在实现了
 
 •[SDM][CIKM 19][Alibaba] Sequential Deep Matching Model for Online Large-scale Recommender System
 

@@ -70,3 +70,12 @@
 # Eager模式
 
 [Tensorflow入门——Eager模式像原生Python一样简洁优雅](https://www.jianshu.com/p/883addf4a1b2)
+
+
+
+# tf.layers
+
+## tf.layers.conv1d
+
+[tf.layers.conv1d函数解析（一维卷积）](https://blog.csdn.net/u011734144/article/details/84066928)
+

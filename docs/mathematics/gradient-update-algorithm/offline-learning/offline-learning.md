@@ -27,3 +27,7 @@
 
   [深度学习——优化器算法Optimizer详解（BGD、SGD、MBGD、Momentum、NAG、Adagrad、Adadelta、RMSprop、Adam）](https://www.cnblogs.com/guoyaohua/p/8542554.html)
 
+===
+
+[优化方法总结以及Adam存在的问题(SGD, Momentum, AdaDelta, Adam, AdamW，LazyAdam)](https://blog.csdn.net/yinyu19950811/article/details/90476956)
+

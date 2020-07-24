@@ -1,6 +1,6 @@
 # 数学的原理
 
-* [返回上层目录](../mathematics.md)
+* [返回上层目录](../math-courses.md)
 
 
 

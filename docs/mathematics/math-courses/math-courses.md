@@ -1,6 +1,9 @@
 # 数学专业课程 
 
 * [返回上层目录](../mathematics.md)
+* [数学的原理](math-principle/math-principle.md)
+* [泛函分析](functional-analysis/functional-analysis.md)
+* [变分原理](variational-principle/variational-principle.md)
 
 **数学系的课程：**
 
@@ -12,5 +15,8 @@
 
 
 
+===
 
+[Stein 大神的 4 本分析有顺序吗？](https://www.zhihu.com/question/313493368/answer/1256327788)
 
+讲了傅立叶和复分析，实变函数等

@@ -62,6 +62,8 @@ ALTER TABLE xxx.xxxx DROP IF EXISTS PARTITION(partition_date='20191002', partiti
 LOAD DATA INPATH 'hdfs://nameservice/user/xxxxxxxx/' OVERWRITE INTO TABLE xxx.xxxxxxxx;
 ```
 
+这样会把原始的hdfs中的数据删除掉，相当于剪切。
+
 
 
 ## desc table查询表的详细信息

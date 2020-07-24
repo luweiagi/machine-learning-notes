@@ -2,7 +2,7 @@
 
 * [返回上层目录](../README.md)
 
-* [机器学习概论](-introduction/machine-learning-introduction.md)
+* [机器学习概论](machine-learning-introduction/machine-learning-introduction.md)
 * [特征工程](feature-engineering/feature-engineering.md)
 * [感知机](perceptron/perceptron.md)
 * [k近邻](k-nearest-neighbor/k-nearest-neighbor.md)

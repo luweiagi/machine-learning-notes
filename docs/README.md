@@ -122,6 +122,8 @@
     * [TensorFlow机器学习基础](coding/tensorflow/tensorflow1.0/machine-learning-foundation/machine-learning-foundation.md)
     * [Tensorflow分布式架构](coding/tensorflow/tensorflow1.0/distributed-architecture/distributed-architecture.md)
   * [TensorFlow2.0](coding/tensorflow/tensorflow2.0/tensorflow2.0.md)
+  * [工具](coding/tensorflow/tools/tools.md)
+    * [Tensorflow中使用GPU](coding/tensorflow/tools/gpu/gpu.md)
 * [PyTorch](coding/pytorch/pytorch.md)
 
 # [机器学习](machine-learning/machine-learning.md)
@@ -177,6 +179,7 @@
 # [深度学习](deep-learning/deep-learning.md)
 * [深度学习概论](deep-learning/deep-learning-introduction/deep-learning-introduction.md)
 * [ANN人工神经网络](deep-learning/artificial-neural-network/artificial-neural-network.md)
+* [激活函数](deep-learning/activation-functions/activation-functions.md)
 * [知识点](deep-learning/tips/tips.md)
   * [Batch Normalization](deep-learning/tips/batch-normalization/batch-normalization.md)
   * [深度学习的高阶特征交叉原理](deep-learning/tips/feature-crossing/feature-crossing.md)
@@ -252,4 +255,6 @@
     * [ESMM:Entire Space Multi-Task Model: An Effective Approach for Estimating Post-Click Conversion Rate SIGIR2018](recommender-systems/industry-application/alibaba/esmm/Entire-Space-Multi-Task-Model-An-Effective-Approach-for-Estimating-Post-Click-Conversion-Rate.md)
   * [Google](recommender-systems/industry-application/google/google.md)
     * [MMoE:Modeling Task Relationships in Multi-task Learning with Multi-gate Mixture-of-Experts KDD2018](recommender-systems/industry-application/google/mmoe/Modeling-Task-Relationships-in-Multi-task-Learning-with-Multi-gate-Mixture-of-Experts.md)
+
+# [异常检测](anomaly-detection/anomaly-detection.md)
 

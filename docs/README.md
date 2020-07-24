@@ -220,17 +220,13 @@
 * [BERT](natural-language-processing/bert/bert.md)
 
 # [AutoML](auto-machine-learning/auto-machine-learning.md)
-
-- [AutoML介绍](auto-machine-learning/auto-machine-learning-introduction/auto-ml-introduction.md)
-
-- 自动数据清理AutoClean
-- 自动特征工程AutoFE
-- [超参数优化HPO](auto-machine-learning/hyperparameter-optimization/hyperparameter-optimization.md)
-- 元学习MetaLearning 
-- [神经网络架构搜索NAS](auto-machine-learning/neural-architecture-search/neural-architecture-search.md)
-  - [Weight-Agnostic-Neural-Networks Google2019](auto-machine-learning/neural-architecture-search/weight-agnostic-nn/Weight-Agnostic-Neural-Networks.md)
-
-
+* [AutoML介绍](auto-machine-learning/auto-machine-learning-introduction/auto-ml-introduction.md)
+* 自动数据清理AutoClean
+* 自动特征工程AutoFE
+* [超参数优化HPO](auto-machine-learning/hyperparameter-optimization/hyperparameter-optimization.md)
+* 元学习MetaLearning 
+* [神经网络架构搜索NAS](auto-machine-learning/neural-architecture-search/neural-architecture-search.md)
+  * [Weight-Agnostic-Neural-Networks Google2019](auto-machine-learning/neural-architecture-search/weight-agnostic-nn/Weight-Agnostic-Neural-Networks.md)
 
 # 知识图谱
 

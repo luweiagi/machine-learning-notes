@@ -196,8 +196,6 @@
     * [GCN图卷积网络本质理解](deep-learning/graph-neural-networks/graph-convolutional-networks/gcn-essential-understand.md)
     * [GCN图卷积网络全面理解](deep-learning/graph-neural-networks/graph-convolutional-networks/gcn-comprehensive-understand.md)
     * [SEMI-SUPERVISED CLASSIFICATION WITH GRAPH CONVOLUTIONAL NETWORKS ICLR2017](deep-learning/graph-neural-networks/graph-convolutional-networks/SEMI-SUPERVISED-CLASSIFICATION-WITH-GRAPH-CONVOLUTIONAL-NETWORKS.md)
-* [神经网络架构搜索](deep-learning/neural-architecture-search/neural-architecture-search.md)
-  * [Weight-Agnostic-Neural-Networks Google2019](deep-learning/neural-architecture-search/weight-agnostic-nn/Weight-Agnostic-Neural-Networks.md)
 
 # [强化学习](reinforcement-learning/reinforcement-learning.md)
 * [强化学习概论](reinforcement-learning/reinforcement-learning-introduction/reinforcement-learning-introduction.md)
@@ -220,6 +218,19 @@
 * [Seq2Seq模型和Attention机制](natural-language-processing/seq2seq-and-attention-mechanism/seq2seq-and-attention-mechanism.md)
 * [Self-Attention和Transformer](natural-language-processing/self-attention-and-transformer/self-attention-and-transformer.md)
 * [BERT](natural-language-processing/bert/bert.md)
+
+# [AutoML](auto-machine-learning/auto-machine-learning.md)
+
+- [AutoML介绍](auto-machine-learning/auto-machine-learning-introduction/auto-ml-introduction.md)
+
+- 自动数据清理AutoClean
+- 自动特征工程AutoFE
+- [超参数优化HPO](auto-machine-learning/hyperparameter-optimization/hyperparameter-optimization.md)
+- 元学习MetaLearning 
+- [神经网络架构搜索NAS](auto-machine-learning/neural-architecture-search/neural-architecture-search.md)
+  - [Weight-Agnostic-Neural-Networks Google2019](auto-machine-learning/neural-architecture-search/weight-agnostic-nn/Weight-Agnostic-Neural-Networks.md)
+
+
 
 # 知识图谱
 

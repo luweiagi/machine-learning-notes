@@ -114,7 +114,7 @@
 
 **各叶结点（单元）上的条件概率往往偏向于某一个类**，即属于某一类的条概率较大。决策树分类时将该结点的实例强行分到条件概率大的那一类中。
 
-![decision-tree-conditional-probability](pic/decision-tree-conditional-probability.png)
+![decision-tree-conditional-probability](/Users/momo/Desktop/decision-tree-conditional-probability.png)
 
 上图（a）示意地表示了特征空间的一个划分。图中的大正方形表示特征空间。这个大正方形被若干个小矩形分割，每个小矩形表示一个单元。特征空间划分上的单元构成了一个集合，X取值为单元的集合。为简单起见，假设只有两类：正类和负类，即Y取值为+1和-1。小矩形中的数字表示单元的类，上图（b）示意地表示特征空间划分确定时，特征（单元）给定条件下类的条件概率分布。上图（b）中条件概率分布对应于上图（a）的划分。当某个单元c的条件概率满足$P(Y=+1|X=c)>0.5$时，则认为这个单元属于正类，即落在这个单元的实例都被视为正例。上图（c）为对应于上图（b）中条件概率分布的决策树。
 

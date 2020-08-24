@@ -80,11 +80,11 @@ $$
 
 3. 引入$\gamma$和$\beta$。normalize的过程其实损失了表达能力，原来的参数集是(w, b)，经过normalize之后，b被中心化了，而w必须隐式的满足归一化条件，从而自由度降低了一维。为了得到同样的自由参数数目，引入$\gamma$和$\beta$可以解决这个问题。
 
-   最初看到gamma和beta的时候，会有些疑惑，为什么这个技巧会有用。Goodfellow那本书的argument比较合理，gamma和beta代表的其实是input分布的var和bias，对于一般的网络，不做BN的话，这两个维度是高度依赖前面网络的weight，会出现复杂的非线性。但提取出来之后，这里的gamma和beta跟前面的weight就无关了，而变成了这一层的学习参数，更加有利于优化的过程。
+   最初看到$\gamma$和$\beta$的时候，会有些疑惑，为什么这个技巧会有用。Goodfellow那本书的argument比较合理，$\gamma$和$\beta$代表的其实是input分布的var和bias，对于一般的网络，不做BN的话，这两个维度是高度依赖前面网络的weight，会出现复杂的非线性。但提取出来之后，这里的$\gamma$和$\beta$跟前面的weight就无关了，而变成了这一层的学习参数，更加有利于优化的过程。
+
+   **$\gamma$和$\beta$在ReLU中的作用：在BN中的$\gamma$对于ReLU的影响很小，因为数值的收缩，不会影响是否大于0。但是如果没有偏移量$\beta$，就会出现数据分布在以0为中心的位置，强行将一半的神经元输出置零。因此偏移量$\beta$是必不可少的。**
 
 4. 如同paper中讨论的，BN本身还有正则化的效果。正则化的效果在于初始分界面在数据中间的概率提高了很多倍，降低了迭代过程中分界面掉到数据外围局部最优的可能性。
-
-
 
 # 总结
 
@@ -99,8 +99,6 @@ BN就是调整每层网络输出数据的分布，使其进入激活函数的作
 这以上两个特点，具有普世性价值，这也是BN势不可挡的原因。
 
 3. 对初始化的值不敏感，因为假设初始化值增加了一倍，但是均值和方差也都增加了一倍，所以相当于没增加。
-
-
 
 # 参考资料
 
@@ -121,9 +119,18 @@ BN就是调整每层网络输出数据的分布，使其进入激活函数的作
 
 “深入理解BN”第四点参考此博客。
 
+* [ReLU和BN层简析](https://blog.csdn.net/huang_nansen/article/details/86619108?utm_medium=distribute.pc_relevant.none-task-blog-BlogCommendFromMachineLearnPai2-9.channel_param&depth_1-utm_source=distribute.pc_relevant.none-task-blog-BlogCommendFromMachineLearnPai2-9.channel_param)
+* [深度学习通用策略：BN原理详解以及优势](https://blog.csdn.net/wfei101/article/details/79997708)
+
+"$\gamma$和$\beta$在ReLU中的作用"参考了此博客。
+
 ===
 
 * [Batch Normalization导读](https://blog.csdn.net/malefactor/article/details/51476961#comments)
 
 这是张俊林写的，需要好好读一下。
+
+* [Batch Normalization 论文笔记](https://blog.csdn.net/u014061630/article/details/80327059)
+
+paper的笔记。
 

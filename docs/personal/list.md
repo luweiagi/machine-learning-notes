@@ -67,6 +67,14 @@
  今晚7点9号会议室，我来为大家分享一篇有关知识蒸馏的文章：Privileged Features Distillation at Taobao Recommendations
 提前将网址和PPT发出来，有兴趣的同学可以先看看哈<https://arxiv.org/abs/1907.05171>
 
+这篇文章应该是《Sampling-Bias-Corrected
+Neural Modeling for Large Corpus Item Recommendations》
+的后续作品，就是之前用in-batch-softmax做双塔的文章，主要应该是改进了之前in-batch形式下负样本的一些缺陷，大家也可以看看:
+
+各位有没有学弟学妹现在还在学校，而且学校有acm dl权限的，求帮下篇文章
+<https://dl.acm.org/doi/10.1145/3366424.3386195>
+Mixed Negative Sampling for Learning Two-tower Neural Networks in Recommendations
+
 ## 召回
 
 •[MIND][arxiv 19][Alibaba] Multi-Interest Network with Dynamic Routing for Recommendation at Tmall

@@ -53,27 +53,16 @@ Tue Mar 31 20:03:24 2020
 +-----------------------------------------------------------------------------+
 ```
 
-再通过命令`ll /proc/pid`查看pid信息
+再通过命令`ll /proc/pid`查看pid信息。
 
-
+另外，`nvidia-smi -l`命令可以不断自动刷新GPU信息。
 
 # 动态指定空闲GPU
 
 有两种，第一种是github上找的，另一种是自己写的。
 
-github上的：[gputil](https://github.com/anderskm/gputil)
+* github上的：[gputil](https://github.com/anderskm/gputil)
 
-自己写的：
-
-```python
-install
-```
-
-
-
-
-
-
-
+* 自己写的：见具体的代码，这里就不写了，有点长。
 
 

@@ -144,6 +144,7 @@
   * [非线性支持向量机与核函数](machine-learning/support-vector-machine/nonlinear-svm-and-kernel-function/nonlinear-svm-and-kernel-function.md)
   * [序列最小最优化算法SMO](machine-learning/support-vector-machine/smo/smo.md)
   * [SVM总结](machine-learning/support-vector-machine/svm-summary/svm-README.md)
+* [liblinear](machine-learning/liblinear/liblinear.md)
 * [集成学习](machine-learning/ensemble-learning/ensemble-learning.md)
   * [集成学习概述](machine-learning/ensemble-learning/ensemble-learning-introduction/ensemble-learning-introduction.md)
   * Bagging
@@ -264,4 +265,8 @@
     * [MMoE:Modeling Task Relationships in Multi-task Learning with Multi-gate Mixture-of-Experts KDD2018](recommender-systems/industry-application/google/mmoe/Modeling-Task-Relationships-in-Multi-task-Learning-with-Multi-gate-Mixture-of-Experts.md)
 
 # [异常检测](anomaly-detection/anomaly-detection.md)
+
+
+
+# [反绎学习](abductive-learning/abductive-learning.md)
 

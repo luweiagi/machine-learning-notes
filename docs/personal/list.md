@@ -75,6 +75,18 @@ Neural Modeling for Large Corpus Item Recommendations》
 <https://dl.acm.org/doi/10.1145/3366424.3386195>
 Mixed Negative Sampling for Learning Two-tower Neural Networks in Recommendations
 
+Controlling Fairness and Bias in Dynamic Learning-to-Rank SIGIR最佳论文，讨论排序中To侧观测的问题，之后分享的同学优先过下这个文章吧
+
+论文题目：Search-based User Interest Modeling with Lifelong Sequential Behavior Data for Click-Through Rate Prediction
+
+[Progress in Neural NLP: Modeling, Learning, and Reasoning](https://www.sciencedirect.com/science/article/pii/S2095809919304928)神经自然语言处理进展综述： 建模，学习，推理
+
+本文将从建模、学习和推理三个方面综述基于神经网络的神经语言处理框架（neural NLP）的最新进展。 在建模部分，作者将描述几种基本的基于神经网络的建模范例，如单词嵌入、句子嵌入和序列到序列的建模，这些在现代NLP引擎中被广泛使用。 在学习部分，作者将介绍广泛使用的NLP模型的学习方法，包括监督学习、半监督学习和无监督学习，多任务学习，迁移学习和主动学习。 作者认为推理是神经NLP的一个新的和令人兴奋的方向，但它还没有被很好地解决。 在推理部分，作者将回顾推理机制，包括知识，现有的非神经推理方法，和新的神经推理方法。 作者在本文中强调推理的重要性，因为它对于建立可解释的和知识驱动的神经网络规划模型来处理复杂的任务是很重要的。 在本文的最后，作者将简要概述对神经语言处理的未来发展方向的思考。
+
+
+
+
+
 ## 召回
 
 •[MIND][arxiv 19][Alibaba] Multi-Interest Network with Dynamic Routing for Recommendation at Tmall

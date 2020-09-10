@@ -6,10 +6,12 @@
   * [less直接查看超大文件](#less直接查看超大文件)
   * [cat文件内容打印到屏幕](#cat文件内容打印到屏幕)
 * [移动/传输文件](#移动/传输文件)
+  * [cp复制文件](#cp复制文件)
   * [mv移动文件/重命名](#mv移动文件/重命名)
   * [scp本地文件上传到开发机](#scp本地文件上传到开发机)
 * [压缩文件](#压缩文件)
   * [zip压缩文件](#zip压缩文件)
+  * [tar压缩文件](#tar压缩文件)
 * [文本处理](#文本处理)
   * [wc计算字数行数](#wc计算字数行数)
   * [awk文本分析](#awk文本分析)
@@ -109,6 +111,16 @@ cat abc.txt
 
 # 移动/传输文件
 
+##cp复制文件
+
+只复制部分文件，就使用 `grep -v`来 过滤掉不想复制的文件/文件夹，文件名之间用`\|`分割。 
+
+```shell
+cp -r `ls| grep -v 'data\|input\|output\|tmp'` ../deep_1f/
+```
+
+
+
 ## mv移动文件/重命名
 
 在一些情况下，我们需要将很多个文件同时移动到一个指定的目录下，如果一个一个移动，那太蛋疼了。
@@ -205,6 +217,39 @@ BASE_DIR=$(readlink -f `dirname "$0"`)
 参考资料：
 
 * [Linux zip命令](https://www.runoob.com/linux/linux-comm-zip.html)
+
+
+
+## tar压缩文件
+
+- 命令选项：
+
+```
+-z(gzip)      用gzip来压缩/解压缩文件
+-j(bzip2)     用bzip2来压缩/解压缩文件
+-v(verbose)   详细报告tar处理的文件信息
+-c(create)    创建新的档案文件
+-x(extract)   解压缩文件或目录
+-f(file)      使用档案文件或设备，这个选项通常是必选的。
+```
+
+- 命令举例：
+
+```shell
+#压缩
+tar -zvcf buodo.tar.gz buodo
+tar -jvcf buodo.tar.bz2 buodo 
+
+#解压
+tar -zvxf buodo.tar.gz 
+tar -jvxf buodo.tar.bz2
+```
+
+
+
+参考资料：
+
+- [linux 压缩和解压缩命令gz、tar、zip、bz2](https://blog.csdn.net/capecape/article/details/78548723)
 
 
 
@@ -1073,6 +1118,13 @@ hadoop fs -text hdfs://x/* | grep -v INFO  > ./abc.txt
 # 只保留xxx字符，即便某一行有多个xxx字符，这n个xxx字符会变为n行单个xxx
 # 下列语句用于计算xxx在文本中出现的次数
 grep -o "xxx" abc.txt | wc -l
+```
+
+例子：
+
+```shell
+# 过滤掉含有INFO关键字的行
+hadoop fs -text hdfs://nameservice3/user/abc/* | grep -v INFO  > ./a.txt
 ```
 
 

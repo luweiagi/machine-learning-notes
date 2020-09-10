@@ -170,6 +170,7 @@
 * [聚类](machine-learning/clustering/clustering.md)
   * [k均值聚类](machine-learning/clustering/k-means-clustering/k-means-clustering.md)
   * [高斯混合模型](machine-learning/clustering/gaussian-mixture-model/gaussian-mixture-model.md)
+  * [DPMM狄利克雷过程混合模型](machine-learning/clustering/dirichlet-process-mixture-model/dirichlet-process-mixture-model.md)
 * [主题模型](machine-learning/topic-model/topic-model.md)
   * [LDA隐狄利克雷分布](machine-learning/topic-model/latent-dirichlet-allocation/latent-dirichlet-allocation.md)
 * [知识点](machine-learning/tips/tips.md)

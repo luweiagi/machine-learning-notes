@@ -1,6 +1,6 @@
 # GCN图卷积网络全面理解
 
-* [返回上层目录](graph-convolutional-networks.md)
+* [返回上层目录](../graph-convolutional-networks.md)
 * [前言](#前言)
 * [离散卷积定义及其作用](#离散卷积定义及其作用)
 * [GCN中的Graph指什么](#GCN中的Graph指什么)

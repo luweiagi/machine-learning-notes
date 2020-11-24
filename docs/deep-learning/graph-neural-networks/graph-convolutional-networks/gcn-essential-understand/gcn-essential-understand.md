@@ -1,6 +1,6 @@
 # GCN图卷积网络本质理解
 
-* [返回上层目录](graph-convolutional-networks.md)
+* [返回上层目录](../graph-convolutional-networks.md)
 * [Graph上的热传播模型](#Graph上的热传播模型)
   * [从一维空间开始](#从一维空间开始)
   * [Graph上热传播模型的推广](#Graph上热传播模型的推广)

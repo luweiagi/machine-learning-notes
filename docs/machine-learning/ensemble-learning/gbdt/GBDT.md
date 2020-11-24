@@ -2,8 +2,8 @@
 
 * [返回上层目录](../ensemble-learning.md)
 * [GBDT概述](#GBDT概述)
-  * [DT：回归树 Regression Decision Tree](#DT：回归树 Regression Decision Tree)
-  * [GB：梯度迭代 Gradient Boosting](#GB：梯度迭代 Gradient Boosting)
+  * [DT：回归树RegressionDecisionTree](#DT：回归树RegressionDecisionTree)
+  * [GB：梯度迭代GradientBoosting](#GB：梯度迭代GradientBoosting)
   * [GBDT工作过程实例](#GBDT工作过程实例)
   * [Shrinkage（缩减）](#Shrinkage（缩减）)
   * [GBDT的适用范围](#GBDT的适用范围)
@@ -57,7 +57,7 @@ GBDT（Gradient Boosting Decision Tree：梯度提升决策树) 又叫MART（Mul
 
 GBDT主要由三个概念组成：Regression Decistion Tree（即DT)，Gradient Boosting（即GB)，Shrinkage（算法的一个重要演进分枝，目前大部分源码都按该版本实现）。搞定这三个概念后就能明白GBDT是如何工作的，要继续理解它如何用于搜索排序则需要额外理解RankNet概念，之后便功德圆满。下文将逐个碎片介绍，最终把整张图拼出来。
 
-## DT：回归树 Regression Decision Tree
+## DT：回归树RegressionDecisionTree
 
 提起决策树（DT, Decision Tree）绝大部分人首先想到的就是C4.5分类决策树。但如果一开始就把GBDT中的树想成分类树，那就是一条歪路走到黑，一路各种坑，最终摔得都要咯血了还是一头雾水说的就是LZ自己啊有木有。咳嗯，所以说千万不要以为GBDT是很多棵分类树。决策树分为两大类，回归树和分类树。前者用于预测实数值，如明天的温度、用户的年龄、网页的相关程度；后者用于分类标签值，如晴天/阴天/雾/雨、用户性别、网页是否是垃圾页面。这里要强调的是，前者的结果加减是有意义的，如10岁+5岁-3岁=12岁，后者则无意义，如男+男+女=到底是男是女？ **GBDT的核心在于累加所有树的结果作为最终结果**，就像前面对年龄的累加（-3是加负3），而分类树的结果显然是没办法累加的，所以**GBDT中的树都是回归树，不是分类树，**这点对理解GBDT相当重要（尽管GBDT调整后也可用于分类但不代表GBDT的树是分类树）。那么回归树是如何工作的呢？
 
@@ -67,7 +67,7 @@ GBDT主要由三个概念组成：Regression Decistion Tree（即DT)，Gradient 
 
 回归树总体流程也是类似，不过在每个节点（不一定是叶子节点）都会得一个预测值，以年龄为例，该预测值等于属于这个节点的所有人年龄的平均值。分枝时穷举每一个feature的每个阈值找最好的分割点，但衡量最好的标准不再是最大熵，而是最小化均方差，即(每个人的年龄-预测年龄)^2 的总和 / N，或者说是每个人的预测误差平方和除以N。这很好理解，被预测出错的人数越多，错的越离谱，均方差就越大，通过最小化均方差能够找到最靠谱的分枝依据。分枝直到每个叶子节点上人的年龄都唯一（这太难了）或者达到预设的终止条件（如叶子个数上限），若最终叶子节点上人的年龄不唯一，则以该节点上所有人的平均年龄做为该叶子节点的预测年龄。若还不明白可以Google "Regression Tree"，或阅读本文的第一篇论文中Regression Tree部分。
 
-## GB：梯度迭代 Gradient Boosting
+## GB：梯度迭代GradientBoosting
 
 好吧，我起了一个很大的标题，但事实上我并不想多讲Gradient Boosting的原理，因为不明白原理并无碍于理解GBDT中的Gradient Boosting。喜欢打破砂锅问到底的同学可以阅读这篇英文[wiki:Gradient_tree_boosting](http://en.wikipedia.org/wiki/Gradient_boosted_trees#Gradient_tree_boosting)。
 

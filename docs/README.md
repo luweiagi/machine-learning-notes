@@ -254,7 +254,7 @@
     * [DRN: A Deep Reinforcement Learning Framework for News Recommendation WWW2018](recommender-systems/advanced-knowledge/reinforcement-learning/drn/DRN-A-Deep-Reinforcement-Learning-Framework-for-News-Recommendation.md)
 * [业界应用](recommender-systems/industry-application/industry-application.md)
   * [YouTube](recommender-systems/industry-application/youtube/youtube.md)
-    * [YouTubeDNN:Deep Neural Networks for YouTube Recommendations RecSys2016](recommender-systems/industry-application/youtube/deep-neural-networks/Deep-Neural-Networks-for-YouTube-Recommendations.md)
+    * [YouTubeDNN:Deep Neural Networks for YouTube Recommendations RecSys2016](recommender-systems/industry-application/youtube/youtube-dnn/Deep-Neural-Networks-for-YouTube-Recommendations.md)
   * [Facebook](recommender-systems/industry-application/facebook/facebook.md)
     * [XGB+LR:Practical Lessons from Predicting Clicks on Ads at Facebook KDD2014](recommender-systems/industry-application/facebook/xgboost+lr/Practical-Lessons-from-Predicting-Clicks-on-Ads-at-Facebook.md)
   * [Alibaba](recommender-systems/industry-application/alibaba/alibaba.md)

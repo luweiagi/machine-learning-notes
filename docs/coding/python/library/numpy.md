@@ -1138,6 +1138,194 @@ print(b)
 | solve(ndarray)                | 解线性方程组Ax = b，其中A为方阵            |
 | lstsq(ndarray)                | 计算Ax=b的最小二乘解                   |
 
+# numpy数据保存与读取
+
+主要介绍了Python Numpy中数据的常用保存与读取方法，本文给大家介绍的非常详细。
+
+在经常性读取大量的数值文件时(比如深度学习训练数据),可以考虑现将数据存储为`Numpy`格式,然后直接使用Numpy去读取,速度相比为转化前快很多。
+
+下面就常用的保存数据到二进制文件和保存数据到文本文件进行介绍:
+
+## 保存为二进制文件(.npy/.npz)
+
+### numpy.save
+
+```python
+numpy.save
+```
+
+保存一个数组到一个二进制的文件中,保存格式是.npy
+
+参数介绍
+
+> numpy.save(file, arr, allow_pickle=True, fix_imports=True)
+> file:文件名/文件路径
+> arr:要存储的数组
+> allow_pickle:布尔值,允许使用Python pickles保存对象数组(可选参数,默认即可)
+> fix_imports:为了方便Pyhton2中读取Python3保存的数据(可选参数,默认即可)
+
+**使用**
+
+```python
+>>> import numpy as np 
+#生成数据 
+>>> x=np.arange(10) 
+>>> x 
+array([0, 1, 2, 3, 4, 5, 6, 7, 8, 9]) 
+ 
+#数据保存 
+>>> np.save('save_x',x) 
+ 
+#读取保存的数据 
+>>> np.load('save_x.npy') 
+array([0, 1, 2, 3, 4, 5, 6, 7, 8, 9]) 
+```
+
+### numpy.savez
+
+```python
+numpy.savez
+```
+
+这个同样是保存数组到一个二进制的文件中,但是厉害的是,它可以保存多个数组到同一个文件中,保存格式是.npz,它其实就是多个前面`np.save`的保存的npy,再通过打包(**未压缩**)的方式把这些文件归到一个文件上,不行你去解压npz文件就知道了,里面是就是自己保存的多个npy。
+
+参数介绍
+
+> numpy.savez(file, *args, **kwds)
+> file:文件名/文件路径
+> *args:要存储的数组,可以写多个,如果没有给数组指定Key,Numpy将默认从'arr_0','arr_1'的方式命名
+> kwds:(可选参数,默认即可)
+
+**使用**
+
+```python
+>>> import numpy as np 
+#生成数据 
+>>> x=np.arange(10) 
+>>> x 
+array([0, 1, 2, 3, 4, 5, 6, 7, 8, 9]) 
+>>> y=np.sin(x) 
+>>> y 
+array([ 0.  , 0.84147098, 0.90929743, 0.14112001, -0.7568025 , 
+  -0.95892427, -0.2794155 , 0.6569866 , 0.98935825, 0.41211849]) 
+  
+#数据保存 
+>>> np.save('save_xy',x,y) 
+ 
+#读取保存的数据 
+>>> npzfile=np.load('save_xy.npz') 
+>>> npzfile #是一个对象,无法读取 
+<numpy.lib.npyio.NpzFile object at 0x7f63ce4c8860> 
+ 
+#按照组数默认的key进行访问 
+>>> npzfile['arr_0'] 
+array([0, 1, 2, 3, 4, 5, 6, 7, 8, 9]) 
+>>> npzfile['arr_1'] 
+array([ 0.  , 0.84147098, 0.90929743, 0.14112001, -0.7568025 , 
+  -0.95892427, -0.2794155 , 0.6569866 , 0.98935825, 0.41211849]) 
+```
+
+更加神奇的是,你可以不适用Numpy默认给数组的Key,而是自己给数组有意义的Key,这样就可以不用去猜测自己加载数据是否是自己需要的.
+
+```
+#数据保存 
+>>> np.savez('newsave_xy',x=x,y=y) 
+ 
+#读取保存的数据 
+>>> npzfile=np.load('newsave_xy.npz') 
+ 
+#按照保存时设定组数key进行访问 
+>>> npzfile['x'] 
+array([0, 1, 2, 3, 4, 5, 6, 7, 8, 9]) 
+>>> npzfile['y'] 
+array([ 0.  , 0.84147098, 0.90929743, 0.14112001, -0.7568025 , 
+  -0.95892427, -0.2794155 , 0.6569866 , 0.98935825, 0.41211849]) 
+```
+
+简直不能太爽,深度学习中,有时候你保存了训练集,验证集,测试集,还包括他们的标签,用这个方式存储起来,要啥加载啥,文件数量大大减少,也不会到处改文件名去.
+
+### numpy.savez_compressed
+
+```python
+numpy.savez_compressed
+```
+
+这个就是在前面`numpy.savez`的基础上加了压缩,前面我介绍时尤其注明numpy.savez是得到的文件打包,不压缩的.这个文件就是对文件进行打包时使用了压缩,可以理解为压缩前各npy的文件大小不变,使用该函数比前面的numpy.savez得到的npz文件更小.
+
+注:函数所需参数和`numpy.savez`一致,用法完成一样.
+
+## 保存到文本文件
+
+### numpy.savetxt
+
+```python
+numpy.savetxt
+```
+
+保存数组到文本文件上,可以直接打开查看文件里面的内容.
+
+参数介绍
+
+> numpy.savetxt(fname, X, fmt='%.18e', delimiter=' ', newline='\n', header='', footer='', comments='# ', encoding=None)
+> fname:文件名/文件路径,如果文件后缀是.gz,文件将被自动保存为.gzip格式,np.loadtxt可以识别该格式
+> X:要存储的1D或2D数组
+> fmt:控制数据存储的格式
+> delimiter:数据列之间的分隔符
+> newline:数据行之间的分隔符
+> header:文件头步写入的字符串
+> footer:文件底部写入的字符串
+> comments:文件头部或者尾部字符串的开头字符,默认是'#'
+> encoding:使用默认参数
+
+**使用**
+
+```python
+>>> import numpy as np 
+#生成数据 
+>>> x = y = z = np.ones((2,3)) 
+>>> x 
+array([[1., 1., 1.], 
+  [1., 1., 1.]]) 
+  
+#保存数据 
+np.savetxt('test.out', x) 
+np.savetxt('test1.out', x,fmt='%1.4e') 
+np.savetxt('test2.out', x, delimiter=',') 
+np.savetxt('test3.out', x,newline='a') 
+np.savetxt('test4.out', x,delimiter=',',newline='a') 
+np.savetxt('test5.out', x,delimiter=',',header='abc') 
+np.savetxt('test6.out', x,delimiter=',',footer='abc') 
+```
+
+保存下来的文件都是友好的,可以直接打开看看有什么变化.
+
+### numpy.loadtxt
+
+```python
+numpy.loadtxt
+```
+
+根据前面定制的保存格式,相应的加载数据的函数也得变化.
+
+参数介绍
+
+> numpy.loadtxt(fname, dtype=<class 'float'>, comments='#', delimiter=None, converters=None, skiprows=0, usecols=None, unpack=False, ndmin=0, encoding='bytes')
+> fname:文件名/文件路径,如果文件后缀是.gz或.bz2,文件将被解压,然后再载入
+> dtype:要读取的数据类型
+> comments:文件头部或者尾部字符串的开头字符,用于识别头部,尾部字符串
+> delimiter:划分读取上来值的字符串
+> converters:数据行之间的分隔符
+> .......后面不常用的就不写了
+
+使用
+
+```
+np.loadtxt('test.out') 
+np.loadtxt('test2.out', delimiter=',') 
+```
+
+
+
 # 参考资料
 
 * [NumPy的百度百科](https://baike.baidu.com/item/numpy/5678437?fr=aladdin)
@@ -1162,7 +1350,9 @@ Array数组和矩阵的基本运算都是复制或改编自这里。
 
 最简洁的NumPy大纲都是复制自这里。
 
+* [Numpy中数据的常用的保存与读取方法](https://www.cnblogs.com/wushaogui/p/9142019.html)
 
+“numpy数据保存与读取”复制自这里。
 
 ===
 

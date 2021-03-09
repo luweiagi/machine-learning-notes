@@ -236,16 +236,20 @@ BASE_DIR=$(readlink -f `dirname "$0"`)
 - 命令举例：
 
 ```shell
-#压缩
+#打包
+tar -vcf buodo.tar buodo
+
+#拆包
+tar -vxf buodo.tar
+
+#打包并压缩
 tar -zvcf buodo.tar.gz buodo
 tar -jvcf buodo.tar.bz2 buodo 
 
-#解压
+#解压并拆包
 tar -zvxf buodo.tar.gz 
 tar -jvxf buodo.tar.bz2
 ```
-
-
 
 参考资料：
 

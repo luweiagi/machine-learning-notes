@@ -262,3 +262,6 @@ Seq2Seq 模型分析
 
 
 
+[tensorflow2.0官网demo学习笔记 基于attention的seq2seq机器翻译](https://blog.csdn.net/ziyi9663/article/details/109989814)
+
+这个有tf官网的代码，有空跑起来试试。

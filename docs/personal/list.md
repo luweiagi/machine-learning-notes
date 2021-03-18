@@ -89,32 +89,34 @@ Controlling Fairness and Bias in Dynamic Learning-to-Rank SIGIR最佳论文，�
 
 ## 召回
 
-•[MIND][arxiv 19][Alibaba] Multi-Interest Network with Dynamic Routing for Recommendation at Tmall
+[MIND][arxiv 19][Alibaba] Multi-Interest Network with Dynamic Routing for Recommendation at Tmall
 
 李思臻已经在实现了
 
-•[SDM][CIKM 19][Alibaba] Sequential Deep Matching Model for Online Large-scale Recommender System
+[SDM][CIKM 19][Alibaba] Sequential Deep Matching Model for Online Large-scale Recommender System
 
-•[TDM][KDD 18][Alibaba] Learning Tree-based Deep Model for Recommender Systems
+[TDM][KDD 18][Alibaba] Learning Tree-based Deep Model for Recommender Systems
 
 ## 排序
 
-•[BERT4Rec][CIKM 19][Alibaba] BERT4Rec_Sequential Recommendation with Bidirectional Encoder Representations from Transformer
+[BERT4Rec][CIKM 19][Alibaba] BERT4Rec_Sequential Recommendation with Bidirectional Encoder Representations from Transformer
 
-•[BST][DLP-KDD 19][Alibaba] Behavior Sequence Transformer for E-commerce Recommendation in Alibaba
+[BST][DLP-KDD 19][Alibaba] Behavior Sequence Transformer for E-commerce Recommendation in Alibaba
+
+[BST 阿里将 Transformer 用于淘宝电商推荐，效果优于 DIN 和谷歌 WDL](https://www.infoq.cn/article/OJvS7h8JXvD4XCW*qldw)
 
 ## 重排序
 
-•[PRM][RecSys 19][Alibaba] Personalized Re-ranking for Recommendation
+[PRM][RecSys 19][Alibaba] Personalized Re-ranking for Recommendation
 
 ## Embedding
 
-•[Airbnb Embedding][KDD 18][Airbnb] Real-time Personalization using Embeddings for Search Ranking at Airbnb
+[Airbnb Embedding][KDD 18][Airbnb] Real-time Personalization using Embeddings for Search Ranking at Airbnb
 
-•[Alibaba Embedding][KDD 18][Alibaba] Billion-scale Commodity Embedding for E-commerce Recommendation in Alibaba
+[Alibaba Embedding][KDD 18][Alibaba] Billion-scale Commodity Embedding for E-commerce Recommendation in Alibaba
 
 ## 多任务学习
 
-•[RecSys 19][Alibaba] A Pareto-Efficient Algorithm for Multiple Objective Optimization in E-Commerce Recommendation
+[RecSys 19][Alibaba] A Pareto-Efficient Algorithm for Multiple Objective Optimization in E-Commerce Recommendation
 
-•[ESMM][SIGIR 18][Alibaba] Entire Space Multi-Task Model_An Effective Approach for Estimating Post-Click Conversion Rate
+[ESMM][SIGIR 18][Alibaba] Entire Space Multi-Task Model_An Effective Approach for Estimating Post-Click Conversion Rate

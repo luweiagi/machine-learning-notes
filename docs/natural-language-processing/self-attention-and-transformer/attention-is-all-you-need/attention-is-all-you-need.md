@@ -179,7 +179,7 @@ $$
 
 ## multi-headed-Attention
 
-如果用不同的$W^Q$、$W^K$、$W^v$，就能得到不同的$Q$、$K$、$V$。multi-headed Attention就是指用了很多个不同的$W^Q$、$W^K$、$W^v$。
+如果用不同的$W^Q$、$W^K$、$W^V$，就能得到不同的$Q$、$K$、$V$。multi-headed Attention就是指用了很多个不同的$W^Q$、$W^K$、$W^V$。
 
 ![multi-head-attention](pic/multi-head-attention.jpg)
 
@@ -239,10 +239,22 @@ PE_{(pos,2i)}&=sin(\frac{pos}{10000^{2i/d_{model}}})\\
 PE_{(pos,2i+1)}&=cos(\frac{pos}{10000^{2i/d_{model}}})
 \end{aligned}
 $$
+其中，$pos$是单词的位置索引，设句子长度为$L$，那么$pos = 0, 1, ..., L−1$。$i$是向量的某一维度，假设词向量维度$d_{model} = 512$，那么$i = 0 , 1 , . . . , 255$。
+
 下面举例说明该公式的用法。
 
 ![positional-encoding-2](pic/positional-encoding-2.jpg)
 
+举例来说，假设$$d_{model} =5$$，那么在一个样本中：
+
+第一个单词的位置编码为：
+$$
+\left[ sin(\frac{0}{10000^{\frac{2\times 0}{5}}})\quad cos(\frac{0}{10000^{\frac{2\times 0}{5}}})\quad sin(\frac{0}{10000^{\frac{2\times 1}{5}}})\quad cos(\frac{0}{10000^{\frac{2\times 1}{5}}})\quad sin(\frac{0}{10000^{\frac{2\times 2}{5}}})\right]
+$$
+第二个单词的位置编码为：
+$$
+\left[ sin(\frac{1}{10000^{\frac{2\times 0}{5}}})\quad cos(\frac{1}{10000^{\frac{2\times 0}{5}}})\quad sin(\frac{1}{10000^{\frac{2\times 1}{5}}})\quad cos(\frac{1}{10000^{\frac{2\times 1}{5}}})\quad sin(\frac{1}{10000^{\frac{2\times 2}{5}}})\right]
+$$
 为什么这样做呢？用图形的方式可以直觉上理解。下图为一个长度为50，维度是128的句子的Positional Encoding（每一行为一个Encoding向量）。下图中一行就是一个单词的Positional Encoding。
 
 ![positional-encoding-3](pic/positional-encoding-3.jpg)

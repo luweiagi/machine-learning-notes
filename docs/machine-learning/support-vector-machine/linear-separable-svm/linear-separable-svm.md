@@ -138,7 +138,7 @@ $$
 $$
 即我们希望最大化超平面$(w,b)$关于训练数据集的几何间隔$\gamma$，约束条件表示的是超平面$(w,b)$关于每个训练样本点的几何间隔至少是$\gamma$。
 
-考虑几何间隔和函数间隔的关系式，可将这个问题改写为
+考虑几何间隔$\gamma$和函数间隔$\hat{\gamma}$的关系式（$\gamma=\frac{\hat{\gamma}}{||w||}$），可将这个问题改写为
 $$
 \begin{aligned}
 &\mathop{\text{max}}_{w,b}\quad \frac{\hat{\gamma}}{||w||}\\
@@ -226,6 +226,13 @@ $$
 
 为了求解线性可分支持向量机的最优化问题，将它作为原始最优化问题，应用拉格朗日对偶性，通过求解对偶问题，得到原始问题的最优解，这就是线性可分支持向量机的对偶算法。这样做的优点，一是**对偶问题往往更容易求解**，二是自然引入核函数，进而推广到非线性分类问题。
 
+已知原始问题
+$$
+\begin{aligned}
+&\mathop{\text{min}}_{w,b}\quad \frac{1}{2}||w||^2\\
+&\text{s.t.}\quad y_i\left(w\cdot x_i+b\right)-1\geqslant 0,\ i=1,2,...,N\\
+\end{aligned}
+$$
 首先构建拉格朗日函数。为此，对每一个不等式约束引入拉格朗日乘子$\alpha_i\geqslant 0, i=1,2,...,N$，定义拉格朗日函数：
 $$
 L(w,b,\alpha)=\frac{1}{2}||w||^2-\sum_{i=1}^N\alpha_iy_i(w\cdot x_i+b)+\sum_{i=1}^N\alpha_i
@@ -242,15 +249,15 @@ $$
 转化为：
 $$
 \begin{aligned}
-&\mathop{\text{min}}_{w,b}\mathop{\text{max}}_{\lambda}\quad L(w,b,\alpha)\\
+&\mathop{\text{min}}_{w,b}\mathop{\text{max}}_{\alpha}\quad L(w,b,\alpha)\\
 &\text{s.t.}\quad \alpha_i\geqslant 0\\
 \end{aligned}
 $$
 有的小伙伴这里不理解，为什么这里突然变成了拉格朗日函数最大值的最小化？原因是
 $$
 \begin{aligned}
-&\text{if}\quad 1-y_i(w^Tx_i+b)>0,\quad \mathop{\text{max}}_{\lambda}L(w,b,\alpha)=\frac{1}{2}||w||^2+\infty=\infty\\
-&\text{if}\quad 1-y_i(w^Tx_i+b)\leqslant 0,\quad \mathop{\text{max}}_{\lambda}L(w,b,\alpha)=\frac{1}{2}||w||^2+0=\frac{1}{2}||w||^2\\
+&\text{if}\quad 1-y_i(w^Tx_i+b)>0,\quad \mathop{\text{max}}_{\alpha}L(w,b,\alpha)=\frac{1}{2}||w||^2+\infty=\infty\\
+&\text{if}\quad 1-y_i(w^Tx_i+b)\leqslant 0,\quad \mathop{\text{max}}_{\alpha}L(w,b,\alpha)=\frac{1}{2}||w||^2+0=\frac{1}{2}||w||^2\\
 \end{aligned}
 $$
 所以，由于满足$1-y_i(w^Tx_i+b)\leqslant 0$，所以是**等价**的。
@@ -348,7 +355,7 @@ $$
 &h_j(x^*)=0\quad i=1,2,...,l\\
 \end{aligned}
 $$
-特别指出，上式中的第四行称为KKT的**互补松弛条件**，粗略地讲，互补松弛条件意味着在最优点处，除了第i个约束起作用的情况（$c_i(x^*)=0$，即弹簧振子碰触到了边界），最优Lagrange乘子的第i项$\alpha_i^*$都为零，也就是说，若$\alpha_i^*>0$，则$c_i(x^*)=0$（即若接触力不为零，则弹簧振子接触边界）。
+特别指出，上式中的第四行称为KKT的**互补松弛条件**，粗略地讲，互补松弛条件意味着在最优点处，除了第 $i$ 个约束起作用的情况（$c_i(x^*)=0$，即弹簧振子碰触到了边界），最优Lagrange乘子的第 $i$ 项$\alpha_i^*$（接触力）都为零，也就是说，若$\alpha_i^*>0$，则$c_i(x^*)=0$（即若接触力不为零，则弹簧振子接触边界）。
 
 下面开始正式证明：
 
@@ -366,11 +373,18 @@ $$
 $$
 w^*=\sum_i\alpha_i^*y_ix_i
 $$
-其中至少有一个$\alpha_j^*>0$（反证法，如果所有的$\alpha^*$均为0，则$w^*$为0，不是原始最优化问题的解，则产生矛盾），因此对这个j或这几个j有（**根据上面的互补松弛条件，不等式变为等式，这说明处于边界上，所以其实下标j代表的点就位于边界上，也就是所谓的支持向量。所以注意观察上式，最优分界面的w的值其实并不是每一个点都在贡献的，而仅仅是由a不为零的点，也就是边界上的支撑点贡献的**）：
+其中至少有一个$\alpha_j^*>0$（反证法，如果所有的$\alpha^*$均为0，则$w^*$为0，不是原始最优化问题的解，则产生矛盾），因此对这个 $j$ 或这几个 $j$ 有（**根据上面的互补松弛条件，不等式变为等式，这说明处于边界上，所以其实下标 $j$ 代表的点就位于边界上，也就是所谓的支持向量。所以注意观察上式，最优分界面的 $w$ 的值其实并不是每一个点都在贡献的，而仅仅是由 $\alpha$ 不为零的点，也就是边界上的支撑点贡献的**）：
 $$
 y_j(w^*\cdot x_j+b^*)-1=0
 $$
-将上上式带入上式，并注意到$y_j^2=1$，即得
+将上上式带入上式，并注意到$y_j^2=1$，有
+$$
+\begin{aligned}
+&y_j(w^*\cdot x_j+b^*)-y_j^2=0\\
+\rightarrow &w^*\cdot x_j+b^*-y_j=0
+\end{aligned}
+$$
+即得
 $$
 \begin{aligned}
 b^*&=y_j-w^*x_j\\
@@ -392,7 +406,7 @@ $$
 $$
 f(x)=\text{sign}\left( \sum_{i=1}^N\alpha_i^*y_i(x\cdot x_i)+b^* \right)
 $$
-这就是说，分类决策函数只依赖与输入x和训练样本输入的内积。上式称为线性可分支持向量机的对偶形式。
+这就是说，分类决策函数只依赖与输入$x$和训练样本输入的内积。上式称为线性可分支持向量机的对偶形式。
 
 ## 线性可分支持向量机学习算法
 
@@ -433,7 +447,7 @@ $$
 $$
 w^*=\sum_{i=1}^N\alpha_i^*y_ix_i
 $$
-并选择$\alpha^*$的一个正分量$\alpha_j^*>0$，计算
+并选择$\alpha^*$的一个正分量$\alpha_j^*>0$（即边界上的支持向量点），计算
 $$
 b^*=y_j-\sum_{i=1}^N\alpha_i^*y_i(x_i\cdot x_j)
 $$
@@ -478,3 +492,4 @@ $$
 * 《统计学习方法》李航
 
 本章的结构和大部分内容均参考此书对应章节。
+

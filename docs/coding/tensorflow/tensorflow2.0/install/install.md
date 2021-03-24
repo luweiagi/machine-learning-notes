@@ -1,12 +1,8 @@
-# TensorFlow2.0基础
+# TensorFlow2.0安装
 
 * [返回上层目录](../tensorflow2.0.md)
 
-
-
-# 安装Tensorflow
-
-## Anaconda下安装Tensorflow2.0
+# Anaconda下安装Tensorflow2.0
 
 anaconda的安装方式不再赘述，首先虚拟出一个tf2.0的环境：
 
@@ -65,11 +61,24 @@ conda deactivate
 
 
 
-## linux系统下安装Tensorflow2.1
+# linux系统下安装Tensorflow2.1
 
 具体参考：[Centos7 安装Tensorflow2.1 GPU以及Pytorch1.3 GPU（CUDA10.1）](https://blog.csdn.net/qq_37541097/article/details/103933366)
 
+参照上述教程安装完之后，可能会出现一些问题，如：
 
+**关于import tensorflow出现的FutureWarning问题及解决**
+
+在安装完tensorflow-gpu之后，等不及进去python里试验一下是否装成功，结果第一个import tensorflow as tf便出现了如下问题：
+
+```
+FutureWarning: Passing (type, 1) or ‘1type’ as a synonym of type is deprecated; in a future version of numpy, it will be understood as (type, (1,)) / ‘(1,)type’.
+_np_quint8 = np.dtype([(“quint8”, np.uint8, 1)])
+```
+
+**解决办法：**
+
+对h5py进行升级：`pip install h5py==2.8.0rc1`，对numpy包进行降级：`pip install numpy==1.6.0`。
 
 
 
@@ -78,10 +87,6 @@ conda deactivate
 ```python
 print(tf.test.is_gpu_available())
 ```
-
-
-
-
 
 
 

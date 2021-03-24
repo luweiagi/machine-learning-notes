@@ -65,6 +65,27 @@ Tue Mar 31 20:03:24 2020
 
 * 自己写的：见具体的代码，这里就不写了，有点长。
 
+# 程序按需占用GPU显存
+
+在使用过程中，我发现我的机器显存在没有执行复杂操作的时候已经占用很高。经过调查发现，tensorflow默认是占用所有显卡和全部显存，用户可以通过以下设置，让tensorflow按需要占用显存。
+
+以下命令为TensorFlow 2.x的命令：
+
+```python
+import tensorflow as tf
+gpus = tf.config.experimental.list_physical_devices('GPU')
+if gpus:
+    try:
+        # Currently, memory growth needs to be the same across GPUs
+        for gpu in gpus:
+            tf.config.experimental.set_memory_growth(gpu, True)
+        logical_gpus = tf.config.experimental.list_logical_devices('GPU')
+        print(len(gpus), "Physical GPUs,", len(logical_gpus), "Logical GPUs")
+    except RuntimeError as e:
+        # Memory growth must be set before GPUs have been initialized
+        print(e)
+```
+
 # 网上的云GPU
 
 网上比较便宜的云gpu网站有：
@@ -101,4 +122,18 @@ tar -vxf xxx  # 解包
 （5）关闭远程服务器。
 
 在网页端的`服务器管理`下点击`关机`即可。或者在远程服务器的`~/`目录下运行`shutdown.sh`关机命令。
+
+
+
+
+
+# 参考资料
+
+
+
+===
+
+[指定当前程序使用的 GPU](https://www.cnblogs.com/king-lps/p/12748459.html)
+
+
 

@@ -1,8 +1,19 @@
 # Tensorflow中使用GPU
 
 * [返回上层目录](../tools.md)
+* [测试是否支持GPU](#测试是否支持GPU)
+* [查看GPU的信息](#查看GPU的信息)
+* [动态指定空闲GPU](#动态指定空闲GPU)
+* [程序按需占用GPU显存](#程序按需占用GPU显存)
+* [网上的云GPU](#网上的云GPU)
 
 
+
+# 测试是否支持GPU
+
+```python
+print(tf.test.is_gpu_available())
+```
 
 # 查看GPU的信息
 
@@ -56,6 +67,38 @@ Tue Mar 31 20:03:24 2020
 再通过命令`ll /proc/pid`查看pid信息。
 
 另外，`nvidia-smi -l`命令可以不断自动刷新GPU信息。
+
+**GPU信息介绍**
+
+![nvidia-smi](pic/nvidia-smi.png)
+
+GPU：本机中的GPU编号
+
+Name：GPU类型
+
+Persistence-M：驱动常驻模式
+
+Fan：风扇转速
+
+Temp：温度，单位摄氏度
+
+Perf：表征性能状态，从P0到P12，P0表示最大性能，P12表示状态最小性能
+
+Pwr:Usage/Cap：能耗表示
+
+Bus-Id：涉及GPU总线的相关信息；
+
+Disp.A：Display Active，表示GPU的显示是否初始化
+
+Memory-Usage：显存使用率
+
+Volatile GPU-Util：浮动的GPU利用率
+
+Uncorr. ECC：关于ECC的东西
+
+Compute M.：计算模式
+
+Processes 显示每块GPU上每个进程所使用的显存情况。
 
 # 动态指定空闲GPU
 

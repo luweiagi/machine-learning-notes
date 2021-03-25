@@ -80,6 +80,18 @@ _np_quint8 = np.dtype([(“quint8”, np.uint8, 1)])
 
 对h5py进行升级：`pip install h5py==2.8.0rc1`，对numpy包进行降级：`pip install numpy==1.6.0`。
 
+**cuda 10.1下使用tensorflow-gpu 1.4报错解决办法**
+
+报错信息:
+
+```；
+ImportError: libcublas.so.10.0: cannot open shared object file: No such file or directory
+```
+
+解决办法：
+
+[cuda 10.1下使用tensorflow-gpu 1.4报错解决办法](https://blog.csdn.net/weixin_42398077/article/details/101158496)
+
 
 
 # 测试是否支持GPU

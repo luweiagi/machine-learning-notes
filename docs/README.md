@@ -1,10 +1,8 @@
-# [点此阅读](https://luweikxy.github.io/machine-learning-notes/)
+# [=>点此阅读<=](https://luweikxy.github.io/machine-learning-notes/)
 
 * [任务清单](personal/list.md)
 * [收集的各种资料](personal/material.md)
 * [有用的工具](personal/tools.md)
-
-
 
 # 目录
 
@@ -114,7 +112,7 @@
   * [Hadoop简介](coding/hadoop/hadoop-introduction.md)
   * [MapReduce](coding/hadoop/map-reduce.md)
   * [Hive](coding/hive/hive.md)
-- [Spark](coding/spark/spark.md)
+* [Spark](coding/spark/spark.md)
 * [TensorFlow](coding/tensorflow/tensorflow.md)
   * [TensorFlow1.0](coding/tensorflow/tensorflow1.0/tensorflow1.0.md)
     * [TensorFlow基础](coding/tensorflow/tensorflow1.0/basis/basis.md)
@@ -283,4 +281,3 @@
 
 
 # [反绎学习](abductive-learning/abductive-learning.md)
-

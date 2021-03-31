@@ -8,15 +8,15 @@ TensorFlow服务是你训练应用机器学习模型的方式。
 
 TensorFlow服务使得投入生产的过程模型更容易、更快速。它允许你安全地部署新模型并运行实验，同时保持相同的服务器体系结构和API。开箱即用，它提供了与TensorFlow的集成，而且它可以扩展为其他类型的模型。
 
-![tfserving](pic/tfserving.jpg)
+![TFserving](pic/TFserving.jpg)
 
 大家习惯使用TensorFlow进行模型的训练、验证和预测，但模型完善之后的生产上线流程，就变得五花八门了。针对这种情况Google提供了TensorFlow Servering，可以将训练好的模型直接上线并提供服务。在2017年的TensorFlow开发者Summit上便提出了TensorFlow Serving。
 
-但那时候客户端和服务端的通信只支持gRPC。在实际的生产环境中比较广泛使用的C/S通信手段是基于RESTfull API的，幸运的是从TF1.8以后，TF Serving也正式支持RESTfull API通信方式了。
+但那时候客户端和服务端的通信只支持gRPC。在实际的生产环境中比较广泛使用的C/S通信手段是基于RESTfull API的，幸运的是从tf1.8以后，TFserving也正式支持RESTfull API通信方式了。
 
 * 用什么来部署：当然是TFserving
 
-* 怎么提供api接口：TFserving有提供restful api接口，现实部署时会在前面再加一层如flask api
+* 怎么提供api接口：TFserving有提供RESTful api接口，现实部署时会在前面再加一层如Flask api
 
 * 多个模型GPU资源如何分配：TFserving支持部署多模型，通过配置
 
@@ -62,7 +62,7 @@ sudo apt install docker.io
 docker pull tensorflow/serving:1.14.0
 ```
 
-![docker-pull-tfserving](pic/docker-pull-tfserving.jpg)
+![docker-pull-TFserving](pic/docker-pull-TFserving.jpg)
 
 如果下载错了，可以这样删除：
 
@@ -97,9 +97,9 @@ docker run -p 8500:8500 --name="lstm" --mount type=bind,source=D:\code\PycharmPr
 
 
 
-此外，如果想停止tfserving服务或者删除同名服务，则
+此外，如果想停止TFserving服务或者删除同名服务，则
 
-停掉tfserving服务
+停掉TFserving服务
 
 先找到Docker容器进程：
 
@@ -142,9 +142,9 @@ curl http://localhost:8501/v1/models/lstm
 >     "error_code": "OK",
 >     "error_message": ""
 
-## 通过model metadata API 查看模型的元数据
+## 通过model metadata API查看模型的元数据
 
-```
+```shell
 curl http://localhost:8501/v1/models/lstm/metadata
 ```
 
@@ -470,7 +470,7 @@ POS
 
 # Flask服务
 
-![flask-logo](pic/flask-logo.png)
+![Flask-logo](pic/Flask-logo.png)
 
 ## 为什么需要Flask服务器
 
@@ -483,7 +483,7 @@ POS
 
 我们要做的是消除TensorFlow服务器和我们的前端之间的紧密耦合。
 
-![flask-tfserving](pic/flask-tfserving.jpg)
+![Flask-TFserving](pic/Flask-TFserving.jpg)
 
 ## Flask的HelloWorld代码
 
@@ -504,29 +504,29 @@ if __name__ == "__main__":
 
 ## Flask的缺陷
 
-Flask 自带的网关不是并发的，性能不好，不适用于生产环境。
+Flask自带的网关不是并发的，性能不好，不适用于生产环境。
 
 Flask是一个web框架，而非web server，直接用Flask拉起的web服务仅限于开发环境使用，生产环境不够稳定，也无法承受大量请求的并发，在生产环境下需要使用服务器软件来处理各种请求，如Gunicorn、 Nginx或Apache。
 
 **Flask框架是通过多线程/多进程+阻塞的socket实现非阻塞，其本质是基于python的源库socketserver实现的**
 
-## gevent+flask同步变异步
+## gevent+Flask同步变异步
 
-gevent+flask是最简单的把同步程序变成异步程序的方法。
+gevent+Flask是最简单的把同步程序变成异步程序的方法。
 
-Flask 自带的网关不是并发的，性能不好，不适用于生产环境。Flask的web server，不能用于生产环境，不稳定，比如说，每隔十几分钟，有一定概率遇到连接超时无返回的情况。因此 Flask, Django，webpy 等框架自带的 web server 性能都很差，只能用来做测试用途。
+Flask自带的网关不是并发的，性能不好，不适用于生产环境。Flask的web server，不能用于生产环境，不稳定，比如说，每隔十几分钟，有一定概率遇到连接超时无返回的情况。因此Flask, Django，webpy等框架自带的web server性能都很差，只能用来做测试用途。
 
 **gevent的原理**
 
 Python通过`yield`提供了对协程的基本支持，但是不完全。而第三方的gevent为Python提供了比较完善的协程支持。
 
-gevent是第三方库，通过greenlet实现协程，其基本思想是：
+gevent是第三方库，基于greenlet（一个轻量级的协程库）的网络库，通过greenlet实现协程，其基本思想是：
 
 当一个greenlet遇到IO操作时，比如访问网络，就自动切换到其他的greenlet，等到IO操作完成，再在适当的时候切换回来继续执行。由于IO操作非常耗时，经常使程序处于等待状态，有了gevent为我们自动切换协程，就保证总有greenlet在运行，而不是等待IO。
 
 由于切换是在IO操作时自动完成，所以gevent需要修改Python自带的一些标准库，这一过程在启动时通过monkey patch完成。
 
-具体gevent+flask代码如下：
+具体gevent+Flask代码如下：
 
 ```python
 # -*- coding: utf-8 -*-
@@ -552,7 +552,7 @@ def hello():
 
 @app.route("/predict", methods=["GET", "POST"])
 def predict():
-    # flask url中参数 https://zhuanlan.zhihu.com/p/43656865
+    # Flask url中参数 https://zhuanlan.zhihu.com/p/43656865
     print("request.method =", request.method)
     if request.method == 'GET':  # get方法 ?num=10
         data = request.args.to_dict()
@@ -579,7 +579,7 @@ def predict():
 
 
 if __name__ == "__main__":
-    # flask原生服务
+    # Flask原生服务
     # app.run(host="0.0.0.0", port=5100, debug=True, threaded=True)  # threaded默认为True
 
     dapp = DebuggedApplication(app, evalex=True)
@@ -587,19 +587,102 @@ if __name__ == "__main__":
     server.serve_forever()
 ```
 
+# Nginx+Gunicorn+Flask部署
+
+之前用Flask写了个网站，然后直接放在服务器上运行：
+
+```shell
+python run.py
+```
+
+结果感觉怎么那么不稳定！！！然后就以为是服务器不行。
+
+后来才知道原来Flask的`app.run()`只是用来本地调试用的，如果真正放到服务器上运行的话，是完全不行的！需要配合Gunicorn/uWsgi和Nginx才行。
+
+## 理解Nginx+Gunicorn+Flask
+
+### 为什么要用Nginx+Gunicorn+Flask+supervisor方式部署
+
+线上发布则需要选择更高性能的wsgi server。这里推荐的部署方式：Nginx + Gunicorn + Flask + supervisor。
+
+用Flask开发之后，很多人，喜欢用`nohup python manage.py &`这样的形式，放到后台运行，其实这样只是个发开模式，很简陋，无法支持并发，进程监控等功能。所以采用Nginx + uwsgi + Flask的方式进行部署。
+
+Flask自带的wsgi性能低下，只适合你开发调试的时候用，线上你必须用Nginx + Gunicorn才能获得更强的性能，和更高的安全性。
+
+Nginx + Gunicorn，是利用Nginx高并发的优势，Nginx收到http请求之后，把他转发给wsgi服务器Gunicorn，Gunicorn上运行Flask应用，处理请求之后再返回给Nginx，而Gunicorn擅长于管理多进程，一般用来管理多个进程，有进程挂了Gunicorn可以把它拉起来，防止服务器长时间停止服务，还可以动态调整worker的数量，请求多的时候增加worker的数量，请求少的时候减少，这就是所谓的pre-fork模型。
+
+如果要部署多个APP，可以采用单个Nginx，多个gunicorn+Flask的方式来实现，如下图所示。
+
+![single-nginx-multi-gunicorn-flask](pic/single-nginx-multi-gunicorn-flask.png)
+
+### Nginx、gunicore和Flask之间的关系
+
+知乎：[为什么Nginx可以直接部署，还要uWSGI，Gunicorn等中间件？](https://www.zhihu.com/question/342967945)
+
+![Nginx-gunicore-Flask](pic/Nginx-gunicore-Flask.jpg)
+
+首先来看两个概念
+
+**WSGI**：[Web Server Gateway Interface](https://en.wikipedia.org/wiki/Web_Server_Gateway_Interface)，是一个接口，定义web server如何转发请求到Python写的应用中。就像Java的servlet API，这样只要实现接口的web server都可以调用遵守此接口的任何Python应用。
+
+**uWSGI：**实现了WSGI的一个中间件。
+
+回到问题，其实题主问题是有些不太准确的，Nginx是不能直接部署python web的，因为Nginx不支持WSGI规范。当然Nginx也可以实现，不过术业有专攻，Nginx没有做。
+
+uWSGI是实现了WSGI接口的，一个完整的http server，可以直接用来部署Python Web的，但为什么还需要Nginx呢？因为Nginx擅长高并发，静态文件，gzip压缩等，这些功能是uWSGI不具备的，如果你的网站访问量不大，可以只用uWSGI，完全不需要用Nginx。
+
+所以现在流行的使用方法是Nginx+uWSGI（如上图），Nginx来完成Proxy，静态文件服务等，动态请求转给uWSGI调用Python来完成。Nginx与uWSGI通过[uwsgi](https://uwsgi-docs.readthedocs.io/en/latest/Protocol.html)（全部小写）协议来完成，uwsgi是一个二进制协议允许uWSGI与Nginx等应用服务器交互。
+
+---
+
+python代码里包括的wsgi app，简易的http server（不建议用于线上环境）：
+
+比如你在Flask中的`app = Flask(__name__)​`，这个app就是wsgi app，它只是一个callable对象，传入一个wsgi请求，返回一个wsgi的响应， 想像成一个函数就好了，接收参数，返回结果。
+
+一般的web框架还会提供一个简易的http server， 比如你在Flask中`app.run()`，其实就是启动了一个http server，这个server做的事情就是监听端口，把http请求转换为wsgi的请求，传递给wsgi app处理， 再把wsgi app返回的wsgi响应转换为http的响应，返回给客户端。
+
+至于Nginx，其实在这里就是扮演了一个http server的角色，就像Flask内置的server一样，但是提供了更多的功能，也有更强的性能和稳定性。 那么Nginx怎么调用python写的wsgi app呢？两个办法：
+
+1. 插件，就是Nginx用一个插件来在http和wsgi协议间做转换
+2. 自己再提供一个http server，这样Nginx就只需要做转发就好了。 这就是uwsgi和Gunicorn的作用了，他们就是一个加强版的http server，把http转换为wsgi，http这头是Nginx，wsgi那头是wsgi app。当然，因为uwsgi，Gunicorn这些东西已经提供了http服务，不要Nginx也是可以的。还是那句话，生产环境不推荐。毕竟Nginx提供的http层面的很多功能是uwsgi这些东西没有的。
+
+---
+
+首先题主要清楚
+
+1. 理论上Nginx可以通过一些手段不用Gunicorn这玩意。
+
+2. 计算机世界里面的多一层的解决方案，都是是为了好管理，是为了职责清晰。
+
+3. 某个场景下可以，不代表这个场景下这么做就好。比如，你可以去搬砖，但你没必要去搬砖，甚至说，你搬砖水平不如专业搬砖的。
+
+举几个例子
+
+1. 僧多粥少。Nginx 可以上万并发，而正常的python server根本不够这么多并发。那么很简单，把Nginx作为负载均衡，雨露均沾的分配请求到这些web服务器上。如果直接部署。则是把这些东西耦合在一起。没法scale。
+
+2. 让专业的去做专业的事情。Gunicorn有很多worker的姿势，比如支持sync worker，gevent worker，比如tornado worker。Nginx如果全都支持，那岂不是要累死Nginx团队？
+
+3. 精准控制，比如Gunicorn的sync worker是支持prefork，这也就意味着可以在收到足够多的请求的时候，预先帮你提升worker数量，来处理。比如，Gunicorn进程的用户可能和Nginx不一样，具备更高的权限，你用Nginx处理，是不是就有点简单粗暴了呢？再比如，我要针对wsgi做一些监控。这怎么处理？
+
+### 为什么不直接把Flask部署到Nginx 上，而是要用uwsgi服务器？
+
+uwsgi服务器是将web请求的参数/属性，转换成python中相应的数据结构，以便于上层的python代码不用关注tcp层的细节。
+
+说的简单点，web端口接收到的请求原始格式是字符串，但是你在django中通过request.GET就可以获取到get请求的参数，是因为wsgi帮你把原始的字符串处理成request这样的数据结构。
+
+而nginx的功能是处理一些静态的资源以及路由的转发。并不会将原始请求的字符串转换成python中的字符串，所以需要搭配使用！
+
+### 为什么需要Nginx
+
+先要弄清楚web开发的两大块，**web服务器**和**web框架**。
+
+web服务器即用来接受客户端请求，建立连接，转发响应的程序。至于转发的内容是什么，交由web框架来处理，即处理这些业务逻辑。如查询数据库、生成实时信息等。Nginx就是一个web服务器，Django或Flask就是web框架。
+
+一个普通的个人网站，访问量不大的话，当然可以由uWSGI和Django/Flask构成。但是一旦访问量过大，客户端请求连接就要进行长时间的等待。这个时候就出来了分布式服务器，我们可以多来几台web服务器，都能处理请求。但是谁来分配客户端的请求连接和web服务器呢？Nginx就是这样一个管家的存在，由它来分配。这也就是由Nginx实现反向代理，即代理服务器。
+
+![why-need-nginx](pic/why-need-nginx.jpg)
 
 
-# nginx+gunicorn+flask部署
-
-线上发布则需要选择更高性能的 wsgi server 。这里推荐的部署方式：nginx + gunicorn + flask + supervisor
-
-用Flask开发之后，很多人，喜欢用`nohup python manage.py &`这样的形式，放到后台运行，其实这样只是个发开模式，很简陋，无法支持并发，进程监控等功能。所以采用nginx+uwsgi+flask的方式进行部署。
-
-
-
-Flask自带的wsgi性能低下，只适合你开发调试的时候用，线上你必须用Gunicorn+Nginx才能获得更强的性能，和更高的安全性
-
-nginx + gunicorn，是利用nginx高并发的优势，nginx收到http请求之后，把他转发给wsgi服务器gunicorn，gunicorn上运行flask应用，处理请求之后再返回给nginx，而gunicorn擅长于管理多进程，一般用来管理多个进程，有进程挂了Gunicorn可以把它拉起来，防止服务器长时间停止服务，还可以动态调整 worker的数量，请求多的时候增加 worker 的数量，请求少的时候减少，这就是所谓的 pre-fork 模型。
 
 [TensorFlow Serving + Docker + Tornado机器学习模型生产级快速部署](https://zhuanlan.zhihu.com/p/52096200)
 
@@ -609,21 +692,541 @@ nginx + gunicorn，是利用nginx高并发的优势，nginx收到http请求之�
 
 [tensorflow中ckpt转pb](https://zhuanlan.zhihu.com/p/102302133)
 
-[GET 和 POST 到底有什么区别？](https://www.zhihu.com/question/28586791)
+[GET和POST到底有什么区别？](https://www.zhihu.com/question/28586791)
 
-[win10 Nginx gunicorn Flask](https://www.baidu.com/s?wd=win10%20Nginx%20gunicorn%20Flask%20&rsv_spt=1&rsv_iqid=0xcb4be9e40000865a&issp=1&f=8&rsv_bp=1&rsv_idx=2&ie=utf-8&rqlang=cn&tn=sitehao123&rsv_dl=tb&rsv_enter=0&oq=Nginx%2520gunicorn%2520Flask%2520win10&rsv_btype=t&inputT=2190&rsv_t=ea67For%2F6HFKbc6nfx8j%2FhUHHcdWSMQJlcn3hdp7thX0f31%2BvB3iuAVoYrnbov8dbg&rsv_pq=fbb132c700116cf9&rsv_sug3=28&rsv_sug1=20&rsv_sug7=100&rsv_n=2&rsv_sug4=2419)
+[win10 Nginx Gunicorn Flask](https://www.baidu.com/s?wd=win10%20Nginx%20Gunicorn%20Flask%20&rsv_spt=1&rsv_iqid=0xcb4be9e40000865a&issp=1&f=8&rsv_bp=1&rsv_idx=2&ie=utf-8&rqlang=cn&tn=sitehao123&rsv_dl=tb&rsv_enter=0&oq=Nginx%2520Gunicorn%2520Flask%2520win10&rsv_btype=t&inputT=2190&rsv_t=ea67For%2F6HFKbc6nfx8j%2FhUHHcdWSMQJlcn3hdp7thX0f31%2BvB3iuAVoYrnbov8dbg&rsv_pq=fbb132c700116cf9&rsv_sug3=28&rsv_sug1=20&rsv_sug7=100&rsv_n=2&rsv_sug4=2419)
 
-[Python3 Flask+nginx+Gunicorn部署（上）](https://blog.csdn.net/xudailong_blog/article/details/80490137)
+[Python3 Flask+Nginx+Gunicorn部署（上）](https://blog.csdn.net/xudailong_blog/article/details/80490137)
 
-[Flask应用示例3 - 通过nginx+gunicorn+flask搭建web服务](https://www.jianshu.com/p/d71d6d793aaa)
+[Flask应用示例3 - 通过Nginx+Gunicorn+Flask搭建web服务](https://www.jianshu.com/p/d71d6d793aaa)
 
-[uwsgi、wsgi和nginx的区别和关系](https://blog.csdn.net/CHENYAoo/article/details/83055108)
+[uwsgi、wsgi和Nginx的区别和关系](https://blog.csdn.net/CHENYAoo/article/details/83055108)
+
+## 部署流程
+
+整个部署过程可以总结为：
+
+* 安装Flask、Gunicorn、Nginx
+* 添加Flask项目
+* 运行Gunicorn
+* 修改Nginx配置文件
+* 运行Nginx
+
+下面一步步来。
+
+## Flask
+
+这里就创建一个最简单的Flask项目，创建一个`test.py`的Python文件。
+
+```shell
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
+from flask import Flask,request
+app = Flask(__name__)
+
+
+@app.route('/')
+def home():
+    return "home"
+
+
+if __name__ == '__main__':
+    # app.run(debug=False)
+    app.run(host='0.0.0.0', port=8001, debug=True)
+```
+
+
+
+
+
+## Gunicorn
+
+### 什么是Gunicorn
+
+Gunicorn是一个基于Python的WSGI HTTP服务器。它所在的位置通常是在反向代理（如 Nginx）或者负载均衡（如AWS ELB）和一个web应用（比如Django或者Flask）之间。
+
+Guincorn是支持wsgi协议的http server，实现了一个UNIX的预分发web服务端。是为了解决Django、Flask这些web框架自带wsgi server性能低下的问题。
+
+好的，那这是什么意思呢？
+
+- Gunicorn启动了被分发到的一个主线程，然后因此产生的子线程就是对应的worker。
+- 主进程的作用是确保worker数量与设置中定义的数量相同。因此如果任何一个worker挂掉，主线程都可以通过分发它自身而另行启动。
+- worker的角色是处理HTTP请求。
+- 这个 **预**in**预分发** 就意味着主线程在处理HTTP请求之前就创建了worker。
+- 操作系统的内核就负责处理worker进程之间的负载均衡。
+
+### 运行Gunicorn
+
+跳转到`test.py`文件所在的目录下。然后
+
+```shell
+ gunicorn -w 4 -b 0.0.0.0:8001 test:app
+```
+
+
+
+```shell
+ps -ef | grep gunicorn
+# 1个父进程
+14973 5033 python gunicorn -w 4 -b 0.0.0.0:8001 test:app
+# 父进程开启4个子进程
+14976 14973 python gunicorn -w 4 -b 0.0.0.0:8001 test:app
+14977 14973 python gunicorn -w 4 -b 0.0.0.0:8001 test:app
+14978 14973 python gunicorn -w 4 -b 0.0.0.0:8001 test:app
+14979 14973 python gunicorn -w 4 -b 0.0.0.0:8001 test:app
+```
+
+
+
+## Nginx
+
+### Nginx介绍
+
+Nginx的基本操作
+
+[Nginx 在Ubuntu上的安装，测试](https://blog.csdn.net/leon_zeng0/article/details/108820360)
+
+#### Nginx是什么
+
+[连前端都看得懂的《Nginx 入门指南》](https://juejin.cn/post/6844904129987526663)
+
+Nginx是全球排名前三的服务器，并且近年来用户增长非常快。有人统计，世界上约有三分之一的网址采用了Nginx。在大型网站的架构中，Nginx被普遍使用，如 百度、阿里、腾讯、京东、网易、新浪、大疆等。Nginx 安装简单，配置简洁，作用却无可替代。
+
+> “Nginx是一款轻量级的HTTP服务器，采用事件驱动的异步非阻塞处理方式框架，这让其具有极好的IO性能，时常用于服务端的**反向代理**和**负载均衡**。”
+
+这是大多数开发者对Nginx的定义。
+
+Nginx 是一款http服务器 （或叫web服务器）。它是由俄罗斯人`伊戈尔·赛索耶夫`为俄罗斯访问量第二的 Rambler.ru站点开发的，并于2004年首次公开发布的。
+
+> web服务器：负责处理和响应用户请求，一般也称为http服务器，如Apache、IIS、Nginx
+>
+> 应用服务器：存放和运行系统程序的服务器，负责处理程序中的业务逻辑，如Tomcat、Weblogic、Jboss（现在大多数应用服务器也包含了web服务器的功能）
+
+Nginx是什么，总结一下就是这些：
+
+- 一种轻量级的web服务器
+- 设计思想是事件驱动的异步非阻塞处理（类node.js）
+- 占用内存少、启动速度快、并发能力强
+- 使用C语言开发
+- 扩展性好，第三方插件非常多
+- 在互联网项目中广泛应用
+
+#### 修改配置
+
+Nginx默认配置文件简介：
+
+```shell
+# 首尾配置暂时忽略
+server {  
+        # 当nginx接到请求后，会匹配其配置中的service模块
+        # 匹配方法就是将请求携带的host和port去跟配置中的server_name和listen相匹配
+        listen       8080;        
+        server_name  localhost; # 定义当前虚拟主机（站点）匹配请求的主机名
+
+        location / {
+            root   html; # Nginx默认值
+            # 设定Nginx服务器返回的文档名
+            index  index.html index.htm; # 先找根目录下的index.html，如果没有再找index.htm
+        }
+}
+# 首尾配置暂时忽略
+```
+
+server{ }其实是包含在http{ }内部的。每一个server{ }是一个虚拟主机（站点）。
+
+上面代码块的意思是：当一个请求叫做`localhost:8080`请求Nginx服务器时，该请求就会被匹配进该代码块的 server{ }中执行。
+
+当然Nginx的配置非常多，用的时候可以根据文档进行配置。
+
+> 英文文档：[nginx.org/en/docs/](http://nginx.org/en/docs/)
+>
+> 中文文档：[www.nginx.cn/doc/](https://www.nginx.cn/doc/)
+
+#### Nginx有哪些应用？
+
+主要有4大应用。
+
+##### 反向代理
+
+**反向代理是什么？**
+
+反向代理其实就类似你去找代购帮你买东西（浏览器或其他终端向nginx请求），你不用管他去哪里买，只要他帮你买到你想要的东西就行（浏览器或其他终端最终拿到了他想要的内容，但是具体从哪儿拿到的这个过程它并不知道）。
+
+**反向代理的作用**
+
+1. 保障应用服务器的安全（增加一层代理，可以屏蔽危险攻击，更方便的控制权限）
+2. 实现负载均衡（稍等~下面会讲）
+3. 实现跨域（号称是最简单的跨域方式）
+
+**配置反向代理**
+
+配置一个简单的反向代理是很容易的，代码如下：
+
+```shell
+server {
+    listen       8080;        
+    server_name  localhost;
+
+    location / {
+    root   html; # Nginx默认值
+    index  index.html index.htm;
+    }
+
+    proxy_pass http://localhost:8000; # 反向代理配置，请求会被转发到8000端口
+}
+```
+
+反向代理的表现很简单。那上面的代码块来说，其实就是向nginx请求`localhost:8080`跟请求 `http://localhost:8000` 是一样的效果。（跟代购的原理一样）
+
+这是一个反向代理最简单的模型，只是为了说明反向代理的配置。但是现实中反向代理多数是用在负载均衡中。
+
+示意图如下：
+
+![reverse-proxy](pic/reverse-proxy.png)
+
+Nginx就是充当图中的proxy。左边的3个client在请求时向Nginx获取内容，是感受不到3台server存在的。
+
+> 此时，proxy就充当了3个server的反向代理。
+
+反向代理应用十分广泛，CDN服务就是反向代理经典的应用场景之一。除此之外，反向代理也是实现负载均衡的基础，很多大公司的架构都应用到了反向代理。
+
+##### 负载均衡
+
+**负载均衡是什么？**
+
+随着业务的不断增长和用户的不断增多，一台服务已经满足不了系统要求了。这个时候就出现了服务器[集群](https://www.cnblogs.com/bhlsheji/p/4026296.html)。
+
+在服务器集群中，Nginx可以将接收到的客户端请求“均匀地”（严格讲并不一定均匀，可以通过设置权重）分配到这个集群中所有的服务器上。这个就叫做**负载均衡**。
+
+负载均衡的示意图如下：
+
+![load-balance](pic/load-balance.png)
+
+**负载均衡的作用**
+
+- 分摊服务器集群压力
+- 保证客户端访问的稳定性
+
+前面也提到了，负载均衡可以解决分摊服务器集群压力的问题。除此之外，Nginx还带有**健康检查**（服务器心跳检查）功能，会定期轮询向集群里的所有服务器发送健康检查请求，来检查集群中是否有服务器处于异常状态。
+
+一旦发现某台服务器异常，那么在这以后代理进来的客户端请求都不会被发送到该服务器上（直到健康检查发现该服务器已恢复正常），从而保证客户端访问的稳定性。
+
+**配置负载均衡**
+
+配置一个简单的负载均衡并不复杂，代码如下：
+
+```shell
+# 负载均衡：设置domain
+upstream domain {
+    server localhost:8000;
+    server localhost:8001;
+}
+server {  
+    listen       8080;        
+    server_name  localhost;
+
+    location / {
+        # root   html; # Nginx默认值
+        # index  index.html index.htm;
+
+        proxy_pass http://domain; # 负载均衡配置，请求会被平均分配到8000和8001端口
+        proxy_set_header Host $host:$server_port;
+    }
+}
+```
+
+8000和8001是我本地用 Node.js 起的两个服务，负载均衡成功后可以看到访问 `localhost:8080`有时会访问到8000端口的页面，有时会访问到8001端口的页面。
+
+能看到这个效果，就说明你配置的负载均衡策略生效了。
+
+实际项目中的负载均衡远比这个案例要更加复杂，但是万变不离其宗，都是根据这个理想模型衍生出来的。
+
+受集群单台服务器内存等资源的限制，负载均衡集群的服务器也不能无限增多。但因其良好的容错机制，负载均衡成为了实现**高可用架构**中必不可少的一环。
+
+### 安装、配置并运行Nginx
+
+安装Ngnix：`sudo apt-get install nginx`。
+
+安装了Ngnix之后，打开`/etc/nginx/sites-available/default`，然后修改默认的default为：
+
+```shell
+server {
+    listen 80;
+    server_name 127.0.0.1;
+
+    location / {
+    	try_files $uri @gunicorn_proxy;
+    }
+
+    location @gunicorn_proxy {
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header Host $http_host;
+        proxy_redirect off;
+        proxy_pass http://127.0.0.1:8001;
+        proxy_connect_timeout 500s;
+        proxy_read_timeout 500s;
+        proxy_send_timeout 500s;
+    }
+}
+```
+
+配置好default.conf之后就启动Ngnix吧：
+
+```shell
+service nginx start
+# 更改默认配置后用下面的命令热加载：
+nginx -s reload
+```
+
+ok！到这一步，整个部署过程就搞定了！打开浏览器输入http://你的服务器ip 看是否运行？
+
+在本地打开：
+
+![nginx-localhost-http](pic/nginx-localhost-http.jpg)
+
+在局域网其他主机打开（`192.168.43.75`是其在局域网中的IP）：
+
+![nginx-other-ip-http](pic/nginx-other-ip-http.jpg)
+
+
+
+
+
+## supervisord
+
+
+
+```shell
+sudo apt-get install supervisor
+```
+
+装成功后，会在`/etc/supervisor`目录下，生成`supervisord.conf`配置文件。
+
+你也可以使用`echo_supervisord_conf > supervisord.conf`命令，生成默认的配置文件（不建议，内容比较多，而且和下面的不一致，不要使用）。
+
+`supervisord.conf`示例配置：
+
+```shell
+; supervisor config file
+
+[unix_http_server]
+file=/var/run/supervisor.sock   ; (the path to the socket file)
+chmod=                       ; sockef file mode (default 0700)
+
+[supervisord]
+logfile=/var/log/supervisor/supervisord.log ; (main log file;default $CWD/supervisord.log)
+pidfile=/var/run/supervisord.pid ; (supervisord pidfile;default supervisord.pid)
+childlogdir=/var/log/supervisor            ; ('AUTO' child log dir, default $TEMP)
+
+; the below section must remain in the config file for RPC
+; (supervisorctl/web interface) to work, additional interfaces may be
+; added by defining them in separate rpcinterface: sections
+[rpcinterface:supervisor]
+supervisor.rpcinterface_factory = supervisor.rpcinterface:make_main_rpcinterface
+
+[supervisorctl]
+serverurl=unix:///var/run/supervisor.sock ; use a unix:// URL  for a unix socket
+
+; The [include] section can just contain the "files" setting.  This
+; setting can list multiple files (separated by whitespace or
+; newlines).  It can also contain wildcards.  The filenames are
+; interpreted as relative to this file.  Included files *cannot*
+; include files themselves.
+
+[include]
+files = /etc/supervisor/conf.d/*.conf
+```
+
+看最后一行，进程配置会读取`/etc/supervisor/conf.d`目录下的`*.conf`配置文件
+
+安装完成之后，默认就启动了supervisor
+
+查看supervisord是否在运行：
+
+```bash
+ps aux | grep supervisord
+```
+
+### 新增Nginx进程配置文件
+
+```shell
+cd /etc/supervisor/conf.d
+sudo vim nginx.conf
+```
+
+内容如下：
+
+```shell
+;supervisor nginx config file
+
+[program:nginx]  ;管理的子进程。后面的是名字，最好写的具有代表性，避免日后”认错“
+command = /usr/sbin/nginx -g 'daemon off;'  ;我们的要启动进程的命令路径，可以带参数。
+startsecs=10  ;子进程启动多少秒之后,此时状态如果是running,我们认为启动成功了,默认值1
+startretries=10  ;当进程启动失败后，最大尝试的次数。当超过10次后，进程的状态变为FAIL，默认值3
+autostart=true  ;如果是true的话，子进程将在supervisord启动后被自动启动，默认就是true
+autorestart=true  ;设置子进程挂掉后自动重启的情况，有三个选项，false,unexpected和true。
+				  ;false表示无论什么情况下，都不会被重新启动；
+				  ;unexpected表示只有当进程的退出码不在下面的exitcodes里面定义的退出码的时候，才会被自动重启。
+				  ;当为true的时候，只要子进程挂掉，将会被无条件的重启
+stdout_logfile=/var/log/nginx/stdout.log  ;日志
+redirect_stderr=true  ;如果设置为true，进程则会把标准错误输出到supervisord后台的标准输出文件描述符。
+priority=10  ;权重，可以控制程序启动和关闭时的顺序，权重越低：越早启动，越晚关闭。默认值是999
+stopasgroup=true  ;这个东西主要用于，supervisord管理的子进程，这个子进程本身还有子进程。
+				  ;那么我们如果仅仅干掉supervisord的子进程的话，子进程的子进程有可能会变成孤儿进程。
+				  ;所以可以设置这个选项，把整个该子进程的整个进程组干掉。默认false
+killasgroup=true  ;把整个该子进程的整个进程组干掉。默认false
+stopsignal=INT  ;进程停止信号，可以为TERM, HUP, INT, QUIT, KILL, USR1等,默认为TERM
+```
+
+注意：由于supervisor不能监控后台程序，`command = /usr/local/bin/nginx`这个命令默认是后台启动， 
+加上`-g ‘daemon off;’`这个参数可解决这问题，这个参数的意思是在前台运行。
+
+上面那个配置太复杂了，主要是让你理解一下各参数的含义，实际用这个：
+
+```shell
+[program:nginx]
+command = /usr/sbin/nginx -g 'daemon off;'
+startsecs=10
+autostart=true
+autorestart=true
+stdout_logfile=/var/log/nginx/stdout.log
+stopasgroup=true
+killasgroup=true
+```
+
+到这里基本就算是完成了，我们可以直接干掉Nginx，然后再启动supervisor就可以了，它会自动把Nginx启动起来。
+
+**干掉Nginx**：取消Nginx默认的开机自动启动服务，以启用supervisor来托管Nginx服务。
+
+* 关闭开机自动启动：`systemctl disable nginx`
+
+* 开机自动启动：`systemctl enable nginx`
+
+加载配置并重启supervisor：
+
+```shell
+sudo supervisorctl reload
+```
+
+如果上面这条命令不管用，还可以试试下面这两条命令：
+
+> supervisord : supervisor的服务器端部分，用于supervisor启动
+>
+> supervisorctl：启动supervisor的命令行窗口，在该命令行中可执行start、stop、status、reload等操作。
+>
+> `sudo supervisord -c /etc/supervisor/supervisord.conf`
+>
+> `service supervisor restart` 记得`kill`原来服务。
+
+查看状态：
+
+```shell
+sudo supervisorctl status
+# nginx     RUNNING   pid 2698, uptime 0:00:58
+```
+
+kill掉Nginx进程后会被supervisor重新拉起：
+
+```shell
+ps -aux | grep nginx  # 查看是否存在nginx进程
+sudo killall -9 nginx  # 杀死所有nginx进程
+ps -aux | grep nginx  # 杀死后又被supervisor拉起，又存在nginx进程，只不过pid号变了
+```
+
+如果有问题，可以用此命令查看错误的原因：
+
+```shell
+sudo supervisorctl tail nginx stdout
+```
+
+### supervisorctl操作命令
+
+supervisorctl：启动supervisor的命令行窗口，在该命令行中可执行start、stop、status、reload等操作。
+
+```shell
+# 更新新的配置到supervisord
+sudo supervisorctl update
+# 重新启动配置中的所有程序
+sudo supervisorctl reload
+# 查看正在守候的进程
+sudo supervisorctl status  # 或者
+sudo supervisorctl
+# 停止某一进程 (program_name=你配置中写的程序名称)
+sudo supervisorctl stop program_name
+# 重启某一进程 (program_name=你配置中写的程序名称)
+sudo supervisorctl restart program_name
+# 停止全部进程
+sudo supervisorctl stop all
+```
+
+
+
+### 新增Gunicorn进程配置文件
+
+```shell
+cd /etc/gunicorn/conf.d
+sudo vim gunicorn.conf
+```
+
+内容如下（更全面详尽的Gunicorn配置可以看[gunicorn 详解](https://www.jianshu.com/p/69e75fc3e08e)）：
+
+```shell
+[program:gunicorn]
+directory = /home/luwei/Desktop/flask/  ;test:app的test.py就在这个文件夹
+command = /home/luwei/anaconda3/bin/gunicorn -w 4 -b 0.0.0.0:8001 test:app
+startsecs=10
+autostart=true
+autorestart=true
+stdout_logfile=/var/log/gunicorn/stdout.log
+stopasgroup=true
+killasgroup=true
+```
+
+加载配置并重启supervisor：
+
+```shell
+sudo supervisorctl reload
+```
+
+查看状态：
+
+```shell
+sudo supervisorctl status
+# gunicorn     RUNNING   pid 2817, uptime 0:00:37
+# nginx        RUNNING   pid 2816, uptime 0:00:37
+```
+
+kill掉Gunicorn进程后同样会被supervisor重新拉起：
+
+```shell
+ps -ef | grep gunicorn
+sudo killall -9 gunicorn
+ps -ef | grep gunicorn
+```
+
+如果有问题，可以用此命令查看错误的原因：
+
+```shell
+sudo supervisorctl tail gunicorn stdout
+```
+
+### 总结
+
+至此，我们基本搭建完了，没有supervisord的话，本应该是用Gunicorn来调用Flask，然后Nginx来反向代理Gunicorn，所以，我们需要分别手动运行Gunicorn和Nginx：
+
+```shell
+ gunicorn -w 4 -b 0.0.0.0:8001 test:app
+ service nginx start
+```
+
+但是，这样不仅麻烦，而且一旦这两个进程被kill了，整个服务就中断了。为了解决这种情况，使用了supervisord进行启动，监控和拉起这两个进程，这样就非常稳定了。而且断电重新开机也不怕，因为supervisord服务会自启动。
 
 
 
 # 参考资料
 
-- [使用docker和tf serving搭建模型预测服务](https://blog.csdn.net/JerryZhang__/article/details/85107506)
+- [使用docker和TFserving搭建模型预测服务](https://blog.csdn.net/JerryZhang__/article/details/85107506)
 
 本文结构主要参考此博客。
 
@@ -631,19 +1234,23 @@ nginx + gunicorn，是利用nginx高并发的优势，nginx收到http请求之�
 
 "gRPC与RESTful的区别"参考此资料
 
-* [Flask: flask框架是如何实现非阻塞并发的](https://zhuanlan.zhihu.com/p/99669985)
+* [Flask: Flask框架是如何实现非阻塞并发的](https://zhuanlan.zhihu.com/p/99669985)
 
 “Flask的缺陷”参考此部分。
 
-* [在 Flask 应用中使用 gevent](https://www.cnblogs.com/brifuture/p/10050946.html)
+* [在Flask应用中使用 gevent](https://www.cnblogs.com/brifuture/p/10050946.html)
 * [python gevent使用-最简单把同步程序变成异步程序](https://blog.csdn.net/iloveyin/article/details/42921583?utm_medium=distribute.pc_relevant_t0.none-task-blog-BlogCommendFromMachineLearnPai2-1.baidujs&dist_request_id=b658a88f-6566-4d2c-a723-b4d98a19084c&depth_1-utm_source=distribute.pc_relevant_t0.none-task-blog-BlogCommendFromMachineLearnPai2-1.baidujs)
-* [Python Flask 高并发部署（简易）](https://blog.csdn.net/qq_19707521/article/details/105072362?utm_medium=distribute.pc_relevant.none-task-blog-baidujs_title-0&spm=1001.2101.3001.4242)
+* [Python Flask高并发部署（简易）](https://blog.csdn.net/qq_19707521/article/details/105072362?utm_medium=distribute.pc_relevant.none-task-blog-baidujs_title-0&spm=1001.2101.3001.4242)
 
-“gevent+flask同步变异步”部分参考此博客。
+“gevent+Flask同步变异步”部分参考此博客。
 
-* [nginx 和 gunicorn 和 flask 的关系？](https://www.zhihu.com/question/297267614?sort=created)
+* [Nginx和Gunicorn和Flask的关系？](https://www.zhihu.com/question/297267614?sort=created)
+* [uwsgi、wsgi和nginx的区别和关系](https://blog.csdn.net/CHENYAoo/article/details/83055108)
+* [Linux下部署Flask项目——Ubuntu+Flask+Gunicorn+Supervisor+Nginx](https://www.jianshu.com/p/484bd73f1e80)
+* [使用Supervisor守护Nginx进程](http://www.cainiao.io/archives/970)
+* [ubuntu supervisor管理uwsgi+nginx](https://www.bbsmax.com/A/o75NZK2j5W/)
 
-“nginx+gunicorn+flask部署”参考此博客。
+“Nginx+Gunicorn+Flask部署”参考此博客。
 
 ===
 
@@ -651,11 +1258,11 @@ nginx + gunicorn，是利用nginx高并发的优势，nginx收到http请求之�
 
 这个有使用RESTful和gRPC的官方例子，比较简单，初学者可以看这个。
 
-- [小白Bert系列-生成pb模型，tfserving加载，flask进行预测](https://zhuanlan.zhihu.com/p/144800734)
+- [小白Bert系列-生成pb模型，TFserving加载，Flask进行预测](https://zhuanlan.zhihu.com/p/144800734)
 
-讲了一个tfserving同时加载多个模型，即docker --model_config_file。
+讲了一个TFserving同时加载多个模型，即docker --model_config_file。
 
 * [教程帖：使用TensorFlow服务和Flask部署Keras模型！ ](https://www.seoxiehui.cn/article-73681-1.html)
 
-讲了图像如何从前端传给flask。
+讲了图像如何从前端传给Flask。
 

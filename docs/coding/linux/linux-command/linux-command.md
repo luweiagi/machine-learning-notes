@@ -1274,3 +1274,24 @@ crontab的运行记录在/var/log/cron-201xxxxx中，直接vim打开这个文件
 
 以一个脚本为参数，该脚本将作为当前shell的环境执行，即不会启动一个新的子进程。所有在脚本中设置的变量将成为当前Shell的一部分。
 
+# 进程
+
+## kill
+
+一般使用kill -9直接彻底杀死进程
+
+```shell
+ps -ef | grep pidname
+kill -9 pid
+```
+
+
+
+ps联合kill杀死进程（如杀死含有pidname的进程）
+
+```shell
+sudo ps -ef | grep lstm | awk '{print $2}' | xargs sudo kill -9
+```
+
+
+

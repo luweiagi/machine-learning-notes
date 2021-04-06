@@ -2,6 +2,18 @@
 
 - [返回上层目录](../tensorflow.md)
 
+人工智能应用需要数据、算法、算力、服务等环节。模型服务是应用的必不可少的一步，目前普遍使用TensorFlow Servering提供模型服务功能。
+
+人工智能模型服务的线上发布则需要选择更高性能的web服务。这里推荐的部署方式：Nginx + Gunicorn + Flask + supervisor，这种配置可以很好的支持高并发，负载均衡，进程监控，并且安全性和鲁棒性更高。
+
+Nginx + Gunicorn + Flask + supervisor的部署方式：
+
+![web-framework](pic/web-framework.jpg)
+
+TFserving + Flask的部署方式：
+
+![flask-tfserving](pic/flask-tfserving.jpg)
+
 # TFserving介绍
 
 TensorFlow服务是你训练应用机器学习模型的方式。
@@ -20,7 +32,9 @@ TensorFlow服务使得投入生产的过程模型更容易、更快速。它允�
 
 * 多个模型GPU资源如何分配：TFserving支持部署多模型，通过配置
 
-* 线上模型如何更新而服务不中断：TFserving支持模型的不同的版本，如your_model中1和2两个版本，当你新增一个3模型时，TFserving会自动判断，自动加载模型3为当前模型，不需要重启
+* 线上模型如何更新而服务不中断：TFserving支持模型的不同的版本，如your_model中1和2两个版本，当你新增一个模型3时，TFserving会自动判断，自动加载模型3为当前模型，不需要重启
+
+
 
 # 安装Docker
 
@@ -64,6 +78,12 @@ docker pull tensorflow/serving:1.14.0
 
 ![docker-pull-TFserving](pic/docker-pull-TFserving.jpg)
 
+安装完可以用下面的命令查看安装的镜像：
+
+```shell
+docker images
+```
+
 如果下载错了，可以这样删除：
 
 ```shell
@@ -103,9 +123,9 @@ docker run -p 8500:8500 --name="lstm" --mount type=bind,source=D:\code\PycharmPr
 
 先找到Docker容器进程：
 
-> docker ps
+> docker ps -a
 >
-> 或者更精确一点：docker ps | grep "tensorflow/serving"
+> 或者更精确一点：docker ps -a | grep "tensorflow/serving"
 
 输出：
 
@@ -402,7 +422,7 @@ latency: 9.841000000000001 ms
 > 如果发生冲突就删除已有的容器：
 >
 > ```shell
-> docker ps  # 根据冲突提示找到冲突的已有容器
+> docker ps -a  # 根据冲突提示找到冲突的已有容器
 > docker kill d4fcf5591676  # 停止冲突的已有容器
 > docker rm d4fcf5591676  # 删除冲突的的已有容器
 > ```
@@ -417,6 +437,14 @@ from tensorflow_serving.apis import model_service_pb2_grpc, model_management_pb2
 from tensorflow_serving.config import model_server_config_pb2
 from tensorflow.contrib.util import make_tensor_proto
 from tensorflow.core.framework import types_pb2
+
+serving_config = {
+    "hostport": "127.0.0.1:8500",
+    "max_message_length": 10 * 1024 * 1024,
+    "timeout": 300,
+    "signature_name": "serving_default",
+    "model_name": "lstm"
+}
 
 def predict_test(batch_size, serving_config):
     channel = grpc.insecure_channel(serving_config['hostport'], options=[
@@ -440,13 +468,6 @@ def predict_test(batch_size, serving_config):
     return result
 
 if __name__ == "__main__":
-    serving_config = {
-        "hostport": "127.0.0.1:8500",
-        "max_message_length": 10 * 1024 * 1024,
-        "timeout": 300,
-        "signature_name": "serving_default",
-        "model_name": "lstm"
-    }
     predict_result = predict_test(1, serving_config)
     # print(predict_result)  # 通过打印此语句获知output含有什么项及其类型
     print(predict_result.outputs['classes_id'].int64_val[0])
@@ -568,6 +589,8 @@ def predict():
     else:
         return ret_data
 
+    data['words'] = eval(data['words'])
+    data['nwords'] = eval(data['nwords'])
     predict_result = predict_test(1, serving_config, data)
 
     ret_data['classes_id'] = predict_result.outputs['classes_id'].int64_val[0]
@@ -587,6 +610,62 @@ if __name__ == "__main__":
     server.serve_forever()
 ```
 
+其中，用于import的的`tf_serving_grpc_text.py`的内容为：
+
+```shell
+# -*-coding:utf-8 -*-
+import grpc
+import numpy as np
+# C:\Users\luwei\Anaconda3\envs\tf14\Scripts\pip install tensorflow_serving_api
+from tensorflow_serving.apis import model_service_pb2_grpc, model_management_pb2, get_model_status_pb2, predict_pb2, prediction_service_pb2_grpc
+from tensorflow_serving.config import model_server_config_pb2
+from tensorflow.contrib.util import make_tensor_proto
+from tensorflow.core.framework import types_pb2
+
+
+serving_config = {
+    "hostport": "127.0.0.1:8500",
+    "max_message_length": 10 * 1024 * 1024,
+    "timeout": 300,
+    "signature_name": "serving_default",
+    "model_name": "lstm"
+}
+
+
+def predict_test(batch_size, serving_config, input_data):
+    channel = grpc.insecure_channel(serving_config['hostport'], options=[
+        ('grpc.max_send_message_length', serving_config['max_message_length']),
+        ('grpc.max_receive_message_length', serving_config['max_message_length'])])
+    stub = prediction_service_pb2_grpc.PredictionServiceStub(channel)
+
+    # Creating random images for given batch size
+    # input_data_words = ["很", "喜欢"]
+    # input_data_nwords = 2
+    input_data_words = input_data["words"]
+    input_data_nwords = input_data["nwords"]
+
+    request = predict_pb2.PredictRequest()
+    request.model_spec.name = serving_config['model_name']
+    request.model_spec.signature_name = serving_config['signature_name']
+    request.inputs['words'].CopyFrom(make_tensor_proto(
+        input_data_words, shape=[1, 2]))  # , dtype=types_pb2.DT_STRING))
+    request.inputs['nwords'].CopyFrom(make_tensor_proto(
+        input_data_nwords, shape=[1]))  # , dtype=types_pb2.DT_INT32))
+    result = stub.Predict(request, serving_config['timeout'])
+    channel.close()
+    return result
+
+
+if __name__ == "__main__":
+    predict_result = predict_test(1, serving_config)
+    # print(predict_result)  # 通过打印此语句获知output含有什么项及其类型
+    print(predict_result.outputs['classes_id'].int64_val[0])
+    print(predict_result.outputs['labels'].string_val[0].decode())
+    print(predict_result.outputs['softmax'].float_val)
+```
+
+
+
 # Nginx+Gunicorn+Flask部署
 
 之前用Flask写了个网站，然后直接放在服务器上运行：
@@ -600,6 +679,8 @@ python run.py
 后来才知道原来Flask的`app.run()`只是用来本地调试用的，如果真正放到服务器上运行的话，是完全不行的！需要配合Gunicorn/uWsgi和Nginx才行。
 
 ## 理解Nginx+Gunicorn+Flask
+
+![web-framework](pic/web-framework.jpg)
 
 ### 为什么要用Nginx+Gunicorn+Flask+supervisor方式部署
 
@@ -752,9 +833,91 @@ Guincorn是支持wsgi协议的http server，实现了一个UNIX的预分发web�
 
 - Gunicorn启动了被分发到的一个主线程，然后因此产生的子线程就是对应的worker。
 - 主进程的作用是确保worker数量与设置中定义的数量相同。因此如果任何一个worker挂掉，主线程都可以通过分发它自身而另行启动。
-- worker的角色是处理HTTP请求。
+- worker的角色是处理HTTP请求。worker的数量建议设置为$2\cdot \text{num}_{cpu}+1$。
 - 这个 **预**in**预分发** 就意味着主线程在处理HTTP请求之前就创建了worker。
 - 操作系统的内核就负责处理worker进程之间的负载均衡。
+
+### gunicorn配置
+
+Gunicorn从三个不同地方获取配置：
+
+- 框架设置（通常只影响到Paster应用）
+
+- 配置文件（python文件）：配置文件中的配置会覆盖框架的设置。
+
+- 命令行`gunicorn -w 2 -b 0.0.0.0:8000 test.application`
+
+  -w: 指定fork的worker进程数
+
+  -b: 指定绑定的端口
+
+  test: 模块名,python文件名
+
+  application: 变量名,python文件中可调用的wsgi接口名称
+
+置文件必须是一个python文件，只是将命令行中的参数写进py文件中而已，如果需要设置哪个参数，则在py文件中为该参数赋值即可。例如：
+
+```python
+# example.py
+bind = "127.0.0.1:8000"
+workers = 2
+```
+
+运行gunicorn：
+
+```shell
+gunicorn -c example.py test:app
+```
+
+等同于：
+
+```shell
+gunicorn -w 2 -b 127.0.0.1:8000 test:app
+```
+
+当然，配置文件还能实现更复杂的配置：
+
+```python
+# gunicorn.py
+import logging
+import logging.handlers
+from logging.handlers import WatchedFileHandler
+import os
+import multiprocessing
+bind = '127.0.0.1:8000'      #绑定ip和端口号
+backlog = 512                #监听队列
+chdir = '/home/test/server/bin'  #gunicorn要切换到的目的工作目录
+timeout = 30      #超时
+worker_class = 'gevent' #使用gevent模式，还可以使用sync 模式，默认的是sync模式
+
+workers = multiprocessing.cpu_count() * 2 + 1    #进程数
+threads = 2 #指定每个进程开启的线程数
+loglevel = 'info' #日志级别，这个日志级别指的是错误日志的级别，而访问日志的级别无法设置
+access_log_format = '%(t)s %(p)s %(h)s "%(r)s" %(s)s %(L)s %(b)s %(f)s" "%(a)s"'    #设置gunicorn访问日志格式，错误日志无法设置
+
+"""
+其每个选项的含义如下：
+h          remote address
+l          '-'
+u          currently '-', may be user name in future releases
+t          date of the request
+r          status line (e.g. ``GET / HTTP/1.1``)
+s          status
+b          response length or '-'
+f          referer
+a          user agent
+T          request time in seconds
+D          request time in microseconds
+L          request time in decimal seconds
+p          process ID
+"""
+accesslog = "/home/test/server/log/gunicorn_access.log"      #访问日志文件
+errorlog = "/home/test/server/log/gunicorn_error.log"        #错误日志文件
+```
+
+
+
+
 
 ### 运行Gunicorn
 
@@ -777,7 +940,7 @@ ps -ef | grep gunicorn
 14979 14973 python gunicorn -w 4 -b 0.0.0.0:8001 test:app
 ```
 
-
+可以看出worker进程（pid：14976, 14977, 14978, 14979）是master进程（pid：14973）的子进程。
 
 ## Nginx
 
@@ -979,7 +1142,7 @@ service nginx start
 nginx -s reload
 ```
 
-ok！到这一步，整个部署过程就搞定了！打开浏览器输入http://你的服务器ip 看是否运行？
+ok！到这一步，整个部署过程就搞定了！打开浏览器输入http://你的服务器ip看是否运行？
 
 在本地打开：
 
@@ -1165,7 +1328,7 @@ sudo supervisorctl stop all
 ### 新增Gunicorn进程配置文件
 
 ```shell
-cd /etc/gunicorn/conf.d
+cd /etc/supervisor/conf.d
 sudo vim gunicorn.conf
 ```
 
@@ -1174,6 +1337,7 @@ sudo vim gunicorn.conf
 ```shell
 [program:gunicorn]
 directory = /home/luwei/Desktop/flask/  ;test:app的test.py就在这个文件夹
+;注意：下面的gunicore的路径，要和conda环境相匹配，使用which gunicore查看路径
 command = /home/luwei/anaconda3/bin/gunicorn -w 4 -b 0.0.0.0:8001 test:app
 startsecs=10
 autostart=true
@@ -1222,7 +1386,26 @@ sudo supervisorctl tail gunicorn stdout
 
 但是，这样不仅麻烦，而且一旦这两个进程被kill了，整个服务就中断了。为了解决这种情况，使用了supervisord进行启动，监控和拉起这两个进程，这样就非常稳定了。而且断电重新开机也不怕，因为supervisord服务会自启动。
 
+### 新增docker进程配置文件
 
+```shell
+[program:docker]
+command = sudo docker run -p 8500:8500 --name="lstm" --mount type=bind,source=/home/luwei/Desktop/flask/saved_model,target=/models/lstm -e MODEL_NAME=lstm -t tensorflow/serving:1.14.0 &
+startsecs=10
+autostart=true
+autorestart=true
+stdout_logfile=/var/log/gunicorn/stdout.log
+stopasgroup=true
+killasgroup=true
+```
+
+
+
+
+
+## 压测
+
+https://zhuanlan.zhihu.com/p/102716258
 
 # 参考资料
 
@@ -1247,6 +1430,7 @@ sudo supervisorctl tail gunicorn stdout
 * [Nginx和Gunicorn和Flask的关系？](https://www.zhihu.com/question/297267614?sort=created)
 * [uwsgi、wsgi和nginx的区别和关系](https://blog.csdn.net/CHENYAoo/article/details/83055108)
 * [Linux下部署Flask项目——Ubuntu+Flask+Gunicorn+Supervisor+Nginx](https://www.jianshu.com/p/484bd73f1e80)
+* [Gunicorn使用讲解](https://www.cnblogs.com/xiaozengzeng/p/14455444.html)
 * [使用Supervisor守护Nginx进程](http://www.cainiao.io/archives/970)
 * [ubuntu supervisor管理uwsgi+nginx](https://www.bbsmax.com/A/o75NZK2j5W/)
 

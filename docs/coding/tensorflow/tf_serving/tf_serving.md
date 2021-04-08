@@ -56,6 +56,7 @@
     - [新增Gunicorn进程配置文件](#新增Gunicorn进程配置文件)
     - [新增Nginx进程配置文件](#新增Nginx进程配置文件)
   - [部署完成总结](#部署完成总结)
+  - [基于python的客户端请求](#基于python的客户端请求)
   - [用ab压测](#用ab压测)
     - [ab原理](#ab原理)
     - [服务器qps预估](#服务器qps预估)
@@ -721,8 +722,6 @@ if __name__ == "__main__":
     print(predict_result.outputs['softmax'].float_val)
 ```
 
-
-
 # Nginx+Gunicorn+Flask部署
 
 之前用Flask写了个网站，然后直接放在服务器上运行：
@@ -856,10 +855,6 @@ if __name__ == '__main__':
     app.run(host='0.0.0.0', port=8001, debug=True)
 ```
 
-
-
-
-
 ## Gunicorn
 
 ### 什么是Gunicorn
@@ -954,10 +949,6 @@ accesslog = "/home/test/server/log/gunicorn_access.log"      #访问日志文件
 errorlog = "/home/test/server/log/gunicorn_error.log"        #错误日志文件
 ```
 
-
-
-
-
 ### 运行Gunicorn
 
 跳转到`test.py`文件所在的目录下。然后
@@ -966,7 +957,7 @@ errorlog = "/home/test/server/log/gunicorn_error.log"        #错误日志文件
  gunicorn -w 4 -b 0.0.0.0:8001 test:app
 ```
 
-
+会起1个master进程和4个worker子进程：
 
 ```shell
 ps -ef | grep gunicorn
@@ -1187,13 +1178,9 @@ ok！到这一步，整个部署过程就搞定了！打开浏览器输入http:/
 
 ![nginx-other-ip-http](pic/nginx-other-ip-http.jpg)
 
-
-
-
-
 ## supervisord
 
-
+安装supervisord：
 
 ```shell
 sudo apt-get install supervisor
@@ -1203,7 +1190,7 @@ sudo apt-get install supervisor
 
 你也可以使用`echo_supervisord_conf > supervisord.conf`命令，生成默认的配置文件（不建议，内容比较多，而且和下面的不一致，不要使用）。
 
-`supervisord.conf`示例配置：
+`supervisord.conf`示例配置（不要使用）：
 
 ```shell
 ; supervisor config file
@@ -1253,7 +1240,7 @@ cd /etc/supervisor/conf.d
 sudo vim nginx.conf
 ```
 
-内容如下：
+内容如下（不要使用）：
 
 ```shell
 ;supervisor nginx config file
@@ -1280,7 +1267,7 @@ stopsignal=INT  ;进程停止信号，可以为TERM, HUP, INT, QUIT, KILL, USR1�
 注意：由于supervisor不能监控后台程序，`command = /usr/local/bin/nginx`这个命令默认是后台启动， 
 加上`-g ‘daemon off;’`这个参数可解决这问题，这个参数的意思是在前台运行。
 
-上面那个配置太复杂了，主要是让你理解一下各参数的含义，实际用这个：
+上面那个配置太复杂了，主要是让你理解一下各参数的含义，**实际用这个**：
 
 ```shell
 [program:nginx]
@@ -1358,8 +1345,6 @@ sudo supervisorctl restart program_name
 sudo supervisorctl stop all
 ```
 
-
-
 ### 新增Gunicorn进程配置文件
 
 ```shell
@@ -1434,6 +1419,13 @@ sudo supervisorctl tail nginx stdout
 # 基于supervisor+Nginx+Gunicorn+Flask+Docker部署TFserving服务
 
 我们之前分别熟悉了Docker和TFserving，也用一个简单的例子实现了supervisor+Nginx+Gunicorn+Flask，那么现在，该将这两个结合起来，用supervisor+Nginx+Gunicorn+Flask+Docker部署TFserving服务了。
+
+注意：要注意python环境是匹配的，不然会提示缺少包或者tf版本不对，比如这里是tf1.14的，就需要
+
+```shell
+source activate
+conda activate tf1.14
+```
 
 ## 部署模型
 
@@ -1547,8 +1539,9 @@ def predict():
     else:
         return ret_data
 
-    data['words'] = eval(data['words'])
-    data['nwords'] = eval(data['nwords'])
+	if request.method != 'POST':
+    	data['words'] = eval(data['words'])
+    	data['nwords'] = eval(data['nwords'])
     predict_result = predict_test(1, serving_config, data)
 
     ret_data['classes_id'] = predict_result.outputs['classes_id'].int64_val[0]
@@ -1778,7 +1771,49 @@ http://192.168.43.75/predict?words=["非常","喜欢"]&nwords=2
 
 成功！
 
+## 基于python的客户端请求
 
+之前我们请求web服务只能在网页里手动输入网址或者用curl命令来请求，但是这并不灵活，如果我们要批量化请求，并有复杂的逻辑或处理需求，就要用python了，具体如下：
+
+```python
+import requests
+import json
+import time
+
+data = {"words": ["非常", "满意"], "nwords": 2}
+print(json.dumps(data))
+
+requests_type = "POST"  # "POST" "GET"
+if requests_type == "POST":
+    # headers = {'content-type': 'application/json'}
+    r = requests.post("http://192.168.43.75/predict", data=json.dumps(data), timeout=2)  # , headers=headers)
+else:
+    r = requests.get("http://192.168.43.75/predict?words=[\"非常\",\"开心\"]&nwords=2")
+print(r.json())
+
+# exit(0)
+
+# 看单次请求耗时
+t1 = time.time()
+total_num = 100
+for _ in range(total_num):
+    r = requests.post("http://192.168.43.75/predict", data=json.dumps(data), timeout=2)  # , headers=headers)
+    # print(r.json())
+dt = time.time() - t1
+print("单次请求耗时"+"%.4f毫秒" % (dt * 1000 / total_num))
+```
+
+结果为：
+
+```shell
+{"words": ["\u975e\u5e38", "\u6ee1\u610f"], "nwords": 2}
+
+{'classes_id': 1, 'labels': 'POS', 'softmax': [7.197532977443188e-05, 0.9996980428695679, 0.00022995276958681643], 'status': 0}
+
+单次请求耗时13.7985毫秒
+```
+
+这个单次耗时好像要比压测的高很多啊。。。不知道为啥。
 
 ## 用ab压测
 
@@ -1973,7 +2008,7 @@ Transfer rate:          222.57 [Kbytes/sec] received
 
 - [使用docker和TFserving搭建模型预测服务](https://blog.csdn.net/JerryZhang__/article/details/85107506)
 
-本文结构主要参考此博客。
+本文结构参考了此博客。
 
 - [gRPC与RESTful的区别](https://blog.csdn.net/baidu_37648998/article/details/109598522)
 

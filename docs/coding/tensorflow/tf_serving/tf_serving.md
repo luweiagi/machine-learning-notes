@@ -1,8 +1,67 @@
 # TensorFlow Serving
 
 - [返回上层目录](../tensorflow.md)
+- [TFserving介绍](#TFserving介绍)
+- [**Docker与TFserving**](#Docker与TFserving)
+  - [安装Docker](#安装Docker)
+    - [win10安装](#win10安装)
+    - [linux安装](#linux安装)
+  - [拉取tf.Serving镜像](#拉取tf.Serving镜像)
+  - [运行容器](#运行容器)
+  - [通过API查看模型状态，元数据](#通过API查看模型状态，元数据)
+    - [通过model status API 查看模型状态](#通过model status API 查看模型状态)
+    - [通过model metadata API查看模型的元数据](#通过model metadata API查看模型的元数据)
+  - [gRPC与RESTful请求的区别](#gRPC与RESTful请求的区别)
+  - [使用RESTful API请求预测](#使用RESTful API请求预测)
+  - [使用gRPC请求预测](#使用gRPC请求预测)
+    - [输入数据为文本或数字类型](#输入数据为文本或数字类型)
+    - [输入数据为图像类型](#输入数据为图像类型)
+- [**Flask服务**](#Flask服务)
+  - [为什么需要Flask服务器](#为什么需要Flask服务器)
+  - [Flask的HelloWorld代码](#Flask的HelloWorld代码)
+  - [Flask的缺陷](#Flask的缺陷)
+  - [gevent+Flask同步变异步](#gevent+Flask同步变异步)
+- [**Nginx+Gunicorn+Flask部署**](#Nginx+Gunicorn+Flask部署)
+  - [理解Nginx+Gunicorn+Flask](#理解Nginx+Gunicorn+Flask)
+    - [为什么要用Nginx+Gunicorn+Flask+supervisor方式部署](#为什么要用Nginx+Gunicorn+Flask+supervisor方式部署)
+    - [Nginx、gunicore和Flask之间的关系](#Nginx、gunicore和Flask之间的关系)
+    - [为什么不直接把Flask部署到Nginx 上，而是要用uwsgi服务器？](#为什么不直接把Flask部署到Nginx 上，而是要用uwsgi服务器？)
+    - [为什么需要Nginx](#为什么需要Nginx)
+  - [部署流程](#部署流程)
+  - [Flask](#Flask)
+  - [Gunicorn](#Gunicorn)
+    - [什么是Gunicorn](#什么是Gunicorn)
+    - [Gunicorn配置](#Gunicorn配置)
+    - [运行Gunicorn](#运行Gunicorn)
+  - [Nginx](#Nginx)
+    - [Nginx介绍](#Nginx介绍)
+    - [修改配置](#修改配置)
+    - [Nginx的应用](#Nginx的应用)
+      - [反向代理](#反向代理)
+      - [负载均衡](#负载均衡)
+    - [安装、配置并运行Nginx](#安装、配置并运行Nginx)
+  - [supervisord](#supervisord)
+    - [新增Nginx进程配置文件](#新增Nginx进程配置文件)
+    - [supervisorctl操作命令](#supervisorctl操作命令)
+    - [新增Gunicorn进程配置文件](#新增Gunicorn进程配置文件)
+  - [简单例子部署完成总结](#简单例子部署完成总结)
+- [**基于supervisor+Nginx+Gunicorn+Flask+Docker部署TFserving服务**](#基于supervisor+Nginx+Gunicorn+Flask+Docker部署TFserving服务)
+  - [部署模型](#部署模型)
+  - [部署Docker](#部署Docker)
+  - [部署Flask](#部署Flask)
+  - [部署Gunicorn](#部署Gunicorn)
+  - [部署Nginx](#部署Nginx)
+  - [部署supervisor](#部署supervisor)
+    - [新增Docker进程配置文件](#新增Docker进程配置文件)
+    - [新增Gunicorn进程配置文件](#新增Gunicorn进程配置文件)
+    - [新增Nginx进程配置文件](#新增Nginx进程配置文件)
+  - [部署完成总结](#部署完成总结)
+  - [用ab压测](#用ab压测)
+    - [ab原理](#ab原理)
+    - [服务器qps预估](#服务器qps预估)
+    - [对模型进行测试](#对模型进行测试)
 
-人工智能应用需要数据、算法、算力、服务等环节。模型服务是应用的必不可少的一步，目前普遍使用TensorFlow Servering提供模型服务功能。
+人工智能应用需要数据、算法、算力、服务等环节。模型服务是应用的必不可少的一步，目前普遍使用TensorFlow Serving提供模型服务功能。
 
 人工智能模型服务的线上发布则需要选择更高性能的web服务。这里推荐的部署方式：Nginx + Gunicorn + Flask + supervisor，这种配置可以很好的支持高并发，负载均衡，进程监控，并且安全性和鲁棒性更高。
 
@@ -34,11 +93,11 @@ TensorFlow服务使得投入生产的过程模型更容易、更快速。它允�
 
 * 线上模型如何更新而服务不中断：TFserving支持模型的不同的版本，如your_model中1和2两个版本，当你新增一个模型3时，TFserving会自动判断，自动加载模型3为当前模型，不需要重启
 
+# Docker与TFserving
 
+## 安装Docker
 
-# 安装Docker
-
-## win10安装
+### win10安装
 
 对于win10环境，需要[Docker Desktop for Windows](https://hub.docker.com/editions/community/docker-ce-desktop-windows)，点击`get docker`进行下载，大约500MB。
 
@@ -54,7 +113,7 @@ win10的docker是基于hyper-v的，但是开启了hyper-v，就无法打开其�
 Disable-WindowsOptionalFeature -Online -FeatureName Microsoft-Hyper-V-Hypervisor
 ```
 
-## linux安装
+### linux安装
 
 安装docker：
 
@@ -68,7 +127,7 @@ sudo apt install docker.io
 
 关于docker的一些命令：[Docker在Linux下载安装及部署](https://blog.csdn.net/qq_35139965/article/details/109475695)。
 
-# 拉取 tf.Serving镜像
+## 拉取tf.Serving镜像
 
 打开`powershell`，然后这里我们选择tensorflow 1.14.0版本的镜像。
 
@@ -90,7 +149,7 @@ docker images
 docker rmi tensorflow/serving:1.14.0
 ```
 
-# 运行容器
+## 运行容器
 
 上述准备工作完成后可以运行容器：
 
@@ -100,7 +159,7 @@ docker rmi tensorflow/serving:1.14.0
 docker run -p 8501:8501 --name="lstm" --mount type=bind,source=D:\code\PycharmProject\tf_model\sentiment-analysis\v1_lstm_csv\saved_model,target=/models/lstm -e MODEL_NAME=lstm -t tensorflow/serving:1.14.0 "&"
 ```
 
-而如果使用gRPC请求预测，则需将下面的8501改成8500端口：
+而如果使用gRPC请求预测，则需将上面的8501改成8500端口：
 
 ```shell
 docker run -p 8500:8500 --name="lstm" --mount type=bind,source=D:\code\PycharmProject\tf_model\sentiment-analysis\v1_lstm_csv\saved_model,target=/models/lstm -e MODEL_NAME=lstm -t tensorflow/serving:1.14.0 "&"
@@ -108,7 +167,7 @@ docker run -p 8500:8500 --name="lstm" --mount type=bind,source=D:\code\PycharmPr
 
 上面的命令中：
 
-* `-p 8501:8501`是端口映射，是将容器的8501端口映射到宿主机的8501端口，后面预测的时候使用该端口；
+* `-p 8501:8501`是端口映射，是将容器的8501端口映射到宿主机的8501端口，后面预测的时候使用该端口；更具体点说，-p 22222:33333 关键参数，指定docker虚拟机的22222端口，映射为container的33333端口，即对192.168.59.103:22222的访问，统统访问到container的33333端口。如果要映射80端口，设置-p 80:80就好。
 * `-e MODEL_NAME=lstm` 设置模型名称；
 * `--mount type=bind,source=D:\xxx\v1_lstm_csv\saved_model,target=/models/lstm` 是将宿主机的路径D:\xxx\v1_lstm_csv\saved_model挂载到容器的/models/lstm下。D:\xxx\v1_lstm_csv\saved_model是存放的是上述准备工作中保存的模型文件，在D:\xxx\v1_lstm_csv\saved_model下新建一个以数字命名的文件夹，如100001，并将模型文件（包含一个.pb文件和一个variables文件夹）放到该文件夹中。容器内部会根据绑定的路径读取模型文件；
 * `-t tensorflow/serving:1.14.0` 根据名称“tensorflow/serving:1.14.0”运行容器；
@@ -143,9 +202,9 @@ docker kill d4fcf5591676
 docker rm d4fcf5591676
 ```
 
-# 通过API查看模型状态，元数据
+## 通过API查看模型状态，元数据
 
-## 通过model status API 查看模型状态
+### 通过model status API 查看模型状态
 
 ```shell
 curl http://localhost:8501/v1/models/lstm
@@ -162,7 +221,7 @@ curl http://localhost:8501/v1/models/lstm
 >     "error_code": "OK",
 >     "error_message": ""
 
-## 通过model metadata API查看模型的元数据
+### 通过model metadata API查看模型的元数据
 
 ```shell
 curl http://localhost:8501/v1/models/lstm/metadata
@@ -296,7 +355,7 @@ saved_model_cli show --all --dir D:\code\PycharmProject\tf_model\sentiment-analy
 >        name: Softmax:0
 >  Method name is: tensorflow/serving/predict
 
-# gRPC与RESTful请求的区别
+## gRPC与RESTful请求的区别
 
 * **gRPC**
 
@@ -318,7 +377,7 @@ saved_model_cli show --all --dir D:\code\PycharmProject\tf_model\sentiment-analy
 
   gRPC是HTTP/2协议，REST API是HTTP/1协议
 
-# 使用RESTful API请求预测
+## 使用RESTful API请求预测
 
 第一种方式是命令行下使用**curl**请求预测：
 
@@ -409,9 +468,9 @@ if __name__ == '__main__':
 latency: 9.841000000000001 ms
 ```
 
-# 使用gRPC请求预测
+## 使用gRPC请求预测
 
-## 输入数据为文本或数字类型
+### 输入数据为文本或数字类型
 
 这里需要在运行容器时将gRPC的端口映射到宿主机的8500端口，前面`运行容器`章节已经说过了，这里再重复一遍：
 
@@ -485,9 +544,7 @@ POS
 [0.00012, 0.99938, 0.00049]
 ```
 
-## 输入数据为图像类型
-
-
+### 输入数据为图像类型
 
 # Flask服务
 
@@ -837,7 +894,7 @@ Guincorn是支持wsgi协议的http server，实现了一个UNIX的预分发web�
 - 这个 **预**in**预分发** 就意味着主线程在处理HTTP请求之前就创建了worker。
 - 操作系统的内核就负责处理worker进程之间的负载均衡。
 
-### gunicorn配置
+### Gunicorn配置
 
 Gunicorn从三个不同地方获取配置：
 
@@ -946,13 +1003,9 @@ ps -ef | grep gunicorn
 
 ### Nginx介绍
 
-Nginx的基本操作
+Nginx是什么：[连前端都看得懂的《Nginx 入门指南》](https://juejin.cn/post/6844904129987526663)
 
-[Nginx 在Ubuntu上的安装，测试](https://blog.csdn.net/leon_zeng0/article/details/108820360)
-
-#### Nginx是什么
-
-[连前端都看得懂的《Nginx 入门指南》](https://juejin.cn/post/6844904129987526663)
+Nginx的基本操作：[Nginx 在Ubuntu上的安装，测试](https://blog.csdn.net/leon_zeng0/article/details/108820360)
 
 Nginx是全球排名前三的服务器，并且近年来用户增长非常快。有人统计，世界上约有三分之一的网址采用了Nginx。在大型网站的架构中，Nginx被普遍使用，如 百度、阿里、腾讯、京东、网易、新浪、大疆等。Nginx 安装简单，配置简洁，作用却无可替代。
 
@@ -975,7 +1028,7 @@ Nginx是什么，总结一下就是这些：
 - 扩展性好，第三方插件非常多
 - 在互联网项目中广泛应用
 
-#### 修改配置
+### 修改配置
 
 Nginx默认配置文件简介：
 
@@ -1006,11 +1059,11 @@ server{ }其实是包含在http{ }内部的。每一个server{ }是一个虚拟�
 >
 > 中文文档：[www.nginx.cn/doc/](https://www.nginx.cn/doc/)
 
-#### Nginx有哪些应用？
+### Nginx的应用
 
 主要有4大应用。
 
-##### 反向代理
+#### 反向代理
 
 **反向代理是什么？**
 
@@ -1054,7 +1107,7 @@ Nginx就是充当图中的proxy。左边的3个client在请求时向Nginx获取�
 
 反向代理应用十分广泛，CDN服务就是反向代理经典的应用场景之一。除此之外，反向代理也是实现负载均衡的基础，很多大公司的架构都应用到了反向代理。
 
-##### 负载均衡
+#### 负载均衡
 
 **负载均衡是什么？**
 
@@ -1175,7 +1228,7 @@ sudo apt-get install supervisor
 
 [unix_http_server]
 file=/var/run/supervisor.sock   ; (the path to the socket file)
-chmod=                       ; sockef file mode (default 0700)
+chmod=0700                      ; sockef file mode (default 0700)
 
 [supervisord]
 logfile=/var/log/supervisor/supervisord.log ; (main log file;default $CWD/supervisord.log)
@@ -1375,22 +1428,293 @@ ps -ef | grep gunicorn
 sudo supervisorctl tail gunicorn stdout
 ```
 
-### 总结
+## 简单例子部署完成总结
 
-至此，我们基本搭建完了，没有supervisord的话，本应该是用Gunicorn来调用Flask，然后Nginx来反向代理Gunicorn，所以，我们需要分别手动运行Gunicorn和Nginx：
+至此，我们基本搭建完了，没有supervisord的话，本应该是运行Flask，用Gunicorn来调用Flask，然后Nginx来反向代理Gunicorn，所以，我们需要分别手动运行Gunicorn和Nginx：
 
 ```shell
- gunicorn -w 4 -b 0.0.0.0:8001 test:app
- service nginx start
+gunicorn -w 4 -b 0.0.0.0:8001 test:app
+
+service nginx start
 ```
 
 但是，这样不仅麻烦，而且一旦这两个进程被kill了，整个服务就中断了。为了解决这种情况，使用了supervisord进行启动，监控和拉起这两个进程，这样就非常稳定了。而且断电重新开机也不怕，因为supervisord服务会自启动。
 
-### 新增docker进程配置文件
+```shell
+# 任务重加载并重启
+sudo supervisorctl reload
+# 查看任务是否都被调用开启
+sudo supervisorctl
+# 查看某个任务失败原因（以Nginx为例）
+sudo supervisorctl tail nginx stdout
+```
+
+# 基于supervisor+Nginx+Gunicorn+Flask+Docker部署TFserving服务
+
+我们之前分别熟悉了Docker和TFserving，也用一个简单的例子实现了supervisor+Nginx+Gunicorn+Flask，那么现在，该将这两个结合起来，用supervisor+Nginx+Gunicorn+Flask+Docker部署TFserving服务了。
+
+## 部署模型
+
+这里要用一个基于LSTM的中文评论情感分类模型（基于TF1.14版本）作为例子，可以直接在github上下载：[linguishi/**chinese_sentiment**](https://github.com/linguishi/chinese_sentiment/tree/master/model/lstm/saved_model)，要将包含模型数据（pd格式）的数字名字（时间戳）的文件夹放在`/home/luwei/Desktop/flask/saved_model`路径下，docker会自动找最新的数字文件夹名进行加载。
+
+## 部署Docker
+
+```shell
+# 安装docker
+sudo apt install docker.io
+# 拉取TFserving镜像
+docker pull tensorflow/serving:1.14.0
+
+# 运行容器
+docker run -p 8500:8500 --name="lstm" --mount type=bind,source=/home/luwei/Desktop/flask/saved_model,target=/models/lstm -e MODEL_NAME=lstm -t tensorflow/serving:1.14.0 &
+```
+
+## 部署Flask
+
+一方面是要部署Flask，另一方面是Flask使用gRPC请求TFserving进行预测，所以会有两个python文件，均在`/home/luwei/Desktop/flask`路径下。
+
+使用gRPC请求TFserving进行预测：`tf_serving_grpc_text.py`
+
+```python
+# -*-coding:utf-8 -*-
+import grpc
+import numpy as np
+# C:\Users\luwei\Anaconda3\envs\tf14\Scripts\pip install tensorflow_serving_api
+from tensorflow_serving.apis import model_service_pb2_grpc, model_management_pb2, get_model_status_pb2, predict_pb2, prediction_service_pb2_grpc
+from tensorflow_serving.config import model_server_config_pb2
+from tensorflow.contrib.util import make_tensor_proto
+from tensorflow.core.framework import types_pb2
+
+
+serving_config = {
+    "hostport": "127.0.0.1:8500",
+    "max_message_length": 10 * 1024 * 1024,
+    "timeout": 300,
+    "signature_name": "serving_default",
+    "model_name": "lstm"
+}
+
+
+def predict_test(batch_size, serving_config, input_data):
+    channel = grpc.insecure_channel(serving_config['hostport'], options=[
+        ('grpc.max_send_message_length', serving_config['max_message_length']),
+        ('grpc.max_receive_message_length', serving_config['max_message_length'])])
+    stub = prediction_service_pb2_grpc.PredictionServiceStub(channel)
+
+    # Creating random images for given batch size
+    # input_data_words = ["很", "喜欢"]
+    # input_data_nwords = 2
+    input_data_words = input_data["words"]
+    input_data_nwords = input_data["nwords"]
+
+    request = predict_pb2.PredictRequest()
+    request.model_spec.name = serving_config['model_name']
+    request.model_spec.signature_name = serving_config['signature_name']
+    request.inputs['words'].CopyFrom(make_tensor_proto(
+        input_data_words, shape=[1, 2]))  # , dtype=types_pb2.DT_STRING))
+    request.inputs['nwords'].CopyFrom(make_tensor_proto(
+        input_data_nwords, shape=[1]))  # , dtype=types_pb2.DT_INT32))
+    result = stub.Predict(request, serving_config['timeout'])
+    channel.close()
+    return result
+
+
+if __name__ == "__main__":
+    predict_result = predict_test(1, serving_config, {"words":["很", "喜欢"], "nwords":2})
+    # print(predict_result)  # 通过打印此语句获知output含有什么项及其类型
+    print(predict_result.outputs['classes_id'].int64_val[0])
+    print(predict_result.outputs['labels'].string_val[0].decode())
+    print(predict_result.outputs['softmax'].float_val)
+```
+
+部署Flask：`flask_grpc.py`
+
+```shell
+# -*- coding: utf-8 -*-
+import grpc
+from flask import Flask
+from flask import request
+import json
+import numpy as np
+from time import sleep
+from tf_serving_grpc_text import serving_config, predict_test
+
+app = Flask(__name__)
+
+
+@app.route("/")
+def hello():
+    return "Hello World!"
+
+
+@app.route("/predict", methods=["GET", "POST"])
+def predict():
+    # flask url中参数 https://zhuanlan.zhihu.com/p/43656865
+    print("request.method =", request.method)
+    if request.method == 'GET':  # get方法 /predict?words=["非常","喜欢"]&nwords=2
+        data = request.args.to_dict()
+    elif request.method == 'POST':
+        data = request.get_json(force=True)
+    else:
+        return "ERROR: request.method is not GET or POST!"
+    print("data = ", data)
+
+    ret_data = {"status": -1}
+    if 'words' in data and 'nwords' in data:
+        ret_data["status"] = 0
+    else:
+        return ret_data
+
+    data['words'] = eval(data['words'])
+    data['nwords'] = eval(data['nwords'])
+    predict_result = predict_test(1, serving_config, data)
+
+    ret_data['classes_id'] = predict_result.outputs['classes_id'].int64_val[0]
+    ret_data['labels'] = predict_result.outputs['labels'].string_val[0].decode()
+    ret_data['softmax'] = [i for i in predict_result.outputs['softmax'].float_val]
+
+    print("ret_data =", ret_data)
+    return ret_data
+
+
+if __name__ == "__main__":
+    # flask原生服务
+    app.run(host="0.0.0.0", port=5100, debug=True, threaded=True)  # threaded默认为True
+```
+
+## 部署Gunicorn
+
+这里不用手动部署，在之后的`supervisor`会自动调用。
+
+但可以看看手动该怎么部署，**下列代码仅供看看，不需要部署**！
+
+```python
+cd /home/luwei/Desktop/flask/
+# 注意，下面的gunicore要和conda环境相对应！！！
+/home/luwei/anaconda3/envs/tf1.14/bin/gunicorn -w 4 -b 0.0.0.0:8001 flask_grpc:app
+```
+
+## 部署Nginx
+
+安装Ngnix：`sudo apt-get install nginx`。
+
+安装了Ngnix之后，打开`/etc/nginx/sites-available/default`，然后修改默认的default为：
+
+```shell
+server {
+    listen 80;
+    server_name 127.0.0.1;
+
+    location / {
+    	try_files $uri @gunicorn_proxy;
+    }
+
+    location @gunicorn_proxy {
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header Host $http_host;
+        proxy_redirect off;
+        proxy_pass http://127.0.0.1:8001;
+        proxy_connect_timeout 500s;
+        proxy_read_timeout 500s;
+        proxy_send_timeout 500s;
+    }
+}
+```
+
+## 部署supervisor
+
+```shell
+sudo apt-get install supervisor
+```
+
+装成功后，会在`/etc/supervisor`目录下，生成`supervisord.conf`配置文件，如果没有生成，或者生成内容和下面的不一致，建议改为下面的。
+
+`supervisord.conf`示例配置：
+
+```shell
+; supervisor config file
+
+[unix_http_server]
+file=/var/run/supervisor.sock   ; (the path to the socket file)
+chmod=0700                      ; sockef file mode (default 0700)
+
+[supervisord]
+logfile=/var/log/supervisor/supervisord.log ; (main log file;default $CWD/supervisord.log)
+pidfile=/var/run/supervisord.pid ; (supervisord pidfile;default supervisord.pid)
+childlogdir=/var/log/supervisor            ; ('AUTO' child log dir, default $TEMP)
+
+; the below section must remain in the config file for RPC
+; (supervisorctl/web interface) to work, additional interfaces may be
+; added by defining them in separate rpcinterface: sections
+[rpcinterface:supervisor]
+supervisor.rpcinterface_factory = supervisor.rpcinterface:make_main_rpcinterface
+
+[supervisorctl]
+serverurl=unix:///var/run/supervisor.sock ; use a unix:// URL  for a unix socket
+
+; The [include] section can just contain the "files" setting.  This
+; setting can list multiple files (separated by whitespace or
+; newlines).  It can also contain wildcards.  The filenames are
+; interpreted as relative to this file.  Included files *cannot*
+; include files themselves.
+
+[include]
+files = /etc/supervisor/conf.d/*.conf
+```
+
+看最后一行，进程配置会读取`/etc/supervisor/conf.d`目录下的`*.conf`配置文件。所有接下来会在该目录下配置各种需要被拉起运行的配置文件，如docker，Flask，Gunicorn，Nginx等。
+
+安装完成之后，默认就启动了supervisor
+
+查看supervisord是否在运行：
+
+```bash
+ps aux | grep supervisord
+```
+
+### 新增Docker进程配置文件
+
+```shell
+cd /etc/supervisor/conf.d
+sudo vim docker.conf
+```
+
+`docker.conf`的内容为：
 
 ```shell
 [program:docker]
+command = sudo docker start 95b865738693
+startsecs=10
+autostart=true
+autorestart=true
+stdout_logfile=/var/log/docker/stdout.log
+stopasgroup=true
+killasgroup=true
+```
+
+注意，其中`stdout_logfile=/var/log/docker/stdout.log`需要提前创建`sudo mkdir /var/log/docker`。
+
+本来commend里是这句话，但是这个只适合第一次运行，之后再运行，就只需要直接`docker start 容器ID`就行了（怎么看容器ID：`sudo docker ps -a`）。
+
+```shell
 command = sudo docker run -p 8500:8500 --name="lstm" --mount type=bind,source=/home/luwei/Desktop/flask/saved_model,target=/models/lstm -e MODEL_NAME=lstm -t tensorflow/serving:1.14.0 &
+```
+
+当然也可以试试[docker-重启linux机器后Docker服务及容器自动启动](https://blog.csdn.net/qq_40308101/article/details/108823854)，可以的话就不需要通过supervisor来启动了。
+
+### 新增Gunicorn进程配置文件
+
+```shell
+cd /etc/supervisor/conf.d
+sudo vim gunicorn.conf
+```
+
+内容如下：
+
+```shell
+[program:gunicorn]
+directory = /home/luwei/Desktop/flask/
+command = /home/luwei/anaconda3/envs/tf1.14/bin/gunicorn -w 4 -b 0.0.0.0:8001 flask_grpc:app
 startsecs=10
 autostart=true
 autorestart=true
@@ -1399,13 +1723,269 @@ stopasgroup=true
 killasgroup=true
 ```
 
+注意：
+
+* 上面command里的gunicore的路径，要和conda环境相匹配，使用which gunicore查看路径，不然就出错。
+* 上面的directory，是command所运行的flask_grpc.py所在文件夹地址，意思是先cd到该文件夹下，再运行flask_grpc.py中的app，不然找不到要运行的文件路径。
+
+### 新增Nginx进程配置文件
+
+```shell
+cd /etc/supervisor/conf.d
+sudo vim nginx.conf
+```
+
+注意：由于supervisor不能监控后台程序，`command = /usr/local/bin/nginx`这个命令默认是后台启动， 
+加上`-g ‘daemon off;’`这个参数可解决这问题，这个参数的意思是在前台运行。
+
+上面那个配置太复杂了，主要是让你理解一下各参数的含义，实际用这个：
+
+```shell
+[program:nginx]
+command = /usr/sbin/nginx -g 'daemon off;'
+startsecs=10
+autostart=true
+autorestart=true
+stdout_logfile=/var/log/nginx/stdout.log
+stopasgroup=true
+killasgroup=true
+```
+
+到这里基本就算是完成了。
+
+## 部署完成总结
+
+至此，我们基本搭建完了。没有supervisord的话，本应该是运行docker，Flask调用docker的tfserving，用Gunicorn来调用Flask，然后Nginx来反向代理Gunicorn，所以，我们本来需要分别手动运行Docker，Gunicorn和Nginx：
+
+```shell
+# 运行docker容器
+docker run -p 8500:8500 --name="lstm" --mount type=bind,source=D:\code\PycharmProject\tf_model\sentiment-analysis\v1_lstm_csv\saved_model,target=/models/lstm -e MODEL_NAME=lstm -t tensorflow/serving:1.14.0 "&"
+# 运行gunicorn
+gunicorn -w 4 -b 0.0.0.0:8001 test:app
+# 运行nginx
+service nginx start
+```
+
+但是，这样不仅麻烦，而且一旦这两个进程被kill了，整个服务就中断了。为了解决这种情况，使用了supervisord进行启动，监控和拉起这两个进程，这样就非常稳定了。而且断电重新开机也不怕，因为supervisord服务会自启动。
+
+```shell
+# 任务重加载并重启
+sudo supervisorctl reload
+# 查看任务是否都被调用开启
+sudo supervisorctl
+# 查看某个任务失败原因（以Nginx为例）
+sudo supervisorctl tail nginx stdout
+```
+
+可在浏览器里输入（注：下面的`192.168.43.75`需要替换成你的id）：
+
+```
+http://192.168.43.75/predict?words=["非常","喜欢"]&nwords=2
+```
+
+即可得：
+
+```json
+{
+    "classes_id":1,
+    "labels":"POS",
+    "softmax":[0.00007,0.99970,0.00023],
+    "status":0
+}
+```
+
+成功！
 
 
 
+## 用ab压测
 
-## 压测
+网站性能压力测试是服务器网站性能调优过程中必不可缺少的一环。只有让服务器处在高压情况下，才能真正体现出软件、硬件等各种设置不当所暴露出的问题。
 
-https://zhuanlan.zhihu.com/p/102716258
+性能测试工具目前最常见的有以下几种：ab、http_load、webbench、siege。今天我们专门来介绍ab。
+
+ab是apache自带的压力测试工具。ab非常实用，它不仅可以对apache服务器进行网站访问压力测试，也可以对或其它类型的服务器进行压力测试。比如nginx、tomcat、IIS等。 
+
+apache的ab工具也算是一种ddos攻击工具 
+
+### ab原理
+
+ab是apachebench命令的缩写。
+
+ab的原理：ab命令会创建多个并发访问线程，模拟多个访问者同时对某一URL地址进行访问。它的测试目标是基于URL的，因此，它既可以用来测试apache的负载压力，也可以测试nginx、lighthttp、tomcat、IIS等其它Web服务器的压力。
+
+ab命令对发出负载的计算机要求很低，它既不会占用很高CPU，也不会占用很多内存。但却会给目标服务器造成巨大的负载，其原理类似CC攻击。自己测试使用也需要注意，否则一次上太多的负载。可能造成目标服务器资源耗完，严重时甚至导致死机。
+
+安装ab压测工具：
+
+```shell
+sudo apt install apache2-utils
+```
+
+### 服务器qps预估
+
+假如想要建设一个能承受500万PV/每天的网站，服务器每秒要处理多少个请求才能应对？如何计算？
+
+**计算模型** 
+
+每台服务器每秒处理请求的数量=((80%\*总PV量) / (24小时\*60分\*60秒\*40%)) / 服务器数量 。
+
+注：其中关键的参数是80%、40%。表示一天中有80%的请求发生在一天的40%的时间内。24小时的40%是9.6小时，有80%的请求发生一天的9.6个小时当中（很适合互联网的应用，白天请求多，晚上请求少）。
+
+**简单计算的结果**
+
+((80%\*500万) / (24小时\*60分\*60秒\*40%)) / 1 = 115.7个请求/秒 
+
+((80%\*100万) / (24小时\*60分\*60秒\*40%)) / 1 = 23.1个请求/秒
+
+**初步结论** 
+
+现在我们在做压力测试时，就有了标准，如果你的服务器一秒能处理115.7个请求，就可以承受500万PV/每天。如果你的服务器一秒能处理23.1个请求，就可以承受100万PV/每天。
+
+**留足余量**
+
+以上请求数量是均匀的分布在白天的9.6个小时中，但实际情况并不会这么均匀的分布，会有高峰有低谷。为了应对高峰时段，应该留一些余地，最少也要x2倍，x3倍也不为过。
+
+115.7个请求/秒 *2倍=231.4个请求/秒
+
+115.7个请求/秒 *3倍=347.1个请求/秒
+
+23.1个请求/秒 *2倍=46.2个请求/秒
+
+23.1个请求/秒 *3倍=69.3个请求/秒
+
+**最终结论**
+
+如果你的服务器一秒能处理231.4--347.1个请求/秒，就可以应对平均500万PV/每天。
+
+如果你的服务器一秒能处理46.2--69.3个请求，就可以应对平均100万PV/每天。
+
+### 对模型进行测试
+
+```shell
+ab -n 1000 -c 10 http://192.168.43.75/predict?words=["非常","讨厌"]&nwords=2
+# -n    100表示请求总数为1000
+# -c    10表示并发用户数为10
+```
+
+返回（会挑选最重要的三个指标进行讲解）
+
+```shell
+Benchmarking 192.168.43.75 (be patient)
+Completed 100 requests
+Completed 500 requests
+Completed 1000 requests
+Finished 1000 requests
+
+Server Software:        nginx/1.10.3  # apache版本 
+Server Hostname:        192.168.43.75  # 请求的机子 
+Server Port:            80  # 请求端口
+
+Document Path:          /predict?words=[非常,讨厌]
+Document Length:        14 bytes  # 页面长度
+
+Concurrency Level:      10  # 并发数
+Time taken for tests:   0.913 seconds  # 共使用了多少时间
+Complete requests:      1000  # 请求数
+Failed requests:        0  # 失败请求
+Total transferred:      172000 bytes  # 总共传输字节数，包含http的头信息等
+HTML transferred:       14000 bytes  # html字节数，实际的页面传递字节数
+Requests per second:    1095.71 [#/sec] (mean)  # 每秒多少请求，这个是非常重要的参数数值，服务器的吞吐量
+Time per request:       9.127 [ms] (mean)  # 用户平均请求等待时间
+Time per request:       0.913 [ms] (mean, across all concurrent requests)  # 服务器平均处理时间
+Transfer rate:          184.04 [Kbytes/sec] received  # 每秒获取的数据长度
+
+Connection Times (ms)
+              min  mean[+/-sd] median   max
+Connect:        0    0   0.3      0       3
+Processing:     1    9   2.7      8      19
+Waiting:        0    9   2.7      8      19
+Total:          3    9   2.7      8      19
+
+Percentage of the requests served within a certain time (ms)
+  50%      8  # 50%的请求在8ms内返回
+  66%      9  # 66%的请求在9ms内返回
+  75%     10
+  80%     11
+  90%     13
+ 100%     19 (longest request)
+```
+
+其中这三个指标最重要：
+
+```shell
+Requests per second: 1095.71 [#/sec] (mean)  # 每秒多少请求，是非常重要的参数数值，服务器的吞吐量
+Time per request: 9.127 [ms] (mean)  # 用户平均请求等待时间
+Time per request: 0.913 [ms] (mean, across all concurrent requests)  # 服务器平均处理时间
+```
+
+* Requests per second：qps，每秒能处理多少请求。Requests per second吞吐率越高，服务器性能越好。
+* Time per request：**站在用户角度**，每个用户平均请求等待时间，比如处理一个请求需要1ms，有十个用户同时发生请求，则每个用户一次请求需要10ms。如何理解呢？公平情况下，10个用户排成队，依次发送一个请求，用户此次发送请求完之后，要等其余九个人发送完后才能发送第二次，则每个用户可以发送的请求的间隔为用户的人数，也就是并发数。
+* Time per request(across all concurrent requests)：**站在服务器角度**，服务器平均处理时间，比如处理一个请求需要1ms
+
+我们分多次用不同的并发数和请求量测试，**请求时间基本差不多在0.9ms左右**。
+
+```shell
+ab -n 1000 -c 1 http://192.168.43.75/predict?words=["非常","讨厌"]&nwords=2
+Concurrency Level:      1
+Time taken for tests:   0.955 seconds
+Complete requests:      1000
+Failed requests:        0
+Total transferred:      172000 bytes
+HTML transferred:       14000 bytes
+Requests per second:    1046.85 [#/sec] (mean)
+Time per request:       0.955 [ms] (mean)
+Time per request:       0.955 [ms] (mean, across all concurrent requests)
+Transfer rate:          175.84 [Kbytes/sec] received
+
+ab -n 1000 -c 10 http://192.168.43.75/predict?words=["非常","讨厌"]&nwords=2
+Concurrency Level:      10
+Time taken for tests:   0.900 seconds
+Complete requests:      1000
+Failed requests:        0
+Total transferred:      172000 bytes
+HTML transferred:       14000 bytes
+Requests per second:    1111.41 [#/sec] (mean)
+Time per request:       8.998 [ms] (mean)
+Time per request:       0.900 [ms] (mean, across all concurrent requests)
+Transfer rate:          186.68 [Kbytes/sec] received
+
+ab -n 1000 -c 100 http://192.168.43.75/predict?words=["非常","讨厌"]&nwords=2
+Concurrency Level:      100
+Time taken for tests:   0.908 seconds
+Complete requests:      1000
+Failed requests:        0
+Total transferred:      172000 bytes
+HTML transferred:       14000 bytes
+Requests per second:    1100.97 [#/sec] (mean)
+Time per request:       90.829 [ms] (mean)
+Time per request:       0.908 [ms] (mean, across all concurrent requests)
+Transfer rate:          184.93 [Kbytes/sec] received
+
+ab -n 10000 -c 1 http://192.168.43.75/predict?words=["非常"," 讨厌"]&nwords=2
+Concurrency Level:      1
+Time taken for tests:   8.168 seconds
+Complete requests:      10000
+Failed requests:        0
+Total transferred:      1720000 bytes
+HTML transferred:       140000 bytes
+Requests per second:    1224.30 [#/sec] (mean)
+Time per request:       0.817 [ms] (mean)
+Time per request:       0.817 [ms] (mean, across all concurrent requests)
+Transfer rate:          205.64 [Kbytes/sec] received
+
+ab -n 10000 -c 100 http://192.168.43.75/predict?words=["非常"," 讨厌"]&nwords=2
+Concurrency Level:      100
+Time taken for tests:   7.547 seconds
+Complete requests:      10000
+Failed requests:        0
+Total transferred:      1720000 bytes
+HTML transferred:       140000 bytes
+Requests per second:    1325.05 [#/sec] (mean)
+Time per request:       75.469 [ms] (mean)
+Time per request:       0.755 [ms] (mean, across all concurrent requests)
+Transfer rate:          222.57 [Kbytes/sec] received
+```
 
 # 参考资料
 
@@ -1436,6 +2016,10 @@ https://zhuanlan.zhihu.com/p/102716258
 
 “Nginx+Gunicorn+Flask部署”参考此博客。
 
+* [假如想要建设一个能承受500万PV/每天的网站，服务器每秒要处理多少个请求才能应对？](https://blog.csdn.net/sinat_36710456/article/details/83111263?utm_medium=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromMachineLearnPai2%7Edefault-11.baidujs&dist_request_id=&depth_1-utm_source=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromMachineLearnPai2%7Edefault-11.baidujs)
+
+“用ab压测”参考此博客。
+
 ===
 
 - [TensorFlow Serving入门](https://www.jianshu.com/p/afe80b2ed7f0)
@@ -1447,6 +2031,7 @@ https://zhuanlan.zhihu.com/p/102716258
 讲了一个TFserving同时加载多个模型，即docker --model_config_file。
 
 * [教程帖：使用TensorFlow服务和Flask部署Keras模型！ ](https://www.seoxiehui.cn/article-73681-1.html)
+* [Tensorflow训练+上线+预测过程（Docker）](https://zhuanlan.zhihu.com/p/107196689)
 
 讲了图像如何从前端传给Flask。
 

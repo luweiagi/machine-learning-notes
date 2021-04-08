@@ -6,7 +6,7 @@
   - [安装Docker](#安装Docker)
     - [win10安装](#win10安装)
     - [linux安装](#linux安装)
-  - [拉取tf.Serving镜像](#拉取tf.Serving镜像)
+  - [拉取TF.Serving镜像](#拉取TF.Serving镜像)
   - [运行容器](#运行容器)
   - [通过API查看模型状态，元数据](#通过API查看模型状态，元数据)
     - [通过model-status-API查看模型状态](#通过model-status-API查看模型状态)
@@ -127,7 +127,7 @@ sudo apt install docker.io
 
 关于docker的一些命令：[Docker在Linux下载安装及部署](https://blog.csdn.net/qq_35139965/article/details/109475695)。
 
-## 拉取tf.Serving镜像
+## 拉取TF.Serving镜像
 
 打开`powershell`，然后这里我们选择tensorflow 1.14.0版本的镜像。
 
@@ -135,7 +135,7 @@ sudo apt install docker.io
 docker pull tensorflow/serving:1.14.0
 ```
 
-![docker-pull-TFserving](pic/docker-pull-TFserving.jpg)
+![docker-pull-tfserving](pic/docker-pull-tfserving.jpg)
 
 安装完可以用下面的命令查看安装的镜像：
 
@@ -548,7 +548,7 @@ POS
 
 # Flask服务
 
-![Flask-logo](pic/Flask-logo.png)
+![flask-logo](pic/flask-logo.png)
 
 ## 为什么需要Flask服务器
 
@@ -561,7 +561,7 @@ POS
 
 我们要做的是消除TensorFlow服务器和我们的前端之间的紧密耦合。
 
-![Flask-TFserving](pic/Flask-TFserving.jpg)
+![flask-tfserving](pic/flask-tfserving.jpg)
 
 ## Flask的HelloWorld代码
 
@@ -757,7 +757,7 @@ Nginx + Gunicorn，是利用Nginx高并发的优势，Nginx收到http请求之�
 
 知乎：[为什么Nginx可以直接部署，还要uWSGI，Gunicorn等中间件？](https://www.zhihu.com/question/342967945)
 
-![Nginx-gunicore-Flask](pic/Nginx-gunicore-Flask.jpg)
+![nginx-gunicore-flask](pic/nginx-gunicore-flask.jpg)
 
 首先来看两个概念
 
@@ -821,26 +821,6 @@ web服务器即用来接受客户端请求，建立连接，转发响应的程�
 一个普通的个人网站，访问量不大的话，当然可以由uWSGI和Django/Flask构成。但是一旦访问量过大，客户端请求连接就要进行长时间的等待。这个时候就出来了分布式服务器，我们可以多来几台web服务器，都能处理请求。但是谁来分配客户端的请求连接和web服务器呢？Nginx就是这样一个管家的存在，由它来分配。这也就是由Nginx实现反向代理，即代理服务器。
 
 ![why-need-nginx](pic/why-need-nginx.jpg)
-
-
-
-[TensorFlow Serving + Docker + Tornado机器学习模型生产级快速部署](https://zhuanlan.zhihu.com/p/52096200)
-
-[用tensorflow/serving部署深度学习模型及gRPC远程访问服务器](https://blog.csdn.net/u010404548/article/details/104307393?utm_medium=distribute.pc_relevant.none-task-blog-baidujs_title-2&spm=1001.2101.3001.4242)
-
-[deeplab_client.ipynb](https://github.com/sthalles/deeplab_v3/blob/master/serving/deeplab_client.ipynb)
-
-[tensorflow中ckpt转pb](https://zhuanlan.zhihu.com/p/102302133)
-
-[GET和POST到底有什么区别？](https://www.zhihu.com/question/28586791)
-
-[win10 Nginx Gunicorn Flask](https://www.baidu.com/s?wd=win10%20Nginx%20Gunicorn%20Flask%20&rsv_spt=1&rsv_iqid=0xcb4be9e40000865a&issp=1&f=8&rsv_bp=1&rsv_idx=2&ie=utf-8&rqlang=cn&tn=sitehao123&rsv_dl=tb&rsv_enter=0&oq=Nginx%2520Gunicorn%2520Flask%2520win10&rsv_btype=t&inputT=2190&rsv_t=ea67For%2F6HFKbc6nfx8j%2FhUHHcdWSMQJlcn3hdp7thX0f31%2BvB3iuAVoYrnbov8dbg&rsv_pq=fbb132c700116cf9&rsv_sug3=28&rsv_sug1=20&rsv_sug7=100&rsv_n=2&rsv_sug4=2419)
-
-[Python3 Flask+Nginx+Gunicorn部署（上）](https://blog.csdn.net/xudailong_blog/article/details/80490137)
-
-[Flask应用示例3 - 通过Nginx+Gunicorn+Flask搭建web服务](https://www.jianshu.com/p/d71d6d793aaa)
-
-[uwsgi、wsgi和Nginx的区别和关系](https://blog.csdn.net/CHENYAoo/article/details/83055108)
 
 ## 部署流程
 

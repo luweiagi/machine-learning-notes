@@ -2,30 +2,30 @@
 
 - [返回上层目录](../tensorflow.md)
 - [TFserving介绍](#TFserving介绍)
-- [**Docker与TFserving**](#Docker与TFserving)
+- [Docker与TFserving](#Docker与TFserving)
   - [安装Docker](#安装Docker)
     - [win10安装](#win10安装)
     - [linux安装](#linux安装)
   - [拉取tf.Serving镜像](#拉取tf.Serving镜像)
   - [运行容器](#运行容器)
   - [通过API查看模型状态，元数据](#通过API查看模型状态，元数据)
-    - [通过model status API 查看模型状态](#通过model status API 查看模型状态)
-    - [通过model metadata API查看模型的元数据](#通过model metadata API查看模型的元数据)
+    - [通过model-status-API查看模型状态](#通过model-status-API查看模型状态)
+    - [通过model-metadata-API查看模型的元数据](#通过model-metadata-API查看模型的元数据)
   - [gRPC与RESTful请求的区别](#gRPC与RESTful请求的区别)
-  - [使用RESTful API请求预测](#使用RESTful API请求预测)
+  - [使用RESTful-API请求预测](#使用RESTful-API请求预测)
   - [使用gRPC请求预测](#使用gRPC请求预测)
     - [输入数据为文本或数字类型](#输入数据为文本或数字类型)
     - [输入数据为图像类型](#输入数据为图像类型)
-- [**Flask服务**](#Flask服务)
+- [Flask服务](#Flask服务)
   - [为什么需要Flask服务器](#为什么需要Flask服务器)
   - [Flask的HelloWorld代码](#Flask的HelloWorld代码)
   - [Flask的缺陷](#Flask的缺陷)
   - [gevent+Flask同步变异步](#gevent+Flask同步变异步)
-- [**Nginx+Gunicorn+Flask部署**](#Nginx+Gunicorn+Flask部署)
+- [Nginx+Gunicorn+Flask部署](#Nginx+Gunicorn+Flask部署)
   - [理解Nginx+Gunicorn+Flask](#理解Nginx+Gunicorn+Flask)
     - [为什么要用Nginx+Gunicorn+Flask+supervisor方式部署](#为什么要用Nginx+Gunicorn+Flask+supervisor方式部署)
     - [Nginx、gunicore和Flask之间的关系](#Nginx、gunicore和Flask之间的关系)
-    - [为什么不直接把Flask部署到Nginx 上，而是要用uwsgi服务器？](#为什么不直接把Flask部署到Nginx 上，而是要用uwsgi服务器？)
+    - [为什么Flask和Nginx之间要用uwsgi服务器](#为什么Flask和Nginx之间要用uwsgi服务器)
     - [为什么需要Nginx](#为什么需要Nginx)
   - [部署流程](#部署流程)
   - [Flask](#Flask)
@@ -45,7 +45,7 @@
     - [supervisorctl操作命令](#supervisorctl操作命令)
     - [新增Gunicorn进程配置文件](#新增Gunicorn进程配置文件)
   - [简单例子部署完成总结](#简单例子部署完成总结)
-- [**基于supervisor+Nginx+Gunicorn+Flask+Docker部署TFserving服务**](#基于supervisor+Nginx+Gunicorn+Flask+Docker部署TFserving服务)
+- [基于supervisor+Nginx+Gunicorn+Flask+Docker部署TFserving服务](#基于supervisor+Nginx+Gunicorn+Flask+Docker部署TFserving服务)
   - [部署模型](#部署模型)
   - [部署Docker](#部署Docker)
   - [部署Flask](#部署Flask)
@@ -204,7 +204,7 @@ docker rm d4fcf5591676
 
 ## 通过API查看模型状态，元数据
 
-### 通过model status API 查看模型状态
+### 通过model-status-API查看模型状态
 
 ```shell
 curl http://localhost:8501/v1/models/lstm
@@ -221,7 +221,7 @@ curl http://localhost:8501/v1/models/lstm
 >     "error_code": "OK",
 >     "error_message": ""
 
-### 通过model metadata API查看模型的元数据
+### 通过model-metadata-API查看模型的元数据
 
 ```shell
 curl http://localhost:8501/v1/models/lstm/metadata
@@ -377,7 +377,7 @@ saved_model_cli show --all --dir D:\code\PycharmProject\tf_model\sentiment-analy
 
   gRPC是HTTP/2协议，REST API是HTTP/1协议
 
-## 使用RESTful API请求预测
+## 使用RESTful-API请求预测
 
 第一种方式是命令行下使用**curl**请求预测：
 
@@ -802,7 +802,9 @@ python代码里包括的wsgi app，简易的http server（不建议用于线上�
 
 3. 精准控制，比如Gunicorn的sync worker是支持prefork，这也就意味着可以在收到足够多的请求的时候，预先帮你提升worker数量，来处理。比如，Gunicorn进程的用户可能和Nginx不一样，具备更高的权限，你用Nginx处理，是不是就有点简单粗暴了呢？再比如，我要针对wsgi做一些监控。这怎么处理？
 
-### 为什么不直接把Flask部署到Nginx 上，而是要用uwsgi服务器？
+### 为什么Flask和Nginx之间要用uwsgi服务器
+
+为什么不直接把Flask部署到Nginx 上，而是要用uwsgi服务器？
 
 uwsgi服务器是将web请求的参数/属性，转换成python中相应的数据结构，以便于上层的python代码不用关注tcp层的细节。
 

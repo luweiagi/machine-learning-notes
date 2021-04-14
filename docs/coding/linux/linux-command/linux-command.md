@@ -5,6 +5,7 @@
   * [head/tail/sed查看或截取超大文件](#head/tail/sed查看或截取超大文件)
   * [less直接查看超大文件](#less直接查看超大文件)
   * [cat文件内容打印到屏幕](#cat文件内容打印到屏幕)
+  * [tree展示目录结构](#tree展示目录结构)
 * [移动/传输文件](#移动/传输文件)
   * [cp复制文件](#cp复制文件)
   * [mv移动文件/重命名](#mv移动文件/重命名)
@@ -109,9 +110,62 @@ cat abc.txt
 
 
 
+## tree展示目录结构
+
+安装：
+
+```shell
+apt-get install tree
+```
+
+使用：
+
+```shell
+tree [要展示的文件夹路径] -d -L 1
+```
+
+解释：
+
+tree: 显示目录树；
+
+-d: 只显示目录；
+
+-L 1: 选择显示的目录深度为1，只显示一层深度。
+
+```shell
+tree ~/Desktop/saved_models
+```
+
+结果为：
+
+```
+saved_models
+├── cv_sod
+│   └── 1609392632
+│       ├── saved_model.pb
+│       └── variables
+│           ├── variables.data-00000-of-00001
+│           └── variables.index
+└── lstm
+    └── 1609392632
+        ├── assets
+        │   ├── vocab.labels.txt
+        │   └── vocab.words.txt
+        ├── saved_model.pb
+        └── variables
+            ├── variables.data-00000-of-00001
+            └── variables.index
+
+7 directories, 8 files
+```
+
+参考资料：
+
+* [命令展示该目录下的所有子目录及文件结构 tree](https://www.cnblogs.com/oxspirt/p/6278004.html)
+
 # 移动/传输文件
 
-##cp复制文件
+## cp复制文件
 
 只复制部分文件，就使用 `grep -v`来 过滤掉不想复制的文件/文件夹，文件名之间用`\|`分割。 
 

@@ -60,6 +60,8 @@ def cmp_cross_entropy_loss(logits, labels, pos_num):
 
 ## Logistic loss
 
+有时也叫负二项对数似然损失函数（negative binomial log-likelihood）
+
 ### Logistic loss和交叉熵损失损失的等价性
 
 对于解决分类问题的FM模型，
@@ -89,8 +91,6 @@ $$
   $
 
 
-
-
 （2）当为负样本时，损失为
 
 - 标签为[1, 0]
@@ -105,8 +105,6 @@ $$
   $
   Loss=\text{log}\left(1+\text{exp}(-yf(x))\right)=\text{log}\left(1+\text{exp}(wx)\right)
   $
-
-
 
 
 可见，两种损失函数的值完全一样。

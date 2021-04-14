@@ -16,6 +16,7 @@
   - [使用gRPC请求预测](#使用gRPC请求预测)
     - [输入数据为文本或数字类型](#输入数据为文本或数字类型)
     - [输入数据为图像类型](#输入数据为图像类型)
+  - [ckpt格式转为pd格式用于TFserving](#ckpt格式转为pd格式用于TFserving)
 - [Flask服务](#Flask服务)
   - [为什么需要Flask服务器](#为什么需要Flask服务器)
   - [Flask的HelloWorld代码](#Flask的HelloWorld代码)
@@ -87,12 +88,17 @@ TensorFlow服务使得投入生产的过程模型更容易、更快速。它允�
 但那时候客户端和服务端的通信只支持gRPC。在实际的生产环境中比较广泛使用的C/S通信手段是基于RESTfull API的，幸运的是从tf1.8以后，TFserving也正式支持RESTfull API通信方式了。
 
 * 用什么来部署：当然是TFserving
-
 * 怎么提供api接口：TFserving有提供RESTful api接口，现实部署时会在前面再加一层如Flask api
-
 * 多个模型GPU资源如何分配：TFserving支持部署多模型，通过配置
-
 * 线上模型如何更新而服务不中断：TFserving支持模型的不同的版本，如your_model中1和2两个版本，当你新增一个模型3时，TFserving会自动判断，自动加载模型3为当前模型，不需要重启
+
+TensorFlow Serving还支持同时挂载多个模型或者多个版本的模型，只需简单地指定模型名称即可调用相应的模型，无需多写几份代码、运行多个后台服务。因此优势在于：
+
+**1. 自动刷新使用新版本模型，无需重启服务。**
+
+**2. 无需写任何部署代码。**
+
+**3. 可以同时挂载多个模型。**
 
 # Docker与TFserving
 
@@ -134,6 +140,7 @@ sudo apt install docker.io
 
 ```shell
 docker pull tensorflow/serving:1.14.0
+docker pull tensorflow/serving:1.14.0-gpu # 注意，可以选GPU
 ```
 
 ![docker-pull-tfserving](pic/docker-pull-tfserving.jpg)
@@ -166,11 +173,24 @@ docker run -p 8501:8501 --name="lstm" --mount type=bind,source=D:\code\PycharmPr
 docker run -p 8500:8500 --name="lstm" --mount type=bind,source=D:\code\PycharmProject\tf_model\sentiment-analysis\v1_lstm_csv\saved_model,target=/models/lstm -e MODEL_NAME=lstm -t tensorflow/serving:1.14.0 "&"
 ```
 
+如果docker安装选的是`docker pull tensorflow/serving:1.14.0-gpu`，可以选择指定GPU：
+
+```shell
+docker run -p 8500:8500 --name="lstm" --mount type=bind,source=D:\code\PycharmProject\tf_model\sentiment-analysis\v1_lstm_csv\saved_model,target=/models/lstm -e MODEL_NAME=lstm CUDA_VISIBLE_DEVICES=0 -t tensorflow/serving:1.14.0 "&"
+```
+
 上面的命令中：
 
-* `-p 8501:8501`是端口映射，是将容器的8501端口映射到宿主机的8501端口，后面预测的时候使用该端口；更具体点说，-p 22222:33333 关键参数，指定docker虚拟机的22222端口，映射为container的33333端口，即对192.168.59.103:22222的访问，统统访问到container的33333端口。如果要映射80端口，设置-p 80:80就好。
+* `-p 8501:8501`是端口映射，是将容器的8501端口映射到宿主机的8501端口，后面预测的时候使用该端口。
+
+  默认tensorflow serving的8500端口是对gRPC开放，8501是对REST API开放，8501:8501即（主机端口:容器端口），如果不进行设定，则都是默认端口。
+
+  更具体点说，-p 22222:33333 关键参数，指定docker虚拟机的22222端口，映射为container的33333端口，即对192.168.59.103:22222的访问，统统访问到container的33333端口。如果要映射80端口，设置-p 80:80就好。
+
 * `-e MODEL_NAME=lstm` 设置模型名称；
+
 * `--mount type=bind,source=D:\xxx\v1_lstm_csv\saved_model,target=/models/lstm` 是将宿主机的路径D:\xxx\v1_lstm_csv\saved_model挂载到容器的/models/lstm下。D:\xxx\v1_lstm_csv\saved_model是存放的是上述准备工作中保存的模型文件，在D:\xxx\v1_lstm_csv\saved_model下新建一个以数字命名的文件夹，如100001，并将模型文件（包含一个.pb文件和一个variables文件夹）放到该文件夹中。容器内部会根据绑定的路径读取模型文件；
+
 * `-t tensorflow/serving:1.14.0` 根据名称“tensorflow/serving:1.14.0”运行容器；
 
 注意：上面的`source=D:\code\xxx\v1_lstm_csv\saved_model`里的模型，是一个中文评论情感分类的模型，可以直接在github上下载：[linguishi/**chinese_sentiment**](https://github.com/linguishi/chinese_sentiment/tree/master/model/lstm/saved_model)，要将包含模型数据的数字名字的文件夹放在`D:\code\xxx\v1_lstm_csv\saved_model`路径下，因为docker会自动找最新的数字文件夹名进行加载。
@@ -194,13 +214,13 @@ docker run -p 8500:8500 --name="lstm" --mount type=bind,source=D:\code\PycharmPr
 第一列为container id，干掉它即可：
 
 ```shell
-docker kill d4fcf5591676
+sudo docker kill d4fcf5591676
 ```
 
 删除该任务的话，需要输入：
 
 ```shell
-docker rm d4fcf5591676
+sudo docker rm d4fcf5591676
 ```
 
 ## 通过API查看模型状态，元数据
@@ -479,7 +499,7 @@ latency: 9.841000000000001 ms
 > docker run -p 8500:8500 --name="lstm" --mount type=bind,source=D:\code\PycharmProject\tf_model\sentiment-analysis\v1_lstm_csv\saved_model,target=/models/lstm -e MODEL_NAME=lstm -t tensorflow/serving:1.14.0 "&"
 > ```
 >
-> 如果发生冲突就删除已有的容器：
+> 如果发生重名冲突就删除已有的容器：
 >
 > ```shell
 > docker ps -a  # 根据冲突提示找到冲突的已有容器
@@ -546,6 +566,177 @@ POS
 ```
 
 ### 输入数据为图像类型
+
+这里需要在运行容器时将gRPC的端口映射到宿主机的8500端口，前面`运行容器`章节已经说过了，这里再重复一遍（该模型来自下节的`ckpt格式转为pd格式用于TFserving`中产出的pd格式模型）：
+
+> ```python
+> # 运行容器
+> sudo docker run -p 8500:8500 --name="cv_sod" --mount type=bind,source=/home/luwei/Desktop/model/cv_sod/saved_model,target=/models/cv_sod -e MODEL_NAME=cv_sod -t tensorflow/serving:1.14.0 &
+> ```
+>
+> 如果发生重名冲突就删除已有的容器：
+>
+> ```shell
+> docker ps -a  # 根据冲突提示找到冲突的已有容器
+> docker kill d4fcf5591676  # 停止冲突的已有容器
+> docker rm d4fcf5591676  # 删除冲突的的已有容器
+> ```
+
+然后运行通过gRPC请求TFserving的python代码：`tf_serving_grpc_img.py`
+
+```python
+import grpc
+import json
+import cv2
+import imageio
+from scipy import misc
+import numpy as np
+# pip install tensorflow_serving_api
+from tensorflow_serving.apis import model_service_pb2_grpc, model_management_pb2, get_model_status_pb2, predict_pb2, prediction_service_pb2_grpc
+from tensorflow_serving.config import model_server_config_pb2
+from tensorflow.contrib.util import make_tensor_proto
+from tensorflow.core.framework import types_pb2
+
+serving_config = {
+    "hostport": "127.0.0.1:8500",
+    "max_message_length": 10 * 1024 * 1024,
+    "timeout": 300,
+    "signature_name": "serving_default",
+    "model_name": "cv_sod"
+}
+
+
+def predict_test(serving_config, image_in_file, image_out_file):
+    channel = grpc.insecure_channel(serving_config['hostport'], options=[
+        ('grpc.max_send_message_length', serving_config['max_message_length']),
+        ('grpc.max_receive_message_length', serving_config['max_message_length'])])
+    stub = prediction_service_pb2_grpc.PredictionServiceStub(channel)
+
+    # ==========图片前处理====================
+    rgb = imageio.imread(image_in_file)
+    if rgb.shape[2] == 4:
+        def rgba2rgb(img):
+            return img[:, :, :3] * np.expand_dims(img[:, :, 3], 2)
+        rgb = rgba2rgb(rgb)
+    origin_shape = rgb.shape
+    g_mean = np.array(([126.88, 120.24, 112.19])).reshape([1, 1, 3])
+    rgb = np.expand_dims(
+        misc.imresize(rgb.astype(np.uint8), [320, 320, 3], interp="nearest").astype(np.float32) - g_mean, 0)
+
+    # ==========请求TFserving服务====================
+    request = predict_pb2.PredictRequest()
+    request.model_spec.name = serving_config['model_name']
+    request.model_spec.signature_name = serving_config['signature_name']
+    request.inputs['img_in'].CopyFrom(make_tensor_proto(rgb, shape=[1, 320, 320, 3], dtype=types_pb2.DT_FLOAT))
+    result = stub.Predict(request, serving_config['timeout'])
+    channel.close()
+    # return result, origin_shape
+
+    # ==========图片后处理====================
+    # print(predict_result)  # 通过打印此语句获知output含有什么项及其类型
+    img_out = result.outputs['img_out'].float_val  # [0]
+    img_out = np.array(img_out).reshape((-1, 320, 320, 1))
+    final_alpha = misc.imresize(np.squeeze(img_out), origin_shape)
+    imageio.imwrite(image_out_file, final_alpha)
+
+
+if __name__ == "__main__":
+    image_in_file = '/home/luwei/Desktop/flask_osd/goat.jpg'
+    image_out_file = '/home/luwei/Desktop/flask_osd/goat_osd.jpg'
+
+    predict_test(image_in_file, image_out_file, serving_config)
+```
+
+
+
+
+
+
+
+## ckpt格式转为pd格式用于TFserving
+
+TFserving使用的是PB（ProtoBuf）文件格式，它体积较小但不可更改，而一般模型训练保存的模型文件为ckpt格式，它体积大但结构和变量值是分离的，比较灵活。所以，如果没有pb格式，就需要把ckpt格式转为pb格式。
+
+使用`tf.saved_model.save`可以生成pb格式的模型文件，其他格式没有网络结构tensorflow-serving无法复现。
+
+对于tf1.x，以图像的显著性检测为例（该例子的论文和github代码在下面代码注释中已给出），转换代码如下：
+
+```shell
+# -*- coding: utf-8 -*-
+import sys
+import argparse
+import tensorflow as tf
+from tensorflow.python import saved_model
+
+# Joker316701882/Salient-Object-Detection
+# github: https://github.com/Joker316701882/Salient-Object-Detection
+# paper: https://openaccess.thecvf.com/content_cvpr_2017/papers/Hou_Deeply_Supervised_Salient_CVPR_2017_paper.pdf
+
+
+def main(args):
+    gpu_options = tf.GPUOptions(per_process_gpu_memory_fraction=args.gpu_fraction)
+    graph = tf.Graph()
+    saver = tf.train.import_meta_graph('./meta_graph/my-model.meta', graph=graph)
+    with tf.Session(graph=graph, config=tf.ConfigProto(gpu_options=gpu_options)) as sess:
+        init = tf.global_variables_initializer()
+        sess.run(init)
+
+        saver.restore(sess, tf.train.latest_checkpoint('./salience_model'))
+
+        image_batch = tf.get_collection('image_batch')[0]
+        pred_mattes = tf.get_collection('mask')[0]
+        print("inputs =")
+        print(image_batch)
+        print("outputs =")
+        print(pred_mattes)
+
+        saved_model.simple_save(session=sess,
+                                export_dir='D:\\pd',
+                                inputs={"img_in": image_batch},
+                                outputs={"img_out": pred_mattes})
+
+
+def parse_arguments(argv):
+    parser = argparse.ArgumentParser()
+
+    parser.add_argument('--rgb', type=str, help='input rgb', default=None)
+    parser.add_argument('--rgb_folder', type=str, help='input rgb', default=None)
+    parser.add_argument('--gpu_fraction', type=float, help='how much gpu is needed, usually 4G is enough', default=1.0)
+    return parser.parse_args(argv)
+
+
+if __name__ == '__main__':
+    sys.argv = ['inference.py', '--rgb_folder', 'test_input']
+    main(parse_arguments(sys.argv[1:]))
+```
+
+利用`saved_model_cli`命令可以查看该pb文件的输入、输出信息，命令如下：
+
+```shell
+cd pb模型所在目录
+saved_model_cli show --dir ./ --all
+```
+
+结果为：
+
+```shell
+MetaGraphDef with tag-set: 'serve' contains the following SignatureDefs:
+
+signature_def['serving_default']:
+  The given SavedModel SignatureDef contains the following input(s):
+    inputs['img_in'] tensor_info:
+        dtype: DT_FLOAT
+        shape: (1, 320, 320, 3)
+        name: Placeholder:0
+  The given SavedModel SignatureDef contains the following output(s):
+    outputs['img_out'] tensor_info:
+        dtype: DT_FLOAT
+        shape: (1, 320, 320, 1)
+        name: final_mask/mask:0
+  Method name is: tensorflow/serving/predict
+```
+
+易知，该pb文件的输入为`img_in`，输出为`img_out`。
 
 # Flask服务
 
@@ -2004,6 +2195,339 @@ Time per request:       0.755 [ms] (mean, across all concurrent requests)
 Transfer rate:          222.57 [Kbytes/sec] received
 ```
 
+## 多模型在线部署
+
+前面介绍的Tensorflow serving启动服务时，会将我们的模型服务放到服务器端口，那么如果我们需要将多个模型同时放到该端口该怎么做呢？例如我们需要将dog-cat分类模型、目标检测模型同时放到端口上，用户可以根据具体地址来访问端口的不同模型，这时候就需要多模型部署了。
+
+多模型部署与前面的模型部署步骤大致相同，就是多了一个多模型配置文件，这里用我的模型做为例子。我需要将两个模型部署到端口上，具体如下：
+
+```shell
+multi_models/
+├── cv_sod
+│   └── 1609392632
+│       ├── saved_model.pb
+│       └── variables
+│           ├── variables.data-00000-of-00001
+│           └── variables.index
+├── lstm
+│   └── 1609392632
+│       ├── assets
+│       │   ├── vocab.labels.txt
+│       │   └── vocab.words.txt
+│       ├── saved_model.pb
+│       └── variables
+│           ├── variables.data-00000-of-00001
+│           └── variables.index
+└── models.config
+
+7 directories, 9 files
+```
+
+多模型配置文件（文件名models.config）：
+
+```json
+model_config_list: {
+  config: {
+    name: "cv_sod",
+    base_path: "/models/cv_sod",
+    model_platform: "tensorflow"
+  },
+  config: {
+    name: "lstm",
+    base_path: "/models/lstm",
+    model_platform: "tensorflow"
+  },
+}
+```
+
+参数说明：
+– `name` 相当于第一种方式中的`MODEL_NAME`
+– `base_path` 是在tensorflow/serving的docker容器中的路径
+– `model_version_policy` 说明我们要加载的模型版本，比如当前配置加载版本1和版本2。
+
+
+
+目前能找到的运行容器的方法有两种，区别在于共享主机路径设置上，Docker官方网站上说使用–mount进行设置会更灵活，不过Tensorflow官方文档上用的是第二种，所以随便选一种就好。
+
+**方法一：**
+
+```shell
+sudo docker run -p 8501:8501 -p 8500:8500 --name multi_models \
+    --mount type=bind,source=/home/luwei/Desktop/multi_models/,target=/models/ \
+    -t tensorflow/serving:1.14.0 \
+    --model_config_file=/models/models.config \
+    --model_config_file_poll_wait_seconds=60 &
+```
+
+`-p`: 设定映射端口，默认tensorflow serving的8500端口是对gRPC开放，8501是对REST API开放，8501:8501即（主机端口:容器端口），如果不进行设定，则都是默认端口。
+
+`--name`: 容器名字，可以被替换成任意字符串，方便对后期容器进行操作。
+
+`--mount`: 使用挂载模式。
+
+`type`: 设置绑定的方式，共有三种，bind，volume，tmpfs，只有bind可以和主机共享文件夹并且通过主机修改，具体区别参见链接。
+
+`source`: 主机需要共享的文件夹路径。
+
+`target`: docker容器内共享文件夹路径，注意，不要修改target里的名称，即models。
+
+`-t`: 让Docker分配一个伪终端（pseudo-tty）并绑定到容器的标准输入上，在其他应用中经常和 -i 搭配使用，后者是为了让容器的标准输入保持打开，即以互动模式运行。
+
+`tensorflow/serving`: 使用的镜像名。
+
+`--model_config_file`: 指定configure file的路径，注意是共享到容器内的路径，不是主机的路径。
+
+`&`: 用于连接多个run，这是tensorflow官方文档用于退出docker容器运行界面并保持后台运行的方法。
+
+**方法二：**
+
+```shell
+sudo docker run -p 8501:8501 -p 8500:8500 --name multi_models \
+    -v "/home/luwei/Desktop/multi_models/:/models/" \
+    -t tensorflow/serving:1.14.0 \
+    --model_config_file=/models/models.config \
+    --model_config_file_poll_wait_seconds=60 &
+```
+
+`-v`: 共享主机的某个文件夹，使得该文件夹下的文件自动被复制到docker容器的指定文件夹内。
+
+`--rm`: 在执行结束后删除该容器。
+
+`-p`: 设定映射端口，8501:8501即（主机端口:容器端口）。
+
+`-t`: 在终端上运行，对应的还有-i，指使用交互式操作。
+
+`tensorflow/serving`: 使用的镜像名。
+
+`--model_config_file`: 指定configure file的路径。
+
+`--model_config_file_poll_wait_seconds`: 指定部署服务器定时查看是否在该路径下有新的configure file。ps：其实我没理解这个的作用，因为我复制lstm文件夹为lstm_1，并且在主机的configure file中增加了lstm_1部分，并且等待了设置的n秒后，通过网页`http://localhost:8501/v1/models/lstm_1`检查lstm_1并没有运行成功。经过搜索得到的解答：Tensorflow Serving 2.1.0 supports it while 1.14.0 doesn't.哭
+
+### 指定模型版本
+
+#### 服务端配置
+
+如果一个模型有多个版本，并在预测的时候希望指定模型的版本，可以通过以下方式实现。
+修改model.config文件，增加model_version_policy：
+
+```shell
+model_config_list: {
+  config: {
+    name: "cv_sod",
+    base_path: "/models/cv_sod",
+    model_platform: "tensorflow"
+    model_version_policy:{
+      all:{}
+    }
+    version_labels {
+      key: 'stable'
+      value: 16323123125
+    }
+    version_labels {
+      key: 'abtest1'
+      value: 16324235421
+    }
+  },
+  config: {
+    name: "lstm",
+    base_path: "/models/lstm",
+    model_platform: "tensorflow"
+  },
+}
+```
+
+其中，
+
+* `model_version_policy`
+
+  `model_version_policy`有以下几种：
+
+  ```
+  model_version_policy:{
+    all:{}
+  }
+  
+  model_version_policy:{
+    specific {
+      versions: 16323123125
+      versions: 16324235421
+    }
+  }
+  
+  model_version_policy:{
+    all:{}
+  }
+  ```
+
+  请求预测的时候，如果要使用版本为`1609392632`的模型，就在后面加上`versions/1609392632`，要查看模型状态：
+
+  ```
+  http://localhost:8501/v1/models/cv_sod/versions/1609392632
+  ```
+
+  tfserving支持模型的Hot Plug，上述容器运行起来之后，如果在宿主机的`/home/luwei/Desktop/multi_models/lstm`文件夹下新增模型文件如`100003`，tfserving会自动加载新模型；同样如果移除现有模型，tfserving也会自动卸载模型（经过试验好像并不会自动卸载呀，我把主机里的对应版本的删了，可是tfserving还存在呀，难道只能加不能减？难道是我的版本是tf1.14，那等用到tf2.1.0的时候再试试）。
+
+* version_labels
+
+  有时，为模型版本添加一个间接级别会很有帮助, 可以为当前客户端应查询的任何版本分配别名，例如“stable”，而不是让所有客户都知道他们应该查询版本`16323123125`。
+
+  启动服务
+
+  ```shell
+  sudo docker run -p 8501:8501 -p 8500:8500 --name multi_models \
+      -v "/home/luwei/Desktop/multi_models/:/models/" \
+      -t tensorflow/serving:1.14.0 \
+      --model_config_file=/models/models.config \
+      --model_config_file_poll_wait_seconds=60 \
+      --allow_version_labels_for_unavailable_models=true &
+  ```
+
+  说明：根据官方说明，添加别名只能针对已经加载的模型（先启动服务，再更新配置文件），若想在启动服务的时候设置别名，需要设置allow_version_labels_for_unavailable_models=true。
+
+  官方说明如下：
+
+  > Please note that labels can only be assigned to model versions that are already loaded and available for serving. Once a model version is available, one may reload the model config on the fly to assign a label to it. This can be achieved using aHandleReloadConfigRequest RPC or if the server is set up to periodically poll the filesystem for the config file, as described above.
+  >
+  > If you would like to assign a label to a version that is not yet loaded (for ex. by supplying both the model version and the label at startup time) then you must set the --allow_version_labels_for_unavailable_models flag to true, which allows new labels to be assigned to model versions that are not loaded yet.
+
+#### 客户端调用
+
+特别说明：`version_label`设置别名的方式只适用于grpc调用方式，而不适用与REST调用。
+
+REST调用，直接**指定版本号**。
+
+```shell
+curl -d '{"inputs":[[1.0, 2.0]]}' -X POST http://localhost:8501/v1/models/linear/versions/1:predict
+```
+
+gRPC方式，
+
+**使用版本号**：
+
+```python
+channel = grpc.insecure_channel('49.233.155.170:8500')
+stub = prediction_service_pb2_grpc.PredictionServiceStub(channel)
+x = [[1.0, 2.0]]
+request = predict_pb2.PredictRequest()
+request.model_spec.name = "linear"
+request.model_spec.version.value = 1
+request.model_spec.signature_name = 'serving_default'
+request.inputs['inputs'].CopyFrom(tf.make_tensor_proto(x, shape=(1, 2)))
+response = stub.Predict(request, 10.0)
+output = tf.make_ndarray(response.outputs["outputs"])[0][0]
+print(output)
+```
+
+**使用别名**：model_spec.version_label
+
+```python
+channel = grpc.insecure_channel('49.233.155.170:8500')
+stub = prediction_service_pb2_grpc.PredictionServiceStub(channel)
+x = [[1.0, 2.0]]
+request = predict_pb2.PredictRequest()
+request.model_spec.name = "linear"
+request.model_spec.version_label = "stable"
+request.model_spec.signature_name = 'serving_default'
+request.inputs['inputs'].CopyFrom(tf.make_tensor_proto(x, shape=(1, 2)))
+response = stub.Predict(request, 10.0)
+output = tf.make_ndarray(response.outputs["outputs"])[0][0]
+print(output)
+```
+
+区别：model_spec.version.value与model_spec.version_label。
+
+### 热更新
+
+服务启动后，可以通过重新加载配置文件的方式来实现模型的热更新。可以通过一下两种方式来实现。
+
+#### HandleReloadConfigRequest（grpc）
+
+比如我们想新增模型textcnn和router。先更新其配置文件model.config为：
+
+```shell
+model_config_list {
+  config {
+    name: "linear"
+    base_path: "/models/mutimodel/linear_model"
+    model_platform: "tensorflow"
+    model_version_policy {
+      specific {
+        versions: 1
+        versions: 2
+      }
+    }
+    version_labels {
+      key: "stable"
+      value: 1
+    }
+  }
+  config {
+    name: "textcnn"
+    base_path: "/models/mutimodel/textcnn_model"
+    model_platform: "tensorflow"
+  }
+  config {
+    name: "router"
+    base_path: "/models/mutimodel/router_model"
+    model_platform: "tensorflow"
+  }
+}
+```
+
+gRPC代码如下：
+
+```shell
+from google.protobuf import text_format
+from tensorflow_serving.apis import model_management_pb2
+from tensorflow_serving.apis import model_service_pb2_grpc
+from tensorflow_serving.config import model_server_config_pb2
+
+config_file = "model.config"
+stub = model_service_pb2_grpc.ModelServiceStub(channel)
+request = model_management_pb2.ReloadConfigRequest()
+
+# read config file
+config_content = open(config_file, "r").read()
+model_server_config = model_server_config_pb2.ModelServerConfig()
+model_server_config = text_format.Parse(text=config_content, message=model_server_config)
+request.config.CopyFrom(model_server_config)
+request_response = stub.HandleReloadConfigRequest(request, 10)
+
+if request_response.status.error_code == 0:
+    open(config_file, "w").write(str(request.config))
+    print("TF Serving config file updated.")
+    else:
+        print("Failed to update config file.")
+        print(request_response.status.error_code)
+        print(request_response.status.error_message)
+```
+
+测试模型成功，模型新增成功。
+
+#### –-model_config_file_poll_wait_seconds
+
+在启动服务的时候，指定重新加载配置文件的时间间隔60s。
+
+```shell
+sudo docker run -p 8501:8501 -p 8500:8500 --name multi_models \
+    -v "/home/luwei/Desktop/multi_models/:/models/" \
+    -t tensorflow/serving:1.14.0 \
+    --model_config_file=/models/models.config \
+    --model_config_file_poll_wait_seconds=60 &
+```
+
+立即调用textcnn，可以看到报如下错误。很明显，此时服务并没有加载textcnn模型。
+
+60s之后，观察到服务出现变化，显示已经加载模型textcnn和router。
+
+此时，再次调用textcnn模型，正确返回，模型更新成功。
+
+### 其他有用参数
+
+[--enabel-batching==true](https://www.tensorflow.org/tfx/serving/serving_config#batching_configuration)
+
+
+
 # 参考资料
 
 - [使用docker和TFserving搭建模型预测服务](https://blog.csdn.net/JerryZhang__/article/details/85107506)
@@ -2013,6 +2537,10 @@ Transfer rate:          222.57 [Kbytes/sec] received
 - [gRPC与RESTful的区别](https://blog.csdn.net/baidu_37648998/article/details/109598522)
 
 "gRPC与RESTful的区别"参考此资料
+
+* [将ckpt转化为pb文件并利用tensorflow/serving实现模型部署及预测](https://blog.csdn.net/jclian91/article/details/109521659)
+
+“ckpt格式转为pd格式用于TFserving”参考此资料
 
 * [Flask: Flask框架是如何实现非阻塞并发的](https://zhuanlan.zhihu.com/p/99669985)
 
@@ -2037,6 +2565,11 @@ Transfer rate:          222.57 [Kbytes/sec] received
 
 “用ab压测”参考此博客。
 
+* [Docker + Tensorflow serving 多模型在线部署](https://blog.csdn.net/u012433049/article/details/89354361)
+* [官网：Tensorflow Serving Configuration](https://www.tensorflow.org/tfx/serving/serving_config)
+
+“多模型在线部署”参考此博客。
+
 ===
 
 - [TensorFlow Serving入门](https://www.jianshu.com/p/afe80b2ed7f0)
@@ -2049,6 +2582,15 @@ Transfer rate:          222.57 [Kbytes/sec] received
 
 * [教程帖：使用TensorFlow服务和Flask部署Keras模型！ ](https://www.seoxiehui.cn/article-73681-1.html)
 * [Tensorflow训练+上线+预测过程（Docker）](https://zhuanlan.zhihu.com/p/107196689)
+* [用 TFserving 部署深度学习模型](https://blog.csdn.net/BF02jgtRS00XKtCx/article/details/106247459)
 
 讲了图像如何从前端传给Flask。
+
+* [用 TFserving 部署深度学习模型](https://blog.csdn.net/BF02jgtRS00XKtCx/article/details/106247459)
+
+讲了如何将pb模型文件转为tfserving文件。
+
+* [如何将keras训练好的模型转换成tensorflow的.pb的文件并在TensorFlow serving环境调用](https://blog.csdn.net/mouxiaoqiu/article/details/81220222?utm_medium=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromMachineLearnPai2%7Edefault-2.baidujs&dist_request_id=1329187.22073.16179499767350159&depth_1-utm_source=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromMachineLearnPai2%7Edefault-2.baidujs)
+
+keras模型转pb
 

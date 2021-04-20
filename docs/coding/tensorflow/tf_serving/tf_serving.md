@@ -189,11 +189,14 @@ docker run -p 8500:8500 --name="lstm" --mount type=bind,source=D:\code\PycharmPr
 
 * `-e MODEL_NAME=lstm` 设置模型名称；
 
+  - 可选参数: MODLE_NAME（默认值：model）
+  - 可选参数：MODEL_BASE_PATH（默认值/models）
+
 * `--mount type=bind,source=D:\xxx\v1_lstm_csv\saved_model,target=/models/lstm` 是将宿主机的路径D:\xxx\v1_lstm_csv\saved_model挂载到容器的/models/lstm下。D:\xxx\v1_lstm_csv\saved_model是存放的是上述准备工作中保存的模型文件，在D:\xxx\v1_lstm_csv\saved_model下新建一个以数字命名的文件夹，如100001，并将模型文件（包含一个.pb文件和一个variables文件夹）放到该文件夹中。容器内部会根据绑定的路径读取模型文件；
 
 * `-t tensorflow/serving:1.14.0` 根据名称“tensorflow/serving:1.14.0”运行容器；
 
-注意：上面的`source=D:\code\xxx\v1_lstm_csv\saved_model`里的模型，是一个中文评论情感分类的模型，可以直接在github上下载：[linguishi/**chinese_sentiment**](https://github.com/linguishi/chinese_sentiment/tree/master/model/lstm/saved_model)，要将包含模型数据的数字名字的文件夹放在`D:\code\xxx\v1_lstm_csv\saved_model`路径下，因为docker会自动找最新的数字文件夹名进行加载。
+注意：上面的`source=D:\code\xxx\v1_lstm_csv\saved_model`里的模型，是一个中文评论情感分类的模型，可以直接在github上下载：[linguishi/**chinese_sentiment**](https://github.com/linguishi/chinese_sentiment/tree/master/model/lstm/saved_model)，要将包含模型数据的数字名字的文件夹放在`D:\code\xxx\v1_lstm_csv\saved_model`路径下，因为docker会自动找最新的数字文件夹名进行加载，即路径只需到模型这一级，不能精确到版本级别，比如：/root/mutimodel/linear_model而不是/root/mutimodel/linear_model/1，服务会默认加载最大版本号的模型。
 
 
 
@@ -2197,6 +2200,8 @@ Transfer rate:          222.57 [Kbytes/sec] received
 
 ## 多模型在线部署
 
+### 多模型部署
+
 前面介绍的Tensorflow serving启动服务时，会将我们的模型服务放到服务器端口，那么如果我们需要将多个模型同时放到该端口该怎么做呢？例如我们需要将dog-cat分类模型、目标检测模型同时放到端口上，用户可以根据具体地址来访问端口的不同模型，这时候就需要多模型部署了。
 
 多模型部署与前面的模型部署步骤大致相同，就是多了一个多模型配置文件，这里用我的模型做为例子。我需要将两个模型部署到端口上，具体如下：
@@ -2301,9 +2306,30 @@ sudo docker run -p 8501:8501 -p 8500:8500 --name multi_models \
 
 `--model_config_file`: 指定configure file的路径。
 
-`--model_config_file_poll_wait_seconds`: 指定部署服务器定时查看是否在该路径下有新的configure file。ps：其实我没理解这个的作用，因为我复制lstm文件夹为lstm_1，并且在主机的configure file中增加了lstm_1部分，并且等待了设置的n秒后，通过网页`http://localhost:8501/v1/models/lstm_1`检查lstm_1并没有运行成功。经过搜索得到的解答：Tensorflow Serving 2.1.0 supports it while 1.14.0 doesn't.哭
+`--model_config_file_poll_wait_seconds`: 指定部署服务器定时查看是否在该路径下有新的configure file。ps：其实我没理解这个的作用，因为我复制lstm文件夹为lstm_1，并且在主机的configure file中增加了lstm_1部分，并且等待了设置的n秒后，通过网页`http://localhost:8501/v1/models/lstm_1`检查lstm_1并没有运行成功。经过搜索得到的解答：Tensorflow Serving 2.1.0 supports it while 1.14.0 doesn't. 哭
 
-### 指定模型版本
+
+
+部署成功后，就可以在网页中输入`http://localhost:8501/v1/models/lstm`或者`http://localhost:8501/v1/models/cv_sod`进行检查，如果是如下结果，就说明docker正常运行：
+
+```json
+{
+ "model_version_status": [
+  {
+   "version": "1609392632",
+   "state": "AVAILABLE",
+   "status": {
+    "error_code": "OK",
+    "error_message": ""
+   }
+  }
+ ]
+}
+```
+
+### 模型版本控制
+
+通过上述方法，我们实现了提供不同名称的模型，但服务默认只会读取最大版本号的版本，实际上我们可以提供不同版本的模型，比如可提供测试版、稳定版等不同类型的，实现版本控制，要实现此方法，需要在上述配置文件中的config选项中增加model_version_policy设置
 
 #### 服务端配置
 
@@ -2340,7 +2366,7 @@ model_config_list: {
 
 * `model_version_policy`
 
-  `model_version_policy`有以下几种：
+  如果要同时提供模型的多个版本，比如编号为`16323123125`和编号为`16324235421`的版本，则将specific设置为多个版本号即可。`model_version_policy`有以下两种：
 
   ```
   model_version_policy:{
@@ -2352,10 +2378,6 @@ model_config_list: {
       versions: 16323123125
       versions: 16324235421
     }
-  }
-  
-  model_version_policy:{
-    all:{}
   }
   ```
 
@@ -2369,7 +2391,11 @@ model_config_list: {
 
 * version_labels
 
+  但从用户的角度来说，用户没必要知道模型版本号是什么，而只需要加载一个特定名字的版本即可，比如加载稳定版stable、临时版canary等名字，这时候就需要给这些模型版本设置别名。
+
   有时，为模型版本添加一个间接级别会很有帮助, 可以为当前客户端应查询的任何版本分配别名，例如“stable”，而不是让所有客户都知道他们应该查询版本`16323123125`。
+
+  这样用户就只需要定向到stable或canary版本即可，而并不关心具体对应的是哪个版本号，这样做还有一个好处就是可以在不通知用户的情况下向前移动标签，比如说版本3测试稳定后，可以升级为稳定版本，则只需要将stable对应的value改为3即可。同样地，如果需要版本回滚，则只需要将value修改为之前的版本即可。
 
   启动服务
 
@@ -2403,6 +2429,8 @@ curl -d '{"inputs":[[1.0, 2.0]]}' -X POST http://localhost:8501/v1/models/linear
 gRPC方式，
 
 **使用版本号**：
+
+服务端提供了多种模型版本后，客户端可以指定要请求哪个版本的服务，如果使用grpc接口请求，则在request部分指定version.value即可，例如
 
 ```python
 channel = grpc.insecure_channel('49.233.155.170:8500')
@@ -2438,9 +2466,16 @@ print(output)
 
 ### 热更新
 
-服务启动后，可以通过重新加载配置文件的方式来实现模型的热更新。可以通过一下两种方式来实现。
+热更新本身是支持的，只要在TFserving加载模型的时候，model.config中设置模型的加载方式为all或默认为all就行了。如果不是all，则需要如下方式：
 
-#### HandleReloadConfigRequest（grpc）
+服务启动后，可以通过重新加载配置文件的方式来实现模型的热更新。有两种方法可以重新加载配置文件：
+
+- 通过向服务器发出HandleReloadConfigRequest RPC调用来以编程方式提供新的配置
+- 可通过指定--model_config_file_poll_wait_seconds选项来指定轮询此配置文件的时间
+
+#### 发送HandleReloadConfigRequest-rpc调用
+
+通过向服务器发出HandleReloadConfigRequest RPC调用来以编程方式提供新的配置。
 
 比如我们想新增模型textcnn和router。先更新其配置文件model.config为：
 
@@ -2504,7 +2539,11 @@ if request_response.status.error_code == 0:
 
 测试模型成功，模型新增成功。
 
-#### –-model_config_file_poll_wait_seconds
+#### 指定–-model_config_file_poll_wait_seconds选项
+
+可通过指定--model_config_file_poll_wait_seconds选项来指定轮询此配置文件的时间。
+
+注意，该选项只支持TF2.1.0版本及以上。
 
 在启动服务的时候，指定重新加载配置文件的时间间隔60s。
 
@@ -2525,6 +2564,358 @@ sudo docker run -p 8501:8501 -p 8500:8500 --name multi_models \
 ### 其他有用参数
 
 [--enabel-batching==true](https://www.tensorflow.org/tfx/serving/serving_config#batching_configuration)
+
+### 多模型在线部署实例
+
+这里我们同时部署图像显著性检测（cv_sod）和评论情感识别（lstm）两个模型在同一个服务器上。
+
+#### 多模型配置与docker部署
+
+模型的存放路径如下所示：
+
+```shell
+multi_models/
+├── cv_sod
+│   └── 1609392632
+│       ├── saved_model.pb
+│       └── variables
+│           ├── variables.data-00000-of-00001
+│           └── variables.index
+├── lstm
+│   └── 1609392632
+│       ├── assets
+│       │   ├── vocab.labels.txt
+│       │   └── vocab.words.txt
+│       ├── saved_model.pb
+│       └── variables
+│           ├── variables.data-00000-of-00001
+│           └── variables.index
+├── models.config
+└── run_docker.sh
+
+7 directories, 10 files
+```
+
+其中，
+
+多模型配置文件（文件名models.config）：
+
+```json
+model_config_list: {
+  config: {
+    name: "cv_sod",
+    base_path: "/models/cv_sod",
+    model_platform: "tensorflow"
+  },
+  config: {
+    name: "lstm",
+    base_path: "/models/lstm",
+    model_platform: "tensorflow"
+  },
+}
+```
+
+运行docker容器命令（run_docker.sh）
+
+```shell
+sudo docker run -p 8501:8501 -p 8500:8500 --name multi_models \
+    -v "/home/luwei/Desktop/multi_models/:/models/" \
+    -t tensorflow/serving:1.14.0 \
+    --model_config_file=/models/models.config \
+    --model_config_file_poll_wait_seconds=60 &
+```
+
+#### Flask部署
+
+（1）文本分类任务，基于grpc调用TFserving服务：`lstm_grpc.py`
+
+```python
+# -*-coding:utf-8 -*-
+import grpc
+import numpy as np
+from tensorflow_serving.apis import model_service_pb2_grpc, model_management_pb2, get_model_status_pb2, predict_pb2, prediction_service_pb2_grpc
+from tensorflow_serving.config import model_server_config_pb2
+from tensorflow.contrib.util import make_tensor_proto
+from tensorflow.core.framework import types_pb2
+
+
+serving_config = {
+    "hostport": "127.0.0.1:8500",
+    "max_message_length": 10 * 1024 * 1024,
+    "timeout": 300,
+    "signature_name": "serving_default",
+    "model_name": "lstm"
+}
+
+
+def predict_test(serving_config, input_data):
+    channel = grpc.insecure_channel(serving_config['hostport'], options=[
+        ('grpc.max_send_message_length', serving_config['max_message_length']),
+        ('grpc.max_receive_message_length', serving_config['max_message_length'])])
+    stub = prediction_service_pb2_grpc.PredictionServiceStub(channel)
+
+    input_data_words = input_data["words"]
+    input_data_nwords = input_data["nwords"]
+
+    request = predict_pb2.PredictRequest()
+    request.model_spec.name = serving_config['model_name']
+    request.model_spec.signature_name = serving_config['signature_name']
+    request.inputs['words'].CopyFrom(make_tensor_proto(
+        input_data_words, shape=[1, int(input_data_nwords)]))  # , dtype=types_pb2.DT_STRING))
+    request.inputs['nwords'].CopyFrom(make_tensor_proto(
+        input_data_nwords, shape=[1]))  # , dtype=types_pb2.DT_INT32))
+    result = stub.Predict(request, serving_config['timeout'])
+    channel.close()
+    return result
+
+
+if __name__ == "__main__":
+    predict_result = predict_test(serving_config, {"words": ["很", "喜欢"], "nwords":2})
+    # print(predict_result)  # 通过打印此语句获知output含有什么项及其类型
+    print(predict_result.outputs['classes_id'].int64_val[0])
+    print(predict_result.outputs['labels'].string_val[0].decode())
+    print(predict_result.outputs['softmax'].float_val)
+```
+
+（2）图像显著性检测，基于grpc调用TFserving服务：`cv_sod_grpc.py`
+
+```python
+import grpc
+import json
+import cv2
+import imageio
+from scipy import misc
+import numpy as np
+# pip install tensorflow_serving_api
+from tensorflow_serving.apis import model_service_pb2_grpc, model_management_pb2, get_model_status_pb2, predict_pb2, prediction_service_pb2_grpc
+from tensorflow_serving.config import model_server_config_pb2
+from tensorflow.contrib.util import make_tensor_proto
+from tensorflow.core.framework import types_pb2
+
+serving_config = {
+    "hostport": "127.0.0.1:8500",
+    "max_message_length": 10 * 1024 * 1024,
+    "timeout": 300,
+    "signature_name": "serving_default",
+    "model_name": "cv_sod"
+}
+
+
+def predict_test(serving_config, image_in):
+    channel = grpc.insecure_channel(serving_config['hostport'], options=[
+        ('grpc.max_send_message_length', serving_config['max_message_length']),
+        ('grpc.max_receive_message_length', serving_config['max_message_length'])])
+    stub = prediction_service_pb2_grpc.PredictionServiceStub(channel)
+
+    # ==========图片前处理====================
+    # rgb = imageio.imread(image_in)
+    rgb = image_in
+    if rgb.shape[2] == 4:
+        def rgba2rgb(img):
+            return img[:, :, :3] * np.expand_dims(img[:, :, 3], 2)
+        rgb = rgba2rgb(rgb)
+    origin_shape = rgb.shape
+    g_mean = np.array(([126.88, 120.24, 112.19])).reshape([1, 1, 3])
+    rgb = np.expand_dims(
+        misc.imresize(rgb.astype(np.uint8), [320, 320, 3], interp="nearest").astype(np.float32) - g_mean, 0)
+
+    # ==========请求TFserving服务====================
+    request = predict_pb2.PredictRequest()
+    request.model_spec.name = serving_config['model_name']
+    request.model_spec.signature_name = serving_config['signature_name']
+    request.inputs['img_in'].CopyFrom(make_tensor_proto(rgb.astype(np.float32), shape=[1, 320, 320, 3]))  # , dtype=types_pb2.DT_FLOAT))
+    result = stub.Predict(request, serving_config['timeout'])
+    channel.close()
+    # return result, origin_shape
+
+    # ==========图片后处理====================
+    # print(predict_result)  # 通过打印此语句获知output含有什么项及其类型
+    img_out = result.outputs['img_out'].float_val  # [0]
+    img_out = np.array(img_out).reshape((-1, 320, 320, 1))
+    final_alpha = misc.imresize(np.squeeze(img_out), origin_shape)
+    # imageio.imwrite(image_out, final_alpha)
+    return final_alpha
+
+
+if __name__ == "__main__":
+    image_in_file = '/home/luwei/Desktop/model_serving/goat.jpg'
+
+    predict_test(serving_config, image_in_file)
+```
+
+（3）Flask主程序：`flask_serving.py`
+
+```python
+# -*- coding: utf-8 -*-
+from flask import Flask
+from flask import request
+import json
+import numpy as np
+import lstm_grpc as lstm
+import cv_sod_grpc as cv_sod
+import base64
+import _pickle
+import cv2
+
+app = Flask(__name__)
+
+
+@app.route("/")
+def hello():
+    return "Hello World!"
+
+
+@app.route("/lstm/predict", methods=["GET", "POST"])
+def lstm_predict():
+    # flask url中参数 https://zhuanlan.zhihu.com/p/43656865
+    if request.method == 'GET':  # get方法 /predict?words=["非常","喜欢"]&nwords=2
+        data = request.args.to_dict()
+    elif request.method == 'POST':
+        data = request.get_json(force=True)
+    else:
+        return "ERROR: request.method is not GET or POST!"
+
+    ret_data = {"status": -1}
+    if 'words' in data and 'nwords' in data:
+        ret_data["status"] = 0
+    else:
+        return ret_data
+
+    if request.method == 'GET':
+        data['words'] = base64.urlsafe_b64decode(data['words'].encode()).decode()
+        data['words'] = eval(data['words'])
+        data['nwords'] = eval(data['nwords'])
+    predict_result = lstm.predict_test(1, lstm.serving_config, data)
+
+    ret_data['classes_id'] = predict_result.outputs['classes_id'].int64_val[0]
+    ret_data['labels'] = predict_result.outputs['labels'].string_val[0].decode()
+    ret_data['softmax'] = [i for i in predict_result.outputs['softmax'].float_val]
+
+    return ret_data
+
+
+@app.route("/cv_sod/predict", methods=["GET", "POST"])
+def cv_sod_predict():
+    ret_data = {"status": -1}
+
+    # flask url中参数 https://zhuanlan.zhihu.com/p/43656865
+    assert request.method in ["POST", "GET"], "ERROR: request.method is {}, not POST or GET!".format(request.method)
+    if request.method == 'POST':
+        data = request.files  # data = request.get_json(force=True)
+        # data: ImmutableMultiDict([('img', < FileStorage: '4x4.png' (None) >)])
+        # data["img"]: < FileStorage: '4x4.png'(None) >
+        # type(data["img"]): <class 'werkzeug.datastructures.FileStorage'>
+    elif request.method == 'GET':  # get方法 /predict?img="abcd"
+        data = request.args.to_dict()
+
+    if 'img' in data:
+        ret_data["status"] = 0
+    else:
+        return ret_data
+
+    if request.method == 'POST':
+        # 输入图片，从字节转为图像
+        img_byte = data["img"].read()  # img_byte: b'\x89PNG\r\n\x1a\n\x00\x00\x00\rIHDR\x00\x00\x00\x04\x00\x00\x00\x04
+    else:
+        img_byte = base64.urlsafe_b64decode(data["img"].encode())  # b'\x89PNG\r\n\x1a\n\x00\x00\x00\rIHDR\x00\x00
+    img_np_arr = np.frombuffer(img_byte, np.uint8)  # 一个看不出意义的数组
+    image = cv2.imdecode(img_np_arr, cv2.IMREAD_COLOR)
+
+    # 进行预测
+    img_out_ndarray = cv_sod.predict_test(cv_sod.serving_config, image)
+
+    # 输出图像，序列化
+    img_out_bytes = _pickle.dumps(img_out_ndarray)  # ndarray->bytes 会保存形状信息
+    img_out_str = base64.b64encode(img_out_bytes).decode()  # bytes->str
+    ret_data['img_out'] = img_out_str
+
+    return ret_data
+
+
+if __name__ == "__main__":
+    # flask原生服务
+    app.run(host="0.0.0.0", port=5100, debug=True, threaded=True)  # threaded默认为True
+```
+
+到了这一步，其实就可以测试一下了，即先运行一下`python flask_serving.py`，然后运行下面的客户端请求代码`request_client.py`进行测试。但仅仅测试一下就行了，当前的阶段并不能满足实际场景的需求，我们还要继续部署Gunicorn和Nginx，以便可以高并发。
+
+`request_client.py`
+
+```python
+import requests
+import json
+from PIL import Image
+import numpy as np
+import base64
+import _pickle
+import os
+import jieba
+
+
+def request_cv_sod(config, image_in_file):
+    # 请求并返回结果
+    assert config["requests_type"] in ["POST", "GET"], "requests_type is {}, not POST or GET".format(config["requests_type"])
+    if config["requests_type"] == "POST":
+        # files = {'img': ('test.png', open(image_in_file, 'rb'), 'image/png')}
+        files = {'img': open(image_in_file, 'rb')}
+        r = requests.post("http://{}:5100/cv_sod/predict".format(config["ip"]), data="", files=files, timeout=5)  # , headers=headers)
+    elif config["requests_type"] == "GET":
+        with open(image_in_file, "rb") as f:
+            img_in_bytes = f.read()  # b'\x89PNG\r\n\x1a\n\x00\x00\x00\rIHDR\x00\x00\x00
+            img_in_str = base64.urlsafe_b64encode(img_in_bytes).decode()  # bytes->str
+        r = requests.get("http://{}:5100/cv_sod/predict?img={}".format(config["ip"], img_in_str))
+    # print(r.json())
+    img_out_arr = _pickle.loads(base64.b64decode(r.json()['img_out'].encode()))
+
+    # 保存图像
+    im = Image.fromarray(img_out_arr)
+    image_out_file = os.path.splitext(image_in_file)[0] + "_out." + os.path.splitext(image_in_file)[-1]
+    im.save(image_out_file)
+
+
+def request_lstm(config, line):
+    # jieba分词处理句子
+    sentence = ' '.join(jieba.cut(line.strip(), cut_all=False, HMM=True))
+    words = [w for w in sentence.strip().split()]
+    nwords = len(words)
+    if nwords <= 0:
+        print("nwords is {}, which must > 0".format(nwords))
+        exit()
+
+    data = {"words": words, "nwords": nwords}  # data = {"words": ["非常", "满意"], "nwords": 2}
+
+    assert config["requests_type"] in ["POST", "GET"], "requests_type is {}, not POST or GET".format(config["requests_type"])
+    if config["requests_type"] == "POST":
+        r = requests.post("http://{ip}:5100/lstm/predict".format(ip=config["ip"]), data=json.dumps(data), timeout=2)
+    elif config["requests_type"] == "GET":
+        r = requests.get("http://{ip}:5100/lstm/predict?words={words}&nwords={nwords}".format(
+            ip=config["ip"], words=base64.urlsafe_b64encode(str(words).encode()).decode(), nwords=nwords))
+    print(r.json())
+
+
+if __name__ == "__main__":
+    config = {
+        "ip": "192.168.43.75",
+        "requests_type": "GET",  # “GET”
+    }
+
+    # ==========cv_osd==============================
+    image_in_file = "D:\\4x4.png"
+    # image_in_file = "D:\\animal1.jpg"
+    # image_in_file = "D:\\eee.jpg"
+    # request_cv_sod(config, image_in_file)
+
+    # ==========lstm==============================
+    line = "这款产品做得特别人性化，体验非常棒"
+    # line = ""
+    request_lstm(config, line)
+```
+
+
+
+
+
+
 
 
 
@@ -2567,6 +2958,8 @@ sudo docker run -p 8501:8501 -p 8500:8500 --name multi_models \
 
 * [Docker + Tensorflow serving 多模型在线部署](https://blog.csdn.net/u012433049/article/details/89354361)
 * [官网：Tensorflow Serving Configuration](https://www.tensorflow.org/tfx/serving/serving_config)
+* [tensorflow serving安装、部署、调用、多模型版本管理教程](https://blog.csdn.net/chenguangchun1993/article/details/104971811/)
+* [TensorFlow Serving系列之多模型多版本控制](https://zongxp.blog.csdn.net/article/details/102953720)
 
 “多模型在线部署”参考此博客。
 

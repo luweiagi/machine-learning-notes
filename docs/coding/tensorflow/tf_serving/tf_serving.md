@@ -62,6 +62,24 @@
     - [ab原理](#ab原理)
     - [服务器qps预估](#服务器qps预估)
     - [对模型进行测试](#对模型进行测试)
+  - [多模型在线部署](#多模型在线部署)
+    - [多模型部署](#多模型部署)
+    - [模型版本控制](#模型版本控制)
+      - [服务端配置](#服务端配置)
+      - [客户端调用](#客户端调用)
+    - [热更新](#热更新)
+      - [发送HandleReloadConfigRequest-rpc调用](#发送HandleReloadConfigRequest-rpc调用)
+      - [指定–-model_config_file_poll_wait_seconds选项](#指定–-model_config_file_poll_wait_seconds选项)
+    - [其他有用参数](#其他有用参数)
+    - [多模型在线部署实例](#多模型在线部署实例)
+      - [多模型配置与docker部署](#多模型配置与docker部署)
+      - [Flask部署](#Flask部署)
+      - [supervisor部署](#supervisor部署)
+        - [Docker进程配置](#Docker进程配置)
+        - [Gunicorn进程配置](#Gunicorn进程配置)
+        - [Nginx进程配置](#Nginx进程配置)
+        - [使用supervisord进行reload启动进程](#使用supervisord进行reload启动进程)
+      - [使用python进行客户端请求](#使用python进行客户端请求)
 
 人工智能应用需要数据、算法、算力、服务等环节。模型服务是应用的必不可少的一步，目前普遍使用TensorFlow Serving提供模型服务功能。
 
@@ -2625,6 +2643,12 @@ sudo docker run -p 8501:8501 -p 8500:8500 --name multi_models \
     --model_config_file_poll_wait_seconds=60 &
 ```
 
+后续要重启的话，就
+
+```shell
+sudo docker start multi_models
+```
+
 #### Flask部署
 
 （1）文本分类任务，基于grpc调用TFserving服务：`lstm_grpc.py`
@@ -2858,12 +2882,12 @@ def request_cv_sod(config, image_in_file):
     if config["requests_type"] == "POST":
         # files = {'img': ('test.png', open(image_in_file, 'rb'), 'image/png')}
         files = {'img': open(image_in_file, 'rb')}
-        r = requests.post("http://{}:5100/cv_sod/predict".format(config["ip"]), data="", files=files, timeout=5)  # , headers=headers)
+        r = requests.post("http://{ip}:{port}/cv_sod/predict".format(ip=config["ip"], port=config["port"]), data="", files=files, timeout=config["requests_timeout"])  # , headers=headers)
     elif config["requests_type"] == "GET":
         with open(image_in_file, "rb") as f:
             img_in_bytes = f.read()  # b'\x89PNG\r\n\x1a\n\x00\x00\x00\rIHDR\x00\x00\x00
             img_in_str = base64.urlsafe_b64encode(img_in_bytes).decode()  # bytes->str
-        r = requests.get("http://{}:5100/cv_sod/predict?img={}".format(config["ip"], img_in_str))
+        r = requests.get("http://{ip}:{port}/cv_sod/predict?img={img}".format(ip=config["ip"], port=config["port"], img=img_in_str))
     # print(r.json())
     img_out_arr = _pickle.loads(base64.b64decode(r.json()['img_out'].encode()))
 
@@ -2886,34 +2910,185 @@ def request_lstm(config, line):
 
     assert config["requests_type"] in ["POST", "GET"], "requests_type is {}, not POST or GET".format(config["requests_type"])
     if config["requests_type"] == "POST":
-        r = requests.post("http://{ip}:5100/lstm/predict".format(ip=config["ip"]), data=json.dumps(data), timeout=2)
+        r = requests.post("http://{ip}:{port}/lstm/predict".format(ip=config["ip"], port=config["port"]), data=json.dumps(data), timeout=config["requests_timeout"])
     elif config["requests_type"] == "GET":
-        r = requests.get("http://{ip}:5100/lstm/predict?words={words}&nwords={nwords}".format(
-            ip=config["ip"], words=base64.urlsafe_b64encode(str(words).encode()).decode(), nwords=nwords))
+        r = requests.get("http://{ip}:{port}/lstm/predict?words={words}&nwords={nwords}".format(
+            ip=config["ip"], port=config["port"],
+            words=base64.urlsafe_b64encode(str(data["words"]).encode()).decode(), nwords=data["nwords"]))
     print(r.json())
 
 
 if __name__ == "__main__":
     config = {
         "ip": "192.168.43.75",
-        "requests_type": "GET",  # “GET”
+        "port": 5001,  # 注：使用supervisord或nginx时用默认80端口
+        "requests_type": "POST",  # “GET”, "POST"
+        "requests_timeout": 5
     }
 
     # ==========cv_osd==============================
     image_in_file = "D:\\4x4.png"
-    # image_in_file = "D:\\animal1.jpg"
-    # image_in_file = "D:\\eee.jpg"
-    # request_cv_sod(config, image_in_file)
+    request_cv_sod(config, image_in_file)
 
     # ==========lstm==============================
-    line = "这款产品做得特别人性化，体验非常棒"
-    # line = ""
-    request_lstm(config, line)
+    line = "我很喜欢中国银行的产品"
+    # request_lstm(config, line)
 ```
 
+#### supervisor部署
+
+部署Nginx与之前的“部署Nginx”章节内容一致，这里不再赘述。
+
+##### Docker进程配置
+
+```shell
+cd /etc/supervisor/conf.d
+sudo vim docker.conf
+```
+
+`docker.conf`的内容为：
+
+```shell
+[program:docker]
+command = sudo docker start multi_models
+startsecs=10
+autostart=true
+autorestart=true
+stdout_logfile=/var/log/docker/stdout.log
+stopasgroup=true
+killasgroup=true
+```
+
+##### Gunicorn进程配置
+
+```shell
+cd /etc/supervisor/conf.d
+sudo vim gunicorn.conf
+```
+
+内容如下：
+
+```shell
+[program:gunicorn]
+directory = /home/luwei/Desktop/model_serving/
+command = /home/luwei/anaconda3/envs/tf1.14/bin/gunicorn -w 4 -b 0.0.0.0:8001 flask_serving:app
+startsecs=10
+autostart=true
+autorestart=true
+stdout_logfile=/var/log/gunicorn/stdout.log
+stopasgroup=true
+killasgroup=true
+```
+
+##### Nginx进程配置
+
+```shell
+cd /etc/supervisor/conf.d
+sudo vim nginx.conf
+```
+
+注意：由于supervisor不能监控后台程序，`command = /usr/local/bin/nginx`这个命令默认是后台启动， 
+加上`-g ‘daemon off;’`这个参数可解决这问题，这个参数的意思是在前台运行。
+
+```shell
+[program:nginx]
+command = /usr/sbin/nginx -g 'daemon off;'
+startsecs=10
+autostart=true
+autorestart=true
+stdout_logfile=/var/log/nginx/stdout.log
+stopasgroup=true
+killasgroup=true
+```
+
+到这里基本就算是完成了。
+
+##### 使用supervisord进行reload启动进程
+
+使用了supervisord进行启动，监控和拉起这两个进程，这样就非常稳定了。而且断电重新开机也不怕，因为supervisord服务会自启动。
+
+```shell
+# 任务重加载并重启
+sudo supervisorctl reload
+# 查看任务是否都被调用开启
+sudo supervisorctl
+# 查看某个任务失败原因（以Nginx为例）
+sudo supervisorctl tail nginx stdout
+```
+
+#### 使用python进行客户端请求
+
+`request_client.py`
+
+```python
+import requests
+import json
+from PIL import Image
+import numpy as np
+import base64
+import _pickle
+import os
+import jieba
 
 
+def request_cv_sod(config, image_in_file):
+    # 请求并返回结果
+    assert config["requests_type"] in ["POST", "GET"], "requests_type is {}, not POST or GET".format(config["requests_type"])
+    if config["requests_type"] == "POST":
+        # files = {'img': ('test.png', open(image_in_file, 'rb'), 'image/png')}
+        files = {'img': open(image_in_file, 'rb')}
+        r = requests.post("http://{ip}:{port}/cv_sod/predict".format(ip=config["ip"], port=config["port"]), data="", files=files, timeout=config["requests_timeout"])  # , headers=headers)
+    elif config["requests_type"] == "GET":
+        with open(image_in_file, "rb") as f:
+            img_in_bytes = f.read()  # b'\x89PNG\r\n\x1a\n\x00\x00\x00\rIHDR\x00\x00\x00
+            img_in_str = base64.urlsafe_b64encode(img_in_bytes).decode()  # bytes->str
+        r = requests.get("http://{ip}:{port}/cv_sod/predict?img={img}".format(ip=config["ip"], port=config["port"], img=img_in_str))
+    # print(r.json())
+    img_out_arr = _pickle.loads(base64.b64decode(r.json()['img_out'].encode()))
 
+    # 保存图像
+    im = Image.fromarray(img_out_arr)
+    image_out_file = os.path.splitext(image_in_file)[0] + "_out." + os.path.splitext(image_in_file)[-1]
+    im.save(image_out_file)
+
+
+def request_lstm(config, line):
+    # jieba分词处理句子
+    sentence = ' '.join(jieba.cut(line.strip(), cut_all=False, HMM=True))
+    words = [w for w in sentence.strip().split()]
+    nwords = len(words)
+    if nwords <= 0:
+        print("nwords is {}, which must > 0".format(nwords))
+        exit()
+
+    data = {"words": words, "nwords": nwords}  # data = {"words": ["非常", "满意"], "nwords": 2}
+
+    assert config["requests_type"] in ["POST", "GET"], "requests_type is {}, not POST or GET".format(config["requests_type"])
+    if config["requests_type"] == "POST":
+        r = requests.post("http://{ip}:{port}/lstm/predict".format(ip=config["ip"], port=config["port"]), data=json.dumps(data), timeout=config["requests_timeout"])
+    elif config["requests_type"] == "GET":
+        r = requests.get("http://{ip}:{port}/lstm/predict?words={words}&nwords={nwords}".format(
+            ip=config["ip"], port=config["port"],
+            words=base64.urlsafe_b64encode(str(data["words"]).encode()).decode(), nwords=data["nwords"]))
+    print(r.json())
+
+
+if __name__ == "__main__":
+    config = {
+        "ip": "192.168.43.75",
+        "port": 80,
+        "requests_type": "POST",  # “GET”, "POST"
+        "requests_timeout": 5
+    }
+
+    # ==========cv_osd==============================
+    image_in_file = "D:\\4x4.png"
+    request_cv_sod(config, image_in_file)
+
+    # ==========lstm==============================
+    line = "我很喜欢中国银行的产品"
+    # request_lstm(config, line)
+```
 
 
 

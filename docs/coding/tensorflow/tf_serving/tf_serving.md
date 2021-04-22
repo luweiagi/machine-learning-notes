@@ -1,85 +1,88 @@
 # TensorFlow Serving
 
-- [返回上层目录](../tensorflow.md)
-- [TFserving介绍](#TFserving介绍)
-- [Docker与TFserving](#Docker与TFserving)
-  - [安装Docker](#安装Docker)
-    - [win10安装](#win10安装)
-    - [linux安装](#linux安装)
-  - [拉取TF.Serving镜像](#拉取TF.Serving镜像)
-  - [运行容器](#运行容器)
-  - [通过API查看模型状态，元数据](#通过API查看模型状态，元数据)
-    - [通过model-status-API查看模型状态](#通过model-status-API查看模型状态)
-    - [通过model-metadata-API查看模型的元数据](#通过model-metadata-API查看模型的元数据)
-  - [gRPC与RESTful请求的区别](#gRPC与RESTful请求的区别)
-  - [使用RESTful-API请求预测](#使用RESTful-API请求预测)
-  - [使用gRPC请求预测](#使用gRPC请求预测)
-    - [输入数据为文本或数字类型](#输入数据为文本或数字类型)
-    - [输入数据为图像类型](#输入数据为图像类型)
-  - [ckpt格式转为pd格式用于TFserving](#ckpt格式转为pd格式用于TFserving)
-- [Flask服务](#Flask服务)
-  - [为什么需要Flask服务器](#为什么需要Flask服务器)
-  - [Flask的HelloWorld代码](#Flask的HelloWorld代码)
-  - [Flask的缺陷](#Flask的缺陷)
-  - [gevent+Flask同步变异步](#gevent+Flask同步变异步)
-- [Nginx+Gunicorn+Flask部署](#Nginx+Gunicorn+Flask部署)
-  - [理解Nginx+Gunicorn+Flask](#理解Nginx+Gunicorn+Flask)
-    - [为什么要用Nginx+Gunicorn+Flask+supervisor方式部署](#为什么要用Nginx+Gunicorn+Flask+supervisor方式部署)
-    - [Nginx、gunicore和Flask之间的关系](#Nginx、gunicore和Flask之间的关系)
-    - [为什么Flask和Nginx之间要用uwsgi服务器](#为什么Flask和Nginx之间要用uwsgi服务器)
-    - [为什么需要Nginx](#为什么需要Nginx)
-  - [部署流程](#部署流程)
-  - [Flask](#Flask)
-  - [Gunicorn](#Gunicorn)
-    - [什么是Gunicorn](#什么是Gunicorn)
-    - [Gunicorn配置](#Gunicorn配置)
-    - [运行Gunicorn](#运行Gunicorn)
-  - [Nginx](#Nginx)
-    - [Nginx介绍](#Nginx介绍)
-    - [修改配置](#修改配置)
-    - [Nginx的应用](#Nginx的应用)
-      - [反向代理](#反向代理)
-      - [负载均衡](#负载均衡)
-    - [安装、配置并运行Nginx](#安装、配置并运行Nginx)
-  - [supervisord](#supervisord)
-    - [新增Nginx进程配置文件](#新增Nginx进程配置文件)
-    - [supervisorctl操作命令](#supervisorctl操作命令)
-    - [新增Gunicorn进程配置文件](#新增Gunicorn进程配置文件)
-  - [简单例子部署完成总结](#简单例子部署完成总结)
-- [基于supervisor+Nginx+Gunicorn+Flask+Docker部署TFserving服务](#基于supervisor+Nginx+Gunicorn+Flask+Docker部署TFserving服务)
-  - [部署模型](#部署模型)
-  - [部署Docker](#部署Docker)
-  - [部署Flask](#部署Flask)
-  - [部署Gunicorn](#部署Gunicorn)
-  - [部署Nginx](#部署Nginx)
-  - [部署supervisor](#部署supervisor)
-    - [新增Docker进程配置文件](#新增Docker进程配置文件)
-    - [新增Gunicorn进程配置文件](#新增Gunicorn进程配置文件)
-    - [新增Nginx进程配置文件](#新增Nginx进程配置文件)
-  - [部署完成总结](#部署完成总结)
-  - [基于python的客户端请求](#基于python的客户端请求)
-  - [用ab压测](#用ab压测)
-    - [ab原理](#ab原理)
-    - [服务器qps预估](#服务器qps预估)
-    - [对模型进行测试](#对模型进行测试)
-  - [多模型在线部署](#多模型在线部署)
-    - [多模型部署](#多模型部署)
-    - [模型版本控制](#模型版本控制)
-      - [服务端配置](#服务端配置)
-      - [客户端调用](#客户端调用)
-    - [热更新](#热更新)
-      - [发送HandleReloadConfigRequest-rpc调用](#发送HandleReloadConfigRequest-rpc调用)
-      - [指定–-model_config_file_poll_wait_seconds选项](#指定–-model_config_file_poll_wait_seconds选项)
-    - [其他有用参数](#其他有用参数)
-    - [多模型在线部署实例](#多模型在线部署实例)
-      - [多模型配置与docker部署](#多模型配置与docker部署)
-      - [Flask部署](#Flask部署)
-      - [supervisor部署](#supervisor部署)
-        - [Docker进程配置](#Docker进程配置)
-        - [Gunicorn进程配置](#Gunicorn进程配置)
-        - [Nginx进程配置](#Nginx进程配置)
-        - [使用supervisord进行reload启动进程](#使用supervisord进行reload启动进程)
-      - [使用python进行客户端请求](#使用python进行客户端请求)
+* [返回上层目录](../tensorflow.md)
+* [TFserving介绍](#TFserving介绍)
+* [Docker与TFserving](#Docker与TFserving)
+  * [安装Docker](#安装Docker)
+    * [win10安装](#win10安装)
+    * [linux安装](#linux安装)
+  * [拉取TF.Serving镜像](#拉取TF.Serving镜像)
+  * [运行容器](#运行容器)
+  * [通过API查看模型状态，元数据](#通过API查看模型状态，元数据)
+    * [通过model-status-API查看模型状态](#通过model-status-API查看模型状态)
+    * [通过model-metadata-API查看模型的元数据](#通过model-metadata-API查看模型的元数据)
+  * [gRPC与RESTful请求的区别](#gRPC与RESTful请求的区别)
+  * [使用RESTful-API请求预测](#使用RESTful-API请求预测)
+  * [使用gRPC请求预测](#使用gRPC请求预测)
+    * [输入数据为文本或数字类型](#输入数据为文本或数字类型)
+    * [输入数据为图像类型](#输入数据为图像类型)
+  * [ckpt格式转为pd格式用于TFserving](#ckpt格式转为pd格式用于TFserving)
+* [Flask服务](#Flask服务)
+  * [为什么需要Flask服务器](#为什么需要Flask服务器)
+  * [Flask的HelloWorld代码](#Flask的HelloWorld代码)
+  * [Flask的缺陷](#Flask的缺陷)
+  * [gevent+Flask同步变异步](#gevent+Flask同步变异步)
+* [Nginx+Gunicorn+Flask部署](#Nginx+Gunicorn+Flask部署)
+  * [理解Nginx+Gunicorn+Flask](#理解Nginx+Gunicorn+Flask)
+    * [为什么要用Nginx+Gunicorn+Flask+supervisor方式部署](#为什么要用Nginx+Gunicorn+Flask+supervisor方式部署)
+    * [Nginx、gunicore和Flask之间的关系](#Nginx、gunicore和Flask之间的关系)
+    * [为什么Flask和Nginx之间要用uwsgi服务器](#为什么Flask和Nginx之间要用uwsgi服务器)
+    * [为什么需要Nginx](#为什么需要Nginx)
+  * [部署流程](#部署流程)
+  * [Flask](#Flask)
+  * [Gunicorn](#Gunicorn)
+    * [什么是Gunicorn](#什么是Gunicorn)
+    * [Gunicorn配置](#Gunicorn配置)
+    * [运行Gunicorn](#运行Gunicorn)
+  * [Nginx](#Nginx)
+    * [Nginx介绍](#Nginx介绍)
+    * [修改配置](#修改配置)
+    * [Nginx的应用](#Nginx的应用)
+      * [反向代理](#反向代理)
+      * [负载均衡](#负载均衡)
+    * [安装、配置并运行Nginx](#安装、配置并运行Nginx)
+  * [supervisord](#supervisord)
+    * [新增Nginx进程配置文件](#新增Nginx进程配置文件)
+    * [supervisorctl操作命令](#supervisorctl操作命令)
+    * [新增Gunicorn进程配置文件](#新增Gunicorn进程配置文件)
+  * [简单例子部署完成总结](#简单例子部署完成总结)
+* [基于supervisor+Nginx+Gunicorn+Flask+Docker部署TFserving服务](#基于supervisor+Nginx+Gunicorn+Flask+Docker部署TFserving服务)
+  * [部署模型](#部署模型)
+  * [部署Docker](#部署Docker)
+  * [部署Flask](#部署Flask)
+  * [部署Gunicorn](#部署Gunicorn)
+  * [部署Nginx](#部署Nginx)
+  * [部署supervisor](#部署supervisor)
+    * [新增Docker进程配置文件](#新增Docker进程配置文件)
+    * [新增Gunicorn进程配置文件](#新增Gunicorn进程配置文件)
+    * [新增Nginx进程配置文件](#新增Nginx进程配置文件)
+  * [部署完成总结](#部署完成总结)
+  * [基于python的客户端请求](#基于python的客户端请求)
+  * [用ab压测](#用ab压测)
+    * [ab原理](#ab原理)
+    * [服务器qps预估](#服务器qps预估)
+    * [对模型进行测试](#对模型进行测试)
+  * [多模型在线部署](#多模型在线部署)
+    * [多模型部署](#多模型部署)
+    * [模型版本控制](#模型版本控制)
+      * [服务端配置](#服务端配置)
+      * [客户端调用](#客户端调用)
+    * [热更新](#热更新)
+      * [发送HandleReloadConfigRequest-rpc调用](#发送HandleReloadConfigRequest-rpc调用)
+      * [指定–-model_config_file_poll_wait_seconds选项](#指定–-model_config_file_poll_wait_seconds选项)
+    * [其他有用参数](#其他有用参数)
+    * [多模型在线部署实例](#多模型在线部署实例)
+      * [多模型配置与docker部署](#多模型配置与docker部署)
+      * [Flask部署](#Flask部署)
+      * [supervisor部署](#supervisor部署)
+        * [Docker进程配置](#Docker进程配置)
+        * [Gunicorn进程配置](#Gunicorn进程配置)
+        * [Nginx进程配置](#Nginx进程配置)
+        * [使用supervisord进行reload启动进程](#使用supervisord进行reload启动进程)
+      * [使用python进行客户端请求](#使用python进行客户端请求)
+      * [使用ab进行压测](#使用ab进行压测)
+        * [压测lstm评论感情识别模型](#压测lstm评论感情识别模型)
+        * [压测图像显著性检测模型](#压测图像显著性检测模型)
 
 人工智能应用需要数据、算法、算力、服务等环节。模型服务是应用的必不可少的一步，目前普遍使用TensorFlow Serving提供模型服务功能。
 
@@ -668,12 +671,6 @@ if __name__ == "__main__":
     predict_test(image_in_file, image_out_file, serving_config)
 ```
 
-
-
-
-
-
-
 ## ckpt格式转为pd格式用于TFserving
 
 TFserving使用的是PB（ProtoBuf）文件格式，它体积较小但不可更改，而一般模型训练保存的模型文件为ckpt格式，它体积大但结构和变量值是分离的，比较灵活。所以，如果没有pb格式，就需要把ckpt格式转为pb格式。
@@ -805,7 +802,7 @@ Flask是一个web框架，而非web server，直接用Flask拉起的web服务仅
 
 gevent+Flask是最简单的把同步程序变成异步程序的方法。
 
-Flask自带的网关不是并发的，性能不好，不适用于生产环境。Flask的web server，不能用于生产环境，不稳定，比如说，每隔十几分钟，有一定概率遇到连接超时无返回的情况。因此Flask, Django，webpy等框架自带的web server性能都很差，只能用来做测试用途。
+Flask自带的网关不是并发的，性能不好，不适用于生产环境。Flask的web server，不能用于生产环境，不稳定，比如说，每隔十几分钟，有一定概率遇到连接超时无返回的情况。因此Flask，Django，webpy等框架自带的web server性能都很差，只能用来做测试用途。
 
 **gevent的原理**
 
@@ -2780,6 +2777,7 @@ import cv_sod_grpc as cv_sod
 import base64
 import _pickle
 import cv2
+import jieba
 
 app = Flask(__name__)
 
@@ -2799,21 +2797,28 @@ def lstm_predict():
     else:
         return "ERROR: request.method is not GET or POST!"
 
-    ret_data = {"status": -1}
-    if 'words' in data and 'nwords' in data:
-        ret_data["status"] = 0
-    else:
-        return ret_data
-
+    if 'line' not in data:
+        return {"status": "no sentence in data"}
     if request.method == 'GET':
-        data['words'] = base64.urlsafe_b64decode(data['words'].encode()).decode()
-        data['words'] = eval(data['words'])
-        data['nwords'] = eval(data['nwords'])
-    predict_result = lstm.predict_test(1, lstm.serving_config, data)
+        data['line'] = base64.urlsafe_b64decode(data['line'].encode()).decode()
 
-    ret_data['classes_id'] = predict_result.outputs['classes_id'].int64_val[0]
-    ret_data['labels'] = predict_result.outputs['labels'].string_val[0].decode()
-    ret_data['softmax'] = [i for i in predict_result.outputs['softmax'].float_val]
+    # jieba分词处理句子
+    sentence = ' '.join(jieba.cut(data['line'].strip(), cut_all=False, HMM=True))
+    words = [w for w in sentence.strip().split()]
+    nwords = len(words)
+    if nwords <= 0:
+        return {"status": "no sentence in data"}
+
+    data = {"words": words, "nwords": nwords}  # data = {"words": ["非常", "满意"], "nwords": 2}
+
+    predict_result = lstm.predict_test(lstm.serving_config, data)
+
+    ret_data = {
+        "status": 0,
+        'classes_id': predict_result.outputs['classes_id'].int64_val[0],
+        'labels': predict_result.outputs['labels'].string_val[0].decode(),
+        'softmax': [i for i in predict_result.outputs['softmax'].float_val]
+    }
 
     return ret_data
 
@@ -2873,7 +2878,6 @@ import numpy as np
 import base64
 import _pickle
 import os
-import jieba
 
 
 def request_cv_sod(config, image_in_file):
@@ -2888,40 +2892,34 @@ def request_cv_sod(config, image_in_file):
             img_in_bytes = f.read()  # b'\x89PNG\r\n\x1a\n\x00\x00\x00\rIHDR\x00\x00\x00
             img_in_str = base64.urlsafe_b64encode(img_in_bytes).decode()  # bytes->str
         r = requests.get("http://{ip}:{port}/cv_sod/predict?img={img}".format(ip=config["ip"], port=config["port"], img=img_in_str))
+        print("http://{ip}:{port}/cv_sod/predict?img={img}".format(ip=config["ip"], port=config["port"], img=img_in_str))
     # print(r.json())
     img_out_arr = _pickle.loads(base64.b64decode(r.json()['img_out'].encode()))
 
     # 保存图像
     im = Image.fromarray(img_out_arr)
-    image_out_file = os.path.splitext(image_in_file)[0] + "_out." + os.path.splitext(image_in_file)[-1]
+    image_out_file = os.path.splitext(image_in_file)[0] + "_out" + os.path.splitext(image_in_file)[-1]
     im.save(image_out_file)
 
 
 def request_lstm(config, line):
-    # jieba分词处理句子
-    sentence = ' '.join(jieba.cut(line.strip(), cut_all=False, HMM=True))
-    words = [w for w in sentence.strip().split()]
-    nwords = len(words)
-    if nwords <= 0:
-        print("nwords is {}, which must > 0".format(nwords))
-        exit()
-
-    data = {"words": words, "nwords": nwords}  # data = {"words": ["非常", "满意"], "nwords": 2}
+    data = {"line": line}
 
     assert config["requests_type"] in ["POST", "GET"], "requests_type is {}, not POST or GET".format(config["requests_type"])
+
     if config["requests_type"] == "POST":
         r = requests.post("http://{ip}:{port}/lstm/predict".format(ip=config["ip"], port=config["port"]), data=json.dumps(data), timeout=config["requests_timeout"])
     elif config["requests_type"] == "GET":
-        r = requests.get("http://{ip}:{port}/lstm/predict?words={words}&nwords={nwords}".format(
+        r = requests.get("http://{ip}:{port}/lstm/predict?line={line}".format(
             ip=config["ip"], port=config["port"],
-            words=base64.urlsafe_b64encode(str(data["words"]).encode()).decode(), nwords=data["nwords"]))
+            line=base64.urlsafe_b64encode(data["line"].encode()).decode()))  # urlsafe_b64encode防止语句出现+&等符号干扰
     print(r.json())
 
 
 if __name__ == "__main__":
     config = {
         "ip": "192.168.43.75",
-        "port": 5001,  # 注：使用supervisord或nginx时用默认80端口
+        "port": 80,
         "requests_type": "POST",  # “GET”, "POST"
         "requests_timeout": 5
     }
@@ -2931,8 +2929,8 @@ if __name__ == "__main__":
     request_cv_sod(config, image_in_file)
 
     # ==========lstm==============================
-    line = "我很喜欢中国银行的产品"
-    # request_lstm(config, line)
+    line = "我很喜欢这个产品"
+    request_lstm(config, line)
 ```
 
 #### supervisor部署
@@ -3090,17 +3088,118 @@ if __name__ == "__main__":
     # request_lstm(config, line)
 ```
 
+#### 使用ab进行压测
+
+##### 压测lstm评论感情识别模型
+
+将评论`我很喜欢xxxx的产品`转化为b64encode编码后就如下所示：
+
+```shell
+ab -n 1000 -c 10 http://192.168.43.75/lstm/predict?line=5oiR5b6I5Zac5qyi5Lit5Zu96ZO26KGM55qE5Lqn5ZOB
+```
+
+结果为
+
+```shell
+This is ApacheBench, Version 2.3 <$Revision: 1706008 $>
+Copyright 1996 Adam Twiss, Zeus Technology Ltd, http://www.zeustech.net/
+Licensed to The Apache Software Foundation, http://www.apache.org/
+
+Benchmarking 192.168.43.75 (be patient)
+Completed 100 requests
+Completed 500 requests
+Completed 1000 requests
+Finished 1000 requests
+
+Server Software:        nginx/1.10.3
+Server Hostname:        192.168.43.75
+Server Port:            80
+
+Document Path:          /lstm/predict?line=5oiR5b6I5Zac5qyi5Lit5Zu96ZO26KGM55qE5Lqn5ZOB
+Document Length:        118 bytes
+
+Concurrency Level:      10
+Time taken for tests:   6.712 seconds
+Complete requests:      1000
+Failed requests:        0
+Total transferred:      277000 bytes
+HTML transferred:       118000 bytes
+Requests per second:    148.99 [#/sec] (mean)
+Time per request:       67.117 [ms] (mean)
+Time per request:       6.712 [ms] (mean, across all concurrent requests)
+Transfer rate:          40.30 [Kbytes/sec] received
+
+Connection Times (ms)
+              min  mean[+/-sd] median   max
+Connect:        0    0   0.5      0       5
+Processing:    24   67 207.0     43    3816
+Waiting:       24   67 207.0     43    3816
+Total:         26   67 207.2     43    3822
+
+Percentage of the requests served within a certain time (ms)
+  50%     43
+  90%     93
+  99%    185
+ 100%   3822 (longest request)
+```
+
+每次请求的耗时为6.7ms，比之前的0.9毫秒增加了，这是因为加入了jieba分词，并且单词的长度增加了。
+
+##### 压测图像显著性检测模型
+
+将图像转成b64encode编码字符串，然后进行请求
+
+```shell
+ab -n 100 -c 10 http://192.168.43.75:80/cv_sod/predict?img=iVBORw0KGgoAAAANSUhEUgAAAAQAAAAECAIAAAAmkwkpAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAAFiUAABYlAUlSJPAAAAAeSURBVBhXYwCC____Q0kghoDDhw-jciAKgICBgQEAfYYidT6KA44AAAAASUVORK5CYII=
+```
+
+结果为
+
+```shell
+Benchmarking 192.168.43.75 (be patient).....done
 
 
+Server Software:        nginx/1.10.3
+Server Hostname:        192.168.43.75
+Server Port:            80
 
+Document Path:          /cv_sod/predict?img=iVBORw0KGgoAAAANSUhEUgAAAAQA...
+Document Length:        258 bytes
+
+Concurrency Level:      10
+Time taken for tests:   185.729 seconds
+Complete requests:      100
+Failed requests:        0
+Total transferred:      41700 bytes
+HTML transferred:       25800 bytes
+Requests per second:    0.54 [#/sec] (mean)
+Time per request:       18572.865 [ms] (mean)
+Time per request:       1857.287 [ms] (mean, across all concurrent requests)
+Transfer rate:          0.22 [Kbytes/sec] received
+
+Connection Times (ms)
+              min  mean[+/-sd] median   max
+Connect:        0    0   1.1      0       4
+Processing:  1919 17723 3010.1  18494   18935
+Waiting:     1916 17722 3010.3  18494   18935
+Total:       1920 17723 3009.4  18494   18935
+
+Percentage of the requests served within a certain time (ms)
+  50%  18494
+  90%  18748
+  99%  18935
+ 100%  18935 (longest request)
+```
+
+单次请求的时长为1.8秒，这是因为需要进行深度学习的图像处理，所以时间比较久。
 
 # 参考资料
 
-- [使用docker和TFserving搭建模型预测服务](https://blog.csdn.net/JerryZhang__/article/details/85107506)
+* [使用docker和TFserving搭建模型预测服务](https://blog.csdn.net/JerryZhang__/article/details/85107506)
 
 本文结构参考了此博客。
 
-- [gRPC与RESTful的区别](https://blog.csdn.net/baidu_37648998/article/details/109598522)
+* [gRPC与RESTful的区别](https://blog.csdn.net/baidu_37648998/article/details/109598522)
 
 "gRPC与RESTful的区别"参考此资料
 
@@ -3138,21 +3237,21 @@ if __name__ == "__main__":
 
 “多模型在线部署”参考此博客。
 
+- [教程帖：使用TensorFlow服务和Flask部署Keras模型！ ](https://www.seoxiehui.cn/article-73681-1.html)
+- [Tensorflow训练+上线+预测过程（Docker）](https://zhuanlan.zhihu.com/p/107196689)
+- [用 TFserving 部署深度学习模型](https://blog.csdn.net/BF02jgtRS00XKtCx/article/details/106247459)
+
+“多模型在线部署实例”参考此博客，讲了图像如何从前端传给Flask。
+
 ===
 
-- [TensorFlow Serving入门](https://www.jianshu.com/p/afe80b2ed7f0)
+* [TensorFlow Serving入门](https://www.jianshu.com/p/afe80b2ed7f0)
 
 这个有使用RESTful和gRPC的官方例子，比较简单，初学者可以看这个。
 
-- [小白Bert系列-生成pb模型，TFserving加载，Flask进行预测](https://zhuanlan.zhihu.com/p/144800734)
+* [小白Bert系列-生成pb模型，TFserving加载，Flask进行预测](https://zhuanlan.zhihu.com/p/144800734)
 
 讲了一个TFserving同时加载多个模型，即docker --model_config_file。
-
-* [教程帖：使用TensorFlow服务和Flask部署Keras模型！ ](https://www.seoxiehui.cn/article-73681-1.html)
-* [Tensorflow训练+上线+预测过程（Docker）](https://zhuanlan.zhihu.com/p/107196689)
-* [用 TFserving 部署深度学习模型](https://blog.csdn.net/BF02jgtRS00XKtCx/article/details/106247459)
-
-讲了图像如何从前端传给Flask。
 
 * [用 TFserving 部署深度学习模型](https://blog.csdn.net/BF02jgtRS00XKtCx/article/details/106247459)
 

@@ -1,4 +1,8 @@
-# Self-Attention机制和Transformer
+# Attention Is All You Need
+
+​          ——Self-Attention机制和Transformer详解
+
+![transformer-movie](pic/transformer-movie.jpeg)
 
 * [返回上层目录](../self-attention-and-transformer.md)
 * [模型的思想](#模型的思想)

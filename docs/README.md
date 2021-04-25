@@ -37,6 +37,7 @@
   * [SVD奇异值分解](mathematics/linear-algebra/singular-value-decomposition/singular-value-decomposition.md)
 * [概率统计和信息论](mathematics/statistics-and-information-theory/statistics-and-information-theory.md)
   * [概率统计基本概念](mathematics/statistics-and-information-theory/statistics-basic-concepts/statistics-basic-concepts.md)
+  * [协方差矩阵](mathematics/statistics-and-information-theory/covariance-matrix/covariance-matrix.md)
   * [概率论与贝叶斯先验](mathematics/statistics-and-information-theory/probability-and-bayesian-prior/probability-and-bayesian-prior.md)
   * [贝叶斯概率](mathematics/statistics-and-information-theory/bayes-probability/bayes-probability.md)
   * [正态分布](mathematics/statistics-and-information-theory/normal-distribution/normal-distribution.md)

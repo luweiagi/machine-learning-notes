@@ -2,6 +2,7 @@
 
 * [返回上层目录](../mathematics.md)
 * [概率统计基本概念](statistics-basic-concepts/statistics-basic-concepts.md)
+* [协方差矩阵](covariance-matrix/covariance-matrix.md)
 * [概率论与贝叶斯先验](probability-and-bayesian-prior/probability-and-bayesian-prior.md)
 * [贝叶斯概率](bayes-probability/bayes-probability.md)
 * [正态分布](normal-distribution/normal-distribution.md)

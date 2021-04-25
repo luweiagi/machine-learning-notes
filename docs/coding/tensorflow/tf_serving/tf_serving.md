@@ -681,8 +681,6 @@ TFserving使用的是PB（ProtoBuf）文件格式，它体积较小但不可更�
 
 ```shell
 # -*- coding: utf-8 -*-
-import sys
-import argparse
 import tensorflow as tf
 from tensorflow.python import saved_model
 
@@ -691,41 +689,24 @@ from tensorflow.python import saved_model
 # paper: https://openaccess.thecvf.com/content_cvpr_2017/papers/Hou_Deeply_Supervised_Salient_CVPR_2017_paper.pdf
 
 
-def main(args):
-    gpu_options = tf.GPUOptions(per_process_gpu_memory_fraction=args.gpu_fraction)
-    graph = tf.Graph()
-    saver = tf.train.import_meta_graph('./meta_graph/my-model.meta', graph=graph)
-    with tf.Session(graph=graph, config=tf.ConfigProto(gpu_options=gpu_options)) as sess:
-        init = tf.global_variables_initializer()
-        sess.run(init)
-
-        saver.restore(sess, tf.train.latest_checkpoint('./salience_model'))
-
-        image_batch = tf.get_collection('image_batch')[0]
-        pred_mattes = tf.get_collection('mask')[0]
-        print("inputs =")
-        print(image_batch)
-        print("outputs =")
-        print(pred_mattes)
-
+def convert_ckpt_to_pb_for_tfserving(meta_graph_file, ckpt_path, export_path):
+    gpu_options = tf.GPUOptions(per_process_gpu_memory_fraction=0.3)
+    with tf.Session(config=tf.ConfigProto(gpu_options=gpu_options)) as sess:
+        saver = tf.train.import_meta_graph(meta_graph_file)
+        saver.restore(sess, tf.train.latest_checkpoint(ckpt_path))
+        sess.run(tf.global_variables_initializer())
         saved_model.simple_save(session=sess,
-                                export_dir='D:\\pd',
-                                inputs={"img_in": image_batch},
-                                outputs={"img_out": pred_mattes})
+                                export_dir=export_path,  # 此路径过长会产生错误
+                                inputs={"img_in": tf.get_collection('image_batch')[0]},
+                                outputs={"img_out": tf.get_collection('mask')[0]})
 
 
-def parse_arguments(argv):
-    parser = argparse.ArgumentParser()
+if __name__ == "__main__":
+    meta_graph_file = "D:/model/v1/meta_graph/my-model.meta"
+    ckpt_path = "D:model/v1/salience_model/"
+    export_path = "D:/pd"
 
-    parser.add_argument('--rgb', type=str, help='input rgb', default=None)
-    parser.add_argument('--rgb_folder', type=str, help='input rgb', default=None)
-    parser.add_argument('--gpu_fraction', type=float, help='how much gpu is needed, usually 4G is enough', default=1.0)
-    return parser.parse_args(argv)
-
-
-if __name__ == '__main__':
-    sys.argv = ['inference.py', '--rgb_folder', 'test_input']
-    main(parse_arguments(sys.argv[1:]))
+    convert_ckpt_to_pb_for_tfserving(meta_graph_file, ckpt_path, export_path)
 ```
 
 利用`saved_model_cli`命令可以查看该pb文件的输入、输出信息，命令如下：

@@ -580,7 +580,95 @@ PCA算法的主要缺点有：
 * PCA的结果容易受到每一维数据的大小的影响，如果我们对每一维数据乘以一个不同的权重因子之后再进行PCA降维，得到的结果可能与直接进行PCA降维得到的结果相差比较大。
 * PCA要求数据每一维的均值都是0，在将原始数据的每一维的均值都变成0时可能会丢失掉一些信息。
 
+# PCA的python代码
 
+这是python代码，把PCA写成了一个类。然后用shell调用这个python程序即可。
+
+`pca.py`
+
+```python
+#!/usr/bin/bash
+# -*-coding:utf-8 -*-
+import os, sys, time, argparse
+import numpy as np
+from sklearn.decomposition import PCA
+
+
+class PCA_Emb:
+    def __init__(self, args):
+        print("begin init", flush=True)
+        self._emb_file = args.emb_file
+        self._X = np.loadtxt(self._emb_file)
+        self._pca = PCA(n_components=int(args.reduce_dim))
+        self._X_new = type(None)()
+        self._reduce_emb_file = args.reduce_emb_file
+
+        print("self._emb_file =", self._emb_file)
+        print("self._emb_file num =", self._X.shape[0])
+        print("self._emb_file dim =", self._X.shape[1])
+        print("reduce_dim =", args.reduce_dim)
+
+        self.fit()
+        self.transform()
+        self.show_result()
+        self.save_result()
+
+    def fit(self):
+        print("begin fit", flush=True)
+        self._pca.fit(self._X)
+
+    def transform(self):
+        print("begin transform", flush=True)
+        self._X_new = self._pca.transform(self._X)
+
+    def show_result(self):
+        print("begin show_result", flush=True)
+        # 返回所保留的n个成分各自的方差百分比
+        print("self._pca.explained_variance_ratio_ = ", flush=True)
+        print(self._pca.explained_variance_ratio_, flush=True)
+        print("total variance_ratio =", sum(self._pca.explained_variance_ratio_), flush=True)
+        print("self._pca.explained_variance_ = ")
+        print(self._pca.explained_variance_)
+        # 特征值
+        print("self._pca.singular_values_ = ", flush=True)
+        print(self._pca.singular_values_, flush=True)
+
+    def save_result(self):
+        print("begin save_result", flush=True)
+        #np.savetxt(fname=self._reduce_emb_file, X=self._X_new, fmt="%.6f")
+
+
+def main():
+    arg_parser = argparse.ArgumentParser()
+    arg_parser.add_argument("-emb_file", help="emb file")
+    arg_parser.add_argument("-reduce_dim", help="reduce dim")
+    arg_parser.add_argument("-reduce_emb_file", help="reduce emb file")
+    args = arg_parser.parse_args()
+    print(args)
+
+    pca_emb = PCA_Emb(args)
+
+
+if __name__ == "__main__":
+    main()
+```
+
+使用如下的shell调用上述python代码：
+
+```shell
+#!/bin/bash
+#-*-coding:utf-8 -*-
+
+data_path="../20200524"
+
+emb_file="$data_path/emb_file"
+reduce_emb_file="$data_path/reduce_emb_file"
+reduce_dim=512
+
+python pca.py -emb_file ${emb_file} \
+              -reduce_dim ${reduce_dim} \
+              -reduce_emb_file ${reduce_emb_file}
+```
 
 # 参考资料
 

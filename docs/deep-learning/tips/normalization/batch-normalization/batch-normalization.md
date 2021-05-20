@@ -76,7 +76,7 @@ $$
 
 1. BN的启发来自于对数据做preprocess，比如一般的中心化和标准化，白化等方法。这个方法引入到每一个隐藏层去，就是一般的normalize方案
 
-2. 但一般的normalize，会影响BP。因为normalize的参数其实是当前weight的函数，如果忽略这一点，来做BP，计算出来的gradient 是不正确的，体现出来的就是在下一次forward计算中，Normalize会影响gradient update的效果，并不是最优的梯度方向。所以在paper中需要计算对于mu和sigma的导数，加入到BP中去，才能得到正确的gradient
+2. 但一般的normalize，会影响BP。因为normalize的参数其实是当前weight的函数，如果忽略这一点，来做BP，计算出来的gradient是不正确的，体现出来的就是在下一次forward计算中，Normalize会影响gradient update的效果，并不是最优的梯度方向。所以在paper中需要计算对于mu和sigma的导数，加入到BP中去，才能得到正确的gradient
 
 3. 引入$\gamma$和$\beta$。normalize的过程其实损失了表达能力，原来的参数集是(w, b)，经过normalize之后，b被中心化了，而w必须隐式的满足归一化条件，从而自由度降低了一维。为了得到同样的自由参数数目，引入$\gamma$和$\beta$可以解决这个问题。
 

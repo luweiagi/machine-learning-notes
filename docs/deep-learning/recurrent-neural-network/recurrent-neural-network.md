@@ -3,10 +3,12 @@
 * [返回上层目录](../deep-learning.md)
 * [为什么需要RNN](#为什么需要RNN)
 * [RNN原理](*RNN原理)
-* [RNN的不同架构](*RNN的不同架构)
-  * [多层Deep的RNN](*多层Deep的RNN)
-  * [Elman和Jordan网络架构](*Elman和Jordan网络架构)
-  * [双向RNN](*双向RNN)
+  * [直观图解](#直观图解)
+  * [公式](#公式)
+* [RNN的不同架构](#RNN的不同架构)
+  * [多层Deep的RNN](#多层Deep的RNN)
+  * [Elman和Jordan网络架构](#Elman和Jordan网络架构)
+  * [双向RNN](#双向RNN)
 
 
 
@@ -42,6 +44,8 @@ leave Taipei on November 2nd
 **如果神经网络是有记忆力的，这样就可以解决输入同样的词汇，但是输出必须不同这个问题**。那么这种有记忆力的神经网络，就叫做Recurrnt Neural Network(RNN)。
 
 # RNN原理
+
+## 直观图解
 
 每次前向神经网络里的隐藏层的神经元产生输出（下图中的$a_1$和$a_2$）后，都会被存到memory中去，然后当下一个input输入后，隐藏层的输入不仅仅考虑$x_1$和$x_2$，还会考虑上一次的隐藏层输出存在memory中的值。
 
@@ -79,6 +83,42 @@ leave Taipei on November 2nd
 
 ![rnn-example5](pic/rnn-example5.jpg)
 
+## 公式
+
+![rnn-structure4](pic/rnn-structure4.jpg)
+
+这是一个标准的RNN结构图，图中每个箭头代表做一次变换，也就是说箭头连接带有权值。左侧是折叠起来的样子，右侧是展开的样子，左侧中$h$旁边的箭头代表此结构中的“循环“体现在隐层。
+
+**前向传播算法：**
+
+$x$是输入，$h$是隐层单元，$o$为输出，$L$为损失函数，$y$为训练集的标签。这些元素右上角带的t代表$t$时刻的状态，其中需要注意的是，因此单元$h$在$t$时刻的表现不仅由此刻的输入决定，还受$t$时刻之前时刻的影响。$V$、$W$、$U$是权值，同一类型的权连接权值相同。
+
+前向传播算法其实非常简单，对于$t$时刻：
+$$
+h(t)=ϕ(U\cdot x(t)+W\cdot h(t−1)+b)
+$$
+其中$\phi()$为激活函数，一般来说会选择$tanh$函数，$b$为偏置。
+
+$t$时刻的**输出**就更为简单：
+$$
+o(t)=V\cdot h(t)+c
+$$
+最终模型的预测输出为：
+$$
+\hat{y}(t)=\sigma(o(t))
+$$
+其中$\sigma$为激活函数，通常RNN用于分类，故这里一般用softmax函数。
+
+**损失函数**
+
+对于分类问题，采用交叉熵。
+
+**后向传播算法：**
+
+BPTT（back-propagation through time）算法是常用的训练RNN的方法，其实本质还是BP算法，只不过RNN处理时间序列数据，所以要基于时间反向传播，故叫随时间反向传播。BPTT的中心思想和BP算法相同，沿着需要优化的参数的负梯度方向不断寻找更优的点直至收敛。综上所述，BPTT算法本质还是BP算法，BP算法本质还是梯度下降法，那么求各个参数的梯度便成了此算法的核心。
+
+需要寻优的参数有三个，分别是U、V、W。与BP算法不同的是，其中W和U两个参数的寻优过程需要追溯之前的历史数据，参数V相对简单只需关注目前。
+
 # RNN的不同架构
 
 ## 多层Deep的RNN
@@ -89,7 +129,7 @@ RNN当然也可以有很多层，如下图所示
 
 ## Elman和Jordan网络架构
 
-前面我们讲的都是Elman网络架构，Jordan网络往memory中存的是output的值。Jordan网络可以得到比较好的性能，因为Elman网络的隐藏层是没有target的，比较难控制它学到了什么信息，但是Jordan网络的输出y是有target的，可以对放在memory中的是什么东西比较清楚的。
+前面我们讲的都是Elman网络架构，Jordan网络往memory中存的是output的值。Jordan网络可以得到比较好的性能，因为Elman网络的隐藏层是没有target的，比较难控制它学到了什么信息，但是Jordan网络的输出$y$是有target的，可以对放在memory中的是什么东西比较清楚的。
 
 ![rnn-structure2](pic/rnn-structure2.jpg)
 

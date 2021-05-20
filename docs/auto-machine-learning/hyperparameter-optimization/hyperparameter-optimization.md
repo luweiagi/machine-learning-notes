@@ -53,3 +53,13 @@ Katib: Kubernetes native 的超参数训练系统
 [AutoML——让算法解放算法工程师](https://mp.weixin.qq.com/s/cfFcMyabJjj4qPoBTvvj6A)
 
 [HPO](http://www.noahlab.com.hk/opensource/vega/docs/algorithms/hpo.html)
+
+[【知出乎争】超参自动优化方法总结](https://mp.weixin.qq.com/s/waPWzo6iIEXYaH_MQdLfYg)
+
+本文旨在介绍当前被大家广为所知的超参自动优化方法，像网格搜索、随机搜索、贝叶斯优化和Hyperband，并附有相关的样例代码供大家学习。
+
+写这篇文章的过程中，我主要学到了2点：
+一是随机搜索在某些时候会比格子搜索好，因为某些参数对模型影响较小时，使用随机搜索能让我们有更多的探索空间。
+二是了解贝叶斯优化的机理（准备采样点->GP拟合代理模型->采集函数选点->更新数据集->循环此过程，直到调优结束）。
+
+但由于贝叶斯开销较大，所以As a general rule of thumb, any time you want to optimize tuning hyperparameters, think Grid Search and Randomized Search!

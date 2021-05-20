@@ -146,7 +146,7 @@
   * [线性支持向量机与软间隔最大化](machine-learning/support-vector-machine/linear-svm/linear-svm.md)
   * [非线性支持向量机与核函数](machine-learning/support-vector-machine/nonlinear-svm-and-kernel-function/nonlinear-svm-and-kernel-function.md)
   * [序列最小最优化算法SMO](machine-learning/support-vector-machine/smo/smo.md)
-  * [SVM总结](machine-learning/support-vector-machine/svm-summary/svm-README.md)
+  * [SVM总结](machine-learning/support-vector-machine/svm-summary/svm-summary.md)
 * [liblinear](machine-learning/liblinear/liblinear.md)
 * [集成学习](machine-learning/ensemble-learning/ensemble-learning.md)
   * [集成学习概述](machine-learning/ensemble-learning/ensemble-learning-introduction/ensemble-learning-introduction.md)

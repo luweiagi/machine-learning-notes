@@ -479,17 +479,9 @@ $$
 U^Tf
 \end{aligned}
 $$
-是对节点Embedding f在图中做的一次变换，其中图结构信息蕴含在了U中，那么对于图上的学习任务比如分类任务，我们需要找到一个合适的卷积核h，使得f经过卷积核h的卷积变换后能够降低分类任务定义的损失。因此图上的机器学习任务的核心就是找出可以降低损失(loss)的卷积核h，更直接得说，找到上式中适合的
-$$
-\hat{h}(\lambda_1),...,\hat{h}(\lambda_n)
-$$
-，它们是对角阵$diag(\hat{h}(λ_i))$中的自由参数。
+是对节点Embedding f在图中做的一次变换，其中图结构信息蕴含在了U中，那么对于图上的学习任务比如分类任务，我们需要找到一个合适的卷积核h，使得f经过卷积核h的卷积变换后能够降低分类任务定义的损失。因此图上的机器学习任务的核心就是找出可以降低损失(loss)的卷积核h，更直接得说，找到上式中适合的$\hat{h}(\lambda_1),...,\hat{h}(\lambda_n)$，它们是对角阵$diag(\hat{h}(λ_i))$中的自由参数。
 
-将
-$$
-\hat{h}(\lambda_1),...,\hat{h}(\lambda_n)
-$$
-看做是模型的参数，我们可以利用梯度下降法使模型自动学习这些参数，即根据任务的loss，学习适合的卷积核。[Spectral Networks and Locally Connected Networks on Graphs](https://arxiv.org/abs/1312.6203) 用的就是这样的思路，它简单粗暴地将$diag(\hat{h}(λ_i))$当做是参数diag(θi)：
+将$\hat{h}(\lambda_1),...,\hat{h}(\lambda_n)$看做是模型的参数，我们可以利用梯度下降法使模型自动学习这些参数，即根据任务的loss，学习适合的卷积核。[Spectral Networks and Locally Connected Networks on Graphs](https://arxiv.org/abs/1312.6203) 用的就是这样的思路，它简单粗暴地将$diag(\hat{h}(λ_i))$当做是参数diag(θi)：
 $$
 \begin{aligned}
 &y_{out}=\sigma(Ug_{\theta}(\Lambda)U^Tx)\\
@@ -539,29 +531,17 @@ $$
 &y_{out}=\sigma(Ug_{\theta}(\Lambda)U^Tx)=\sigma\left(\sum_{j=0}^K\alpha_jU\Lambda^jU^T\right)=\sigma\left(\sum_{j=0}^K\alpha_jL^j\right)\\
 \end{aligned}
 $$
-上式中省略了
-$$
-L^j=U\Lambda^jU^T
-$$
-的证明，举个例子：
+上式中省略了$L^j=U\Lambda^jU^T$的证明，举个例子：
 $$
 L^2=U\Lambda U^TU\Lambda U^T=U\Lambda^2U^T
 $$
-，因为
-$$
-U^TU=I
-$$
-，可以利用数学归纳法证明该式，在此不赘述。
+，因为$U^TU=I$，可以利用数学归纳法证明该式，在此不赘述。
 
 因此，最终
 $$
 y_{out}=\sigma(Ug_{\theta}(\Lambda)U^Tx)=\sigma\left(\sum_{j=0}^K\alpha_jL^j\right)
 $$
-其中
-$$
-\alpha_j,\ j \in (1,...,K)
-$$
-是模型的参数，可以通过反向传播学习得到。
+其中$\alpha_j,\ j \in (1,...,K)$是模型的参数，可以通过反向传播学习得到。
 
 那么相比于演进1，演进2有几个明显的优点：
 
@@ -593,15 +573,7 @@ $$
 $$
 g_{\theta}(\Lambda)\approx \sum_{k=0}^K\theta_kT_k(\tilde{\Lambda})
 $$
-其中θk是Chebyshev多项式的系数，
-$$
-T_k(\tilde{\Lambda})
-$$
-是取
-$$
-\tilde{\Lambda}=\frac{2\Lambda}{\lambda_{max}}-I
-$$
-的Chebyshev多项式，对Λ进行变换的原因是Chebyshev多项式的输入要求在[−1,1]之间。
+其中θk是Chebyshev多项式的系数，$T_k(\tilde{\Lambda})$是取$\tilde{\Lambda}=\frac{2\Lambda}{\lambda_{max}}-I$的Chebyshev多项式，对Λ进行变换的原因是Chebyshev多项式的输入要求在[−1,1]之间。
 
 Chebyshev多项式是由如下公式递归定义的：
 $$
@@ -612,15 +584,7 @@ $$
 $$
 其中，x是节点的embedding。
 
-相比于演进2，我们可以看到，计算$g_θ(Λ)$不再需要矩阵相乘了，因为
-$$
-T_k(\tilde{\Lambda})
-$$
-的计算可以使用递推的方式实现，递推中的每一步都是线性复杂度的，计算
-$$
-T_k(\tilde{\Lambda})
-$$
-的复杂度为O(n^2)，因此计算$g_θ(Λ)$的复杂度为O(Kn^2)。
+相比于演进2，我们可以看到，计算$g_θ(Λ)$不再需要矩阵相乘了，因为$T_k(\tilde{\Lambda})$的计算可以使用递推的方式实现，递推中的每一步都是线性复杂度的，计算$T_k(\tilde{\Lambda})$的复杂度为O(n^2)，因此计算$g_θ(Λ)$的复杂度为O(Kn^2)。
 
 将Chebyshev近似带入到谱图卷积的公式里：
 $$
@@ -666,11 +630,7 @@ U\ T_n(\tilde{\Lambda})\ U^T&=U\left( 2\tilde{\Lambda}T_{n-1}(\tilde{\Lambda})-T
 &=T_n(\tilde{L})
 \end{aligned}
 $$
-得证。同理，
-$$
-T_k(\tilde{L})
-$$
-也可以通过递推的方式计算，避免了与矩阵U和U^T的乘法运算，复杂度为O(Kn^2)。因此根据以上推导，使用Chebyshev近似降低了卷积核计算的复杂度。
+得证。同理，$T_k(\tilde{L})$也可以通过递推的方式计算，避免了与矩阵U和U^T的乘法运算，复杂度为O(Kn^2)。因此根据以上推导，使用Chebyshev近似降低了卷积核计算的复杂度。
 
 **上面的讲述是GCN最基础的思路，很多论文中的GCN结构是在上述思路的基础上进行了一些简单数学变换。理解了上述内容，就可以做到“万变不离其宗”。**
 
@@ -697,11 +657,7 @@ $$
 $$
 Ug_{\theta}(\Lambda)U^Tx\approx\theta \left(I+D^{\text{—}\frac{1}{2}}AD^{\text{—}\frac{1}{2}}\right)x
 $$
-注意
-$$
-I+D^{\text{—}\frac{1}{2}}AD^{\text{—}\frac{1}{2}}
-$$
-的特征值被限制在了[0,2]中。由于这一步生成的yout可能作为下一层的输入x， 会再次与
+注意，$I+D^{\text{—}\frac{1}{2}}AD^{\text{—}\frac{1}{2}}$的特征值被限制在了[0,2]中。由于这一步生成的yout可能作为下一层的输入x， 会再次与
 $$
 I+D^{\text{—}\frac{1}{2}}AD^{\text{—}\frac{1}{2}}
 $$
@@ -713,24 +669,11 @@ $$
 $$
 \tilde{A}=A+I_N,\ \tilde{D}_{i,i}=\sum_{j}\tilde{A}_{ij}
 $$
-最后得到了大家耳熟能详的GCN逐层更新公式：输入节点矩阵
-$$
-X \in \mathbb{R}^{N\times C}
-$$
-, 每个输入节点有C个通道(channels, 即每个图节点有C维特征)，卷积操作包含F个滤波器(filters)或特征映射(feature maps), 如下：
+最后得到了大家耳熟能详的GCN逐层更新公式：输入节点矩阵$X \in \mathbb{R}^{N\times C}$, 每个输入节点有C个通道(channels, 即每个图节点有C维特征)，卷积操作包含F个滤波器(filters)或特征映射(feature maps), 如下：
 $$
 Y=\sigma\left(\tilde{D}^{\text{—}\frac{1}{2}}\tilde{A}\tilde{D}^{\text{—}\frac{1}{2}}X{\Theta}\right)
 $$
-其中
-$$
-\Theta \in \mathbb{R}^{C\times F}
-$$
-是filters的参数矩阵, 
-$$
-Y\in \mathbb{R}^{N\times F}
-$$
-是卷积之后的节点矩阵。
-
+其中，$\Theta \in \mathbb{R}^{C\times F}$是filters的参数矩阵，$Y\in \mathbb{R}^{N\times F}$是卷积之后的节点矩阵。
 # 在GCN中的Local-Connectivity和Parameter-Sharing
 
 CNN中有两大核心思想：**网络局部连接，卷积核参数共享**。这两点内容的详细理解可以看这个回答。
@@ -743,11 +686,7 @@ CNN中有两大核心思想：**网络局部连接，卷积核参数共享**。�
 
 ## GCN中的Local-Connectivity
 
-(a)如果利用第一代GCN，卷积运算矩阵
-$$
-Ug_{\theta}(\Lambda)U^T
-$$
-即为
+(a)如果利用第一代GCN，卷积运算矩阵$Ug_{\theta}(\Lambda)U^T$即为
 
 ![convolution-matrix](pic/convolution-matrix.jpg)
 

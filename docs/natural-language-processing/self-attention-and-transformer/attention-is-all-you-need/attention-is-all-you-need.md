@@ -82,7 +82,7 @@ Transformer模型总体的样子如下图所示：总体来说，还是和Encode
 
 ![transformer-encoder-decoder](pic/transformer-encoder-decoder.jpg)
 
-需要注意的上图的Decoder的第一个输入，就是output的前缀信息。
+需要注意的是上图的Decoder的第一个输入，就是output的前缀信息。
 
 # Encoder模块
 

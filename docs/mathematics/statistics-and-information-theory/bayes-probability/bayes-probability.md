@@ -40,3 +40,15 @@ https://zhuanlan.zhihu.com/p/24602462
 
 [数学之美番外篇：平凡而又神奇的贝叶斯方法](http://mindhacks.cn/2008/09/21/the-magical-bayesian-method/)
 
+
+
+# 参考资料
+
+===
+
+[似然和似然函数详解](https://zhuanlan.zhihu.com/p/42598338)
+
+[如何理解似然函数?](https://www.zhihu.com/question/54082000/answer/1632000258)
+
+讲了贝叶斯里为什么那一项叫似然函数。
+

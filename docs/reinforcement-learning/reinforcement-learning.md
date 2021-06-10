@@ -13,3 +13,10 @@
 * [基于模型的强化学习](model-based-reinforcement-learning/model-based-reinforcement-learning.md)
 * [强化学习前景](reinforcement-learning-prospect/reinforcement-learning-prospect.md)
 
+
+
+===
+
+[David Silver 增强学习——Lecture 6 值函数逼近](https://zhuanlan.zhihu.com/p/54189036)
+
+有空看这个，那个陈达贵的视频ppt其实就是这个。

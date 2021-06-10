@@ -69,12 +69,8 @@
 
 * 通过与环境进行交互然后观察环境返回的值
 
-* 本质上相当于从概率分布
-  $
-  P_{ss'}^a,R_s^a
-  $
-  中进行采样
-
+* 本质上相当于从概率分布$P_{ss'}^a,R_s^a$中进行采样
+  
 * 上述是对随机变量S‘和R的采样，需要实现完整的轨迹还需要确定动作A
 
 * 采样**策略**得到动作A
@@ -190,7 +186,7 @@ $$
 
 # 蒙特卡洛方法
 
-##蒙特卡洛（Monte-Carlo,MC）方法
+## 蒙特卡洛（Monte-Carlo,MC）方法
 
 * MC方法可以被用于任意涉及随机变量的估计
 * 这里MC方法特指利用统计平均估计期望值的方法
@@ -220,20 +216,9 @@ $$
 
   * 状态动作序列构成了马尔科夫链图上的一条轨迹
 
-* 从
-  $
-  \pi,P_{ss'}^a
-  $
-  采样一条轨迹：我们把智能体从初始状态开始和环境进行交互的整个过程中得到的轨迹叫做采样一条轨迹。其中需要考虑两个分布
-  $
-  \pi,P_{ss'}^a
-  $
-
-* 从策略中采样一条轨迹ρ。因为
-  $
-  P_{ss'}^a
-  $
-  是稳定的，所以轨迹的分布随着策略的变化而变化。我们简述成从一个策略π中采样轨迹
+* 从$\pi,P_{ss'}^a$采样一条轨迹：我们把智能体从初始状态开始和环境进行交互的整个过程中得到的轨迹叫做采样一条轨迹。其中需要考虑两个分布$\pi,P_{ss'}^a$
+  
+* 从策略中采样一条轨迹ρ。因为$P_{ss'}^a$是稳定的，所以轨迹的分布随着策略的变化而变化。我们简述成从一个策略π中采样轨迹
   $
   \rho\sim \pi
   $
@@ -306,7 +291,7 @@ $$
   \pi(s,a)=
   \left\{\begin{matrix}
   &1,\ a=\text{arg}\ \mathop{\text{max}}_{a}[R_{s,a}+\gamma\sum_{s'\in S}P_{s,a}^{s'}v(s')]\\ 
-  &1,\ a\neq\text{arg}\ \mathop{\text{max}}_{a}[R_{s,a}+\gamma\sum_{s'\in S}P_{s,a}^{s'}v(s')]
+  &0,\ a\neq\text{arg}\ \mathop{\text{max}}_{a}[R_{s,a}+\gamma\sum_{s'\in S}P_{s,a}^{s'}v(s')]
   \end{matrix}\right.
   \end{aligned}
   $
@@ -316,7 +301,7 @@ $$
   \pi(s,a)=
   \left\{\begin{matrix}
   &1,\ a=\text{arg}\ \mathop{\text{max}}_{a}q(s,a)\\ 
-  &1,\ a\neq\text{arg}\ \mathop{\text{max}}_{a}q(s,a)
+  &0,\ a\neq\text{arg}\ \mathop{\text{max}}_{a}q(s,a)
   \end{matrix}\right.
   \end{aligned}
   $
@@ -454,36 +439,32 @@ $$
 ## 问题一：使用哪个值函数？
 
 * 在V函数上做贪婪策略提升要求环境模型
-  $
+  $$
   \pi'(s)=\text{arg }\mathop{\text{max}}_{a\in A}R(s,a)
-  $
-
-* 在Q函数上做贪婪策略提升是无模型的
-  $
+  $$
+在Q函数上做贪婪策略提升是无模型的
+  $$
   \pi'(s)=\text{arg }\mathop{\text{max}}_{a\in A}Q(s,a)
-  $
+  $$
+  如何理解以上两点：
 
-
-
-如何理解以上两点：
-
-在模型相关强化学习中，我们的工作是找到最优策略的状态价值v函数。但是在模型无关的环境下，这个做法却行不通。如果我们在模型无关环境下找最优策略的状态价值v，在预测时，对状态 (s) 最优策略如下所示
+在模型相关强化学习中，我们的工作是找到最优策略的状态价值v函数。但是在模型无关的环境下，这个做法却行不通。如果我们在模型无关环境下找最优策略的状态价值$v$，在预测时，对状态 (s) 最优策略如下所示
 $$
 \begin{aligned}
 \pi(s,a)=
 \left\{\begin{matrix}
 &1,\ a=\text{arg}\ \mathop{\text{max}}_{a}[R_{s,a}+\gamma\sum_{s'\in S}P_{s,a}^{s'}v(s')]\\ 
-&1,\ a\neq\text{arg}\ \mathop{\text{max}}_{a}[R_{s,a}+\gamma\sum_{s'\in S}P_{s,a}^{s'}v(s')]
+&0,\ a\neq\text{arg}\ \mathop{\text{max}}_{a}[R_{s,a}+\gamma\sum_{s'\in S}P_{s,a}^{s'}v(s')]
 \end{matrix}\right.
 \end{aligned}
 $$
-看到那个R和P了吗？在模型无关的设定下，我们不知道这两个值。也许有同学说可以在预测时探索环境得到R和T。但是实际问题中，探索会破坏当前状态，比如在机器人行走任务中，为了探索，机器人需要做出一个动作，这个动作使得机器人状态发生变化。这时候为原来状态选择最优动作已经没有意义了。解决办法是把工作对象换成状态-动作价值q。获得最优策略的状态-动作价值q之后，对于状态s，最优策略策略如下所示：
+看到那个R和P了吗？在模型无关的设定下，我们不知道这两个值。也许有同学说可以在预测时探索环境得到R和P。但是实际问题中，探索会破坏当前状态，比如在机器人行走任务中，为了探索，机器人需要做出一个动作，这个动作使得机器人状态发生变化。这时候为原来状态选择最优动作已经没有意义了。解决办法是把工作对象换成状态-动作价值q。获得最优策略的状态-动作价值q之后，对于状态s，最优策略策略如下所示：
 $$
 \begin{aligned}
 \pi(s,a)=
 \left\{\begin{matrix}
 &1,\ a=\text{arg}\ \mathop{\text{max}}_{a}q(s,a)\\ 
-&1,\ a\neq\text{arg}\ \mathop{\text{max}}_{a}q(s,a)
+&0,\ a\neq\text{arg}\ \mathop{\text{max}}_{a}q(s,a)
 \end{matrix}\right.
 \end{aligned}
 $$
@@ -512,7 +493,7 @@ $$
 * 最简单的做法，保证所有的m个动作都有一定的概率被采样
 
   * 用1-ε的概率选择贪婪的动作
-  * 用ε的概率随机选择从m各动作中选择
+  * 用ε的概率随机选择从m各动作中选择（贪婪动作也包括在m内）
 
   $
   \begin{aligned}
@@ -543,6 +524,8 @@ q_{\pi}(s,\pi'(s))&=\sum_{a\in A}\pi'(a|s)q_{\pi}(s,a)\\
 &=v_{\pi}(s)\\
 \end{aligned}
 $$
+上式中的不等式证明详见[ε-贪婪策略提升定理的理论证明](https://zhuanlan.zhihu.com/p/54272316)。
+
 根据策略提升定理，可以得到
 $$
 v_{\pi'}(s)\geq v_{\pi}(s)
@@ -572,7 +555,7 @@ $$
 
 * 无限探索：所有状态动作都能被探索无穷次
   $
-  \lim_{k}\rightarrow N_k(s,a)=\infty
+  \lim_{k\rightarrow\infty} N_k(s,a)=\infty
   $
 
 * 极限贪婪：在极限的情况下，策略会收敛到一个贪婪的策略
@@ -580,7 +563,7 @@ $$
   \lim_{k\rightarrow\infty}\pi_k(a|s)=1,\ \left(a=\text{arg }\mathop{\text{max}}_{a'\in A}Q_k(s,a')\right)
   $
 
-* 设置ε逐渐衰减到0，比如εk=1/k，ε-贪婪策略是GLI的。
+* 设置ε逐渐衰减到0，比如$\epsilon_k=1/k$，ε-贪婪策略是GLI的。
 
 定理：
 

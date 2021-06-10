@@ -49,7 +49,7 @@ $$
 
 * **同时使误分类点的个数尽可能小，**
 
-  **而C是调和两者的系数**。
+  **而$C$是调和两者的系数**。
 
 有了上面的思路，可以和训练数据集线性可分时一样来考虑训练数据集不可分时的线性支持向量机学习问题。相应于硬间隔最大化，它称为**软间隔最大化**。
 
@@ -61,9 +61,9 @@ $$
 &\ \ \ \quad \quad \xi_i\geqslant 0,\ i=1,2,...,N\\
 \end{aligned}
 $$
-原始问题是一个凸二次规划问题，因而关于$(w,b,\xi)$的解是存在的。可以证明w的解是唯一的，但b的解可能不唯一，而是存在于一个区间。
+原始问题是一个凸二次规划问题，因而关于$(w,b,\xi)$的解是存在的。可以证明$w$的解是唯一的，但$$b的解可能不唯一，而是存在于一个区间。
 
-设原始问题的解是$w^*,b^*$，于是可以得到分离超平面$w^*\cdot x+b^*=0$及分类决策函数$f(x)=sign(w^*\cdot x+b^*)$。称这样的模型为训练样本不可分时的线性支持向量机，简称**线性支持向量机**。显然，线性支持向量机包含线性可分支持向量机。由于现实中训练数据集往往是不可分的，线性支持向量机具有更广泛的适用性。
+设原始问题的解是$w^*,b^*$，于是可以得到分离超平面$w^*\cdot x+b^*=0$及分类决策函数$f(x)=\text{sign}(w^*\cdot x+b^*)$。称这样的模型为训练样本不可分时的线性支持向量机，简称**线性支持向量机**。显然，线性支持向量机包含线性可分支持向量机。由于现实中训练数据集往往是不可分的，线性支持向量机具有更广泛的适用性。
 
 下面给出**线性支持向量机的定义**：
 
@@ -93,12 +93,38 @@ $$
 $$
 L(w,b,\xi,\alpha,\mu)=\frac{1}{2}||w||^2+C\sum_{i=1}^N\xi_i-\sum_{i=1}^N\alpha_i(y_i(w\cdot x_i+b)-1+\xi_i)-\sum_{i=1}^N\mu_i\xi_i
 $$
-其中，
-$$
-\alpha_i\geqslant0,\quad \mu_i\geqslant0
-$$
-对偶问题是拉格朗日函数的极大极小问题。
+其中，$\alpha_i\geqslant0,\quad \mu_i\geqslant0$。
 
+所以，通过拉格朗日函数我们可以将原始问题
+$$
+\begin{aligned}
+&\mathop{\text{min}}_{w,b,\xi}\quad \frac{1}{2}||w||^2+C\sum_{i=1}^N\xi_i\\
+&\text{s.t.}\ \ \quad y_i(w\cdot x_i+b)\geqslant 1-\xi_i,\ i=1,2,...,N\\
+&\ \ \ \quad \quad \xi_i\geqslant 0,\ i=1,2,...,N\\
+\end{aligned}
+$$
+转化为：
+$$
+\begin{aligned}
+&\mathop{\text{min}}_{w,b,\xi}\mathop{\text{max}}_{\alpha,\mu}\quad L(w,b,\xi,\alpha,\mu)\\
+&\text{s.t.}\quad \alpha_i\geqslant 0, \mu_i\geqslant0\\
+\end{aligned}
+$$
+有的小伙伴这里不理解，为什么这里突然变成了拉格朗日函数最大值的最小化？原因是
+$$
+\begin{aligned}
+&\text{if}\quad 1-\xi_i-y_i(w^Tx_i+b)>0,\ \xi_i<0\\
+&\quad \mathop{\text{max}}_{\alpha}L(w,b,\alpha)=\frac{1}{2}||w||^2+C\sum_{i=1}^N\xi_i+\infty=\infty\\
+&\text{if}\quad 1-\xi_i-y_i(w^Tx_i+b)\leqslant 0,\ \xi_i\geqslant 0\\
+&\quad \mathop{\text{max}}_{\alpha}L(w,b,\alpha)=\frac{1}{2}||w||^2+C\sum_{i=1}^N\xi_i+0=\frac{1}{2}||w||^2+C\sum_{i=1}^N\xi_i\\
+\end{aligned}
+$$
+所以，当求$\text{max}$后，其实是隐含了必须满足$1-y_i(w^Tx_i+b)\leqslant 0$且$\xi_i\geqslant 0$这一条件的，就可以不再显式地要求满足这一条件了，所以是**等价**的。
+
+对偶问题是拉格朗日函数的极大极小问题：
+$$
+\mathop{\text{max}}_{\alpha,\mu}\mathop{\text{min}}_{w,b,\xi}\quad L(w,b,\xi,\alpha,\mu)
+$$
 首先求$L(w,b,\xi,\alpha,\mu)$**对$w,b,\xi$的极小**，由
 $$
 \begin{aligned}
@@ -115,7 +141,11 @@ $$
 &C-\alpha_i-\mu_i=0\\
 \end{aligned}
 $$
-将上式代入上面的拉格朗日函数，得
+将上式代入拉格朗日函数
+$$
+L(w,b,\xi,\alpha,\mu)=\frac{1}{2}||w||^2+C\sum_{i=1}^N\xi_i-\sum_{i=1}^N\alpha_i(y_i(w\cdot x_i+b)-1+\xi_i)-\sum_{i=1}^N\mu_i\xi_i
+$$
+，得
 $$
 \mathop{\text{min}}_{w,b,\xi}L(w,b,\xi,\alpha,\mu)=-\frac{1}{2}\sum_{i=1}^N\sum_{j=1}^N\alpha_i\alpha_jy_iy_j(x_i\cdot x_j)+\sum_{i=1}^N\alpha_i
 $$
@@ -129,7 +159,7 @@ $$
 &\ \ \ \quad \quad \mu_i\geqslant0,\ i=1,2,...,N\\
 \end{aligned}
 $$
-**拉格朗日对偶的重要作用是将w的计算提前并消除w，使得优化函数变为拉格朗日乘子的单一参数优化问题**。
+**拉格朗日对偶的重要作用是将$w$的计算提前并消除$w$，使得优化函数变为拉格朗日乘子的单一参数优化问题**。
 
 将对偶最优化问题（上式）进行变换：利用等式约束（上式第二项约束）消去$\mu_i$，从而只留下变量$\alpha_i$，并将约束（上式后三项约束）写成
 $$
@@ -258,7 +288,7 @@ $$
 $$
 \alpha^*=(a_1^*,\alpha_2^*,...,\alpha_N^*)^T
 $$
-中对应于$\alpha_i^*>0$的样本点$(x_i,y_i)$的实例$x_i$称为支持向量（软间隔的支持向量）。如下图所示，这时的支持向量要比线性可分时的情况更复杂一些。图中，分离超平面由实线表示，间隔边界由虚线表示，正例点由“。”表示，负例点由“x”表示。图中还标出了实例xi到间隔边界的距离
+中对应于$\alpha_i^*>0$的样本点$(x_i,y_i)$的实例$x_i$称为支持向量（软间隔的支持向量）。如下图所示，这时的支持向量要比线性可分时的情况更复杂一些。图中，分离超平面由实线表示，间隔边界由虚线表示，正例点由“。”表示，负例点由“x”表示。图中还标出了实例$x_i$到间隔边界的距离
 $$
 \frac{\xi_i}{||w||}
 $$
@@ -283,7 +313,7 @@ $$
 
 # 合页损失函数
 
-对于线性支持向量机学习来说，其模型为分离超平面$w^*\cdot x+b^*=0$及决策函数$f(x)=sign(w^*\cdot x+b^*)$，其学习策略为软间隔最大化，学习算法为凸二次规划。
+对于线性支持向量机学习来说，其模型为分离超平面$w^*\cdot x+b^*=0$及决策函数$f(x)=\text{sign}(w^*\cdot x+b^*)$，其学习策略为软间隔最大化，学习算法为凸二次规划。
 
 线性支持向量机学习还有另外一种解释，就是最小化以下目标函数：
 $$

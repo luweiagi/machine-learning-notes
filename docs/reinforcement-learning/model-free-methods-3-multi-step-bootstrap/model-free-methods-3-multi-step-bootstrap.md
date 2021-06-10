@@ -173,28 +173,13 @@ TD(λ)的备份图如下图：
 
 ![TD-lambda-backup](pic/TD-lambda-backup.png)
 
-* **λ回报值混合了所有的n步回报值**
-  $
-  G_t^{(n)}
-  $
-
-* 使用了权重（用得比较巧妙）
-  $
-  (1-\lambda)\lambda^{n-1}
-  $
-
-  $
-  G_t^{\lambda}=(1-\lambda)\sum_{n=1}^{\infty}\lambda^{n-1}G_t^{(n)}
-  $
-
+* **λ回报值混合了所有的n步回报值$G_t^{(n)}$**
+  
+* 使用了权重$(1-\lambda)\lambda^{n-1}$（用得比较巧妙）$G_t^{\lambda}=(1-\lambda)\sum_{n=1}^{\infty}\lambda^{n-1}G_t^{(n)}$
+  
 * λ=0，退化成TD(0)；λ=1，退化成MC
 
-* TD(λ)更新公式：
-  $
-  V(S_t)\leftarrow V(S_t)+\alpha\left(G_t^{\lambda}-V(S_t)\right)
-  $
-
-
+* TD(λ)更新公式：$V(S_t)\leftarrow V(S_t)+\alpha\left(G_t^{\lambda}-V(S_t)\right)$
 
 **TD(λ)的加权函数：**
 

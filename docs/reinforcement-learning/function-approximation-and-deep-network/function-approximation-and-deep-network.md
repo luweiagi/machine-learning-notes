@@ -113,7 +113,7 @@
 
 * 在大规模的马尔科夫决策（MDPs）中会存在如下的问题：
 
-  * 需要再内存空间中存储大量的状态或者动作。这个内存空间有时候基本上是不可能这么大的。
+  * 需要在内存空间中存储大量的状态或者动作。这个内存空间有时候基本上是不可能这么大的。
   * 学习太缓慢
 
 * 为了解决大规模的马尔科夫决策（MDPs）的方法是
@@ -323,29 +323,16 @@
 
 * 直观地，我们用**目标值**替代vπ(s)
 
-  * 对于蒙特卡洛，目标值是回报值
-    $
-    G_t
-    $
-    则Δw为
-    $
-    \bigtriangleup w=\alpha\left( G_t-\hat{v}(S_t,w) \right)\bigtriangledown_w\hat{v}(S_t,w)
-    $
-
-  * 对于TD(0)，目标值是TD目标值：
-    $
-    R_{t+1}+\gamma\hat{v}(S_{t+1},w)
-    $
-    则Δw为
+  * 对于蒙特卡洛，目标值是回报值$G_t$，则Δw为
+    
+    $\bigtriangleup w=\alpha\left( G_t-\hat{v}(S_t,w) \right)\bigtriangledown_w\hat{v}(S_t,w)$
+    
+  * 对于TD(0)，目标值是TD目标值：$R_{t+1}+\gamma\hat{v}(S_{t+1},w)$，则Δw为
     $
     \bigtriangleup w=\alpha(R_{t+1}+\gamma \hat{v}(S_{t+1},w)-\hat{v}(S_t,w))\bigtriangleup_w\hat{v}(S_t,w)
     $
-
-  * 对于TD(λ)，目标值是λ回报值
-    $
-    G_t^{\lambda}
-    $
-    则Δw为
+  
+  * 对于TD(λ)，目标值是λ回报值$G_t^{\lambda}$，则Δw为
     $
     \bigtriangleup w=\alpha\left( G_t^{\lambda}-\hat{v}(S_t,w)\bigtriangleup_w\hat{v}(S_t,w) \right)
     $
@@ -375,12 +362,8 @@
 
 ### 值函数近似下的时间差分TD（0）
 
-* 时间差分目标值
-  $
-  R_{t+1}+\gamma\hat{v}(S_{t+1},w)
-  $
-  是真实值函数vπ(St)的**有偏估计**
-
+* 时间差分目标值$R_{t+1}+\gamma\hat{v}(S_{t+1},w)$是真实值函数vπ(St)的**有偏估计**
+  
 * 仍然可以构建监督学习的“训练数据”
   $
   <S_1,R_2+\gamma\hat{v}(S_2,w)>,\ <S_2,R_3+\gamma\hat{v}(S_3,w)>\ ,...,\ <S_{T-1},R_T>
@@ -399,12 +382,8 @@
 
 ### 值函数近似下的时间差分TD（λ）
 
-* λ回报值
-  $
-  G_t^{\lambda}
-  $
-  也是真实值函数vπ(s)的**有偏估计**
-
+* λ回报值$G_t^{\lambda}$，也是真实值函数vπ(s)的**有偏估计**
+  
 * 仍然可以构建监督学习的“训练数据”
   $
   <S_1,G_1^{\lambda}>,\ <S_1,G_2^{\lambda}>\ ,...,\ <S_1,G_{T-1}^{\lambda}>
@@ -440,23 +419,16 @@
 
 ![generic-strategy-iteration](pic/generic-strategy-iteration.png)
 
-* 策略评价：**近似化策略评价**，
-  $
-  \hat{q}(.,.,w)\approx q_{\pi}
-  $
-  在每一次迭代时，是找不到最优的Q函数的，所以是近似的策略评价。
-
+* 策略评价：**近似化策略评价**$\hat{q}(.,.,w)\approx q_{\pi}$在每一次迭代时，是找不到最优的Q函数的，所以是近似的策略评价。
+  
 * 策略提升：ε贪婪策略提升
 
 ### 对Q函数的近似
 
 和V函数其实一样，就是把V换成了Q。
 
-* 近似Q函数
-  $
-  \hat{q}(S,A,w)\approx q_{\pi}(S,A)
-  $
-
+* 近似Q函数$\hat{q}(S,A,w)\approx q_{\pi}(S,A)$
+  
 * 最小化近似值和真实值的均方误差
   $
   J(w)=\mathbb{E}_{\pi}\left[ (q_{\pi}(S,A)-\hat{q}(S,A,w))^2 \right]
@@ -507,12 +479,7 @@
 
 ### 增量式策略迭代优化算法
 
-同样地，我们用目标值替换真实的
-$$
-q_{\pi}(S,A)
-$$
-因为真实的qπ我们是不知道的。
-
+同样地，我们用目标值替换真实的$q_{\pi}(S,A)$，因为真实的qπ我们是不知道的。
 * 对于蒙特卡洛，目标值即回报值Gt
   $
   \bigtriangleup w=\alpha(G_t-\hat{q}(S_t,A_t,w))\bigtriangledown_w\hat{q}(S_t,A_t,w)

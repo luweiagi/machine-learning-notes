@@ -75,7 +75,7 @@
 
 # 本章简介
 
-##基于策略的强化学习
+## 基于策略的强化学习
 
 * 在过去的课程中，我们讲述了基于值函数的方法
 
@@ -319,86 +319,54 @@
 
 ## 数值法求梯度
 
-* 目标函数：
-  $
-  J_1(\theta)
-  $
-
-* 策略模型：
-  $
-  \pi_{\theta}(s,a)
-  $
-
-* 怎么求
-  $
-  \triangle_{\theta}J_1
-  $
-
-
-
-
+* 目标函数：$J_1(\theta)$
+  
+* 策略模型：$\pi_{\theta}(s,a)$
+  
+* 怎么求$\triangle_{\theta}J_1$
 
 
 当不知道策略模型和目标函数有什么关系的时候，可用数值法求解。
 
 数值梯度法：
 
-* 对于θ的每一个维度k∈[1,n]
+* 对于θ的每一个维度$k\in [1,n]$
 
   * 通过给θ的第k维加入一点扰动ε
 
-  * 然后估计对第k维的偏导数
-    $
-    \frac{\partial J(\theta)}{\partial \theta_k}\approx\frac{J(\theta+\epsilon u_k) - J(\theta)}{\epsilon}
-    $
-
-  * 其中uk是单位向量，第k维是1，其他均为0
-
+  * 然后估计对第k维的偏导数$\frac{\partial J(\theta)}{\partial \theta_k}\approx\frac{J(\theta+\epsilon u_k) - J(\theta)}{\epsilon}$
+    
+  * 其中$u_k$是单位向量，第$k$维是1，其他均为0
+  
 * 每次求θ的梯度需要计算n次（因为有n维）
 
 * 简单，噪声大（毕竟是数值仿真），效率低
 
 * 此方法简单暴力，有时很有效，对任意策略均适用，甚至策略不可微的情况也适用
 
-注意：求目标函数J1(θ)的时候的时候，目标函数定义的是V函数，而V函数有时并不知道，所以可以通过蒙特卡洛的方式去仿真，比如说，给定一个策略网络，用这个策略网络的初始状态和模拟器去交互，交互很多遍之后求一个平均值，就得到它的一个V函数。然后加一个扰动，再去和环境交互，然后求出V，然后做差分，整个过程就这样。
+注意：求目标函数$J_1(\theta)$的时候的时候，目标函数定义的是V函数，而V函数有时并不知道，所以可以通过蒙特卡洛的方式去仿真，比如说，给定一个策略网络，用这个策略网络的初始状态和模拟器去交互，交互很多遍之后求一个平均值，就得到它的一个V函数。然后加一个扰动，再去和环境交互，然后求出V，然后做差分，整个过程就这样。
 
 ## 策略梯度算法
 
 * 已有策略模型：πθ(s,a)（线性模型或者神经网络模型）
 
-  * 策略模型可微分，即我们能求策略模型关于θ的梯度
-    $
-    \bigtriangledown_{\theta}\pi_{\theta}
-    $
-
+  * 策略模型可微分，即我们能求策略模型关于θ的梯度$\bigtriangledown_{\theta}\pi_{\theta}$
+  
 * 策略梯度算法的出发点：
 
-  * 找到一种合适的目标函数J，满足：
+  * 找到一种合适的目标函数$J$，满足：
 
-    * 最大化目标函数J相当于最大化期望回报值
+    * 最大化目标函数$J$相当于最大化期望回报值
 
       即和强化学习的目标是一致的，不能随便找一个目标函数
 
-    * 且能够建立
-
-    * $
-      \bigtriangledown_{\theta}J
-      $
-
-      与
-      $
-      \bigtriangledown_{\theta}\pi_{\theta}
-      $
-      的关系
+    * 且能够建立$\bigtriangledown_{\theta}J$与$\bigtriangledown_{\theta}\pi_{\theta}$的关系
 
       因为神经网络只能求策略模型关于θ的梯度，并不能求目标函数J关于θ的梯度
-
+    
       把这种关系描述出来之后，就可以利用深度学习框架自动去求导
 
-  * 可以不需要知道J的具体形式，关键是计算关于θ的梯度
-    $
-    \bigtriangledown_{\theta}J
-    $
+  * 可以不需要知道$J$的具体形式，关键是计算关于θ的梯度$\bigtriangledown_{\theta}J$
     用梯度更新就可以更新神经网络的参数
 
 ## 策略梯度的推导
@@ -407,11 +375,9 @@
 
 **轨迹**
 
-用τ表示每次仿真的状态-行为序列
-$$
-S_0,A_0,...,S_T,A_T
-$$
-，每一个轨迹代表了强化学习的一个样本。轨迹的回报：
+用τ表示每次仿真的状态-行为序列$S_0,A_0,...,S_T,A_T$，每一个轨迹代表了强化学习的一个样本。
+
+轨迹的回报：
 $$
 R(\tau)=\sum_{t=0}^T\gamma^tR(s_t,a_t)
 $$
@@ -440,11 +406,7 @@ $$
 
 ## 求解▽θU(θ)
 
-如何求解
-$$
-\bigtriangledown_{\theta}U(\theta)
-$$
-
+如何求解$\bigtriangledown_{\theta}U(\theta)$？
 * P(τ;θ)未知
 
   没有用可微分的模型表示，也没有具体的数学模型表达式
@@ -477,7 +439,7 @@ $$
 
 为什么要推到成这样的形式？
 
-* **P(τ|θ)可以通过π(a|s)的模型表达**（后面会证明）
+* **P(τ;θ)可以通过π(a|s)的模型表达**（后面会证明）
 
   而π(a|s)是可微分的，是可微分的线性模型（手动求梯度）或神经网络模型（利用深度学习框架自动求梯度）
 
@@ -563,19 +525,15 @@ $$
 
 ## 将轨迹分解成状态和动作
 
-前一节讲到：P(τ|θ)可以通过π(a|s)的模型表达。这里就来具体推导：
+前一节讲到：P(τ|θ)可以通过$\pi(a|s)$的模型表达。这里就来具体推导：
 
 由于满足马尔科夫性，轨迹的似然率的表达（链式法则）如下：
 $$
-\mathbb{P}(\tau^{(i)};\theta)=\prod_{t=0}^T\mathbb{P}(s_{t+1}^{(i)}|s_t^{(i)},a_t^{(i)})\cdot\pi_{\theta}(a_t^{(i)}|s_t^{i()})
+\mathbb{P}(\tau^{(i)};\theta)=\prod_{t=0}^T\mathbb{P}(s_{t+1}^{(i)}|s_t^{(i)},a_t^{(i)})\cdot\pi_{\theta}(a_t^{(i)}|s_t^{(i)})
 $$
 上式中我们并不知道状态转移概率的表达式是什么，所以就想把它消掉，那怎么消掉呢？
 
-由于上式中的状态转移概率
-$$
-\mathbb{P}(s_{t+1}^{(i)}|s_t^{(i)},a_t^{(i)})
-$$
-中不包含参数θ，因此求导的过程可以消掉。只有πθ(a|s)中含有参数θ，所以
+由于上式中的状态转移概率$\mathbb{P}(s_{t+1}^{(i)}|s_t^{(i)},a_t^{(i)})$中不包含参数θ，因此求导的过程可以消掉。只有$\pi_{\theta}(a|s)$中含有参数$\theta$，所以
 $$
 \begin{aligned}
 \bigtriangledown_{\theta}\text{log}\mathbb{P}(\tau^{(i)};\theta)&=\bigtriangledown_{\theta}\text{log}\left[ \prod_{t=0}^T\mathbb{P}(s_{t+1}^{(i)}|s_t^{(i)},a_t^{(i)})\cdot\pi_{\theta}(a_t^{(i)}|s_t^{i()}) \right]\\
@@ -597,11 +555,7 @@ $$
 
 ## 似然率梯度估计
 
-根据之前的推导，我们可以在仅有可微分的策略模型πθ的情况下，求得
-$$
-\bigtriangledown_{\theta}U(\theta)
-$$
-
+根据之前的推导，我们可以在仅有可微分的策略模型$\pi_{\theta}$的情况下，求得$\bigtriangledown_{\theta}U(\theta)$：
 $$
 \hat{\eta}= \frac{1}{m}\sum_{i=1}^m\bigtriangledown_{\theta}\text{log}\mathbb{P}(\tau^{(i)};\theta)R(\tau^{(i)})
 $$
@@ -612,7 +566,7 @@ $$
 $$
 上式给出的策略梯度是无偏的，但是**方差很大**。
 
-如下式所示，$\hat{\eta}$是▽θU(θ)的无偏估计（根据经验平均估计真实的值），即
+如下式所示，$\hat{\eta}$是$\bigtriangledown_{\theta}U(\theta)$的无偏估计（根据经验平均估计真实的值），即
 $$
 \mathbb{E}[\hat{\eta}]=\bigtriangledown_{\theta}U(\theta)
 $$
@@ -624,7 +578,7 @@ $$
 
 * 方差大
 
-* 如果所有的R(τ)都是正的，那么所有动作出现的概率都会增加
+* 如果所有的$R(\tau)$都是正的，那么所有动作出现的概率都会增加
 
   这就导致谁先被采样到，谁就获利，这不公平，显然是bug
 
@@ -632,7 +586,7 @@ $$
 
 * 在回报中引入常数基线（baseline）
 
-* 修改回报函数R(τ)
+* 修改回报函数$R(\tau)$
 
 * Actor-Critic方法
 
@@ -660,7 +614,7 @@ $$
 引入baseline的好处：
 
 - 减小方差
-- R(τ)都有正有负
+- $R(\tau)$都有正有负
 
 现在我们要证明上式中的分量（如下式所示）等于零，那么上式的等号就能够成立。
 $$
@@ -733,21 +687,14 @@ $$
 \end{aligned}
 $$
 
-* 将来的动作不依赖过去的奖励，即
-  $
-  \begin{aligned}
-  E_p\left[\bigtriangledown_{\theta}\text{log}\pi_{\theta}\left( a_t^{(i)}|s_t^{(i)} \right)r_j\right]=0\ \ \text{for }j<t
-  \end{aligned}
-  $
-  因此我们可以修改回报值来降低方差
-  $
-  \frac{1}{m}\sum_{i=1}^m\sum_{t=0}^T\left[\bigtriangledown_{\theta}\text{log}\pi_{\theta}\left( a_t^{(i)}|s_t^{(i)} \right)\left(\sum_{k=t}^TR\left( s_k^{(i)},a_k^{(i)} \right)-b\left(s_k^{(i)}\right)\right)\right]
-  $
-
-
-
-
-
+将来的动作不依赖过去的奖励，即
+$$
+E_p\left[\bigtriangledown_{\theta}\text{log}\pi_{\theta}\left( a_t^{(i)}|s_t^{(i)} \right)r_j\right]=0\ \ \text{for }j < t
+$$
+因此我们可以修改回报值来降低方差
+$$
+\frac{1}{m}\sum_{i=1}^m\sum_{t=0}^T\left[\bigtriangledown_{\theta}\text{log}\pi_{\theta}\left( a_t^{(i)}|s_t^{(i)} \right)\left(\sum_{k=t}^TR\left( s_k^{(i)},a_k^{(i)} \right)-b\left(s_k^{(i)}\right)\right)\right]
+$$
 疑问：这里把k=0修改成了k=t，那少了前面的0~t-1项，则策略梯度的值就变了啊，就不准确了啊。。
 
 我能明白前面的0~t-1的奖励和将来的动作没关系，可是，省略了前面的奖励值，会影响策略梯度的值啊，就好比
@@ -777,14 +724,14 @@ $$
 实际更新时，会做一些简化
 
 * 考虑单条轨迹，而不是采样m条轨迹
-  $
+  $$
   \hat{\eta}=\sum_{t=0}^T\left[ \bigtriangledown_{\theta}\text{log}\pi_{\theta}(a_t|s_t)\left( \sum_{k=t}^T\gamma^{k-t}R(s_k,a_k) \right) \right]
-  $
+  $$
 
 * 考虑单步更新，即单条轨迹里每一步的更新值
-  $
+  $$
   \hat{\eta}=\bigtriangledown_{\theta}\text{log}\pi_{\theta}(a_t|s_t)\left( \sum_{k=t}^T\gamma^{k-t}R(s_k,a_k) \right)
-  $
+  $$
 
 
 ## 蒙特卡洛策略梯度（REINFORCE）
@@ -814,9 +761,9 @@ $$
 ## 使用Critic函数减小方差
 
 * 我们可以使用critic函数（值函数估计）来估计回报值减小方差
-  $
+  $$
   Q_w\left( s_k,a_k \right)\approx \sum_{t=k}^T\left( \gamma^{t-k}R(s_k,a_k) \right)
-  $
+  $$
   也就是说，不用蒙特卡洛采样出来，而是用Q函数估计出来，因为已经给定动作a了，所以就相当于Q嘛
 
   我们用w为参数建立一个线性模型或者神经网络模型去拟合Q。我们同时去更新π和Q的模型。
@@ -825,18 +772,14 @@ $$
 
 * Actor-Critic算法维持两个参数
 
-  * Critic更新Q函数的参数w
-  * Actor使用Critic的方向更新策略参数θ
+  * Critic更新Q函数的参数$w$
+  * Actor使用Critic的方向更新策略参数$\theta$
 
-* Actor-Critic算法**本质**上还是利用Actor方法（策略网络）去做，用Critic方法去指导Actor的更新，Actor的更新用的是策略梯度，策略梯度中有一项需要算回报值，回报值怎么算，就用Critic算，虽然回报值可以用采样才出来，但是方差 太大，所以就用Critic去估计回报值。
+* Actor-Critic算法**本质**上还是利用Actor方法（策略网络）去做，用Critic方法去指导Actor的更新，Actor的更新用的是策略梯度，策略梯度中有一项需要算回报值，回报值怎么算，就用Critic算，虽然回报值可以用采样才出来，但是方差太大，所以就用Critic去估计回报值。
 
-* 近似策略梯度
-  $
-  \Delta\theta=\alpha\bigtriangledown_{\theta}\text{log}\pi_{\theta}(a|s)Q_w(s,a)
-  $
+* 近似策略梯度$\Delta\theta=\alpha\bigtriangledown_{\theta}\text{log}\pi_{\theta}(a|s)Q_w(s,a)$
 
-
-
+RL中间有一个很关键的点是，它天然就是一个损失函数不容易求的过程。RL最难的是只知道阶段性奖励，却要求每一步能够做出全局下的最优解。换言之，这要求我们在每一步下都能够知道全局下的最优损失函数是什么。过去人们经常用的是随机性的方法，但是最近的强化学习发现使用另一个网络来学习评价会更好。也就是所谓的Actor-Critic算法。所以这个方法的本质也是通过另一个网络的学习，增强前一个网络损失函数的准确度。因此，从本质上说，它与现在的生成对抗网络是一致的。只需要意识到他们的本质都是使用神经网络，来拟合另一个神经网络的损失函数。
 
 ## 使用优势函数减小方差
 
@@ -844,11 +787,7 @@ $$
 
 之前的baseline描述的是不同的轨迹的差异，现在的baseline描述的是不同的动作的差异。有些动作表示的是正的，有些又是负的，则有些动作下优势函数是正的，有些动作下优势函数是负的。
 
-优势函数
-$$
-A^{\pi_{\theta}}(s,a)=Q^{\pi_{\theta}}(s,a)-V^{\pi_{\theta}}(s)
-$$
-即通过V函数估计基线，用Q函数估计回报函数
+优势函数$A^{\pi_{\theta}}(s,a)=Q^{\pi_{\theta}}(s,a)-V^{\pi_{\theta}}(s)$，即通过V函数估计基线，用Q函数估计回报函数
 
 再引入一个V模型来估计真实的V函数，这样我们就有了三个模型了：第一个是策略模型π(θ)，第二个是Q的模型Q(w)，第三个是V模型V(v)
 $$
@@ -868,29 +807,23 @@ $$
 
 优势函数A有两个参数还比较麻烦，我们把两个参数合二为一，用TD误差来提到优势函数A。
 
-* 对于真实的值函数
-  $
-  V^{\pi_{\theta}}(s)
-  $
-  ，TD误差为TD目标值减去V函数
-  $
+* 对于真实的值函数$V^{\pi_{\theta}}(s)$，TD误差为TD目标值减去V函数
+  $$
   \delta^{\pi_{\theta}}=r+\gamma V^{\pi_{\theta}}(s')-V^{\pi_{\theta}}(s)
-  $
-
-* TD误差是优势函数的无偏估计
-  $
+  $$
+  TD误差是优势函数的无偏估计
+  $$
   \begin{aligned}
   \mathbb{E}_{\pi_{\theta}}\left[ \delta^{\pi_{\theta}}|s,a \right]&=\mathbb{E}_{\pi_{\theta}}\left[ r+\gamma V^{\pi_{\theta}}(s')|s,a \right]-V^{\pi_{\theta}(s)}\\
-  &=Q^{\pi_{\theta}}(s,a)-V^{\pi_{\theta}}(s)\\
+&=Q^{\pi_{\theta}}(s,a)-V^{\pi_{\theta}}(s)\\
   &=A^{\pi_{\theta}}(s,a)
   \end{aligned}
-  $
-
-* 使用TD误差来计算策略梯度
+  $$
+  使用TD误差来计算策略梯度
   $
   \bigtriangledown_{\theta}\text{log}\pi_{\theta}(s,a)\delta^{\pi_{\theta}}
   $
-
+  
 * 实际使用中，使用近似的TD误差
   $
   \delta_v=r+\gamma V_v(s')-V_v(s)
@@ -909,30 +842,21 @@ $$
   \bigtriangleup\theta=\alpha\left( G_t^{\lambda}-V_v(s_t) \right)\bigtriangledown_{\theta}\text{log}\pi_{\theta}(a_t|s_t)
   $
 
-* 这里
-  $
-  G_t^{\lambda}-V_v(s_t)
-  $
-  是优势函数的有偏估计
-
+* 这里$G_t^{\lambda}-V_v(s_t)$是优势函数的有偏估计
+  
 * 后向视角TD(λ)
-  $
+  $$
   \begin{aligned}
   \delta&=r_{t+1}+\gamma V_v(S_{t+1})-V_v(s_t)\\
   e_t&=\lambda e_{t-1}+\bigtriangledown_{\theta}\text{log}\pi_{\theta}(a_t|s_t)\\
   \bigtriangleup \theta&=\alpha\delta e_t\\
   \end{aligned}
-  $
-
-
-
-
-
+  $$
 
 ## 小结
 
 * **策略梯度**有多种形式
-  $
+  $$
   \begin{aligned}
   \bigtriangledown_{\theta}J(\theta)&=\mathbb{E}_{\pi_{\theta}}\left[ \bigtriangledown_{\theta}\text{log}\pi_{\theta}(a|s)g_t \right]\quad \text{REINFORCE MC}\\
   &=\mathbb{E}_{\pi_{\theta}}\left[ \bigtriangledown_{\theta}\text{log}\pi_{\theta}(a|s)Q_w(s,a) \right]\quad \text{Q Actor-Crtic}\\
@@ -940,19 +864,14 @@ $$
   &=\mathbb{E}_{\pi_{\theta}}\left[ \bigtriangledown_{\theta}\text{log}\pi_{\theta}(a|s)\delta_v \right]\quad \text{TD Actor-Crtic}\\
   &=\mathbb{E}_{\pi_{\theta}}\left[ \bigtriangledown_{\theta}\text{log}\pi_{\theta}(a|s)\delta_ve \right]\quad \text{TD(}\lambda\text{) Actor-Crtic}\\
   \end{aligned}
-  $
+  $$
 
 * 每种形式都能推导出随机梯度上升算法
 
 * Critic（值函数估计）使用了策略评价（蒙特卡洛MC或者时间差分TD）来估计
-  $
+  $$
   Q^{\pi}(s,a), A^{\pi}(s,a), V^{\pi}(s)
-  $
-
-
-
-
-
+  $$
 
 ## A2C
 
@@ -960,7 +879,7 @@ OenAI提出的A2C（即Advantage-Actor-Critic的简称），该算法使用多�
 
 ![Advantage-Actor-Critic](pic/Advantage-Actor-Critic.png)
 
-上面的Actor πθ和Critic Vv分别是两个神经网络。
+上面的Actor $\pi_{\theta}$和Critic $V_v$分别是两个神经网络。
 
 # 引申
 
@@ -972,7 +891,6 @@ OenAI提出的A2C（即Advantage-Actor-Critic的简称），该算法使用多�
 * 确定性策略梯度算法（DPG）
 * ...
 
-
 # 参考资料
 
 * [《强化学习理论与实践》第八章-策略梯度算法](http://www.shenlanxueyuan.com/my/course/96)
@@ -982,3 +900,4 @@ OenAI提出的A2C（即Advantage-Actor-Critic的简称），该算法使用多�
 * [强化学习进阶 第六讲 策略梯度方法](https://zhuanlan.zhihu.com/p/26174099)
 
 "求解动作策略的梯度"参考这篇知乎专栏。
+

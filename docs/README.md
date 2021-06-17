@@ -207,6 +207,7 @@
     * [GCN图卷积网络本质理解](deep-learning/graph-neural-networks/graph-convolutional-networks/gcn-essential-understand/gcn-essential-understand.md)
     * [GCN图卷积网络全面理解](deep-learning/graph-neural-networks/graph-convolutional-networks/gcn-comprehensive-understand/gcn-comprehensive-understand.md)
     * [SEMI-SUPERVISED CLASSIFICATION WITH GRAPH CONVOLUTIONAL NETWORKS ICLR2017](deep-learning/graph-neural-networks/graph-convolutional-networks/semi-supervised-gcn/SEMI-SUPERVISED-CLASSIFICATION-WITH-GRAPH-CONVOLUTIONAL-NETWORKS.md)
+* [GAN生成对抗网络](deep-learning/generative-adversarial-nets/generative-adversarial-nets.md)
 
 # [强化学习](reinforcement-learning/reinforcement-learning.md)
 * [强化学习概论](reinforcement-learning/reinforcement-learning-introduction/reinforcement-learning-introduction.md)

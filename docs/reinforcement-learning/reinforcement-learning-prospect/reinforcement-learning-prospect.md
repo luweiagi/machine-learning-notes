@@ -378,7 +378,7 @@ Are commonly used baseline implementations comparable?
 
 **它的样本利用率非常低**。换言之为了让模型的表现达到一定高度需要极为大量的训练样本。
 
-* Deep Reinforcement Learning Can Be Horribly Sample Inefcient
+* Deep Reinforcement Learning Can Be Horribly Sample Ineffcient
 * Atari:
   * Rainbow: 18 million frames: 83 hours of play experience
   * Distributional DQN: 70 million frames
@@ -406,7 +406,7 @@ Are commonly used baseline implementations comparable?
 
 ## Reward Function
 
-**DRL成功的关键离不开一个好的奖励函数（reward function）**，然而这种奖励函数往往**很难设计**。在《Deep Reinforcement Learning That Matters》中作者提到有时候把奖励乘以一个常数模型表现就会有天和地的区别。但奖励函数的坑爹之处还不止如此。奖励函数的设计需要保证：
+**DRL成功的关键离不开一个好的奖励函数（reward function）**，然而这种奖励函数往往**很难设计**。在《Deep Reinforcement Learning That Matters》中作者提到有时候把奖励乘以一个常数，模型表现就会有天和地的区别。但奖励函数的坑爹之处还不止如此。奖励函数的设计需要保证：
 
 * 加入了合适的先验，良好的定义了问题和在一切可能状态下的对应动作。坑爹的是模型很多时候会找到作弊的手段。Alex举的一个例子是有一个任务需要把红色的乐高积木放到蓝色的乐高积木上面，奖励函数的值基于红色乐高积木底部的高度而定。结果一个模型直接把红色乐高积木翻了一个底朝天。仔啊，你咋学坏了，阿爸对你很失望啊。
 * 奖励函数的值太过稀疏。换言之大部分情况下奖励函数在一个状态返回的值都是0。这就和我们人学习也需要鼓励，学太久都没什么回报就容易气馁。都说 21 世纪是生物的世纪，怎么我还没感觉到呢？21世纪才刚开始呢。我等不到了啊啊啊啊啊。
@@ -458,11 +458,11 @@ We studied a toy 2-player combinatorial game, where there’s a closed-form anal
 
 **不稳定性，很难复现**。
 
-* 读 DRL 论文的时候会发现有时候作者们会给出一个模型表现随着尝试 random seed 数量下降的图，几乎所有图里模型表现最终都会降到 0。相比之下在监督学习里不同的超参数或多或少都会表现出训练带来的变化，而 DRL 里运气不好可能很长时间你模型表现的曲线都没有任何变化，因为完全不work。
-* 即便知道了超参数和随机种子，你的实现只要稍有差别，模型的表现就可以千差万别。这可能就是 Deep Reinforcement Learning That Matters 一文里 John Schulman 两篇不同文章里同一个算法在同一个任务上表现截然不同的原因。
+* 读DRL论文的时候会发现有时候作者们会给出一个模型表现随着尝试random seed数量下降的图，几乎所有图里模型表现最终都会降到0。相比之下在监督学习里不同的超参数或多或少都会表现出训练带来的变化，而DRL里运气不好可能很长时间你模型表现的曲线都没有任何变化，因为完全不work。
+* 即便知道了超参数和随机种子，你的实现只要稍有差别，模型的表现就可以千差万别。这可能就是Deep Reinforcement Learning That Matters一文里John Schulman两篇不同文章里同一个算法在同一个任务上表现截然不同的原因。
 * 即便一切都很顺利，从我个人的经验和之前同某DRL研究人员的交流来看，只要时间一长你的模型表现就可能突然从很好变成完全不work。原因我不是完全确定，可能和过拟合和variance过大有关。
 
-特别是不稳定性这一点，几乎是灾难性的。作者提到自己实习的时候一开始实现Normalized Advantage Function(NAF)，为了找出Theano本身的bugs花了六周，这还是在NAF作者就在他旁边可以供他骚扰的情况下的结果。原因就是DRL的算法很多时候在没找好超参数的情况下就是不work 的，所以你很难判断自己的代码到底有没有bug还是运气不好。
+特别是不稳定性这一点，几乎是灾难性的。作者提到自己实习的时候一开始实现Normalized Advantage Function(NAF)，为了找出Theano本身的bugs花了六周，这还是在NAF作者就在他旁边可以供他骚扰的情况下的结果。原因就是DRL的算法很多时候在没找好超参数的情况下就是不work的，所以你很难判断自己的代码到底有没有bug还是运气不好。
 
 Even Ignoring Generalization Issues, The Final Results Can be Unstable and Hard to Reproduce
 
@@ -534,7 +534,7 @@ Even Ignoring Generalization Issues, The Final Results Can be Unstable and Hard 
 
 ---
 
-最后Alex总体还是非常乐观的。他说尽管现在有很多困难，使得DRL或许还不是一个强壮（robust）到所有人都可以轻易加入的研究领域并且很多时候一些问题用DRL远没有监督学习简单和表现好，但或许过几年你再回来DRL就work了也未知啊。这还是很振奋人心的。田渊栋老师也表达过类似的想法，觉得正因为这个领域还不够成熟所以还有很多机会。他们都是了不起的研究人员。看到这篇文章我总体是非常激动的。但实话说也有些遗憾，如果去年暑假就有这篇文章的话也许我就会再慎重考虑一下到底要不要在实验室没有积累自己又离毕业和申请不远的情况下开始这样一个主题了。这是一个教训，就是开始一个领域前要对这个领域要有充分的了解，之前零零散散在网上也有了一点相关的声音，比如Karpathy就提到他在实现vanilla policy gradient的时候也遇到了很多困难。
+最后Alex总体还是非常乐观的。他说尽管现在有很多困难，使得DRL或许还不是一个健壮（robust）到所有人都可以轻易加入的研究领域并且很多时候一些问题用DRL远没有监督学习简单和表现好，但或许过几年你再回来DRL就work了也未知啊。这还是很振奋人心的。田渊栋老师也表达过类似的想法，觉得正因为这个领域还不够成熟所以还有很多机会。他们都是了不起的研究人员。看到这篇文章我总体是非常激动的。但实话说也有些遗憾，如果去年暑假就有这篇文章的话也许我就会再慎重考虑一下到底要不要在实验室没有积累自己又离毕业和申请不远的情况下开始这样一个主题了。这是一个教训，就是开始一个领域前要对这个领域要有充分的了解，之前零零散散在网上也有了一点相关的声音，比如Karpathy就提到他在实现vanilla policy gradient的时候也遇到了很多困难。
 
 最后的最后还是要强推Alex的这篇文章，他列的这些点很多DRL的研究人员可能已经非常了解了，但之前没有人这样完整、有组织地介绍一遍。对于想要做DRL的同学们来说实在是福音。拙作是看完他文章后第一时间的感想和概括，对于我不够了解的有些地方就一笔带过了，或者表述也不够准确。原文很长，我在对大部分内容比较熟悉的情况下看了一个半小时，但也很有意思，还是强烈推荐。最后本文可能有些标题党，并不是真的要完全劝退大家，Alex的本意是希望大家更加冷静地看待目前DRL研究的进展，避免重复踩坑。评论区里有提到因为困难才有做的价值，还有机器人、控制论背景的朋友提到他觉得drl can do anything如果你有正确的超参数，这些意见也很值得大家参考。
 

@@ -17,6 +17,21 @@
 
 ===
 
+[李宏毅】2020 最新课程 (完整版) 强化学习 ](https://www.bilibili.com/video/BV1UE411G78S?p=2)
+
+看这个，讲的很好很清楚
+
 [David Silver 增强学习——Lecture 6 值函数逼近](https://zhuanlan.zhihu.com/p/54189036)
 
 有空看这个，那个陈达贵的视频ppt其实就是这个。
+
+[白话强化学习](https://www.zhihu.com/column/c_1215667894253830144)
+
+这个知乎专栏讲的对各种知识点的直觉理解和分析都特别好。
+
+
+
+不重要：
+
+[【RL系列】强化学习基础知识汇总](http://blog.sciencenet.cn/blog-3189881-1129931.html)
+

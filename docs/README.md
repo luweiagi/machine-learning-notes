@@ -150,16 +150,17 @@
 * [liblinear](machine-learning/liblinear/liblinear.md)
 * [集成学习](machine-learning/ensemble-learning/ensemble-learning.md)
   * [集成学习概述](machine-learning/ensemble-learning/ensemble-learning-introduction/ensemble-learning-introduction.md)
-  * Bagging
-    * [随机森林](machine-learning/ensemble-learning/random-forest/random-forest.md)
-  * Boosting
-    * [AdaBoost](machine-learning/ensemble-learning/adaboost/AdaBoost.md)
-    * GradientBoosting
-      * [GBDT](machine-learning/ensemble-learning/gbdt/GBDT.md)
-      * [XGBoost](machine-learning/ensemble-learning/xgboost/XGBoost.md)
-        * [XGBoost理论](machine-learning/ensemble-learning/xgboost/XGBoost-theory.md)
-        * [XGBoost实践](machine-learning/ensemble-learning/xgboost/XGBoost-practice.md)
-  * Stacking
+  * [Bagging](machine-learning/ensemble-learning/bagging/bagging.md)
+    * [随机森林](machine-learning/ensemble-learning/bagging/random-forest/random-forest.md)
+  * [Boosting](machine-learning/ensemble-learning/boosting/boosting.md)
+    * [AdaBoost](machine-learning/ensemble-learning/boosting/adaboost/adaboost.md)
+    * [GradientBoosting](machine-learning/ensemble-learning/boosting/gradient-boosting/gradient-boosting.md)
+      * [GBDT](machine-learning/ensemble-learning/boosting/gradient-boosting/gbdt/gbdt.md)
+      * [XGBoost](machine-learning/ensemble-learning/boosting/gradient-boosting/xgboost/xgboost.md)
+        * [XGBoost理论](machine-learning/ensemble-learning/boosting/gradient-boosting/xgboost/xgboost-theory/xgboost-theory.md)
+        * [XGBoost实践](machine-learning/ensemble-learning/boosting/gradient-boosting/xgboost/xgboost-practice/xgboost-practice.md)
+      * [lightGBM](machine-learning/ensemble-learning/boosting/gradient-boosting/light-gbm/light-gbm.md)
+  * [Stacking](machine-learning/ensemble-learning/stacking/stacking.md)
 * [降维](machine-learning/dimensionality-reduction/dimensionality-reduction.md)
   * [降维概述](machine-learning/dimensionality-reduction/dimensionality-reduction-introduction/dimensionality-reduction-introduction.md)
   * [PCA主成分分析](machine-learning/dimensionality-reduction/principal-component-analysis/principal-component-analysis.md)

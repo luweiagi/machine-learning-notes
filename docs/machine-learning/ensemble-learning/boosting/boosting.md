@@ -1,10 +1,8 @@
-# 集成学习
+# Boosting
 
-* [返回上层目录](../machine-learning.md)
-* [集成学习概述](ensemble-learning-introduction/ensemble-learning-introduction.md)
-* [Bagging](bagging/bagging.md)
-* [Boosting](boosting/boosting.md)
-* [Stacking](stacking/stacking.md)
+* [返回上层目录](../ensemble-learning.md)
+* [AdaBoost](adaboost/adaboost.md)
+* [GradientBoosting](gradient-boosting/gradient-boosting.md)
 
 
 

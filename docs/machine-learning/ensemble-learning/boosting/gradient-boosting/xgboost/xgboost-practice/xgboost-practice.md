@@ -1,6 +1,6 @@
 # XGBoost实践
 
-* [返回上层目录](XGBoost.md)
+* [返回上层目录](../xgboost.md)
 * [XGBoost常见面试题](#XGBoost常见面试题)
   * [简单介绍一下XGBoost ](#简单介绍一下XGBoost )
   * [XGBoost与GBDT有什么不同](#XGBoost与GBDT有什么不同)

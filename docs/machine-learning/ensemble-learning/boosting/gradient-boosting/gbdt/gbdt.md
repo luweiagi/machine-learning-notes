@@ -1,6 +1,6 @@
 # GBDT
 
-* [返回上层目录](../ensemble-learning.md)
+* [返回上层目录](../gradient-boosting.md)
 * [GBDT概述](#GBDT概述)
   * [DT：回归树RegressionDecisionTree](#DT：回归树RegressionDecisionTree)
   * [GB：梯度迭代GradientBoosting](#GB：梯度迭代GradientBoosting)
@@ -9,9 +9,9 @@
   * [GBDT的适用范围](#GBDT的适用范围)
 * [GBDT模型](#GBDT模型)
 * [GBDT算法](#GBDT算法)
-  * [GBDT（残差）回归算法](#GBDT（残差）回归算法)
-    * [GBDT（残差）回归算法例子](#GBDT（残差）回归算法例子)
-  * [GBDT（梯度）回归算法](#GBDT（梯度）回归算法)
+  * [GBDT残差回归算法](#GBDT残差回归算法)
+    * [GBDT残差回归算法例子](#GBDT残差回归算法例子)
+  * [GBDT梯度回归算法](#GBDT梯度回归算法)
   * [GBDT分类算法](#GBDT分类算法)
     * [二分类](#二分类)
     * [多分类](#多分类)
@@ -177,7 +177,7 @@ $$
 
 GBDT的分类和回归算法其实本质是一样的，只是损失函数不同，但是分成两篇可以帮助更好的对比理解。
 
-## GBDT（残差）回归算法
+## GBDT残差回归算法
 
 下面叙述回归问题的提升树。
 
@@ -253,7 +253,7 @@ $$
 f_M(x)=\sum_{m=1}^MT(x;\Theta_m)
 $$
 
-### GBDT（残差）回归算法例子
+### GBDT残差回归算法例子
 
 预先说明：在本例中看到的基本分类器$x<v$或$x>v$，可以看作是由一个根结点直接连接两个叶结点的简单决策树，即所谓的决策树桩（decision stump）。
 
@@ -386,7 +386,7 @@ L(y,f_6(x))=\sum_{i=1}^{10}(y_i-f_6(x_i))^2=0.17
 $$
 **假设此时已满足误差要求**，那么$f(x)=f_6(x)$即为所求提升树。
 
-## GBDT（梯度）回归算法
+## GBDT梯度回归算法
 
 梯度提升本质只过不就是函数空间上的梯度下降法，使用了损失函数的一阶导数。
 

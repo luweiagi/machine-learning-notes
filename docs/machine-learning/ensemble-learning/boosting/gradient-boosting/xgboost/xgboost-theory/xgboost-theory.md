@@ -1,6 +1,6 @@
 # XGBoost理论
 
-* [返回上层目录](XGBoost.md)
+* [返回上层目录](../xgboost.md)
 * [XGBoost概述](#XGBoost概述)
 * [模型](#模型)
 * [损失函数](#损失函数)

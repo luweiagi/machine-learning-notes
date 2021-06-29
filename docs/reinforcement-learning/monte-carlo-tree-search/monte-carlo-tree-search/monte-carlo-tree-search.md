@@ -37,6 +37,14 @@ pdf: [*A Survey of Monte Carlo Tree Search Methods*](http://repository.essex.ac.
 
 ![mcts-go-demo-2](pic/mcts-go-demo-2.jpg)
 
+其实上面的树状图叫游戏树。游戏树是一种常见的数据结构，其中每一个节点代表游戏的一个确定状态，从一个节点到该节点的一个子节点（如果存在）是一个移动。节点的子节点数目称为分支因子。游戏树的根节点代表游戏的初始状态。游戏树的终端节点是没有子节点的节点，至此游戏结束，无法再进行移动。终端节点的状态也就是游戏的结果（输/赢/平局）。
+
+下面以井字棋游戏为例，形象地来看下什么是游戏树。
+
+![game-tree](pic/game-tree.png)
+
+每个父节点的子节点数量对应着本次可以执行的Action的数量。
+
 # MCTS流程
 
 ## MCTS总流程

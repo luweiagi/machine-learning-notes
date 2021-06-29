@@ -35,6 +35,32 @@ for i in range(0,11,2):
 	print(i)
 ```
 
+## range函数的作用
+
+python内置range()函数的作用是什么？它能返回一系列连续增加的整数，它的工作方式类似于分片，可以生成一个列表对象。range函数大多数时常出现在**for循环中**，在for循环中可做为索引使用。其实它也可以出现在任何需要整数列表的环境中，在python 3.0中range函数是一个迭代器，不能print(range(4))
+
+Python3.x 中 range() 函数返回的结果是一个**整数序列的对象**，而**不是列表**。
+
+```python
+print(type(range(10)))
+#<class 'range'>
+```
+
+当你 help(range) 时会看到：
+
+```python
+help(range)
+#Return an object that produces a sequence of integers from start (inclusive)
+#to stop (exclusive) by step.
+```
+
+所以，不是列表，但是可以利用 list 函数返回列表，即：
+
+```python
+print(list(range(5)))
+#[0, 1, 2, 3, 4]
+```
+
 # 字符串
 
 ## 字符串操作

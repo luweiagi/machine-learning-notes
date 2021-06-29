@@ -1,34 +1,13 @@
-
-
 # 知识点
 
-## range函数的作用
+* [返回上层目录](../python.md)
+* [序列](#序列)
+* [yield](#yield)
+* [赋值、浅拷贝、深拷贝的区别](#赋值、浅拷贝、深拷贝的区别)
 
-python内置range()函数的作用是什么？它能返回一系列连续增加的整数，它的工作方式类似于分片，可以生成一个列表对象。range函数大多数时常出现在**for循环中**，在for循环中可做为索引使用。其实它也可以出现在任何需要整数列表的环境中，在python 3.0中range函数是一个迭代器，不能print(range(4))
 
-Python3.x 中 range() 函数返回的结果是一个**整数序列的对象**，而**不是列表**。
 
-```python
-print(type(range(10)))
-#<class 'range'>
-```
-
-当你 help(range) 时会看到：
-
-```python
-help(range)
-#Return an object that produces a sequence of integers from start (inclusive)
-#to stop (exclusive) by step.
-```
-
-所以，不是列表，但是可以利用 list 函数返回列表，即：
-
-```python
-print(list(range(5)))
-#[0, 1, 2, 3, 4]
-```
-
-## Python 序列的概念及基本操作方法
+# 序列
 
 序列sequence是python中最基本的数据结构，本文先对序列做一个简单的概括，之后简单讲解下所有序列都能通用的操作方法。
 
@@ -117,13 +96,17 @@ print(max(num))
 
 在操作一组数据时，序列是很好用的数据结构。列表、元组和字符串这几种数据类型是比较常接触到的序列。除了以上讲的序列基本操作方法之外，还有一个比较重要的序列迭代没有讲，这部分内容会单独做讲解。
 
-### 序列迭代
+# yield
 
+为了掌握yield的精髓，你一定要理解它的要点：当你调用这个函数的时候，你写在这个函数中的代码并没有真正的运行。这个函数仅仅只是返回一个生成器对象。有点过于奇技淫巧:-)
 
+然后，你的代码会在每次for使用生成器的时候run起来。
 
+[python中yield的用法详解——最简单，最清晰的解释](https://blog.csdn.net/mieleizhi0522/article/details/82142856)
 
+[Python的yield用法与原理](https://blog.csdn.net/alvine008/article/details/43410079)
 
-## 赋值、浅拷贝、深拷贝的区别
+# 赋值、浅拷贝、深拷贝的区别
 
 ------
 
@@ -452,16 +435,6 @@ print ([id(ele) for ele in wilber])
 
 
 
-## yield
-
-为了掌握yield的精髓，你一定要理解它的要点：当你调用这个函数的时候，你写在这个函数中的代码并没有真正的运行。这个函数仅仅只是返回一个生成器对象。有点过于奇技淫巧:-)
-
-然后，你的代码会在每次for使用生成器的时候run起来。
-
-[python中yield的用法详解——最简单，最清晰的解释](https://blog.csdn.net/mieleizhi0522/article/details/82142856)
-
-[Python的yield用法与原理](https://blog.csdn.net/alvine008/article/details/43410079)
-
 # 参考资料
 
 * [如何理解 C++ 中的深拷贝和浅拷贝？](#如何理解 C++ 中的深拷贝和浅拷贝？)
@@ -479,6 +452,3 @@ python函数关于深浅拷贝的例子二就是参考并复制的这篇文章�
 * [图解Python深拷贝和浅拷贝](http://www.cnblogs.com/wilber2013/p/4645353.html)
 
 python函数关于深浅拷贝的例子三就是参考并复制的这篇文章。
-
-
-

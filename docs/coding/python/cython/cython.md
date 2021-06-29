@@ -6,11 +6,11 @@
 
 # Cython简介
 
-Cython 的本质可以总结如下：Cython 是包含 C 数据类型的 Python。
+Cython的本质可以总结如下：Cython是包含C数据类型的Python。
 
-Cython 是 Python：几乎所有 Python 代码都是合法的 Cython 代码。 （存在一些限制，但是差不多也可以。） Cython 的编译器会转化 Python 代码为 C 代码，这些 C 代码均可以调用 Python/C 的 API。
+Cython是Python：几乎所有Python代码都是合法的Cython代码。 （存在一些限制，但是差不多也可以。） Cython的编译器会转化Python代码为C代码，这些C代码均可以调用Python/C的API。
 
-Cython 可不仅仅包含这些，Cython 中的参数和变量还可以以 C 数据类型来声明。代码中的 Python 值和 C 的值可以自由地交叉混合（intermixed）使用, 所有的转化都是自动进行。
+Cython可不仅仅包含这些，Cython中的参数和变量还可以以C数据类型来声明。代码中的Python值和C的值可以自由地交叉混合（intermixed）使用, 所有的转化都是自动进行。
 
 
 

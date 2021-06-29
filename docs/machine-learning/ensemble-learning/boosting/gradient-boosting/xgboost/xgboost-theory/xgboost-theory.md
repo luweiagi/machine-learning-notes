@@ -29,26 +29,7 @@
 
 
 
-![xgboost-paper](pic/xgboost-paper.png)
-
-
-
-XGBoost是从决策树一步步发展而来的：
-
-* 决策树 ⟶ 对样本重抽样，然后多个树平均 ⟶ Tree bagging
-* Tree bagging ⟶ 再同时对特征进行随机挑选 ⟶ 随机森林
-* 随机森林 ⟶ 对随机森林中的树进行加权平均，而非简单平均⟶ Boosing (Adaboost, GradientBoost)
-* boosting ⟶ 对boosting中的树进行正则化 ⟶ XGBoosting
-
-从这条线一路发展，就能看出XGBoost的优势了。
-
 XGBoost本质只过不就是函数空间上的牛顿法（也可理解为自适应变步长的梯度下降法），使用了损失函数的二阶导数信息，所以收敛更快。
-
-# XGBoost概述
-
-最近引起关注的一个Gradient Boosting算法：XGBoost，在计算速度和准确率上，较GBDT有明显的提升。XGBoost 的全称是eXtreme Gradient Boosting，它是Gradient Boosting Machine的一个c++实现，作者为正在华盛顿大学研究机器学习的大牛陈天奇 。XGBoost最大的特点在于，它能够自动利用CPU的多线程进行并行，同时在算法上加以改进提高了精度。它的处女秀是Kaggle的希格斯子信号识别竞赛，因为出众的效率与较高的预测准确度在比赛论坛中引起了参赛选手的广泛关注。值得我们在GBDT的基础上对其进一步探索学习。
-
-**陈天奇论文及官网**：
 
 ![xgboost-paper](pic/xgboost-paper.png)
 
@@ -59,6 +40,19 @@ paper： [*XGBoost: A Scalable Tree Boosting System*](https://www.kdd.org/kdd201
 陈天奇论文演讲PPT翻译版：[GBM之GBRT总结（陈天奇论文演讲PPT翻译版）](http://nanjunxiao.github.io/2015/08/05/GBM%E4%B9%8BGBRT%E6%80%BB%E7%BB%93/)
 
 [XGBoost官网](https://XGBoost.readthedocs.io/en/latest/)
+
+# XGBoost概述
+
+最近引起关注的一个Gradient Boosting算法：XGBoost，在计算速度和准确率上，较GBDT有明显的提升。XGBoost 的全称是eXtreme Gradient Boosting，它是Gradient Boosting Machine的一个c++实现，作者为正在华盛顿大学研究机器学习的大牛陈天奇 。XGBoost最大的特点在于，它能够自动利用CPU的多线程进行并行，同时在算法上加以改进提高了精度。它的处女秀是Kaggle的希格斯子信号识别竞赛，因为出众的效率与较高的预测准确度在比赛论坛中引起了参赛选手的广泛关注。值得我们在GBDT的基础上对其进一步探索学习。
+
+XGBoost是从决策树一步步发展而来的：
+
+- 决策树 ⟶ 对样本重抽样，然后多个树平均 ⟶ Tree bagging
+- Tree bagging ⟶ 再同时对特征进行随机挑选 ⟶ 随机森林
+- 随机森林 ⟶ 对随机森林中的树进行加权平均，而非简单平均⟶ Boosing (Adaboost, GradientBoost)
+- boosting ⟶ 对boosting中的树进行正则化 ⟶ XGBoosting
+
+从这条线一路发展，就能看出XGBoost的优势了。
 
 # 模型
 
@@ -99,7 +93,7 @@ $$
 
 有哪些指标可以衡量树的复杂度？
 
-树的深度，内部节点个数，**叶子节点个数**（T），**叶节点分数**（w）...
+树的深度，内部节点个数，**叶子节点个数$T$**，**叶节点分数$w$** ...
 
 而XGBoost采用的：
 $$
@@ -250,7 +244,7 @@ $$
 在目标函数是二分类log loss损失函数下，这里给出一阶导$g_i$和二阶导$h_i$的推导：
 $$
 \begin{aligned}
-l(y_i,\hat{y}_i^{(t-1)})&=-\sum_{i=1}^N\left( y_i\text{log}p_i+(1-y_i)\text{log}(1-p_i) \right)\\
+l(y_i,\hat{y}_i^{(t-1)})&=-\sum_{i=1}^N\left( y_i\text{log}\hat{p}_i+(1-y_i)\text{log}(1-\hat{p}_i) \right)\\
 &=-\sum_{i=1}^N\left( y_i\text{log}\left( \frac{1}{1+\text{exp}(-\hat{y}_i^{(t-1)})} \right)+(1-y_i)\text{log}\left(\frac{\text{exp}(-\hat{y}_i^{(t-1)})}{1+\text{exp}(-\hat{y}_i^{(t-1)})}\right) \right)\\
 \end{aligned}
 $$
@@ -317,27 +311,27 @@ $$
 $$
 这个公式的计算结果，通常用于在实践中评估候选分裂节点是不是应该分裂的划分依据，我们尽量找到使之最大的特征值划分点。
 
-$Gain$的值越大，分裂后损失函数减小越多。所以当对一个叶节点分割时，计算所有候选(feature, value)对应的$Gain$，选取$Gain$最大的进行分割。
+$\text{Gain}$的值越大，分裂后损失函数减小越多。所以当对一个叶节点分割时，计算所有候选（feature, value）对应的$\text{Gain}$，选取$\text{Gain}$最大的进行分割。
 
-这个$Gain$实际上就是单节点的$\tilde{L}^*$减去切分后的两个节点的树$\tilde{L}^*$，$Gain$如果是正的，并且值越大，表示切分后$\tilde{L}^*$越小于单节点的$\tilde{L}^*$，就越值得切分。**同时**，我们还可以观察到，$Gain$的左半部分如果小于右侧的$\gamma$，则$Gain$就是负的，表明切分后$\tilde{L}^*$反而变大了。$\gamma$在这里实际上是一个临界值，它的值越大，表示我们对切分后$\tilde{L}^*$下降幅度要求越严。这个值也是可以在xgboost中设定的。
+这个$\text{Gain}$实际上就是单节点的$\tilde{L}^*$减去切分后的两个节点的树$\tilde{L}^*$，$\text{Gain}$如果是正的，并且值越大，表示切分后$\tilde{L}^*$越小于单节点的$\tilde{L}^*$，就越值得切分。**同时**，我们还可以观察到，$\text{Gain}$的左半部分如果小于右侧的$\gamma$，则$\text{Gain}$就是负的，表明切分后$\tilde{L}^*$反而变大了。$\gamma$在这里实际上是一个临界值，它的值越大，表示我们对切分后$\tilde{L}^*$下降幅度要求越严。这个值也是可以在xgboost中设定的。
 
 扫描结束后，我们就可以确定是否切分，如果切分，对切分出来的两个节点，递归地调用这个切分过程，我们就能获得一个相对较好的树结构。
 
 注意：xgboost的切分操作和普通的决策树切分过程是不一样的。普通的决策树在切分的时候并不考虑树的复杂度，而依赖后续的剪枝操作来控制。**xgboost在切分的时候就已经考虑了树的复杂度，就是那个$\gamma$参数**。所以，它不需要进行单独的剪枝操作。
 
-为了限制树的生长，我们可以加入阈值，当增益大于阈值时才让节点分裂，上式中的$\gamma$即阈值，它是正则项里叶子节点数$T$的系数，所以xgboost在优化目标函数的同时相当于做了**预剪枝**。另外，上式中还有一个系数$\lambda$，是正则项里leaf score的L2模平方的系数，对leaf score做了平滑，也起到了**防止过拟合**的作用，这个是传统GBDT里不具备的特性。
+为了限制树的生长，我们可以加入阈值，当增益大于阈值时才让节点分裂，上式中的$\gamma$即阈值，它是正则项里叶子节点数$T$的系数，所以xgboost在优化目标函数的同时相当于做了**预剪枝**。另外，上式中还有一个系数$\lambda$，是正则项里leaf score的$L_2$模平方的系数，对leaf score做了平滑，也起到了**防止过拟合**的作用，这个是传统GBDT里不具备的特性。
 
 最优的树结构找到后，确定最优的叶子节点就很容易了。我们成功地找出了第$t$棵树！
 
 ## 树结点分裂方法（split finding）
 
-**注意：**xgboost的切分操作和普通的决策树切分过程是不一样的。普通的决策树在切分的时候并不考虑树的复杂度，而依赖后续的剪枝操作来控制。xgboost在切分的时候就已经考虑了树的复杂度，就是那个$Gain_{split}$中的$\gamma$参数。所以，它不需要进行单独的剪枝操作。
+**注意：**xgboost的切分操作和普通的决策树切分过程是不一样的。普通的决策树在切分的时候并不考虑树的复杂度，而依赖后续的剪枝操作来控制。xgboost在切分的时候就已经考虑了树的复杂度，就是那个$\text{Gain}_{split}$中的$\gamma$参数。所以，它不需要进行单独的剪枝操作。
 
 ### 暴力枚举（Basic Exact Greedy Algorithm）
 
 在树学习中，一个关键问题是**如何找到每一个特征上的分裂点**。为了找到最佳分裂节点，分裂算法枚举特征上所有可能的分裂点，然后计算得分，这种算法称为Exact Greedy Algorithm，单机版本的XGBoost支持这种Exact Greedy Algorithm，算法如下所示：
 
-遍历所有特征的所有可能的分割点，计算$gain$值，选取值最大的(feature, value)去分割
+遍历所有特征的所有可能的分割点，计算$\text{Gain}$值，选取值最大的(feature, value)去分割
 
 ![exact-greedy-algorithm-for-split-finding](pic/exact-greedy-algorithm-for-split-finding.png)
 
@@ -387,15 +381,7 @@ $$
 
 实际上，XGBoost不是简单地按照样本个数进行分类，而是以二阶导数值作为权重。
 
-假设分位点为
-$$
-\{s_{k1},s_{k2},...,s_{kl}\}
-$$
-，假设
-$$
-D_k=\{(x_{1k},h_1),(x_{2k},h_2),...,(x_{nk},h_n)\}
-$$
-表示所有样本的第$k$个特征值及二阶导数。
+假设分位点为$\{s_{k1},s_{k2},...,s_{kl}\}$，假设$D_k=\{(x_{1k},h_1),(x_{2k},h_2),...,(x_{nk},h_n)\}$表示所有样本的第$k$个特征值及二阶导数。
 
 ![approximate-algorithm-second-order-weights-select-split](pic/approximate-algorithm-second-order-weights-select-split.png)
 
@@ -425,11 +411,7 @@ $$
 $$
 上式就是一个加权平方误差，权重为$h_i$，label 为$-g_i/h_i$。可以看出$h_i$有对loss加权的作用，所以可以将特征$k$的取值权重看成对应的$h_i$。
 
-如果损失函数是square loss，即
-$$
-Loss(y, \hat{y})=(y-\hat{y})^2
-$$
-，则$h=2$，那么实际上是不带权。 如果损失函数是log loss，则$h=pred\cdot (1-pred)$，这是个开口朝下的一元二次函数，所以最大值在0.5。当pred在0.5附近，这个值是非常不稳定的，很容易误判，$h$作为权重则因此变大，那么直方图划分，这部分就会被切分的更细：
+如果损失函数是square loss，即$Loss(y, \hat{y})=(y-\hat{y})^2$，则$h=2$，那么实际上是不带权。 如果损失函数是log loss，则$h=pred\cdot (1-pred)$，这是个开口朝下的一元二次函数，所以最大值在0.5。当pred在0.5附近，这个值是非常不稳定的，很容易误判，$h$作为权重则因此变大，那么直方图划分，这部分就会被切分的更细：
 
 ![approximate-algorithm-second-order-weights-select-split-2](pic/approximate-algorithm-second-order-weights-select-split-2.png)
 

@@ -11,6 +11,7 @@
 * [策略梯度算法](policy-gradient-algorithm/policy-gradient-algorithm.md)
 * [深度强化学习](deep-reinforcement-learning/deep-reinforcement-learning.md)
 * [基于模型的强化学习](model-based-reinforcement-learning/model-based-reinforcement-learning.md)
+* [蒙特卡洛树搜索](monte-carlo-tree-search/monte-carlo-tree-search.md)
 * [强化学习前景](reinforcement-learning-prospect/reinforcement-learning-prospect.md)
 
 

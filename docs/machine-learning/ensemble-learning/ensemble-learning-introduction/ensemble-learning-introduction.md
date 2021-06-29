@@ -12,6 +12,7 @@
   - GradientBoosting
     - GBDT
     - XGBoost
+    - LightGBM
 - [Stacking](#Stacking)
 
 

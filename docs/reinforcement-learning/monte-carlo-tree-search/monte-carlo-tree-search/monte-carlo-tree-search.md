@@ -17,7 +17,7 @@
 * [参考资料](#参考资料)
 * [代码附录](#代码附录)
   * [人机对战主程序](#人机对战主程序)
-  * [模特卡罗树搜索程序](#模特卡罗树搜索程序)
+  * [MCTS程序](#MCTS程序)
 
 
 
@@ -190,9 +190,9 @@ def execute_round(self):
 
 反复进行迭代选择：
 
-（1）若该节点可能的子节点若全部拓展完毕，则使用get_best_child方法获得UCT值最大的节点
+（1）若该节点可能的子节点若全部拓展完毕，则使用`get_best_child`方法获得UCT值最大的节点
 
-（2）若存在未拓展的子节点, 则使用expand方法扩展子节点
+（2）若存在未拓展的子节点, 则使用`expand`方法扩展子节点
 
 ```python
 def select_node(self, node):
@@ -206,7 +206,7 @@ def select_node(self, node):
 
 代码对着上图对照看很容易理解，这里就不多说了。其中的`self.expand(node)`就是拓展方法了。
 
-其中的`self.expand(node)`就是计算所有子节点的UCB值，从中选取最大的那个，以解决“探索和利用难题”。
+其中的`self.get_best_child()`就是计算所有子节点的UCB值，从中选取最大的那个，以解决“探索和利用难题”。
 
 ```python
 def get_best_child(self, node, exploration_value):
@@ -316,7 +316,7 @@ def backpropogate(self, node, reward):
 
 第一个是人机对战主程序（三子棋）`tic-tac-toe.py`，会调用`mcts.py`。
 
-第二个是模特卡罗树搜索程序`mcts.py`，它和具体游戏值不绑定
+第二个是模特卡罗树搜索程序`mcts.py`，它和具体游戏不绑定。
 
 ## 人机对战主程序
 
@@ -428,7 +428,7 @@ if __name__ == '__main__':
             break
 ```
 
-## 模特卡罗树搜索程序
+## MCTS程序
 
 `mcts.py`：模特卡罗树搜索程序
 

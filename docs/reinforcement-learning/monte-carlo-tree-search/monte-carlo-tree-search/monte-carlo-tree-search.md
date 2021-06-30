@@ -4,7 +4,7 @@
 * [MCTS简介](#MCTS简介)
 * [MCTS流程](#MCTS流程)
   * [MCTS总流程](#MCTS总流程)
-  * [Selection选择和Expand扩展](#Selection选择和Expand扩展)
+  * [Selection选择和Expansion扩展](#Selection选择和Expansion扩展)
   * [Simulation模拟](#Simulation模拟)
   * [Backpropagation反向传播](#Backpropagation反向传播)
 * [MCTS代码解析](#MCTS代码解析)
@@ -314,7 +314,7 @@ def backpropogate(self, node, reward):
 
 代码总共分为两个：
 
-第一个是人机对战主程序`tic-tac-toe.py`，会调用`mcts.py`。
+第一个是人机对战主程序（三子棋）`tic-tac-toe.py`，会调用`mcts.py`。
 
 第二个是模特卡罗树搜索程序`mcts.py`，它和具体游戏值不绑定
 

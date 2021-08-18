@@ -2,6 +2,7 @@
 
 * [返回上层目录](../README.md)
 * [强化学习概论](reinforcement-learning-introduction/reinforcement-learning-introduction.md)
+* [多臂赌博机及其解法](multi-armed-bandit-and-solutions/multi-armed-bandit-and-solutions.md)
 * [马尔科夫决策过程](markov-decision-processes/markov-decision-processes.md)
 * [动态规划](dynamic-programming/dynamic-programming.md)
 * [无模型方法一：蒙特卡洛](model-free-methods-1-monte-carlo/model-free-methods-1-monte-carlo.md)
@@ -17,6 +18,10 @@
 
 
 ===
+
+[【莫烦Python】强化学习 Reinforcement Learning](https://www.bilibili.com/video/BV13W411Y75P?p=5)
+
+短小精悍
 
 [李宏毅】2020 最新课程 (完整版) 强化学习 ](https://www.bilibili.com/video/BV1UE411G78S?p=2)
 

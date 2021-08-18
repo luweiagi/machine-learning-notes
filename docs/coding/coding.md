@@ -8,6 +8,7 @@
 * [Hadoop](hadoop/hadoop.md)
 * [hive](hive/hive.md)
 * [Spark](spark/spark.md)
+* [Anaconda](anaconda/anaconda.md)
 * [TensorFlow](tensorflow/tensorflow.md)
 * [PyTorch](pytorch/pytorch.md)
 

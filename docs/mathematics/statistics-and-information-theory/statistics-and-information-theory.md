@@ -5,7 +5,7 @@
 * [协方差矩阵](covariance-matrix/covariance-matrix.md)
 * [概率论与贝叶斯先验](probability-and-bayesian-prior/probability-and-bayesian-prior.md)
 * [贝叶斯概率](bayes-probability/bayes-probability.md)
-* [正态分布](normal-distribution/normal-distribution.md)
+* [概率分布](probability-distribution/probability-distribution.md)
 * [共轭先验](conjugate-prior/conjugate-prior.md)
 * [信息论](information-theory/information-theory.md)
 

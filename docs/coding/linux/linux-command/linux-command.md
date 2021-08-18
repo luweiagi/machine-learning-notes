@@ -1347,5 +1347,23 @@ ps联合kill杀死进程（如杀死含有pidname的进程）
 sudo ps -ef | grep lstm | awk '{print $2}' | xargs sudo kill -9
 ```
 
+# 用户创建与删除
+
+## adduser创建用户
+
+```shell
+sudo adduser luwei
+```
+
+有些发行版在创建用户的同时，会要求你设定用户密码。
+
+## userdel删除用户
+
+删除用户，“userdel 用户名”即可。最好将它留在系统上的文件也删除掉，可以使用“userdel -r 用户名”来实现。
+
+```shell
+sudo userdel -r luwei
+```
+
 
 

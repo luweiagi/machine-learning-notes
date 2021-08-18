@@ -1,5 +1,20 @@
 # anaconda
 
+* [返回上层目录](../coding.md)
+* [环境操作](#环境操作)
+  * [新建环境](#新建环境)
+  * [删除环境](#删除环境)
+  * [环境重命名](#环境重命名)
+* [安装tensorflow](#安装tensorflow)
+  * [安装tensorflow2.5-gpu](#安装tensorflow2.5-gpu)
+  * [安装tensorflow2.1-gpu](#安装tensorflow2.1-gpu)
+  * [测试是否支持GPU](#测试是否支持GPU)
+* [其他操作](#其他操作)
+  * [手动复制其他用户的anaconda](#手动复制其他用户的anaconda)
+  * [删除anaconda里的pkgs文件下的包](#删除anaconda里的pkgs文件下的包)
+
+
+
 # 环境操作
 
 ## 新建环境

@@ -71,10 +71,12 @@ wget https://mirrors.tuna.tsinghua.edu.cn/anaconda/archive/Anaconda3-2021.05-Lin
 sh Anaconda3-2021.05-Linux-x86_64.sh
 ```
 
-如果conda的初始化时选择了yes，那么已经配置了环境变量，输入简单的命令测试一下：
+激活conda
 
 ```bash
-conda activate # 进入conda环境 出现(base)则说明安装成功
+source activate # 进入conda环境 出现(base)则说明安装成功
+# 后续就可使用下面的命令进入base或退出base
+conda activate # 进入conda环境 出现(base)
 conda deactivate # 退出conda环境
 ```
 
@@ -92,6 +94,8 @@ conda create -n tf2 python=3.8
 
 ```shell
 conda config
+# 第一条不行的话，就试试第二条
+conda config --set show_channel_urls yes
 ```
 
 添加清华镜像和中科大镜像，文件内容如下：

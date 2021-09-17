@@ -230,6 +230,10 @@
 * [MCTS蒙特卡洛树搜索](reinforcement-learning/monte-carlo-tree-search/monte-carlo-tree-search.md)
   * [MCTS蒙特卡洛树搜索](reinforcement-learning/monte-carlo-tree-search/monte-carlo-tree-search/monte-carlo-tree-search.md)
 * [强化学习前景](reinforcement-learning/reinforcement-learning-prospect/reinforcement-learning-prospect.md)
+* [强化学习论文](reinforcement-learning/reinforcement-learning-paper/reinforcement-learning-paper.md)
+  * [DDPG: Continuous Control With Deep Reinforcement Learning ICLR2016](reinforcement-learning/reinforcement-learning-paper/ddpg/ddpg.md)
+
+
 
 # [自然语言处理](natural-language-processing/natural-language-processing.md)
 * [自然语言处理概论](natural-language-processing/natural-language-processing-introduction/natural-language-processing-introduction.md)

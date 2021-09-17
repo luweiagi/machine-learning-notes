@@ -37,6 +37,14 @@
 
 # 查看文件
 
+## ls显示文件夹内容
+
+查看文件夹中的文件总数量
+
+```shell
+ls -l | grep "^-" | wc -l
+```
+
 ## head/tail/sed查看或截取超大文件
 
 Linux下打开超大文件方法
@@ -265,6 +273,18 @@ BASE_DIR=$(readlink -f `dirname "$0"`)
   ```shell
   zip -dv cp.zip a.c
   ```
+
+
+
+对于zip、z01、z02等格式的，需要先将这些压缩包合并后再解压，具体方法如下：
+
+先用zip将其中的文件进行合并，然后再解压，可以获得所有文件。
+
+```shell
+# image.zip image.z01 image.z02 ...
+zip -s 0 image.zip --out full.zip
+unzip full.zip
+```
 
 
 
@@ -916,10 +936,10 @@ du 命令用于查看当前目录的总大小：
 
 当我们需要在不同的目录，用到相同的文件时，我们不需要在每一个需要的目录下都放一个必须相同的文件，我们只要在某个固定的目录，放上该文件，然后在其它的目录下用ln命令链接（link）它就可以，不必重复的占用磁盘空间。
 
-比如，/data的空间特别大，而当前文件夹data1所在的磁盘空间不足，但是还想把文件放在当前文件夹data下，那就可以建一个软连接，看起来是把文件放在data下了，其实文件是存放在/data/lu.wei/dada中的。
+比如，`/mnt/disk4/`的空间特别大，而当前文件夹所在的磁盘空间不足，但是还想把文件放在当前文件夹下，那就可以建一个软连接，看起来是把文件放在当前文件夹的`data`目录下了，其实文件是存放在`/mnt/disk4/data/user/`中的。
 
 ```shell
-ln -s /data/lu.wei/dada/ data1
+ln -s /mnt/disk4/data/user/ data
 ```
 
 参考资料：

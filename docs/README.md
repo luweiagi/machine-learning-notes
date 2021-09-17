@@ -232,6 +232,8 @@
 * [强化学习前景](reinforcement-learning/reinforcement-learning-prospect/reinforcement-learning-prospect.md)
 * [强化学习论文](reinforcement-learning/reinforcement-learning-paper/reinforcement-learning-paper.md)
   * [DDPG: Continuous Control With Deep Reinforcement Learning ICLR2016](reinforcement-learning/reinforcement-learning-paper/ddpg/ddpg.md)
+* [多智能体强化学习论文](reinforcement-learning/multi-agent-reinforcement-learning-paper/multi-agent-reinforcement-learning-paper.md)
+  * [mean-field: Mean Field Multi-Agent Reinforcement Learning ICML2018](reinforcement-learning/multi-agent-reinforcement-learning-paper/mean-field/Mean-Field-Multi-Agent-Reinforcement-Learning.md)
 
 
 

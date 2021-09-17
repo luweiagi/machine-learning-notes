@@ -15,6 +15,7 @@
 * [强化学习前景](reinforcement-learning-prospect/reinforcement-learning-prospect.md)
 * [蒙特卡洛树搜索](monte-carlo-tree-search/monte-carlo-tree-search.md)
 * [强化学习论文](reinforcement-learning-paper/reinforcement-learning-paper.md)
+* [多智能体强化学习论文](multi-agent-reinforcement-learning-paper/multi-agent-reinforcement-learning-paper.md)
 
 
 

@@ -133,6 +133,7 @@
   * [工具](coding/tensorflow/tools/tools.md)
     * [Tensorflow中使用GPU](coding/tensorflow/tools/gpu/gpu.md)
 * [PyTorch](coding/pytorch/pytorch.md)
+* [DarkNet](coding/darknet/darknet.md)
 
 # [机器学习](machine-learning/machine-learning.md)
 * [机器学习概论](machine-learning/machine-learning-introduction/machine-learning-introduction.md)
@@ -293,6 +294,13 @@
     * [ESMM: Entire Space Multi-Task Model: An Effective Approach for Estimating Post-Click Conversion Rate SIGIR2018](recommender-systems/industry-application/alibaba/esmm/Entire-Space-Multi-Task-Model-An-Effective-Approach-for-Estimating-Post-Click-Conversion-Rate.md)
   * [Google](recommender-systems/industry-application/google/google.md)
     * [MMoE: Modeling Task Relationships in Multi-task Learning with Multi-gate Mixture-of-Experts KDD2018](recommender-systems/industry-application/google/mmoe/Modeling-Task-Relationships-in-Multi-task-Learning-with-Multi-gate-Mixture-of-Experts.md)
+
+# [计算机视觉](computer-vision/computer-vision.md)
+
+* [YOLO](computer-vision/yolo/yolo.md)
+  * [YOLO原理](computer-vision/yolo/yolo_principle/yolo_principle.md)
+  * [YOLO_Mark](computer-vision/yolo/yolo_mark/yolo_mark.md)
+  * [DarkNet深度学习框架](computer-vision/yolo/darknet/darknet.md)
 
 # [异常检测](anomaly-detection/anomaly-detection.md)
 

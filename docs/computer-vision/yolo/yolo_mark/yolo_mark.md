@@ -5,6 +5,8 @@
 * [源码编译](#源码编译)
 * [使用前准备](#使用前准备)
 * [视频文件分割](#视频文件分割)
+* [遇到的问题](#遇到的问题)
+  * [找不到opencv_worldxxx.dll](#找不到opencv_worldxxx.dll)
 
 
 
@@ -94,17 +96,33 @@ yolo_mark.exe data/img data/train.txt data/obj.names
 yolo_mark.exe data/img cap_video test.mp4 10
 ```
 
-注意要将里面的视频文件名字`test.mp4`改为你自己的文件名，视频文件放在`yolo_mark.exe`同目录下。
+注意要将里面的视频文件名字`test.mp4`改为你自己的文件名，视频文件放在`yolo_mark.exe`同目录下。命令里的`10`是指每隔10帧截取一次图片。
+
+# 遇到的问题
+
+## 找不到opencv_worldxxx.dll
+
+运行打标程序时遇到问题：
+
+> 由于找不到opencv_world453.dll，无法继续执行代码。重新安装程序可能会解决此问题。
+
+这是因为没有安装opencv。
+
+有两种解决办法，**如果你觉得你以后还可能要用opencv，那就建议用第二种方法**。
+
+**第一种方法**：把缺少的dll文件放在`system32`里
+
+参考：[OPENCV配置：找不到opencv_worldXXXd.dll的问题](https://blog.csdn.net/qq_25038325/article/details/100922393)。
+
+dll文件需要先[下载opencv](https://sourceforge.net/projects/opencvlibrary/files/)，再从路径`C:\Library\opencv\build\x64\vc15\bin`里找到`opencv_worldxxx.dll`复制到C盘的`system32`里。
+
+**第二种方法**：下载完整版的opencv
+
+下载地址：[下载opencv](https://sourceforge.net/projects/opencvlibrary/files/)。安装的具体方法参考（只需要看需要的那部分即可）：[windows下OpenCV的安装配置部署详细教程](https://blog.csdn.net/maizousidemao/article/details/81474834)，并将文件解压在`C:\Library\opencv`中，然后在系统路径path上添加`C:\Library\opencv\build\x64\vc15\bin`。
 
 # 参考资料
 
+* [open_cv下载地址](https://sourceforge.net/projects/opencvlibrary/files/)
 
-
-
-
-
-
-
-
-
+这是open_cv下载地址。
 

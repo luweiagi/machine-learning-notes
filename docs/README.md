@@ -24,6 +24,9 @@
 * [机器学习面试](perface/interview/interview.md)
 
 # [数学基础](mathematics/mathematics.md)
+
+* [机器学习需要的数学](mathematics/mathematics-ml-needs/mathematics-ml-needs.md)
+
 * [微积分](mathematics/calculus/calculus.md)
   * [泰勒展开](mathematics/calculus/taylor-expansion/taylor-expansion.md)
   * [e的直观认识](mathematics/calculus/intuition-of-e/intuition-of-e.md)
@@ -133,6 +136,7 @@
   * [工具](coding/tensorflow/tools/tools.md)
     * [Tensorflow中使用GPU](coding/tensorflow/tools/gpu/gpu.md)
 * [PyTorch](coding/pytorch/pytorch.md)
+  * [PyTorch基础](coding/pytorch/basis/basis.md)
 * [DarkNet](coding/darknet/darknet.md)
 
 # [机器学习](machine-learning/machine-learning.md)

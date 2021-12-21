@@ -1,13 +1,13 @@
 # anaconda
 
 * [返回上层目录](../coding.md)
+* [下载安装anaconda](#下载安装anaconda)
 * [环境操作](#环境操作)
   * [新建环境](#新建环境)
   * [删除环境](#删除环境)
   * [环境重命名](#环境重命名)
 * [安装tensorflow](#安装tensorflow)
   * [安装tensorflow2.5-gpu](#安装tensorflow2.5-gpu)
-    * [下载安装anaconda](#下载安装anaconda)
     * [安装tensorflow-gpu](#安装tensorflow-gpu)
     * [根据tf-gpu版本找对应cuda和cudnn版本](#根据tf-gpu版本找对应cuda和cudnn版本)
     * [安装cuda](#安装cuda)
@@ -21,43 +21,7 @@
 
 
 
-# 环境操作
-
-## 新建环境
-
-```shell
-conda create -n tf2 python=3.8
-```
-
-## 删除环境
-
-```shell
-conda remove -n xxx --all
-```
-
-## 环境重命名
-
-conda其实没有重命名指令，实现重命名是通过clone完成的，分两步：
-
-- 先clone一份new name的环境
-- 删除old name的环境
-
-比如，想把环境rcnn重命名成tf
-
-```shell
-conda create -n tf --clone rcnn
-conda remove -n rcnn --all
-```
-
-
-
-# 安装tensorflow
-
-## 安装tensorflow2.5-gpu
-
-本节默认安装的是Tensorflow2.5-GPU版本。其他版本安装方法也可以参考。
-
-### 下载安装anaconda
+# 下载安装anaconda
 
 下载最新版或指定版的anaconda：
 
@@ -137,6 +101,44 @@ conda config --set show_channel_urls yes
 ```shell
 conda info
 ```
+
+# 环境操作
+
+## 新建环境
+
+```shell
+conda create -n tf2 python=3.8
+```
+
+## 删除环境
+
+```shell
+conda remove -n xxx --all
+```
+
+## 环境重命名
+
+conda其实没有重命名指令，实现重命名是通过clone完成的，分两步：
+
+- 先clone一份new name的环境
+- 删除old name的环境
+
+比如，想把环境rcnn重命名成tf
+
+```shell
+conda create -n tf --clone rcnn
+conda remove -n rcnn --all
+```
+
+
+
+# 安装tensorflow
+
+## 安装tensorflow2.5-gpu
+
+本节默认安装的是Tensorflow2.5-GPU版本。其他版本安装方法也可以参考。
+
+先下载安装anaconda。
 
 ### 安装tensorflow-gpu
 
@@ -409,7 +411,32 @@ print(tf.test.is_gpu_available())  # 返回true值代表GPU可用，返回false�
 print(tf.config.list_physical_devices('GPU'))
 ```
 
+# 安装pytorch
 
+检查显卡，安装CUDA和cuDNN，然后安装GPU版的pytorch。
+
+使用`nvidia-smi`命令得到你的CUDA版本。
+
+先到[pytorch官网](https://pytorch.org/get-started/locally/)找到在你的操作系统、包、CUDA版本、语言版本下对应的安装脚本，官网地址为`https://pytorch.org/get-started/locally/`，直接根据你的实际情况选择pytorch安装包版本，然后复制页面自动生成的脚本进行安装。
+
+![pytorch-install](pic/pytorch-install.jpg)
+
+说明：
+
+* 电脑实际安装的CUDA版本不能比所选的CUDA版本更高。比如实际安装的是11.2版本，就不能选择11.3版本，必须等于或低于11.2版本，所以这里就选择10.2版本。CUDA可以兼容低版本。
+* pip安装的时候，需要使用`conda activate xxx`先切换到对应环境，再使用pip，不然就安装到其他环境去了。
+
+检查是否安装成功
+
+等待下载完成，输入python进入环境，然后依次输入
+
+```python
+import torch
+print(torch.__version__)
+torch.cuda.is_available()
+```
+
+如果都ok的话，就安装成功啦！
 
 # 其他操作
 
@@ -524,11 +551,174 @@ anaconda文件夹下有个pkgs文件夹。据我观测（没找到正式说明�
 
 
 
+## ubuntu中手动安装nvidia显卡驱动
+
+### 在官网下载Nvidia驱动
+
+根据自己的型号下载：放在`/Downloads`下，以GPU型号RTX3090为例
+
+nvidia驱动官网下载地址：[Download *Drivers* | *NVIDIA*](https://www.nvidia.com/Download/index.aspx?lang=en-us)
+
+![nvidia-diver-downloads](pic/nvidia-diver-downloads.jpg)
+
+### 屏蔽开源驱动nouveau
+
+```shell
+sudo vim /etc/modprobe.d/blacklist.conf
+```
+
+在文末添加以下内容保存：
+
+```shell
+blacklist nouveau
+options nouveau modeset=0
+```
+
+更新系统
+
+```shell
+sudo update-initramfs -u
+```
+
+重启系统（一定要重启）`reboot`
+
+验证nouveau是否已禁用 `lsmod | grep nouveau`
+
+没有信息显示，说明nouveau已被禁用，接下来可以安装nvidia的显卡驱动。
+
+### 删除旧NVIDIA驱动
+
+```shell
+sudo apt-get --purge remove nvidia*
+sudo apt-get --purge remove "*nvidia*"
+sudo apt-get --purge remove xserver-xorg-video-nouveau
+```
+
+### 重启电脑，按Ctrl+Alt+F1进入命令行界面
+
+先输入用户名密码登录（数字不能用小键盘输入），然后
+
+```shell
+sudo service lightdm stop
+```
+
+如果提示`unit lightdm.service not loaded`，
+
+则先安装LightDm：`sudo apt install lightdm`，安装完毕后跳出一个界面，选择lightdm，
+
+再`sudo service lightdm stop`。
+
+### 执行安装驱动
+
+依然是在命令行界面：
+
+```shell
+cd Downloads
+sudo chmod a+x NVIDIA-Linux-x86_64-470.63.01.run
+sudo ./NVIDIA-Linux-x86_64-396.18.run -no-x-check -no-nouveau-check -no-opengl-files
+```
+
+> -no-x-check：安装驱动时关闭X服务
+> -no-nouveau-check：安装驱动时禁用nouveau
+> -no-opengl-files：只安装驱动文件，不安装OpenGL文件，只有禁用opengl这样安装才不会出现循环登陆的问题
+
+后面就一路Accept就可以~
+
+安装过程中的选项
+
+* The distribution-provided pre-install script failed! Are you sure you want to continue? 
+
+  选择yes继续。
+
+* Would you like to register the kernel module souces with DKMS? This will allow DKMS to automatically build a new module, if you install a different kernel later? 
+
+  选择no继续。
+
+* 问题没记住，选项是：install without signing
+
+* 问题大概是：Nvidia’s 32-bit compatibility libraries?
+
+  选择no继续。
+
+* Would you like to run the nvidia-xconfigutility to automatically update your x configuration so that the NVIDIA x driver will be used when you restart x? Any pre-existing x confile will be backed up. 
+
+  选择yes继续，最重要的一步，安装程序问你是否使用nv的xconfig文件，这里一定要选yes，否则在启动x-window时不会使用nv驱动。
+
+这些选项如果选择错误可能会导致安装失败，没关系，只要前面不出错，多尝试几次就好。
+
+### 重启X-window服务
+
+依然是在命令行界面：
+
+```shell
+sudo service lightdm start
+```
+
+### 重启电脑进入BIOS关闭secure-boot
+
+进入BIOS把 `secure boot` 选项关掉。
+
+关掉secure boot的原因：如果 secure boot 是开启状态，内核不能安装自己定制的模块；
+
+解决方法：我们进入BIOS 把 secure boot 选项关掉；secure boot 大概的作用时为了保护内核的启动安全。
+
+linux secure boot状态查询：`mokutil --sb-state`
+
+看的文章里有这么一个步骤，但是我并没用到，但是依然写在这里，目前用不到，但已备不时之需：
+
+> #### 挂载Nvidia驱动： `modprobe nvidia`
+>
+> ERROR: could not insert ‘nvidia’: Operation not permitted
+> secure boot 的原因；如果 secure boot 是开启状态，内核不能安装自己定制的模块；
+> 解决方法：我们进入BIOS 把 secure boot 选项关掉；secure boot 大概的作用时为了保护内核的启动安全；
+> linux secure boot 状态查询：mokutil --sb-state
+> 再次挂载 nvidia
+
+### 查看是否挂载成功 `nvidia-smi`
+
+如果开机黑屏，则按Ctrl+Alt+F1进入命令行界面，或者按两次Esc进入。
+
+然后输入`nvidia-smi`。
+
+![nvidia-smi](pic/nvidia-smi.jpg)
+
+则显卡挂载成功。
+
+### 显卡挂载成功但黑屏无法进入图形化界面
+
+首先确保NVIDIA显卡驱动安装成功：使用命令 sudo nvidia-smi
+
+重装desktop来解决，按Ctrl+Alt+F1进入命令行方式，输入账户密码登入，输入命令
+
+```shell
+sudo apt uninstall ubuntu-desktop
+sudo apt install ubuntu-desktop
+```
+
+删除再重新安装。
+
+Ubuntu安装NVIDIA显卡驱动后可以进入命令行界面TYY1 ，但是无法进入图形界面。开机显示`/dev/nvme0n1p8:clean`
+
+综合查找，最后认定是驱动安装不匹配的原因，最后的解决方法很简单，方法如下：
+
+```shell
+sudo rm /etc/X11/xorg.conf
+sudo reboot
+```
+
+然后`reboot`重启，恭喜成功~
+
 # 参考资料
 
 * [Tensorflow2.5安装（安装问题，这一篇全解决）](https://blog.csdn.net/QAQIknow/article/details/118858870)
 
 “安装anaconda+tensorflow-gpu”参考了该博客。
+
+* [Ubuntu18.04安装NVIDIA显卡驱动](https://blog.csdn.net/chentianting/article/details/85089403)
+
+* [ubuntu20.04安装NVIDIA显卡驱动 /dev/nvme0n1p8:clean](https://blog.csdn.net/simplyou/article/details/119838829)
+
+"ubuntu中手动安装nvidia显卡驱动"参考此博客
 
 ===
 

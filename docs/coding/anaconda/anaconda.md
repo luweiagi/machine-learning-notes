@@ -18,6 +18,7 @@
 * [其他操作](#其他操作)
   * [手动复制其他用户的anaconda](#手动复制其他用户的anaconda)
   * [删除anaconda里的pkgs文件下的包](#删除anaconda里的pkgs文件下的包)
+  * [ubuntu中手动安装nvidia显卡驱动](#ubuntu中手动安装nvidia显卡驱动)
 
 
 
@@ -561,7 +562,19 @@ nvidia驱动官网下载地址：[Download *Drivers* | *NVIDIA*](https://www.nvi
 
 ![nvidia-diver-downloads](pic/nvidia-diver-downloads.jpg)
 
+### 删除旧NVIDIA驱动
+
+安装之前先卸载已经存在的驱动版本：
+
+```shell
+sudo apt-get --purge remove nvidia*
+sudo apt-get --purge remove "*nvidia*"
+sudo apt-get --purge remove xserver-xorg-video-nouveau
+```
+
 ### 屏蔽开源驱动nouveau
+
+需要禁用nouveau，只有在禁用掉nouveau后才能顺利安装NVIDIA显卡驱动，禁用方法就是在 `/etc/modprobe.d/blacklist-nouveau.conf`文件中添加一条禁用命令，将Ubuntu自带的显卡驱动加入黑名单。
 
 ```shell
 sudo vim /etc/modprobe.d/blacklist.conf
@@ -574,7 +587,7 @@ blacklist nouveau
 options nouveau modeset=0
 ```
 
-更新系统
+注意此时还需执行以下命令使禁用nouveau真正生效：
 
 ```shell
 sudo update-initramfs -u
@@ -586,15 +599,9 @@ sudo update-initramfs -u
 
 没有信息显示，说明nouveau已被禁用，接下来可以安装nvidia的显卡驱动。
 
-### 删除旧NVIDIA驱动
-
-```shell
-sudo apt-get --purge remove nvidia*
-sudo apt-get --purge remove "*nvidia*"
-sudo apt-get --purge remove xserver-xorg-video-nouveau
-```
-
 ### 重启电脑，按Ctrl+Alt+F1进入命令行界面
+
+重启之后,这里要尤其注意，安装显卡驱动要先切换到文字界面，(按Ctrl+Alt+F1~F6).所以，启动电脑后，先进入文字界面。 
 
 先输入用户名密码登录（数字不能用小键盘输入），然后
 

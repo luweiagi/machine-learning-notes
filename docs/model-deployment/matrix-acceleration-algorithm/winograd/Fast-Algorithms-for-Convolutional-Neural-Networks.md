@@ -101,7 +101,7 @@ $$
 乍看上去，为了计算$\begin{bmatrix}r_0=m_1+m_2+m_3\\r_1=m_2-m_3-m_4\end{bmatrix}$，需要的运算次数分别为：
 
 - 输入信号$d$上：4次加法（减法）
-- **[不算]**卷积核$g$上：3次加法（$g_1+g_2$中间结果可保留），2次乘法（除法）
+- [**不算**]卷积核$g$上：3次加法（$g_1+g_2$中间结果可保留），2次乘法（除法）
 - 输出$m$上：4次乘法，4次加法
 
 **在神经网络的推理阶段，卷积核上的元素是固定的**，因此**卷积核$g$上的运算可以提前算好**，**预测阶段只需计算一次**，可以忽略，所以一共所需的运算次数为$d$与$m$上的运算次数之和，**即4次乘法和8次加法**。
@@ -128,7 +128,7 @@ r=A^T\left[(Gg)\odot(B^Td)\right]
 $$
 其中，
 
-**卷积核变换矩阵$G$**：
+**卷积核变换矩阵**$G$：
 $$
 G=
 \begin{bmatrix}
@@ -138,7 +138,7 @@ G=
 0&0&1\\
 \end{bmatrix}_{4\times3}
 $$
-**输入变换矩阵$B^T$**：
+**输入变换矩阵**$B^T$：
 $$
 B^T=
 \begin{bmatrix}
@@ -148,7 +148,7 @@ B^T=
 0&1&0&-1\\
 \end{bmatrix}_{4\times4}
 $$
-**输出变换矩阵$A^T$：**
+**输出变换矩阵**$A^T$：
 $$
 A^T=
 \begin{bmatrix}
@@ -176,7 +176,7 @@ r_0\\
 r_1\\
 \end{bmatrix}
 $$
-**输入变换$B^Td$**：$B^T$是输入变化矩阵，输入信号为$d=[d_0,d_1,d_2,d_3]^T$。
+**输入变换**$B^Td$：$B^T$是输入变化矩阵，输入信号为$d=[d_0,d_1,d_2,d_3]^T$。
 $$
 B^Td =
 \begin{bmatrix}
@@ -199,7 +199,7 @@ d_1+d_2\\
 d_1-d_3\\
 \end{bmatrix}
 $$
-**卷积核变换$Gg$**：$G$是卷积核变换矩阵，卷积核为$g=[g_0,g_1,g_2]^T$，在神经网络的推理阶段，卷积核上的元素是固定的，因此$G^Tg$上的运算**可以提前算好，预测阶段只需计算一次**。
+**卷积核变换**$Gg$：$G$是卷积核变换矩阵，卷积核为$g=[g_0,g_1,g_2]^T$，在神经网络的推理阶段，卷积核上的元素是固定的，因此$G^Tg$上的运算**可以提前算好，预测阶段只需计算一次**。
 $$
 Gg =
 \begin{bmatrix}
@@ -221,7 +221,7 @@ g_0\\
 g_2\\
 \end{bmatrix}
 $$
-**Hadamar积$(Gg)\odot(B^Td)$**：输入变换结果和卷积核变换结果逐元素相乘。
+**Hadamar积**$(Gg)\odot(B^Td)$：输入变换结果和卷积核变换结果逐元素相乘。
 $$
 \begin{aligned}
 (Gg)\odot(B^Td) &=
@@ -247,7 +247,7 @@ g_2\\
 \end{bmatrix}
 \end{aligned}
 $$
-**输出变换$r=A^T\left[(Gg)\odot(B^Td)\right]$**：$A^T$是输出变换矩阵。
+**输出变换**$r=A^T\left[(Gg)\odot(B^Td)\right]$：$A^T$是输出变换矩阵。
 $$
 \begin{aligned}
 r&=A^T\left[(Gg)\odot(B^Td)\right]\\
@@ -547,7 +547,7 @@ $$
 
 # winograd优化小结
 
-1、在winograd卷积加速算法中，对于一维卷积，当输出为$m$，卷积核长为$r$，对应的乘法计算次数为$m+r-1$次；将一维卷积扩展到二维，如果输出维度是$m\times n$，卷积核维度为$r\times s$，则需要的乘法次数是$(m+r-1)\times(n+s-1)$。对一个矩阵大小为$4\times4$的输入，卷积核大小为$3\times3$，对应的输出为$2\times2$，正常计算的情况下，使用im2col加速方法的乘法次数为$2\times2\times3\times3=36$次，而当使用winograd时，对应的乘法次数为$(2+3−1)\times$$(2+3−1)=$$16$，可以看到乘法次数明显减少，从而加速效果会更加明显。
+1、在winograd卷积加速算法中，对于一维卷积，当输出为$m$，卷积核长为$r$，对应的乘法计算次数为$m+r-1$次；将一维卷积扩展到二维，如果输出维度是$m\times n$，卷积核维度为$r\times s$，则需要的乘法次数是$(m+r-1)\times(n+s-1)$。对一个矩阵大小为$4\times4$的输入，卷积核大小为$3\times3$，对应的输出为$2\times2$，正常计算的情况下，使用im2col加速方法的乘法次数为$2\times2\times3\times3=36$次，而当使用winograd时，对应的乘法次数为$(2+3−1)\times(2+3−1)=16$，可以看到乘法次数明显减少，从而加速效果会更加明显。
 
 2、winograd算法通过减少乘法次数来实现提速，但是加法的数量会相应增加，同时需要额外的转换计算以及存储转换矩阵，随着卷积核（kernel）和分块（tile，对于大尺寸feature map，会将feature map切分成一个个等大小有重叠的tile，在每个tile上面进行winograd卷积）的尺寸增大，就需要考虑加法、转换计算和存储的代价，而且tile越大，转换矩阵越大，计算精度的损失会进一步增加，所以一般winograd只适用于较小的卷积核和tile（对大尺寸的卷积核，可使用FFT进行加速）。在目前流行的网络中，小尺寸卷积核是主流，典型实现如$F(6\times6,3\times3)$、$F(4\times4,3\times3)$、$F(2\times2,3\times3)$等，可参见[NCNN](https://github.com/Tencent/ncnn/tree/master/src/layer/arm)、[FeatherCNN](https://github.com/Tencent/FeatherCNN/blob/booster/src/booster/arm/winograd_kernels_F63.cpp)、[ARM-ComputeLibrary](https://github.com/ARM-software/ComputeLibrary/tree/master/src/core/NEON/kernels/convolution/winograd/transforms)等源码实现。
 

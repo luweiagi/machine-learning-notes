@@ -1,6 +1,6 @@
 # Batch Normalization
 
-* [返回上层目录](../tips.md)
+* [返回上层目录](../normalization.md)
 * [BN用在哪里](#BN用在哪里)
 * [BN怎么操作](#BN怎么操作)
 * [深入理解BN](#深入理解BN)
@@ -133,4 +133,8 @@ BN就是调整每层网络输出数据的分布，使其进入激活函数的作
 * [Batch Normalization 论文笔记](https://blog.csdn.net/u014061630/article/details/80327059)
 
 paper的笔记。
+
+* [Batch-normalized 应该放在非线性激活层的前面还是后面？](https://www.zhihu.com/question/283715823/answer/443733242)
+
+* [BatchNorm避坑指南](https://zhuanlan.zhihu.com/p/380620373)
 

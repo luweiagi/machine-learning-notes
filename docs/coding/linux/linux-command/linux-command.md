@@ -243,6 +243,8 @@ BASE_DIR=$(readlink -f `dirname "$0"`)
 解释：
 `readlink -f $path` 如果​\$path没有链接，就显示自己本身的绝对路径
 
+
+
 # 压缩文件
 
 ## zip压缩文件
@@ -945,6 +947,32 @@ ln -s /mnt/disk4/data/user/ data
 参考资料：
 
 * [Linux ln命令](https://www.runoob.com/linux/linux-comm-ln.html)
+
+## mount硬盘或U盘挂载
+
+挂载
+
+```shell
+sudo fdisk -l
+sudo mount /dev/sda1 /mnt/mymount
+```
+
+卸载
+
+```shell
+# 通过设备名卸载
+umount -v /dev/sda1  # /dev/sda1 umounted  
+# 通过挂载点卸载
+umount -v /mnt/mymount/  # /tmp/diskboot.img umounted 
+```
+
+
+
+参考资料：
+
+* [mount,umount命令详解](https://blog.csdn.net/qq_42014600/article/details/90404249)
+
+
 
 
 

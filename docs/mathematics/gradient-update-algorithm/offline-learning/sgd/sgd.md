@@ -217,5 +217,7 @@ $$
 
 ===
 
-[SGD过程中的噪声如何帮助避免局部极小值和鞍点](https://zhuanlan.zhihu.com/p/36816689)
+* [SGD过程中的噪声如何帮助避免局部极小值和鞍点](https://zhuanlan.zhihu.com/p/36816689)
+
+* [Adam那么棒，为什么还对SGD念念不忘 (3)—— 优化算法的选择与使用策略](https://zhuanlan.zhihu.com/p/32338983)
 

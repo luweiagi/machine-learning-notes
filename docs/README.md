@@ -1,6 +1,6 @@
 # [=>点此阅读<=](https://luweikxy.github.io/machine-learning-notes/)
 
-* [任务清单](personal/list.md)
+# [任务清单](personal/list.md)
 * [收集的各种资料](personal/material.md)
 * [有用的工具](personal/tools.md)
 
@@ -24,9 +24,7 @@
 * [机器学习面试](perface/interview/interview.md)
 
 # [数学基础](mathematics/mathematics.md)
-
 * [机器学习需要的数学](mathematics/mathematics-ml-needs/mathematics-ml-needs.md)
-
 * [微积分](mathematics/calculus/calculus.md)
   * [泰勒展开](mathematics/calculus/taylor-expansion/taylor-expansion.md)
   * [e的直观认识](mathematics/calculus/intuition-of-e/intuition-of-e.md)
@@ -139,7 +137,6 @@
     * [Tensorflow中使用GPU](coding/tensorflow/tools/gpu/gpu.md)
 * [PyTorch](coding/pytorch/pytorch.md)
   * [PyTorch基础](coding/pytorch/basis/basis.md)
-* [DarkNet](coding/darknet/darknet.md)
 
 # [机器学习](machine-learning/machine-learning.md)
 * [机器学习概论](machine-learning/machine-learning-introduction/machine-learning-introduction.md)
@@ -306,16 +303,25 @@
     * [MMoE: Modeling Task Relationships in Multi-task Learning with Multi-gate Mixture-of-Experts KDD2018](recommender-systems/industry-application/google/mmoe/Modeling-Task-Relationships-in-Multi-task-Learning-with-Multi-gate-Mixture-of-Experts.md)
 
 # [计算机视觉](computer-vision/computer-vision.md)
-
 * [YOLO](computer-vision/yolo/yolo.md)
   * [YOLO原理](computer-vision/yolo/yolo_principle/yolo_principle.md)
   * [YOLO_Mark](computer-vision/yolo/yolo_mark/yolo_mark.md)
   * [DarkNet深度学习框架](computer-vision/yolo/darknet/darknet.md)
 
-# [模型压缩](model-compression/model-compression.md)
+# [模型部署](model-deployment/model-deployment.md)
+
+* [矩阵加速算法](model-deployment/matrix-acceleration-algorithm/matrix-acceleration-algorithm.md)
+  * [winograd: Fast Algorithms for Convolutional Neural Networks CVPR2016](model-deployment/matrix-acceleration-algorithm/winograd/Fast-Algorithms-for-Convolutional-Neural-Networks.md)
+* 并行计算
+  * CUDA
+  * OpenCL
+
+* [模型压缩](model-deployment/model-compression/model-compression.md)
+  * [模型压缩概述](model-deployment/model-compression/model-compression-introduction/model-compression-introduction.md)
+  * 剪枝
+  * 量化
+  * 蒸馏
 
 # [异常检测](anomaly-detection/anomaly-detection.md)
-
-
 
 # [反绎学习](abductive-learning/abductive-learning.md)

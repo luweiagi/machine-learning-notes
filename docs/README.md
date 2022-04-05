@@ -311,6 +311,7 @@
 # [模型部署](model-deployment/model-deployment.md)
 
 * [矩阵加速算法](model-deployment/matrix-acceleration-algorithm/matrix-acceleration-algorithm.md)
+  * [im2col: 将卷积转为矩阵乘法来加速计算](model-deployment/matrix-acceleration-algorithm/im2col/im2col.md)
   * [winograd: Fast Algorithms for Convolutional Neural Networks CVPR2016](model-deployment/matrix-acceleration-algorithm/winograd/Fast-Algorithms-for-Convolutional-Neural-Networks.md)
 * 并行计算
   * CUDA

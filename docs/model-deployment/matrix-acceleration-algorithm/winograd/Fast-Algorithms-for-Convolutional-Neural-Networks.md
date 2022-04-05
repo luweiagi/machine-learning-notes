@@ -108,8 +108,6 @@ $$
 
 与直接运算的6次乘法和4次加法相比，**乘法次数减少，加法次数增加**。在计算机中，乘法一般比加法慢，通过减少减法次数，增加少量加法，可以实现加速。
 
-
-
 # 一维Winograd卷积
 
 设卷积操作$F(2,3)$的含义为：输出维度为2，卷积核维度为3，则可推出输入维度为4，如下图所示：
@@ -425,6 +423,9 @@ M_0,M_1,M_2,M_3
 \end{bmatrix}
 A\\
 &=\begin{bmatrix}
+M_0\\M_1\\M_2\\M_3
+\end{bmatrix}^TA\\
+&=\begin{bmatrix}
 A^T\left[(G\vec{k_0})\odot(B^T(\vec{d_0}-\vec{d_2}))\right]\\
 A^T\left[(G\frac{\vec{k_0}+\vec{k_1}+\vec{k_2}}{2})\odot(B^T(\vec{d_1}+\vec{d_2}))\right]\\
 A^T\left[(G\frac{\vec{k_0}-\vec{k_1}+\vec{k_2}}{2})\odot(B^T(-\vec{d_1}+\vec{d_2}))\right]\\
@@ -499,7 +500,7 @@ $$
 - Batched-GEMM（批量矩阵乘法）
 - Output transform
 
-注：对于上图红圈中的scatter步骤，其实你可能不太明白，没事，下面会详细讲解，保证你看明白。
+注：对于上图红圈中的scatter步骤，就是为什么可以转成矩阵乘法呢，$\xi$和$\nu$又是什么意思，其实你第一次看的话必然搞不明白，没事，下面会详细讲解，保证你看明白。
 
 算法流程可视化如下，图片出自论文《[Sparse Winograd Convolutional neural networks on small-scale systolic arrays](https://www.researchgate.net/publication/328091476_Sparse_Winograd_Convolutional_neural_networks_on_small-scale_systolic_arrays)》：
 
@@ -537,9 +538,16 @@ $$
 
 下面详细展示了$(GKG^T)\odot(B^TDB)$的计算过程，如下图所示：
 
-输入变换和卷积核变换的绿色块均表示变换的结果。下图详述了前面的3D总体流程图中提到的scatter过程，其实就是对于$6\times6$的各个位置，依次进行$(GKG^T)\odot(B^TDB)$，并且可以把$(GKG^T)\odot(B^TDB)$操作变为$(GKG^T)\dot(B^TDB)$矩阵乘法操作，是不是很神奇啊，仔细看下图就懂了。
+输入变换和卷积核变换的绿色块均表示变换的结果。下图详述了前面的3D总体流程图中提到的scatter过程，其实就是对于$6\times6$的各个位置，依次进行$(GKG^T)\odot(B^TDB)$，并且可以把$(GKG^T)\odot(B^TDB)$操作变为$(GKG^T)\cdot(B^TDB)$矩阵乘法操作，是不是很神奇啊，仔细看下图就懂了。
 
 ![F(4x4,3x3)-single-trans](pic/F(4x4,3x3)-single-trans.png)
+
+之前看不懂的红框里的内容，现在应该看懂了吧？$\xi\times\nu$就是输入块的尺寸$6\times6$。上图中的矩阵乘，其实就是原论文中的公式(12)和(13)，即：
+$$
+M_{k,b}^{(\xi,\nu)}=\sum_{c=1}^CU_{k,c}^{(\xi,\nu)}V_{c,b}^{(\xi,\nu)}\\
+M^{(\xi,\nu)}=U^{(\xi,\nu)}V^{(\xi,\nu)}
+$$
+公式里的$b$就是那个$5\times5$。
 
 上图为什么要费尽心机对于$6\times6$的各个位置把按位相乘变为矩阵乘法呢？因为这样可以利用GPU进行加速啊。
 

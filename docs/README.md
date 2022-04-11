@@ -309,14 +309,12 @@
   * [DarkNet深度学习框架](computer-vision/yolo/darknet/darknet.md)
 
 # [模型部署](model-deployment/model-deployment.md)
-
 * [矩阵加速算法](model-deployment/matrix-acceleration-algorithm/matrix-acceleration-algorithm.md)
   * [im2col: 将卷积转为矩阵乘法来加速计算](model-deployment/matrix-acceleration-algorithm/im2col/im2col.md)
   * [winograd: Fast Algorithms for Convolutional Neural Networks CVPR2016](model-deployment/matrix-acceleration-algorithm/winograd/Fast-Algorithms-for-Convolutional-Neural-Networks.md)
 * 并行计算
   * CUDA
   * OpenCL
-
 * [模型压缩](model-deployment/model-compression/model-compression.md)
   * [模型压缩概述](model-deployment/model-compression/model-compression-introduction/model-compression-introduction.md)
   * 剪枝

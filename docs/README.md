@@ -1,4 +1,4 @@
-# [=>点此阅读<=](https://luweikxy.github.io/machine-learning-notes/)
+# [=>点此阅读<=](https://luweiagi.github.io/machine-learning-notes/)
 
 # [任务清单](personal/list.md)
 * [收集的各种资料](personal/material.md)

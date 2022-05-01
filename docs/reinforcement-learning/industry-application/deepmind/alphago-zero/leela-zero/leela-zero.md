@@ -252,7 +252,7 @@ Release版本在前面的已经介绍过了，这里再介绍一次，尽量保�
 
 下载完解压。
 
-![leela-zero-Release](C:/Users/luwei/Desktop/leela-zero/pic/leela-zero-Release.jpg)
+![leela-zero-Release](pic/leela-zero-Release.jpg)
 
 没gpu就选`cpuonly`版本，有gpu就选另一个。
 

@@ -1,13 +1,12 @@
-# 概率统计和信息论
+# 概率统计
 
 * [返回上层目录](../mathematics.md)
 * [概率统计基本概念](statistics-basic-concepts/statistics-basic-concepts.md)
-* [协方差矩阵](covariance-matrix/covariance-matrix.md)
+* [方差与协方差](variance-and-covariance/variance-and-covariance.md)
 * [概率论与贝叶斯先验](probability-and-bayesian-prior/probability-and-bayesian-prior.md)
 * [贝叶斯概率](bayes-probability/bayes-probability.md)
 * [概率分布](probability-distribution/probability-distribution.md)
 * [共轭先验](conjugate-prior/conjugate-prior.md)
-* [信息论](information-theory/information-theory.md)
 
 
 

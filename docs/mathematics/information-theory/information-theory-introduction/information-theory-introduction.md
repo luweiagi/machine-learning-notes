@@ -1,6 +1,6 @@
-# 信息论
+# 信息论基础
 
-* [返回上层目录](../statistics-and-information-theory.md)
+* [返回上层目录](../information-theory.md)
 * [什么是信息](#什么是信息)
 * [自信息](#自信息)
 * [信息熵](#信息熵)

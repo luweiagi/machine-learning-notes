@@ -1,5 +1,7 @@
 # 样本方差的无偏估计
 
+* [返回上层目录](../variance-and-covariance.md)
+
 总体方差（variance）：总体中变量离其平均值距离的平均。一组数据
 $$
 \begin{aligned}

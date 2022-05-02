@@ -1,7 +1,8 @@
 # 贝叶斯概率
 
-* [返回上层目录](../statistics-and-information-theory.md)
-* [贝叶斯概率](#贝叶斯概率)
+* [返回上层目录](../statistics.md)
+
+
 
 
 # 贝叶斯概率简介

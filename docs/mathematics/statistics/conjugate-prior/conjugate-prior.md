@@ -1,6 +1,6 @@
 # 共轭先验
 
-* [返回上层目录](../statistics-and-information-theory.md)
+* [返回上层目录](../statistics.md)
 
 
 

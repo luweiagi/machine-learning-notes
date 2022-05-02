@@ -1,6 +1,6 @@
 # 协方差矩阵
 
-* [返回上层目录](../statistics-and-information-theory.md)
+* [返回上层目录](../variance-and-covariance.md)
 
 # 统计学的基本概念
 

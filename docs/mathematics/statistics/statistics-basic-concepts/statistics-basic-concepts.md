@@ -1,6 +1,6 @@
 # 概率统计基本概念
 
-* [返回上层目录](../statistics-and-information-theory.md)
+* [返回上层目录](../statistics.md)
 * [简介](#简介)
 * [分布](#分布)
 * [常见的数据类型](#常见的数据类型)

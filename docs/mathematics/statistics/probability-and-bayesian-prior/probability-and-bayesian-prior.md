@@ -1,6 +1,6 @@
 # 概率论与贝叶斯先验
 
-* [返回上层目录](../statistics-and-information-theory.md)
+* [返回上层目录](../statistics.md)
 
 
 * [概率论基础](#概率论基础)

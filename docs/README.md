@@ -41,6 +41,7 @@
   * [方差和协方差](mathematics/statistics/variance-and-covariance/variance-and-covariance.md)
     * [协方差矩阵](mathematics/statistics/variance-and-covariance/covariance-matrix/covariance-matrix.md)
     * [样本方差的无偏估计](mathematics/statistics/variance-and-covariance/sample-variance-unbiased-estimate/sample-variance-unbiased-estimate.md)
+    * [Welfor算法：迭代更新方差](mathematics/statistics/variance-and-covariance/welford-algorithm-for-updating-variance/welford-algorithm-for-updating-variance.md)
   * [概率论与贝叶斯先验](mathematics/statistics/probability-and-bayesian-prior/probability-and-bayesian-prior.md)
   * [贝叶斯概率](mathematics/statistics/bayes-probability/bayes-probability.md)
   * [概率分布](mathematics/statistics/probability-distribution/probability-distribution.md)

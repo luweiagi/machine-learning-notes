@@ -1,4 +1,4 @@
-# 正态分布
+# Normal正态分布
 
 * [返回上层目录](../probability-distribution.md)
 

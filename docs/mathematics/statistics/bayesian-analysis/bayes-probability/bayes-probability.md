@@ -1,6 +1,6 @@
 # 贝叶斯概率
 
-* [返回上层目录](../statistics.md)
+* [返回上层目录](../bayesian-analysis.md)
 
 
 

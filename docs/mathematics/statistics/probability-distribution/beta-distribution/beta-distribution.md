@@ -1,7 +1,8 @@
-# 贝塔分布
+# Beta贝塔分布
 
 * [返回上层目录](../probability-distribution.md)
 * [Beta分布定义](#Beta分布定义)
+  * [不同参数下的Beta分布](#不同参数下的Beta分布)
   * [概率密度函数](#概率密度函数)
 * [Beta分布的性质](#Beta分布的性质)
 * [对Beta分布的理解](#对Beta分布的理解)
@@ -12,9 +13,21 @@
 
 Beta分布$Beta(\alpha, \beta)$的定义域为[0, 1]，参数$\alpha, \beta$均为正值，又称为形状参数。
 
-Beta分布的图形：
+## 不同参数下的Beta分布
 
-![beta-distribution](pic/beta-distribution.png)
+Beta分布的形状可以是钟形、U形、甚至是直线。$\alpha,\beta$均大于1， 为钟形；有一值为1，为直线；若均小于1，则为U形。
+
+钟型：
+
+![beta-dist-shape](pic/beta-dist-shape.png)
+
+直线型：
+
+![beta-dist-shape-2](pic/beta-dist-shape-2.png)
+
+U形：
+
+![beta-dist-shape-3](pic/beta-dist-shape-3.png)
 
 从Beta分布的概率密度函数的图形我们可以看出，Beta分布有很多种形状，但都是在0-1区间内，因此Beta分布可以描述各种0-1区间内的形状（事件）。因此，它特别适合为某件事发生或者成功的概率建模。同时，当$\alpha=1$，$\beta=1$的时候，它就是一个均匀分布。
 
@@ -39,7 +52,7 @@ $$
 
 - 当n为正整数时，n的阶乘定义如下：
   $$
-  n!=n\cdot(n−1)\cdot(n−2)∗…∗2∗1
+  n!=n\cdot(n−1)\cdot(n−2)\cdot\cdots\cdot2\cdot1
   $$
 
 - 当n不是整数时，n!为：
@@ -84,8 +97,22 @@ $$
 
 本文部分复制了该博客内容。
 
+* [Dirichlet Distribution 狄利克雷分布](https://zhuanlan.zhihu.com/p/425388698)
+
+背景知识：Beta分布。不同参数下的Beta分布。
+
 ===
 
 * [贝塔分布（Beta Distribution）简介及其应用](https://www.datalearner.com/blog/1051505532393058)
 
 举了beta分布的几个例子。其中有个二项分布作为似然函数的，要看。
+
+===
+
+- [关于Beta分布、二项分布与Dirichlet分布、多项分布的关系](https://www.cnblogs.com/wybang/p/3206719.html)
+- [机器学习的数学基础（1）--Dirichlet分布](https://blog.csdn.net/jwh_bupt/article/details/8841644)
+
+- [贝叶斯学习笔记（一）共轭先验](https://zhuanlan.zhihu.com/p/89398684)
+
+1
+

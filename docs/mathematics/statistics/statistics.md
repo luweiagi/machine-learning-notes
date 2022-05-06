@@ -1,12 +1,10 @@
 # 概率统计
 
 * [返回上层目录](../mathematics.md)
-* [概率统计基本概念](statistics-basic-concepts/statistics-basic-concepts.md)
+* [概率统计基础](statistics-introduction/statistics-introduction.md)
 * [方差与协方差](variance-and-covariance/variance-and-covariance.md)
-* [概率论与贝叶斯先验](probability-and-bayesian-prior/probability-and-bayesian-prior.md)
-* [贝叶斯概率](bayes-probability/bayes-probability.md)
+* [贝叶斯分析方法](bayesian-analysis/bayesian-analysis.md)
 * [概率分布](probability-distribution/probability-distribution.md)
-* [共轭先验](conjugate-prior/conjugate-prior.md)
 
 
 

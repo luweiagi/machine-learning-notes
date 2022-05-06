@@ -48,6 +48,7 @@
     * [共轭先验](mathematics/statistics/bayesian-analysis/conjugate-prior/conjugate-prior.md)
   * [概率分布](mathematics/statistics/probability-distribution/probability-distribution.md)
     * [Normal正态分布](mathematics/statistics/probability-distribution/normal-distribution/normal-distribution.md)
+    * [Gamma伽马函数](mathematics/statistics/probability-distribution/gamma-function/gamma-function.md)
     * [Gamma伽马分布](mathematics/statistics/probability-distribution/gamma-distribution/gamma-distribution.md)
     * [Beta贝塔分布](mathematics/statistics/probability-distribution/beta-distribution/beta-distribution.md)
     * [Dirichlet狄利克雷分布](mathematics/statistics/probability-distribution/dirichlet-distribution/dirichlet-distribution.md)

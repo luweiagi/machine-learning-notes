@@ -2,6 +2,7 @@
 
 * [返回上层目录](../statistics.md)
 * [Normal正态分布](normal-distribution/normal-distribution.md)
+* [Gamma伽马函数](gamma-function/gamma-function.md)
 * [Gamma伽马分布](gamma-distribution/gamma-distribution.md)
 * [Beta贝塔分布](beta-distribution/beta-distribution.md)
 * [Dirichlet狄利克雷分布](dirichlet-distribution/dirichlet-distribution.md)

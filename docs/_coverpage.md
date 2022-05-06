@@ -12,6 +12,6 @@
 
 
 
-[GITHUB源码](https://github.com/luweikxy/machine-learning-notes)
+[GITHUB源码](https://github.com/luweiagi/machine-learning-notes)
 [开始阅读](README.md)
 

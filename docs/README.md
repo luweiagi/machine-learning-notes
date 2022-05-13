@@ -332,3 +332,16 @@
 # [异常检测](anomaly-detection/anomaly-detection.md)
 
 # [反绎学习](abductive-learning/abductive-learning.md)
+
+# [自动驾驶](autopilot/autopilot.md)
+
+* 感知
+* [决策与规划](autopilot/decision-and-planning/decision-and-planning.md)
+* 制导
+* 控制
+* 导航
+
+# 多模态机器学习
+
+# 通用人工智能
+

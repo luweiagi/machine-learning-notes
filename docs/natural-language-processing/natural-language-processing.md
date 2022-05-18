@@ -12,6 +12,12 @@
 ===
 
 
+
+[**Mixture-of-Denoisers**击败GPT3，刷新50个SOTA！谷歌全面统一NLP范式](https://mp.weixin.qq.com/s/oMUASBSKe3xgGVLuQz7MGg)
+
+[详解预训练模型 ——从词向量到GPT模型](https://blog.csdn.net/haojiangcong/article/details/121565294)
+
+
 [从Word Embedding到Bert模型—自然语言处理中的预训练技术发展史](https://zhuanlan.zhihu.com/p/49271699)
 
 [从One-hot, Word embedding到Transformer，一步步教你理解Bert](https://mp.weixin.qq.com/s/rxkHtRPMrEZPHzyq2UD4Fg)

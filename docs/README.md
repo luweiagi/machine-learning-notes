@@ -249,9 +249,8 @@
     * [mean-field: Mean Field Multi-Agent Reinforcement Learning ICML2018](reinforcement-learning/multi-agent-reinforcement-learning/paper/mean-field/Mean-Field-Multi-Agent-Reinforcement-Learning.md)
 * [业界应用](reinforcement-learning/industry-application/industry-application.md)
   * [DeepMind](reinforcement-learning/industry-application/deepmind/deepmind.md)
-    * [AlphaGo-Zero](reinforcement-learning/industry-application/deepmind/alphago-zero/alphago-zero.md)
-      * [AlphaGo-Zero](reinforcement-learning/industry-application/deepmind/alphago-zero/alphago-zero/alphago-zero.md)
-      * [Leela-Zero（AlphaGo-Zero开源项目）](reinforcement-learning/industry-application/deepmind/alphago-zero/leela-zero/leela-zero.md)
+    * [AlphaGo-Zero: Mastering the Game of Go without Human Knowledge Nature2017](reinforcement-learning/industry-application/deepmind/alphago-zero/Mastering-the-Game-of-Go-without-Human-Knowledge.md)
+    * [AlphaStar: Grandmaster level in StarCraft II using multi-agent reinforcement learning Nature2019](reinforcement-learning/industry-application/deepmind/alphastar/Grandmaster-level-in-StarCraft-II-using-multi-agent-reinforcement-learning.md)
 
 # [自然语言处理](natural-language-processing/natural-language-processing.md)
 * [自然语言处理概论](natural-language-processing/natural-language-processing-introduction/natural-language-processing-introduction.md)
@@ -340,8 +339,13 @@
 * 制导
 * 控制
 * 导航
+* 动力学模型
 
 # 多模态机器学习
 
-# 通用人工智能
+# [通用人工智能](artificial-general-intelligence/artificial-general-intelligence.md)
+
+* [业界应用](artificial-general-intelligence/industry-application/industry-application.md)
+  * [DeepMind](artificial-general-intelligence/industry-application/deepmind/deepmind.md)
+    * [Reward is enough AI2021](artificial-general-intelligence/industry-application/deepmind/reward-is-enough/Reward-is-enough.md)
 

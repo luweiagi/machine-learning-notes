@@ -7,6 +7,8 @@
 
 ===
 
+[GraphSAGE在商品推荐中的应用](https://mp.weixin.qq.com/s/Y1LU8pEwniaRvvYyW-UtgA)
+
 [PinSage：GCN在商业推荐系统首次成功应用](https://zhuanlan.zhihu.com/p/63214411)
 
 

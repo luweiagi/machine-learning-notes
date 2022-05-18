@@ -4,3 +4,12 @@
 * [矩阵加速算法](matrix-acceleration-algorithm/matrix-acceleration-algorithm.md)
 * 并行计算
 * [模型压缩](model-compression/model-compression.md)
+
+
+
+===
+
+[学懂 ONNX，PyTorch 模型部署再也不怕！](https://mp.weixin.qq.com/s/CegADhztErBqEXiwAXv1uQ)
+
+[ONNX 自定义算子实战，扫除 PyTorch 模型部署障碍](https://mp.weixin.qq.com/s/nDCr1bKXOGedx8tRpeR-Jw)
+

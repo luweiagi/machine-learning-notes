@@ -53,7 +53,7 @@
 
 “我们应当怎样生存”参考此知乎回答。
 
-* [《电院学长给大家的一些建议》](http://www.openlab.net.cn/forums/threads/10094842.aspx)
+* [《电院学长给大家的一些建议》](http://www.openlab.net.cn/forums/thread/1012182/1#p10094842)
 
 “我们应该以一种怎样的态度和观念来工作”参考此帖子。
 

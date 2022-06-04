@@ -621,3 +621,7 @@ Encoder通过处理输入序列开启工作。Encoder顶端的输出之后会变
 
 * [transformer的细节到底是怎么样的？](https://www.zhihu.com/question/362131975/answer/2182682685)
 
+
+
+[Transformer称霸的原因找到了？OpenAI前核心员工揭开注意力头协同工作机理](https://mp.weixin.qq.com/s?__biz=MzA3MzI4MjgzMw==&mid=2650844831&idx=2&sn=e6ae775a0d46dcc2c7f06945c9b7ea1c&chksm=84e56ae1b392e3f7d952ec2f4ba5a224c05f0e331ee8522577cf60961c91274be20c55617711&scene=132#wechat_redirect)
+

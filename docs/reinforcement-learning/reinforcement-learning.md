@@ -86,3 +86,13 @@ B站上deepmind的大佬David alived的强化学习的视频，点击率甚低�
 
 **第11讲**介绍RL的各类拾遗，包括POMDP、鲁棒性、多智能体、元学习、逆强化学习以及训练平台等。
 
+
+
+
+
+中科院自动化所2020智能决策论坛报告ppt：
+论坛报告回放：https://space.bilibili.com/551888585/channel/detail?cid=167587
+【柯良军】链接：https://pan.baidu.com/s/18uM3GU8HpZ2OAUIoN0timQ 提取码：rb4o 
+【章宗长】链接：https://pan.baidu.com/s/1hg-YPfcjCaMnUIogZXMmTQ 提取码：dhdf 
+【余超】链接：https://pan.baidu.com/s/1ZnU7oe8xB6YJgyVC1frY6Q 提取码：h42p 
+【温颖】链接：https://pan.baidu.com/s/1AhV2v_JLtiYU3gekH0d4ow 提取码：p2h7

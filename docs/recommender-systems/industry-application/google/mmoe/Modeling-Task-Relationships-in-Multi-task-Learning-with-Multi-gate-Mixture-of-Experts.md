@@ -93,3 +93,8 @@ moe会让几何空间有明显的分割界限，这个和决策树的空间划�
 《Multi-Task Learning Using Uncertainty to Weigh Losses for Scene Geometry and Semantics》18年cvpr
 
 这篇论文用来调多任务模型训练，各loss融合的权重
+
+[多目标模型之MMoE](https://www.bilibili.com/read/cv6495744/)
+
+这篇讲了MMoE和共享底层多任务模型的区别。
+

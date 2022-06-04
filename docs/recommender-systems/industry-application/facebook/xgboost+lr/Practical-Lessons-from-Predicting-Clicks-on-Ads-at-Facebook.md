@@ -2,7 +2,7 @@
 
 ![paper](pic/paper.png)
 
-pdf：http://quinonero.net/Publications/predicting-clicks-facebook.pdf
+pdf：[Practical Lessons from Predicting Clicks on Ads at Facebook](http://quinonero.net/Publications/predicting-clicks-facebook.pdf)
 
 
 
@@ -23,6 +23,8 @@ xgb因为是tree based，可以看做一种**特征交叉**方法。比如一棵
 然后把连续特征离散化了，将离散化的xgboost特征和原始特征离散化后拼接在一起，其实此时特征数据的x值已经全部成为了01值了，再喂给LR，得到预估值。
 
 
+
+[XGBoost + LR 就是加特征而已](https://cloud.tencent.com/developer/article/1006009)
 
 
 

@@ -348,6 +348,10 @@ def backpropogate(self, node, reward):
 
 后续若要实现五子棋可参考此博客。
 
+* [【详细原理】蒙特卡洛树搜索入门教程！](https://www.jianshu.com/p/ec0e7b84c7c8)
+
+本文是对[Monte Carlo Tree Search – beginners guide](https://links.jianshu.com/go?to=https%3A%2F%2Fint8.io%2Fmonte-carlo-tree-search-beginners-guide%2F%3Fspm%3Da2c4e.11153940.blogcont574071.7.4bf12dd4vQTxDC)这篇文章的文章大体翻译，以及对其代码的解释。分为两篇【**详细原理**】和【**代码实战**】。
+
 # 代码附录
 
 代码总共分为两个：

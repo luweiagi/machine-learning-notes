@@ -10,21 +10,15 @@
 ![machine-learning-map](pic/machine-learning-map.png)
 
 # [前言](perface/perface.md)
-* [个人前言](perface/personal-perface/personal-perface.md)
-* [机器学习前言](perface/machine-learning-perface/machine-learning-perface.md)
-  * [什么是机器学习和模式识别](perface/machine-learning-perface/machine-learning-perface.md#什么是机器学习和模式识别)
-  * [机器学习的应用](perface/machine-learning-perface/machine-learning-perface.md#机器学习的应用)
-  * [机器学习的流程](machine-learning/machine-learning.md#机器学习的流程)
-  * [不同机器学习算法预测效果不同](perface/machine-learning-perface/machine-learning-perface.md#不同机器学习算法预测效果不同)
-  * [快速入门机器学习](perface/machine-learning-perface/machine-learning-perface.md#快速入门机器学习)
-  * [机器学习需要参考哪些书](perface/machine-learning-perface/machine-learning-perface.md#机器学习需要参考哪些书)
-  * [机器学习的学习路径](perface/machine-learning-perface/machine-learning-perface.md#机器学习的学习路径)
-  * [深度学习的学习路径](perface/machine-learning-perface/machine-learning-perface.md#深度学习的学习路径)
-  * [互联网机器学习特定岗位所需技能](perface/machine-learning-perface/machine-learning-perface.md#互联网机器学习特定岗位所需技能)
-* [机器学习面试](perface/interview/interview.md)
+
+- [个人前言](perface/personal-perface/personal-perface.md)
+- [机器学习前言](perface/machine-learning-perface/machine-learning-perface.md)
+- [机器学习的学习路径](perface/machine-learning-learning-path/machine-learning-learning-path.md)
+- [机器学习面试](perface/interview/interview.md)
 
 # [数学基础](mathematics/mathematics.md)
 * [机器学习需要的数学](mathematics/mathematics-ml-needs/mathematics-ml-needs.md)
+* [数学系课程地图](mathematics/mathematics-map/mathematics-map.md)
 * [微积分](mathematics/calculus/calculus.md)
   * [泰勒展开](mathematics/calculus/taylor-expansion/taylor-expansion.md)
   * [e的直观认识](mathematics/calculus/intuition-of-e/intuition-of-e.md)
@@ -148,6 +142,11 @@
 
 # [机器学习](machine-learning/machine-learning.md)
 * [机器学习概论](machine-learning/machine-learning-introduction/machine-learning-introduction.md)
+  * [机器学习的哲学思想](machine-learning/machine-learning-introduction/philosophy/philosophy.md)
+  * [机器学习模型组成与分类](machine-learning/machine-learning-introduction/model-composition-and-classification/model-composition-and-classification.md)
+  * [模型评估方法与性能度量](machine-learning/machine-learning-introduction/model-evaluation-and-performance/model-evaluation-and-performance.md)
+  * [过拟合与模型复杂度](machine-learning/machine-learning-introduction/over-fitting-and-model-complexity/over-fitting-and-model-complexity.md)
+  * [正则化](machine-learning/machine-learning-introduction/regularization/regularization.md)
 * [特征工程](machine-learning/feature-engineering/feature-engineering.md)
 * [感知机](machine-learning/perceptron/perceptron.md)
 * [k近邻](machine-learning/k-nearest-neighbor/k-nearest-neighbor.md)
@@ -335,7 +334,8 @@
 # [自动驾驶](autopilot/autopilot.md)
 
 * 感知
-* [决策与规划](autopilot/decision-and-planning/decision-and-planning.md)
+* [决策](autopilot/decision/decision.md)
+* 规划
 * 制导
 * 控制
 * 导航
@@ -348,4 +348,5 @@
 * [业界应用](artificial-general-intelligence/industry-application/industry-application.md)
   * [DeepMind](artificial-general-intelligence/industry-application/deepmind/deepmind.md)
     * [Reward is enough AI2021](artificial-general-intelligence/industry-application/deepmind/reward-is-enough/Reward-is-enough.md)
+    * [Gato: A Generalist Agent DeepMind2022](artificial-general-intelligence/industry-application/deepmind/gato/A-Generalist-Agent.md)
 

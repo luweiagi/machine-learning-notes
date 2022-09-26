@@ -115,3 +115,8 @@ $$
 
 本文也看了点这个。
 
+===
+
+[为什么样本方差（sample variance）的分母是 n-1？](https://www.zhihu.com/question/20099757/answer/658048814)
+
+据说这个解释很好，但还没看。

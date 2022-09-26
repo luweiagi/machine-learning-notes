@@ -11,4 +11,5 @@
 * [Anaconda](anaconda/anaconda.md)
 * [TensorFlow](tensorflow/tensorflow.md)
 * [PyTorch](pytorch/pytorch.md)
+* [Docker](docker/docker.md)
 

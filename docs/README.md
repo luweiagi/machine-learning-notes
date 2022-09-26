@@ -139,6 +139,7 @@
     * [Tensorflow中使用GPU](coding/tensorflow/tools/gpu/gpu.md)
 * [PyTorch](coding/pytorch/pytorch.md)
   * [PyTorch基础](coding/pytorch/basis/basis.md)
+* [Docker](coding/docker/docker.md)
 
 # [机器学习](machine-learning/machine-learning.md)
 * [机器学习概论](machine-learning/machine-learning-introduction/machine-learning-introduction.md)
@@ -310,22 +311,27 @@
 
 # [计算机视觉](computer-vision/computer-vision.md)
 * [YOLO](computer-vision/yolo/yolo.md)
-  * [YOLO原理](computer-vision/yolo/yolo_principle/yolo_principle.md)
-  * [YOLO_Mark](computer-vision/yolo/yolo_mark/yolo_mark.md)
+  * [YOLO原理](computer-vision/yolo/yolo-principle/yolo-principle.md)
   * [DarkNet深度学习框架](computer-vision/yolo/darknet/darknet.md)
+  * [YOLO-v5]()
+
+* [图像标注工具](computer-vision/image-mark-tool/image-mark-tool.md)
+  * [YOLO_Mark](computer-vision/image-mark-tool/yolo-mark/yolo-mark.md)
+  * [Labelme](computer-vision/image-mark-tool/labelme/labelme.md)
 
 # [模型部署](model-deployment/model-deployment.md)
 * [矩阵加速算法](model-deployment/matrix-acceleration-algorithm/matrix-acceleration-algorithm.md)
   * [im2col: 将卷积转为矩阵乘法来加速计算](model-deployment/matrix-acceleration-algorithm/im2col/im2col.md)
   * [winograd: Fast Algorithms for Convolutional Neural Networks CVPR2016](model-deployment/matrix-acceleration-algorithm/winograd/Fast-Algorithms-for-Convolutional-Neural-Networks.md)
 * 并行计算
-  * CUDA
   * OpenCL
+  * CUDA
 * [模型压缩](model-deployment/model-compression/model-compression.md)
   * [模型压缩概述](model-deployment/model-compression/model-compression-introduction/model-compression-introduction.md)
   * 剪枝
   * 量化
   * 蒸馏
+* 模型部署
 
 # [异常检测](anomaly-detection/anomaly-detection.md)
 
@@ -347,6 +353,7 @@
 
 * [业界应用](artificial-general-intelligence/industry-application/industry-application.md)
   * [DeepMind](artificial-general-intelligence/industry-application/deepmind/deepmind.md)
+    * [PathNet: Evolution Channels Gradient Descent in Super Neural Networks  arXiv2017](artificial-general-intelligence/industry-application/deepmind/pathnet/PathNet：Evolution-Channels-Gradient-Descent-in-Super-Neural-Networks.md)
     * [Reward is enough AI2021](artificial-general-intelligence/industry-application/deepmind/reward-is-enough/Reward-is-enough.md)
-    * [Gato: A Generalist Agent DeepMind2022](artificial-general-intelligence/industry-application/deepmind/gato/A-Generalist-Agent.md)
+    * [Gato: A Generalist Agent arXiv2022](artificial-general-intelligence/industry-application/deepmind/gato/A-Generalist-Agent.md)
 

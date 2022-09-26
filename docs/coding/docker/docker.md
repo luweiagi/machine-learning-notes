@@ -1,6 +1,13 @@
-# docker
+# Docker
 
 * [返回上层目录](../coding.md)
+* [镜像和容器](#镜像和容器)
+  * [镜像和容器的区别](#镜像和容器的区别)
+  * [镜像理解](#镜像理解)
+  * [容器理解](#容器理解)
+* [docker命令](#docker命令)
+  * [docker常见命令](#docker常见命令)
+  * [docker命令集](#docker命令集)
 
 
 
@@ -48,60 +55,96 @@ docker 容器=镜像+可读层
 
 ## docker常见命令
 
-新建镜像
+* 新建镜像：
 
 ```shell
 docker build -t image_01.qc:v0.1 /path/to/Dockerfile
 ```
 
-新建容器
+* 查看镜像：
+
+```shell
+docker images -a
+```
+
+* 新建容器：
 
 ```shell
 docker create  --name myrunoob  nginx:latest 
 ```
 
-运行容器
+* 查看容器：
+
+```shell
+docker ps -a
+```
+
+* 运行容器：
+
+说明：这个命令是核心命令，可以配置的参数多达28个参数。详细的解释可以通过docker run --help列出。
 
 ```shell
 docker run --name mynginx -d nginx:latest
 docker run -it -v /test:/soft centos /bin/bash
 ```
 
-进入容器退出
+* 进入容器退出，并结束容器运行 
 
 ```shell
 exit
 ```
 
-关闭容器
+* 退出容器但是容器仍在执行，按`ctrl + p + q`，会回到宿主机桌面 
+
+```shell
+ctrl + p + q
+```
+
+* 关闭容器：
 
 ```shell
 docker kill e7c  # 支持模糊查找，只写名称的前三个就可以
 ```
 
-查看容器
-
-```shell
-docker ps -all
-```
-
-重启容器
+* 重启容器：
 
 ```shell
 docker start e7c
 docker restart e7c  # 即便容器已经启动，restart也会给重启
 ```
 
-以交互模式进入容器
+* **容器启动并进入后台后，这个时候进入容器进行操作，可以使用docker attach命令或docker exec命令**：
+
+（1）docker attach 容器id：
+
+attach是docker自带的命令。**注意**，该命令的前提是，容器是已经被启动的，一旦kill或exit，就先需要start启动容器，否则会报错：`You cannot attach to a stopped container, start it first`。
+
+```shell
+docker attach e7c
+```
+
+（2）以交互模式进入容器：
+
+从Docker的1.3版本起，Docker提供了更加方便的工具exec命令，可以在运行容器内直接执行任意命令。**注意**，该命令的前提是，容器是已经被启动的，一旦kill或exit，就先需要start来启动，然后再执行该命令，不然会报错：`Error response from daemon: Container e7c is not running`。
 
 ```shell
 docker exec -it e7c /bin/bash
 ```
 
-删除容器
+docker attach命令和docker exec命令的区别：
+
+（a）当多个窗口同是attach到同一个容器的时候，所有窗口都会同步显示；当某个窗口因命令阻塞时，其他窗口也无法执行操作。（b）可以使用`docker exec -it 容器id /bin/bash`进入容器并开启一个新的bash终端。 退出容器终端时，不会导致容器的停止。（c）使用`docker attach 容器id`进入正在执行容器，不会启动新的终端， 退出容器时，会导致容器的停止。
+
+* 删除容器：
 
 ```shell
 docker rm e7c
+```
+
+* 删除镜像：
+
+```shell
+docker rmi image
 ```
 
 
@@ -112,87 +155,97 @@ docker rm e7c
 
 [菜鸟：docker命令大全](https://www.runoob.com/docker/docker-command-manual.html)
 
-
+* 为指定的镜像添加一个可读写层，构成一个新的容器：
 
 ```shell
 docker create <image -id> 
 ```
 
-为指定的镜像添加一个可读写层，构成一个新的容器；
+* docker start 命令为容器文件系统创建一个进程的隔离空间。注意，每一个容器只能够有一个进行隔离空间；（运行容器）：
 
 ```shell
 docker start <container -id>
 ```
 
-docker start 命令为容器文件系统创建一个进程的隔离空间。注意，每一个容器只能够有一个进行隔离空间；（运行容器）
+* 这个是先利用镜像创建一个容器，然后运行了这个容器：
+
+说明：这个命令是核心命令，可以配置的参数多达28个参数。详细的解释可以通过docker run --help列出。
 
 ```shell
 docker run <image -id>
 ```
 
-这个是先利用镜像创建一个容器，然后运行了这个容器；
+* 停止所用的进程：
 
 ```shell
 docker stop <container -id>
 ```
 
-停止所用的进程；
+* 向所用运行在容器的进行发送一个不友好的sigkill信号：
 
 ```shell
 docker kill <container -id>
 ```
 
-向所用运行在容器的进行发送一个不友好的sigkill信号；
+* 将运行中的进程空间暂停：
 
 ```
 docker pause <container -id>
 ```
 
-将运行中的进程空间暂停
+* `docker rm`命令会移除构成容器的可读写层。注意，这个命令**只能对非运行态容器执行**：
 
 ```shell
 docker rm <container -id>
 ```
 
-`docker rm`命令会移除构成容器的可读写层。注意，这个命令**只能对非运行态容器执行**。 
+* docker rmi是docker image rm的别名。`docker rmi`命令会移除构成镜像的一个只读层。你只能够使用`docker rmi`来移除最顶层（top level layer）（也可以说是镜像），你也可以使用`-f`参数来强制删除中间的只读层：
 
-`docker rmi`命令会移除构成镜像的一个只读层。你只能够使用`docker rmi`来移除最顶层（top level layer）（也可以说是镜像），你也可以使用`-f`参数来强制删除中间的只读层。 
+```
+docker rmi <image -id>
+```
+
+* `docker commit`命令将容器的可读写层转换为一个只读层，这样就把一个容器转换成了不可变的镜像：
 
 ```shell
 docker commit <container-id>
 ```
 
-`docker commit`命令将容器的可读写层转换为一个只读层，这样就把一个容器转换成了不可变的镜像。 
+* `docker save`命令会创建一个镜像的压缩文件，这个文件能够在另外一个主机的Docker上使用。和export命令不同，这个命令为每一个层都保存了它们的元数据。这个命令只能对镜像生效：
 
 ```shell
 docker save <image-id>
 ```
 
-`docker save`命令会创建一个镜像的压缩文件，这个文件能够在另外一个主机的Docker上使用。和export命令不同，这个命令为每一个层都保存了它们的元数据。这个命令只能对镜像生效。 
+* `docker export`命令创建一个tar文件，并且移除了元数据和不必要的层，将多个层整合成了一个层，只保存了当前统一视角看到的内容（注：expoxt后的容器再import到Docker中，通过`docker images –tree`命令只能看到一个镜像；而save后的镜像则不同，它能够看到这个镜像的历史镜像）：
 
 ```shell
 docker export <container-id>
 ```
 
-`docker export`命令创建一个tar文件，并且移除了元数据和不必要的层，将多个层整合成了一个层，只保存了当前统一视角看到的内容（注：expoxt后的容器再import到Docker中，通过`docker images –tree`命令只能看到一个镜像；而save后的镜像则不同，它能够看到这个镜像的历史镜像）。 
+* `docker history`命令递归地输出指定镜像的历史镜像：
 
 ```
 docker history <image-id>
 ```
 
-`docker history`命令递归地输出指定镜像的历史镜像。 
+* 会列出所有运行中的容器；`docker ps -a`列出运行中和未运行的容器：
 
 ```shell
-docker ps
+docker ps -a
 ```
 
-会列出所有运行中的容器；`docker ps -a`列出运行中和未运行的容器；
+* 列出所用的镜像，也可以说列出所用的可读层：
 
 ```shell
 docker images -a
 ```
 
-列出所用的镜像，也可以说列出所用的可读层。
+* 显示容器內运行的进程：
+
+```
+docker top <container-id>
+```
 
 
 

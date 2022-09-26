@@ -20,6 +20,5 @@ pdf: [Gato: A Generalist Agent](https://arxiv.org/pdf/2205.06175.pdf)
 * [重磅！DeepMind新作Gato：一个模型、一套权重通吃600+视觉文本和决策任务！](https://blog.csdn.net/amusi1994/article/details/124791731)
 * [超越GPT-3，DeepMind推出新宠Gato，却被质疑“换汤不换药”？](https://blog.csdn.net/csdnnews/article/details/124804920)
 * [如何评价 DeepMind 新发布的通用人工智能 Gato？](https://www.zhihu.com/question/532624382/answer/2485443378)
-
-
+* [Gato炸场！通用人工智能最新突破：一个模型、一套权重通吃600+视觉文本和决策任务，DeepMind两年研究一朝公开](https://mp.weixin.qq.com/s/PHCHl44CjFt4XFBBQasZpw)
 

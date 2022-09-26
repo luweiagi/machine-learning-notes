@@ -26,6 +26,8 @@
 
 下载最新版或指定版的anaconda：
 
+[清华大学开源软件镜像站](https://mirrors.tuna.tsinghua.edu.cn/anaconda/archive/)
+
 ```shell
 wget https://mirrors.tuna.tsinghua.edu.cn/anaconda/archive/Anaconda3-2021.05-Linux-x86_64.sh
 ```
@@ -39,7 +41,7 @@ sh Anaconda3-2021.05-Linux-x86_64.sh
 激活conda
 
 ```bash
-source activate # 进入conda环境 出现(base)则说明安装成功
+source ~/.bashrc或者. ~/.bashrc # 初始化conda环境 出现(base)则说明安装成功
 # 后续就可使用下面的命令进入base或退出base
 conda activate # 进入conda环境 出现(base)
 conda deactivate # 退出conda环境
@@ -111,6 +113,8 @@ conda info
 conda create -n tf2 python=3.8
 ```
 
+注意：win7最高支持python3.8版本，3.9版本以上win7不支持。
+
 ## 删除环境
 
 ```shell
@@ -134,6 +138,8 @@ conda remove -n rcnn --all
 
 
 # 安装tensorflow
+
+tensorflow在2.0之前的GPU版本和CPU版本是分开的，tensorflow在2.0后的版本不用区分GPU和CPU版本。
 
 ## 安装tensorflow2.5-gpu
 
@@ -334,6 +340,14 @@ cd ~
 rm -rf cuda
 ```
 
+Linux到此安装结束。
+
+对于Win系统：
+
+* 把`\cuda\bin\cudnn64_7.dll`复制到`C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v9.0\bin`目录下。
+* 把`\cuda\include\cudnn.h`复制到`C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v9.0\include`目录下。
+* 把`\cuda\lib\x64\cudnn.lib`复制到`C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v9.0\lib\x64`目录下。
+
 ### 查看安装的tensorflow能否使用gpu
 
 ```shell
@@ -440,6 +454,103 @@ torch.cuda.is_available()
 如果都ok的话，就安装成功啦！
 
 # 其他操作
+
+## 安装指定源和版本
+
+```shell
+conda install --channel https://conda.anaconda.org/anaconda tensorflow=2.1
+```
+
+## anaconda各种源
+
+对于win系统，在`C:\Users\User\.condarc`中写入；对于linux系统，在xxx中写入。
+
+清华源：
+
+```shell
+show_channel_urls: true
+channels:
+  - http://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/main/win-64
+  - http://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/free/win-64
+  - http://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud/conda-forge/win-64
+  - http://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud/msys2/win-64
+```
+
+另外一种清华源：
+
+```shell
+channel_alias: https://mirrors.tuna.tsinghua.edu.cn/anaconda
+default_channels:
+  - https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/main
+  - https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/free
+  - https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/r
+  - https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/pro
+  - https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/msys2
+custom_channels:
+  conda-forge: https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud
+  msys2: https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud
+  bioconda: https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud
+  menpo: https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud
+  pytorch: https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud
+  simpleitk: https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud
+ssl_verify: true
+```
+
+
+
+
+
+
+
+## ananconda不同机器离线移植
+
+本节基于windows系统，场景是将A机器上的Anaconda移植到B机器上，因为A机器上的Anaconda安装了很多包，要一个一个包在B机器上安装简直是不太可能的。
+
+### Anaconda打包压缩与文件替换
+
+（1）将`C:\Users\xxx`下的`Anaconda`文件夹打包压缩，并复制解压到B电脑的`C:\Users\yourname`路径下。
+
+（2）将`C:\Users\xxx\Anaconda`文件夹和`C:\Users\xxx\Anaconda\envs\tf1.4`文件夹中的`conda-meta`文件夹和`qt.conf`文件复制到linux系统里，其内容分别如下：
+
+`conda-meta`文件夹：
+
+![conda-meta](pic/conda-meta.png)
+
+`conda-meta`文件夹中的json文件：
+
+![conda-meta-json](pic/conda-meta-json.png)
+
+`qt.conf`文件：
+
+![qt-conf](pic/qt-conf.png)
+
+可以看出，上述文件里均含有A电脑上的用户名，要想复制到B电脑上还能用，就需要把里面的A电脑用户名替换为B电脑上的用户名，方法如下所示：
+
+在Linux系统中，在装有两个`conda-meta`文件夹和`qt.conf`文件的根目录下，打开终端，输入：
+
+```shell
+find ./ -name "*.json" | xargs sed -i "s/luwei/yourname/g"
+find ./ -name "*.conf" | xargs sed -i "s/luwei/yourname/g"
+```
+
+如果提示出错，可试试下面的命令：
+
+```shell
+find ./ -name "*.json" | xargs sed -i "" "s/luwei/yourname/g"
+find ./ -name "*.conf" | xargs sed -i "" "s/luwei/yourname/g"
+```
+
+然后用这两份`conda-meta`文件夹和`qt.conf`文件来替换B电脑中的对应文件夹和文件。
+
+### 添加环境变量
+
+在B电脑的环境变量的系统变量的`Path`中，添加：
+
+```shell
+C:\Users\yourname\Anaconda3
+C:\Users\yourname\Anaconda3\Scripts
+C:\Users\yourname\Anaconda3\Library\bin
+```
 
 ## 手动复制其他用户的anaconda
 

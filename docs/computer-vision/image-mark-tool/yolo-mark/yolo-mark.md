@@ -1,9 +1,9 @@
-# yolo_mark打标
+# yolo_mark打标工具
 
-* [返回上层目录](../yolo.md)
+* [返回上层目录](../image-mark-tool.md)
 * [yolo_mark介绍](#yolo_mark介绍)
 * [源码编译](#源码编译)
-* [使用前准备](#使用前准备)
+* [打标配置与打标方法](#打标配置与打标方法)
 * [视频文件分割](#视频文件分割)
 * [遇到的问题](#遇到的问题)
   * [找不到opencv_worldxxx.dll](#找不到opencv_worldxxx.dll)
@@ -20,7 +20,7 @@ yolo_mark适用于图像检测任务的数据集制作，它是yolo2的团队开
 
 # 源码编译
 
-在windows或linux下都可编译，这里以windouws为例。
+在windows或linux下都可编译，这里以windows为例。
 
 下载源码[https://github.com/AlexeyAB/Yolo_mark](https://github.com/AlexeyAB/Yolo_mark)，具体编译方法参考里面的ReadMe。下面仅简单说明下。
 
@@ -29,13 +29,20 @@ yolo_mark适用于图像检测任务的数据集制作，它是yolo2的团队开
 - (right click on project) -> properties -> C/C++ -> General -> Additional Include Directories: `C:\opencv_3.0\opencv\build\include;`
 - (right click on project) -> properties -> Linker -> General -> Additional Library Directories: `C:\opencv_3.0\opencv\build\x64\vc14\lib;`
 
-# 使用前准备
+# 打标配置与打标方法
 
 （1）删除`x64/Release/data/img`里的原有图片
 
 （2）将你自己的图片放入`x64/Release/data/img`
 
-（3）更改 `x64/Release/data/obj.data`文件里的classes数目，多少个类别就改为多少。此文件包含了需要标记的物体有几类，训练集和验证集对于的txt文件路径，物体名字，backup是训练生成的权重文件路径。标记只需要修改第一行后面的数字，后面的数字表示标记的物体有几类。 例子：
+（3）将类别名填入`x64/Release/data/obj.names`，每行一个，要和下一步的classes数目一致。
+
+```
+air
+bird
+```
+
+（4）更改 `x64/Release/data/obj.data`文件里的classes数目，实际有多少个类别就改为多少，要和上一步的`x64/Release/data/obj.names`里写的类别数目一样。此文件包含了需要标记的物体有几类，训练集和验证集对应的txt文件路径，物体名字，backup是训练生成的权重文件路径。标记只需要修改第一行后面的数字，后面的数字表示标记的物体有几类。 例子：
 
 ```
 classes= 2
@@ -43,13 +50,6 @@ train  = data/train.txt
 valid  = data/train.txt
 names = data/obj.names
 backup = backup/
-```
-
-（4）将类别名填入`x64/Release/data/obj.names`，每行一个，要和classes数目一致。
-
-```
-air
-bird
 ```
 
 （5）双击`x64\Release\yolo_mark.cmd`运行打标工具开始打标。
@@ -60,7 +60,11 @@ bird
 yolo_mark.exe data/img data/train.txt data/obj.names
 ```
 
-标注完成后，会在`x64\Release\data\img`文件夹下面生成与图片相对应的同名txt文件，里面为训练需要标注的数据。例子：
+标注完成后，会在`x64\Release\data\img`文件夹下面生成与图片相对应的同名txt文件，
+
+![img_data_txt](pic/img_data_txt.png)
+
+同名txt文件里面为训练需要标注的数据。例子：
 
 `0 0.425781 0.645833 0.235938 0.436111`
 
@@ -74,7 +78,15 @@ yolo_mark.exe data/img data/train.txt data/obj.names
 
 `x, y`是目标的中心坐标，`width, height`是目标的宽和高。这些坐标是通过归一化的，其中`x, width`是使用原图的`width`进行归一化；而`y, height`是使用原图的`height`进行归一化。
 
-同时，会在生成`x64\Release\data\train.txt`文件，里面包含了已经完成标记的图片的路径。
+同时，会在生成`x64\Release\data\train.txt`文件，里面包含了已经完成标记的图片的路径，比如：
+
+```shell
+data/img/test_00000000.jpg
+data/img/test_00000002.jpg
+data/img/test_00000004.jpg
+data/img/test_00000006.jpg
+data/img/test_00000008.jpg
+```
 
 （6）具体打标方法
 

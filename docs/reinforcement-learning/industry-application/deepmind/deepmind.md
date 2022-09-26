@@ -5,4 +5,3 @@
 - [AlphaStar: Grandmaster level in StarCraft II using multi-agent reinforcement learning Nature2019](alphastar/Grandmaster-level-in-StarCraft-II-using-multi-agent-reinforcement-learning.md)
 
 
-

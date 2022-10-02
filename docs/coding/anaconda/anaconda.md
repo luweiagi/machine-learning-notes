@@ -19,6 +19,7 @@
   * [手动复制其他用户的anaconda](#手动复制其他用户的anaconda)
   * [删除anaconda里的pkgs文件下的包](#删除anaconda里的pkgs文件下的包)
   * [ubuntu中手动安装nvidia显卡驱动](#ubuntu中手动安装nvidia显卡驱动)
+  * [Nvidia30系列不再支持CUDA10.x](#Nvidia30系列不再支持CUDA10.x)
 
 
 
@@ -825,6 +826,16 @@ sudo reboot
 ```
 
 然后`reboot`重启，恭喜成功~
+
+## Nvidia30系列不再支持CUDA10.x
+
+* Windows上
+
+  Nvidia30xx系列不兼容CUDA10.x，而TendorFlow1.x又必须要CUDA10.x，在CUDA11.x上不能跑，所以Nvidia30xx系列就必须要用TensorFlow2.x了。
+
+* Linux上
+
+  Linux上，TensorFlow有不同CUDA版本的。
 
 # 参考资料
 

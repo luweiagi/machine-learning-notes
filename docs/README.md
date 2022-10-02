@@ -134,6 +134,7 @@
     * [TensorFlow2.0基础](coding/tensorflow/tensorflow2.0/basis/basis.md)
     * [TensorFlow2.0安装](coding/tensorflow/tensorflow2.0/install/install.md)
     * [keras](coding/tensorflow/tensorflow2.0/keras/keras.md)
+  * [Tensorflow分布式架构](coding/tensorflow/tensorflow-distributed-architecture/tensorflow-distributed-architecture.md)
   * [TensorFlow Serving](coding/tensorflow/tf_serving/tf_serving.md)
   * [工具](coding/tensorflow/tools/tools.md)
     * [Tensorflow中使用GPU](coding/tensorflow/tools/gpu/gpu.md)

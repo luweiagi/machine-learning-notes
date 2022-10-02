@@ -1,6 +1,6 @@
 # Tensorflow分布式架构
 
-* [返回上层目录](../tensorflow1.0.md)
+* [返回上层目录](../tensorflow.md)
 * [Ring-All-reduce算法](#Ring-All-reduce算法)
   * [同步更新方式的网络瓶颈定量分析](#同步更新方式的网络瓶颈定量分析)
   * [Ring-All-reduce框架下同步更新算法](#Ring-All-reduce框架下同步更新算法)

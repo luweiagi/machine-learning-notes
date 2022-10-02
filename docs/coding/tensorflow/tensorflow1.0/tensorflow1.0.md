@@ -4,7 +4,8 @@
 * [TensorFlow基础](basis/basis.md)
 * [TensorFlow基础概念解析](basic-concept-analysis/basic-concept-analysis.md)
 * [TensorFlow机器学习基础](machine-learning-foundation/machine-learning-foundation.md)
-* [Tensorflow分布式架构](distributed-architecture/distributed-architecture.md)
+
+
 
 
 

@@ -5,12 +5,10 @@
 * [有用的工具](personal/tools.md)
 
 # 目录
-
 [机器学习算法地图](http://www.tensorinfinity.com/paper_18.html)
 ![machine-learning-map](pic/machine-learning-map.png)
 
 # [前言](perface/perface.md)
-
 - [个人前言](perface/personal-perface/personal-perface.md)
 - [机器学习前言](perface/machine-learning-perface/machine-learning-perface.md)
 - [机器学习的学习路径](perface/machine-learning-learning-path/machine-learning-learning-path.md)
@@ -129,7 +127,6 @@
     * [TensorFlow基础](coding/tensorflow/tensorflow1.0/basis/basis.md)
     * [TensorFlow基础概念解析](coding/tensorflow/tensorflow1.0/basic-concept-analysis/basic-concept-analysis.md)
     * [TensorFlow机器学习基础](coding/tensorflow/tensorflow1.0/machine-learning-foundation/machine-learning-foundation.md)
-    * [Tensorflow分布式架构](coding/tensorflow/tensorflow1.0/distributed-architecture/distributed-architecture.md)
   * [TensorFlow2.0](coding/tensorflow/tensorflow2.0/tensorflow2.0.md)
     * [TensorFlow2.0基础](coding/tensorflow/tensorflow2.0/basis/basis.md)
     * [TensorFlow2.0安装](coding/tensorflow/tensorflow2.0/install/install.md)
@@ -315,7 +312,6 @@
   * [YOLO原理](computer-vision/yolo/yolo-principle/yolo-principle.md)
   * [DarkNet深度学习框架](computer-vision/yolo/darknet/darknet.md)
   * [YOLO-v5]()
-
 * [图像标注工具](computer-vision/image-mark-tool/image-mark-tool.md)
   * [YOLO_Mark](computer-vision/image-mark-tool/yolo-mark/yolo-mark.md)
   * [Labelme](computer-vision/image-mark-tool/labelme/labelme.md)
@@ -339,7 +335,6 @@
 # [反绎学习](abductive-learning/abductive-learning.md)
 
 # [自动驾驶](autopilot/autopilot.md)
-
 * 感知
 * [决策](autopilot/decision/decision.md)
 * 规划
@@ -351,10 +346,8 @@
 # 多模态机器学习
 
 # [通用人工智能](artificial-general-intelligence/artificial-general-intelligence.md)
-
 * [业界应用](artificial-general-intelligence/industry-application/industry-application.md)
   * [DeepMind](artificial-general-intelligence/industry-application/deepmind/deepmind.md)
     * [PathNet: Evolution Channels Gradient Descent in Super Neural Networks  arXiv2017](artificial-general-intelligence/industry-application/deepmind/pathnet/PathNet：Evolution-Channels-Gradient-Descent-in-Super-Neural-Networks.md)
     * [Reward is enough AI2021](artificial-general-intelligence/industry-application/deepmind/reward-is-enough/Reward-is-enough.md)
     * [Gato: A Generalist Agent arXiv2022](artificial-general-intelligence/industry-application/deepmind/gato/A-Generalist-Agent.md)
-

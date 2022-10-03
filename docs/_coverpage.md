@@ -8,9 +8,7 @@
 >
 > ![weixin_gongzhonghao](pic/weixin_gongzhonghao.png)
 
-
-
-
+邮箱：luweiagi@163.com
 
 [GITHUB源码](https://github.com/luweiagi/machine-learning-notes)
 [开始阅读](README.md)

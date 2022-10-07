@@ -58,6 +58,8 @@ C语言的编译过程一般认为分为4个步骤：预处理、编译、汇编
 
 即：代码`main.c`(文本) => 预处理`main.i`(文本) => 编译`main.s`（汇编）=> 链接`main.o`(二进制机器码) => 可执行程序`main.exe`或`main`。
 
+![compilation-process](pic/compilation-process.png)
+
 ```shell
 gcc -E main.c -o main.i  # 预处理
 gcc -S main.i -o main.s  # 编译

@@ -1,6 +1,6 @@
 # python
 
-* [返回上层目录](../coding-language.md)
+* [返回上层目录](../programing-language.md)
 * [python简介](introduction/introduction.md)
 * [python语法](grammar/grammar.md)
 * [python知识点](tips/tips.md)

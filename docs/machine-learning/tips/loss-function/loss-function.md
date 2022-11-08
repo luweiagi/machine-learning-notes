@@ -56,6 +56,20 @@ def cmp_cross_entropy_loss(logits, labels, pos_num):
     return cross_entropy_loss, cross_entropy_loss_
 ```
 
+### tf.nn.sparse_softmax_cross_entropy_with_logits函数
+
+[tf.nn.sparse_softmax_cross_entropy_with_logits 函数简介](https://blog.csdn.net/wdh315172/article/details/106140608/)
+
+测试交叉熵损失：
+
+```python
+import math
+logit = [3, -3, -3]
+softmax = math.exp(logit[0]) / sum([math.exp(logit[i]) for i in range(3)])
+cross_entropy = - math.log(softmax)
+print(cross_entropy)
+```
+
 
 
 ## Logistic loss

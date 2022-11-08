@@ -2,6 +2,7 @@
 
 * [返回上层目录](../README.md)
 * [强化学习](reinforcement-learning/reinforcement-learning.md)
+* [仿真环境](simulation-platform/simulation-platform.md)
 * [MCTS蒙特卡洛树搜索](monte-carlo-tree-search/monte-carlo-tree-search.md)
 * [多智能体强化学习](multi-agent-reinforcement-learning/multi-agent-reinforcement-learning.md)
 * [业界应用](industry-application/industry-application.md)
@@ -10,13 +11,15 @@
 
 ===
 
+# 视频课程
+
 [【莫烦Python】强化学习 Reinforcement Learning](https://www.bilibili.com/video/BV13W411Y75P?p=5)
 
 短小精悍
 
 [李宏毅】2020 最新课程 (完整版) 强化学习 ](https://www.bilibili.com/video/BV1UE411G78S?p=2)
 
-看这个，讲的很好很清楚
+看这个，讲的很好很清楚，比如其中强化学习[策略梯度](https://www.bilibili.com/video/BV1UE411G78S/?p=2&vd_source=147fb813418c7610c21b6a5618c85cb7)的部分。
 
 [David Silver 增强学习——Lecture 6 值函数逼近](https://zhuanlan.zhihu.com/p/54189036)
 
@@ -38,7 +41,7 @@ B站上deepmind的大佬David alived的强化学习的视频，点击率甚低�
 
 第二个是多智能体强化学习领域的：UCL的汪军老师新开的课程
 
-
+# 仿真环境
 
 [有哪些常用的多智能体强化学习仿真环境？](https://www.zhihu.com/question/332942236/answer/1295507780)
 
@@ -46,19 +49,11 @@ B站上deepmind的大佬David alived的强化学习的视频，点击率甚低�
 
 这个是UCL汪军老师团队Mean Field 论文里用到的环境，主要研究的是当环境由**大量智能体**组成的时候的竞争和协作问题。也可以看成是复杂的Grid World环境。Render如下：
 
-
-
-
-
-不重要：
-
-[【RL系列】强化学习基础知识汇总](http://blog.sciencenet.cn/blog-3189881-1129931.html)
+# 强化学习与控制
 
 [强化学习无人机交互环境汇总](https://zhuanlan.zhihu.com/p/157867488)
 
 作者在无人机姿态控制上使用PPO训练取得了比PID更好的效果，并成功从虚拟环境迁移到了现实世界。
-
-
 
 [【重磅推荐: 强化学习课程】清华大学李升波老师《强化学习与控制》](https://mp.weixin.qq.com/s/bDra-n8stqJ3gcS9zr3IVA)
 
@@ -88,7 +83,19 @@ B站上deepmind的大佬David alived的强化学习的视频，点击率甚低�
 
 
 
+# 专题
 
+## Transformer+RL
+
+[Transformer + RL专题 | 究竟是强化学习魔高一尺，还是Transformer道高一丈 （第1期）](https://mp.weixin.qq.com/s?__biz=Mzk0MTI1MzI0OQ==&mid=2247490100&idx=1&sn=56d484dd1cb6062b2783554b88816688&chksm=c2d46ddaf5a3e4cc96329fcbd38876a5936344df6b113e8b7f8bbe8de391a51261e76c6faf46&cur_album_id=2628430986300801025&scene=189#wechat_redirect)
+
+[Transformer + RL专题｜强化学习中时序建模的千层套路（第2期）](https://mp.weixin.qq.com/s?__biz=Mzk0MTI1MzI0OQ==&mid=2247490498&idx=1&sn=4b3e2174d25e530b9a388aba3331295c&chksm=c2d46c2cf5a3e53a3154792c03f4b8be1bc20700ae5a48b70e042272da46e95dcc61a425f079&cur_album_id=2628430986300801025&scene=189#wechat_redirect)
+
+[Transformer + RL 专题｜大力出奇迹，看 Transformer 如何征服超参数搜索中的决策问题 （第3期）](https://mp.weixin.qq.com/s/S0PgD3SEMbrbA4OE--ZCQg)
+
+
+
+# 论坛
 
 中科院自动化所2020智能决策论坛报告ppt：
 论坛报告回放：https://space.bilibili.com/551888585/channel/detail?cid=167587
@@ -96,3 +103,17 @@ B站上deepmind的大佬David alived的强化学习的视频，点击率甚低�
 【章宗长】链接：https://pan.baidu.com/s/1hg-YPfcjCaMnUIogZXMmTQ 提取码：dhdf 
 【余超】链接：https://pan.baidu.com/s/1ZnU7oe8xB6YJgyVC1frY6Q 提取码：h42p 
 【温颖】链接：https://pan.baidu.com/s/1AhV2v_JLtiYU3gekH0d4ow 提取码：p2h7
+
+
+
+# 知识点
+
+[强化学习中on-policy 与off-policy有什么区别？](https://www.zhihu.com/question/57159315/answer/1855647973)
+
+[[原创] 强化学习里的 on-policy 和 off-policy 的区别](https://www.codelast.com/%E5%8E%9F%E5%88%9B-%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0%E9%87%8C%E7%9A%84-on-policy-%E5%92%8C-off-policy-%E7%9A%84%E5%8C%BA%E5%88%AB/)
+
+
+
+# 不重要
+
+[【RL系列】强化学习基础知识汇总](http://blog.sciencenet.cn/blog-3189881-1129931.html)

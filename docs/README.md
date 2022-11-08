@@ -101,7 +101,7 @@
 * [编程语言](coding/programing-language/programing-language.md)
   * [C++](coding/programing-language/c++/c++.md)
     * [STL容器](coding/programing-language/c++/stl-container/stl-container.md)
-    * [算法库](coding/programing-language/c++/algorithm-lib/algorithm-lib.md)
+    * [algorithm算法库](coding/programing-language/c++/algorithm-lib/algorithm-lib.md)
     * [知识点](coding/programing-language/c++/tips/tips.md)
       * [string字符串类](coding/programing-language/c++/tips/string/string.md)
       * [编译过程、静态库和动态库](coding/programing-language/c++/tips/compilation-process-and-link-library/compilation-process-and-link-library.md)
@@ -221,10 +221,11 @@
   * [CNN卷积神经网络](deep-learning/convolutional-neural-network/convolutional-neural-network/convolutional-neural-network.md)
   * [TextCNN: Convolutional Neural Networks for Sentence Classification EMNLP2014](deep-learning/convolutional-neural-network/textcnn/Convolutional-Neural-Networks-for-Sentence-Classification.md)
 * [RNN循环神经网络](deep-learning/recurrent-neural-network/recurrent-neural-network.md)
-* [LSTM长短期记忆网络](deep-learning/long-short-term-memory-networks/long-short-term-memory-networks.md)
-  * [LSTM长短期记忆网络](deep-learning/long-short-term-memory-networks/long-short-term-memory-networks/long-short-term-memory-networks.md)
-  * [pix2code: Generating Code from a Graphical User Interface Screenshot EICS2018](deep-learning/long-short-term-memory-networks/pix2code/pix2code-Generating-Code-from-a-Graphical-User-Interface-Screenshot.md)
-* [GRU门控循环单元](deep-learning/gated-recurrent-unit/gated-recurrent-unit.md)
+  * [RNN循环神经网络](deep-learning/recurrent-neural-network/recurrent-neural-network/recurrent-neural-network.md)
+  * [LSTM长短期记忆网络](deep-learning/recurrent-neural-network/long-short-term-memory-networks/long-short-term-memory-networks.md)
+    * [LSTM长短期记忆网络](deep-learning/recurrent-neural-network/long-short-term-memory-networks/long-short-term-memory-networks/long-short-term-memory-networks.md)
+    * [pix2code: Generating Code from a Graphical User Interface Screenshot EICS2018](deep-learning/recurrent-neural-network/long-short-term-memory-networks/pix2code/pix2code-Generating-Code-from-a-Graphical-User-Interface-Screenshot.md)
+  * [GRU门控循环单元](deep-learning/recurrent-neural-network/gated-recurrent-unit/gated-recurrent-unit.md)
 * [GNN图神经网络](deep-learning/graph-neural-networks/graph-neural-networks.md)
   * [GNN图神经网络综述](deep-learning/graph-neural-networks/graph-neural-networks-review/graph-neural-networks-review.md)
   * [GCN图卷积网络](deep-learning/graph-neural-networks/graph-convolutional-networks/graph-convolutional-networks.md)
@@ -233,7 +234,12 @@
     * [GCN图卷积网络本质理解](deep-learning/graph-neural-networks/graph-convolutional-networks/gcn-essential-understand/gcn-essential-understand.md)
     * [GCN图卷积网络全面理解](deep-learning/graph-neural-networks/graph-convolutional-networks/gcn-comprehensive-understand/gcn-comprehensive-understand.md)
     * [Semi-Supervised-Classification-With-Graph-Convolutional-Networks ICLR2017](deep-learning/graph-neural-networks/graph-convolutional-networks/semi-supervised-gcn/Semi-Supervised-Classification-With-Graph-Convolutional-Networks.md)
-* [GAN生成对抗网络](deep-learning/generative-adversarial-nets/generative-adversarial-nets.md)
+* [深度生成模型](deep-learning/deep-generative-models/deep-generative-models.md)
+  * [深度生成模型概述](deep-learning/deep-generative-models/deep-generative-models-introduction/deep-generative-models-introduction.md)
+  * [GAN生成对抗网络](deep-learning/deep-generative-models/generative-adversarial-nets/generative-adversarial-nets.md)
+  * [VAE变微分自动编码器](deep-learning/deep-generative-models/variational-autoencoder/variational-autoencoder.md)
+  * Flow-based Models流模型
+  * [Diffusion Models扩散模型](deep-learning/deep-generative-models/diffusion-models/diffusion-models.md)
 
 # [强化学习](reinforcement-learning/reinforcement-learning.md)
 * [强化学习](reinforcement-learning/reinforcement-learning/reinforcement-learning.md)
@@ -251,6 +257,8 @@
   * [强化学习前景](reinforcement-learning/reinforcement-learning/reinforcement-learning-prospect/reinforcement-learning-prospect.md)
   * [强化学习论文](reinforcement-learning/reinforcement-learning/paper/paper.md)
     * [DDPG: Continuous Control With Deep Reinforcement Learning ICLR2016](reinforcement-learning/reinforcement-learning/paper/ddpg/ddpg.md)
+* [仿真环境](reinforcement-learning/simulation-platform/simulation-platform.md)
+  * [OpenAI: Gym](reinforcement-learning/simulation-platform/openai-gym/openai-gym.md)
 * [MCTS蒙特卡洛树搜索](reinforcement-learning/monte-carlo-tree-search/monte-carlo-tree-search.md)
 * [多智能体强化学习](reinforcement-learning/multi-agent-reinforcement-learning/multi-agent-reinforcement-learning.md)
   * [多智能体强化学习论文](reinforcement-learning/multi-agent-reinforcement-learning/paper/paper.md)
@@ -360,6 +368,8 @@
 * 动力学模型
 
 # 多模态机器学习
+
+
 
 # [通用人工智能](artificial-general-intelligence/artificial-general-intelligence.md)
 * [业界应用](artificial-general-intelligence/industry-application/industry-application.md)

@@ -6,9 +6,7 @@
 * [知识点](tips/tips.md)
 * [CNN卷积神经网络](convolutional-neural-network/convolutional-neural-network.md)
 * [RNN循环神经网络](recurrent-neural-network/recurrent-neural-network.md)
-* [LSTM长短期记忆网络](long-short-term-memory-networks/long-short-term-memory-networks.md)
-* [GRU门控循环单元](gated-recurrent-unit/gated-recurrent-unit.md)
 * [GNN图神经网络](graph-neural-networks/graph-neural-networks.md)
-* [GAN生成对抗网络](generative-adversarial-nets/generative-adversarial-nets.md)
+* [深度生成模型](deep-generative-models/deep-generative-models.md)
 
 

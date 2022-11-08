@@ -1,12 +1,12 @@
 # GAN生成对抗网络
 
-* [返回上层目录](../deep-learning.md)
+* [返回上层目录](../deep-generative-models.md)
 
 
 
 
 
-![gan-paper](C:/Users/luwei/Desktop/generative-adversarial-networks/pic/gan-paper.jpg)
+![gan-paper](pic/gan-paper.jpg)
 
 
 

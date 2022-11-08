@@ -462,6 +462,20 @@ torch.cuda.is_available()
 conda install --channel https://conda.anaconda.org/anaconda tensorflow=2.1
 ```
 
+更多参考见这里：[Python之pip命令指定安装源和版本](https://blog.csdn.net/lovedingd/article/details/106721998)，简单摘录几个：
+
+指定源：
+
+```shell
+pip install Flask -i http://pypi.douban.com/simple
+```
+
+指定版本：
+
+```shell
+pip install robotframework==2.8.7
+```
+
 ## anaconda各种源
 
 对于win系统，在`C:\Users\User\.condarc`中写入；对于linux系统，在xxx中写入。

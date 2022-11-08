@@ -1,4 +1,4 @@
-# 算法库algorithm
+# algorithm算法库
 
 * [返回上层目录](../c++.md)
 * [sort排序](#sort排序)

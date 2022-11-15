@@ -30,7 +30,7 @@
 在模型构建的代码的末尾打上断点，如下所示：
 
 ```python
-class PPO(object):
+class DeepNet(object):
     def __init__(self):
         self.sess = tf.Session()
         # ......

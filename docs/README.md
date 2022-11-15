@@ -145,7 +145,8 @@
     * [Tensorflow分布式架构](coding/machine-learning-framework/tensorflow/tensorflow-distributed-architecture/tensorflow-distributed-architecture.md)
     * [TensorFlow Serving](coding/machine-learning-framework/tensorflow/tf_serving/tf_serving.md)
     * [工具](coding/machine-learning-framework/tensorflow/tools/tools.md)
-      * [Tensorflow中使用GPU](coding/machine-learning-framework/tensorflow/tools/gpu/gpu.md)
+      * [TensorFlow中使用GPU](coding/machine-learning-framework/tensorflow/tools/gpu/gpu.md)
+      * [TensorFlow中ckpt转pb文件（模型持久化）](coding/machine-learning-framework/tensorflow/tools/ckpt-to-pb/ckpt-to-pb.md)
   * [PyTorch](coding/machine-learning-framework/pytorch/pytorch.md)
     * [PyTorch基础](coding/machine-learning-framework/pytorch/basis/basis.md)
 
@@ -257,8 +258,10 @@
   * [强化学习前景](reinforcement-learning/reinforcement-learning/reinforcement-learning-prospect/reinforcement-learning-prospect.md)
   * [强化学习论文](reinforcement-learning/reinforcement-learning/paper/paper.md)
     * [DDPG: Continuous Control With Deep Reinforcement Learning ICLR2016](reinforcement-learning/reinforcement-learning/paper/ddpg/ddpg.md)
+    * [PPO: Proximal Policy Optimization OpenAI2017]()
 * [仿真环境](reinforcement-learning/simulation-platform/simulation-platform.md)
   * [OpenAI: Gym](reinforcement-learning/simulation-platform/openai-gym/openai-gym.md)
+  * Unity3D: ml-agents
 * [MCTS蒙特卡洛树搜索](reinforcement-learning/monte-carlo-tree-search/monte-carlo-tree-search.md)
 * [多智能体强化学习](reinforcement-learning/multi-agent-reinforcement-learning/multi-agent-reinforcement-learning.md)
   * [多智能体强化学习论文](reinforcement-learning/multi-agent-reinforcement-learning/paper/paper.md)
@@ -273,6 +276,8 @@
     * AlphaFold
     * AlphaCode
     * [AlphaTensor: Discovering faster matrix multiplication algorithms with reinforcement learning Nature2022](reinforcement-learning/industry-application/deepmind/alpha-tensor/Discovering-faster-matrix-multiplication-algorithms-with-reinforcement-learning.md)
+    * Agent57 2020
+  * OpenAI
 
 # [自然语言处理](natural-language-processing/natural-language-processing.md)
 * [自然语言处理概论](natural-language-processing/natural-language-processing-introduction/natural-language-processing-introduction.md)
@@ -352,7 +357,8 @@
   * 剪枝
   * 量化
   * 蒸馏
-* 模型部署
+* [模型部署](model-deployment\model-deployment\model-deployment.md)
+  * [TensorRT](model-deployment\model-deployment\tensor-rt\tensor-rt.md)
 
 # [异常检测](anomaly-detection/anomaly-detection.md)
 

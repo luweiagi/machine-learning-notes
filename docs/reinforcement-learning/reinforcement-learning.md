@@ -11,6 +11,16 @@
 
 ===
 
+地图：
+
+[全网首发|| 最全深度强化学习资料(永久更新)](https://mp.weixin.qq.com/s?__biz=MzU0MTgxNDkxOA%3D%3D&idx=1&mid=2247484575&scene=21&sn=42fe3fc7d5978ca9da467fde38a13245#wechat_redirect)
+
+[NeuronDance/DeepRL](https://github.com/NeuronDance/DeepRL)
+
+[NeuronDance/DeepRL/A-Guide-Resource-For-DeepRL/](https://github.com/NeuronDance/DeepRL/tree/master/A-Guide-Resource-For-DeepRL)
+
+
+
 # 视频课程
 
 [【莫烦Python】强化学习 Reinforcement Learning](https://www.bilibili.com/video/BV13W411Y75P?p=5)
@@ -21,6 +31,8 @@
 
 看这个，讲的很好很清楚，比如其中强化学习[策略梯度](https://www.bilibili.com/video/BV1UE411G78S/?p=2&vd_source=147fb813418c7610c21b6a5618c85cb7)的部分。
 
+[李宏毅深度强化学习(国语)课程(2018) ppo](https://www.bilibili.com/video/BV1MW411w79n?p=2&vd_source=147fb813418c7610c21b6a5618c85cb7)
+
 [David Silver 增强学习——Lecture 6 值函数逼近](https://zhuanlan.zhihu.com/p/54189036)
 
 有空看这个，那个陈达贵的视频ppt其实就是这个。
@@ -30,6 +42,8 @@ B站上deepmind的大佬David alived的强化学习的视频，点击率甚低�
 [CS294]
 
 初学者非常不推荐看CS294，因为真的很难，可以看David Silver的课程
+
+[CS234]是什么？
 
 [白话强化学习](https://www.zhihu.com/column/c_1215667894253830144)
 
@@ -83,6 +97,20 @@ B站上deepmind的大佬David alived的强化学习的视频，点击率甚低�
 
 
 
+[强化学习和最优控制的《十个关键点》81页PPT汇总](https://mp.weixin.qq.com/s?__biz=MzU0MTgxNDkxOA%3D%3D&chksm=fb257f19cc52f60f9c5a70260fd20cc0b7974bcd300041eb7a75e83eeaaba416d2d965679ff2&idx=1&mid=2247485168&scene=21&sn=59039fc39903a4ee721712b1a2c53b77#wechat_redirect)
+
+
+
+# 多智能体强化学习
+
+[【DeepMind】多智能体学习231页PPT总结](https://mp.weixin.qq.com/s?__biz=MzU0MTgxNDkxOA%3D%3D&chksm=fb25711ccc52f80aa10666bec175cafb2a349673f39a558811b8945392df45808a053d0f00c4&idx=1&mid=2247485685&scene=21&sn=54dcbcaf022795d05d1f8a7bf6a17c12#wechat_redirect)
+
+
+
+[最近在写多智能体强化学习工作绪论，请问除了 MADDPG 以及 MAPPO 还有哪些算法？](https://www.zhihu.com/question/517905386/answer/2359101768)
+
+
+
 # 专题
 
 ## Transformer+RL
@@ -114,6 +142,44 @@ B站上deepmind的大佬David alived的强化学习的视频，点击率甚低�
 
 
 
+# 框架，库
+
+[[tensorlayer](https://github.com/tensorlayer)/**TensorLayer**](https://github.com/tensorlayer/TensorLayer/blob/cb4eb896dd063e650ef22533ed6fa6056a71cad5/examples/reinforcement_learning/README.md)
+
+[Tensorflow2.0实现29种深度强化学习算法大汇总](https://mp.weixin.qq.com/s?__biz=MzU0MTgxNDkxOA%3D%3D&chksm=fb25706bcc52f97dd9a496508d570dde830a1d9181bf232136993eebcad3ade1936adec6d94a&idx=1&mid=2247485826&scene=21&sn=7faa04e1a7b922d3d42059246dcadc8a#wechat_redirect)
+
+一定要看，非常好
+
+欢迎Star：https://github.com/StepNeverStop/RLs
+
+本文作者使用gym,Unity3D ml-agents等环境，利用tensorflow2.0版本对29种算法进行了实现的深度强化学习训练框架，该框架具有如下特性：
+
+- 实现单智能体强化学习、分层强化学习、多智能体强化学习算法等约29种
+-  适配gym、MuJoCo、PyBullet、Unity ML-Agents等多种训练环境
+
+[mengwanglalala/**RL-algorithms**](https://github.com/mengwanglalala/RL-algorithms)
+
+RL-algorithms，更新一些基础的RL代码，附带了各个算法的介绍
+
+[Awesome Reinforcement Learning Library](https://github.com/wwxFromTju/awesome-reinforcement-learning-lib)
+
+集合了各种强化学习库
+
+
+
+**tensorlayer**
+
+[对话TensorLayer项目发起者董豪](https://zhuanlan.zhihu.com/p/72304092)
+
+[TensorLayer进阶资源](https://www.jianshu.com/p/d206fb7a190d)
+
 # 不重要
 
 [【RL系列】强化学习基础知识汇总](http://blog.sciencenet.cn/blog-3189881-1129931.html)
+
+
+
+
+
+
+

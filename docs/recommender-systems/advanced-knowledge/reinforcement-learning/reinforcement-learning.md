@@ -43,7 +43,7 @@
 
 
 
-
+[【论文复现】Top-K Off-Policy Correction for a REINFORCE RS论文复现](https://mp.weixin.qq.com/s?__biz=MzU0MTgxNDkxOA%3D%3D&chksm=fb256899cc52e18fb17d9adb2898d58360dce1e99b5e9b809bd2ca417d7277948e24a8f8ef52&idx=1&mid=2247487856&scene=21&sn=9ece274646716907367ad1f746c993a4#wechat_redirect)
 
 
 

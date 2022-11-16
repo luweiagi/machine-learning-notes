@@ -357,8 +357,8 @@
   * 剪枝
   * 量化
   * 蒸馏
-* [模型部署](model-deployment\model-deployment\model-deployment.md)
-  * [TensorRT](model-deployment\model-deployment\tensor-rt\tensor-rt.md)
+* [模型部署](model-deployment/model-deployment/model-deployment.md)
+  * [TensorRT](model-deployment/model-deployment/tensor-rt/tensor-rt.md)
 
 # [异常检测](anomaly-detection/anomaly-detection.md)
 

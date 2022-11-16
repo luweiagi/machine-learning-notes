@@ -258,7 +258,7 @@
   * [强化学习前景](reinforcement-learning/reinforcement-learning/reinforcement-learning-prospect/reinforcement-learning-prospect.md)
   * [强化学习论文](reinforcement-learning/reinforcement-learning/paper/paper.md)
     * [DDPG: Continuous Control With Deep Reinforcement Learning ICLR2016](reinforcement-learning/reinforcement-learning/paper/ddpg/ddpg.md)
-    * [PPO: Proximal Policy Optimization OpenAI2017]()
+    * [PPO: Proximal Policy Optimization arXiv2017 by OpenAI]()
 * [仿真环境](reinforcement-learning/simulation-platform/simulation-platform.md)
   * [OpenAI: Gym](reinforcement-learning/simulation-platform/openai-gym/openai-gym.md)
   * Unity3D: ml-agents
@@ -375,7 +375,11 @@
 
 # 多模态机器学习
 
-
+* 业界应用
+  * OpenAI
+    * DALL·E
+    * CLIP
+    * DALL·E2
 
 # [通用人工智能](artificial-general-intelligence/artificial-general-intelligence.md)
 * [业界应用](artificial-general-intelligence/industry-application/industry-application.md)

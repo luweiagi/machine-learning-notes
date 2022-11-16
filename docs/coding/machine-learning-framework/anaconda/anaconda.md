@@ -6,7 +6,7 @@
   * [新建环境](#新建环境)
   * [删除环境](#删除环境)
   * [环境重命名](#环境重命名)
-* [安装tensorflow](#安装tensorflow)
+* [Linux安装TensorFlow](#Linux安装TensorFlow)
   * [安装tensorflow2.5-gpu](#安装tensorflow2.5-gpu)
     * [安装tensorflow-gpu](#安装tensorflow-gpu)
     * [根据tf-gpu版本找对应cuda和cudnn版本](#根据tf-gpu版本找对应cuda和cudnn版本)
@@ -138,19 +138,19 @@ conda remove -n rcnn --all
 
 
 
-# 安装tensorflow
+# Linux安装TensorFlow
 
-tensorflow在2.0之前的GPU版本和CPU版本是分开的，tensorflow在2.0后的版本不用区分GPU和CPU版本。
+TensorFlow在2.0之前的GPU版本和CPU版本是分开的，TensorFlow在2.0后的版本不用区分GPU和CPU版本。
 
 ## 安装tensorflow2.5-gpu
 
 本节默认安装的是Tensorflow2.5-GPU版本。其他版本安装方法也可以参考。
 
-先下载安装anaconda。
+先下载安装Anaconda。
 
 ### 安装tensorflow-gpu
 
- pip会自动给你安装最新的Tensorflow-gpu版本
+ pip会自动给你安装最新的tensorflow-gpu版本
 
 ```shell
 pip install -i https://pypi.tuna.tsinghua.edu.cn/simple tensorflow-gpu
@@ -454,7 +454,231 @@ torch.cuda.is_available()
 
 如果都ok的话，就安装成功啦！
 
+# Windows安装TensorFlow
+
+## 安装CUDA
+
+参考：[超详细GPU部署 （pytorch+tensorflow）](https://blog.csdn.net/m0_51246196/article/details/110587053)
+
+**（1）看Nvidia控制面板里的驱动，比如是11.2.66，那就选择比它低但是最好最接近它的版本**
+
+cuda版本是向下兼容的！！并不一定要一一对应，比如，我电脑上看到的是CUDA 11.0，那可以下载驱动可以是安装CUDA10，CUDA9等以下版本，而CUDA11以上版本就不支持了。
+
+![nvidia-control-pad](pic/nvidia-control-pad.png)
+
+点进去
+
+![nvidia-control-pad-2](pic/nvidia-control-pad-2.png)
+
+发现最高支持11.2.66，那就选择比它低但是最好最接近它的CUDA版本。
+
+还有一种方式：win+R打开cmd，输入nvidia-smi，即可看到支持的cuda版本是11.2
+
+![cuda-version-choose](pic/cuda-version-choose.png)
+
+并且还能看到GPU驱动的版本号。根据这个链接查看所选的CUDA版本能装的最低GPU驱动版本：https://docs.nvidia.com/cuda/cuda-toolkit-release-notes/index.html，具体如下图。由上图可知本机的GPU驱动版本号是460.89，所选的CUDA11.2要求的最低GPU版本号是460.82，所以CUDA11.2能在本机的GPU上运行。
+
+![cuda-version-to-gpu-driver](pic/cuda-version-to-gpu-driver.png)
+
+
+
+
+
+
+
+**（2）登录[Cuda下载](https://developer.nvidia.com/cuda-toolkit-archive)，选择11.2.0下载**
+
+![cuda-download-windows](pic/cuda-download-windows.png)
+
+选择11.2.0，点进去
+
+![cuda-download-windows-2](pic/cuda-download-windows-2.png)
+
+等候下载完成。
+
+**（3）点击下载的安装包开始安装**
+
+![cuda-install](pic/cuda-install.png)
+
+选择自定义安装
+
+![cuda-install-2](pic/cuda-install-2.png)
+
+下面的框可以都选上。
+
+![cuda-install-3](pic/cuda-install-3.png)
+
+把Samples改成相同的目录下（提前先手动建好文件夹）。
+
+![cuda-install-4](pic/cuda-install-4.png)
+
+安装成功。
+
+打开环境变量可以看到cuda位置已经被配置到了环境变量里了。
+
+![cuda-install-5](pic/cuda-install-5.png)
+
+**重启电脑**后输入`nvcc -V`后显示类似信息说明安装成功。
+
+![cuda-install-6](pic/cuda-install-6.png)
+
+## 安装cuDNN
+
+如果要安装TensorFlow或者Pytorch，可打开下面的网址查看于CUDA和cuDNN的对应版本关系。
+
+cuDNN对照：https://blog.csdn.net/DuLNode/article/details/123428294，根据对照表下载相应版本的cuDNN。
+
+cuDNN下载：https://developer.nvidia.com/rdp/cudnn-archive（CUDA与cuDNN有对应，在这个网址看清楚）。
+
+cuDNN需要注册之后才能下载。
+
+根据CUDA版本(11.2)选择cuDNN的版本，如下所示：
+
+![cuda-install-7](pic/cuda-install-7.png)
+
+点进去后，选择Windows版本：
+
+![cuda-install-8](pic/cuda-install-8.png)
+
+开始下载，等待下载完成。
+
+压缩包解压后，一般长这样
+
+![cuda-install-9](pic/cuda-install-9.png)
+
+每一个文件夹里都有一个文件。
+
+接下来，我们要做的是打开我的电脑，具体路径如下图：
+
+![cuda-install-10](pic/cuda-install-10.png)
+
+把下载的cuDNN解压缩后的三个文件夹里的内容，复制到CUDA路径下三个对应的文件夹里。与其说是安装CUDNN，还不如说是复制替换文件。
+
+![cuda-install-11](pic/cuda-install-11.png)
+
+将CUDA的`bin`、`include`和`lib`路径添加到环境变量中：
+
+![cuda-install-12](pic/cuda-install-12.png)
+
+CUDA与cuDNN版本安装结束！
+
+验证CUDA安装成功的方法：**Win+R打开终端，输入nvidia-smi**，若能看到GPU型号，则表明驱动安装成功。 
+
+![cuda-version-choose](pic/cuda-version-choose.png)
+
+## 安装TensorRT
+
+参考资料：
+
+* [ubuntu安装tensorrt](https://blog.csdn.net/skyli114/article/details/123623858)
+
+* [windows上安装TensorRT](https://www.ngui.cc/51cto/show-600656.html)
+
+**（1）提前安装好CUDA和CUDNN**
+
+具体方法前面已经说了。
+
+**（2）下载TensorRT**
+
+点击[NVIDIA TensorRT Download](https://developer.nvidia.com/nvidia-tensorrt-download)，进入如下页面：
+
+![tensor-rt-install](pic/tensor-rt-install.png)
+
+怎么选择版本：[Nvidia CUDA, cuDNN, TensorRT，驱动以及架构之间的相互兼容关系](https://zhuanlan.zhihu.com/p/438939299)
+
+选择TensorRT 7（其实选8也行，也支持CUDA11.2，选7是因为7的例子里有uff的加载例子），勾选对钩，选择Windows平台，和CUDA11.2对应的TensorRT版本，具体如下图：
+
+![tensor-rt-install-2](pic/tensor-rt-install-2.png)
+
+开始下载，等待下载完成。
+
+下载的文件为：`TensorRT-7.2.3.4.Windows10.x86_64.cuda-11.1.cudnn8.1`。
+
+**（3）将头文件和库文件复制进CUDA，添加环境变量**
+
+* 将`TensorRT-x.x.x.x\include`中头文件copy到`C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v1x.x\include`
+
+* 将`TensorRT-x.x.x.x\lib`中所有lib文件copy到`C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v1x.x\lib\x64`
+
+* 将`TensorRT-x.x.x.x\lib`中所有dll文件copy到`C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v1x.x\bin`
+
+* 将`C:\Program Files\TensorRT-8.5.1.7\lib`添加进系统环境变量：
+
+![tensor-rt-install-3](pic/tensor-rt-install-3.png)
+
+然后下载一个[zlib](http://www.winimage.com/zLibDll/zlib123dllx64.zip)包，解压缩后找到zlibwapi.dll文件，剪切到C:\Windows\System32位置下面（这是cudnn依赖的动态链接库）。这个存疑，先不安装。。
+
+**（4）安装用于python的uff和graphsurgeon包**
+
+如果你python已经安装了，那就不用了。若没有安装，就看下面：
+
+```shell
+# 切换到你使用的环境
+conda activate your_env
+# 进入C:\Program Files\TensorRT-8.5.1.7\uff
+cd C:\Program Files\TensorRT-8.5.1.7\uff
+# 安装python的uff包
+pip install uff-0.6.9-py2.py3-none-any.whl
+# 进入C:\Program Files\TensorRT-8.5.1.7\graphsurgeon
+cd C:\Program Files\TensorRT-8.5.1.7\graphsurgeon
+# 安装python的graphsurgeon包
+pip install graphsurgeon-0.4.6-py2.py3-none-any.whl
+```
+
+**（5）验证TensorRT是否安装好**
+
+进入`C:\Program Files\TensorRT-7.2.3.4\samples\sampleUffMNIST`中，用vs2017打开`sampleUffMNIST.sln`，如下图所示。
+
+![tensorrt-uff-minist-example](pic/tensorrt-uff-minist-example.png)
+
+vs2017的配置参考下面的博客：
+
+[WIN11+CUAD11.2+vs2019+tensorTR8.6+Yolov3/4/5模型加速](https://blog.csdn.net/Vertira/article/details/127592872)
+
+运行时发现有错误，找了一会原因没找到，也没时间去弄了，就放弃了，错误如下：
+
+![tensorrt-uff-minist-example-2](pic/tensorrt-uff-minist-example-2.png)
+
+
+
 # 其他操作
+
+## CUDA和cuDNN关系及查询命令
+
+CUDA
+
+CUDA是NVIDIA推出的用于自家GPU的并行计算框架，也就是说CUDA只能在NVIDIA的GPU上运行，而且只有当要解决的计算问题是可以大量并行计算的时候才能发挥CUDA的作用。
+
+cuDNN
+
+cuDNN（CUDA Deep Neural Network library）：是NVIDIA打造的针对深度神经网络的加速库，是一个用于深层神经网络的GPU加速库。如果你要用GPU训练模型，cuDNN不是必须的，但是一般会采用这个加速库。
+
+总结
+
+简单来说，CPU适合串行计算，擅长逻辑控制。GPU擅长并行高强度并行计算，适用于AI算法的训练学习
+CUDA 是NVIDIA专门负责管理分配运算单元的框架
+cuDNN是用于深层神经网络的gpu加速库
+
+**查询版本命令：**
+
+Linux:
+
+```shell
+cuda 版本 
+nvcc -V
+cat /usr/local/cuda/version.txt
+
+cudnn 版本 
+cat /usr/local/cuda/include/cudnn.h | grep CUDNN_MAJOR -A 2
+
+查看Nvidia GPU版本
+nvidia-smi
+
+//10s显示一次
+watch -n 10 nvidia-smi
+
+nvidia-smi -l
+```
 
 ## 安装指定源和版本
 

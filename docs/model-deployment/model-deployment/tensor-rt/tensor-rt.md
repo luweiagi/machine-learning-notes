@@ -59,13 +59,115 @@ Tensor RT 的部署分为两个部分：（TensorRT部署流程如下图所示�
 
 方法1：使用uff python接口将模型转成uff格式，之后使用NvUffParser导入。
 
-方法2：使用Freeze graph来生成.Pb(protobuf)文件，之后使用convert-to-uff 工具将.pb 文件转化成 uff 格式，然后利用NvUffParser导入。
+方法2：使用Freeze graph来生成.Pb(protobuf)文件，之后使用convert-to-uff工具将.pb文件转化成uff格式，然后利用NvUffParser导入。
 
-方法3：将Tensorflow训练好的模型（xx.pb）进行TensorRT推理加速，需要先将模型由Pytorch保存的模型文件转换 成ONNX模型，然后再将ONNX模型转换成TensorRT推理引擎。处理流程如下图所示
+方法3：将Tensorflow训练好的模型（xx.pb）进行TensorRT推理加速，需要先将模型由Pytorch保存的模型文件转换成ONNX模型，然后再将ONNX模型转换成TensorRT推理引擎。处理流程如下图所示
 
 
 
 ![tensor-rt-process-2](pic/tensor-rt-process-2.png)
+
+### 方法2：ckpt->pb->uff->NvUffParser
+
+下面详细介绍方法2：使用Freeze graph来生成.Pb(protobuf)文件，之后使用convert-to-uff工具将.pb文件转化成uff格式，然后利用NvUffParser导入。
+
+**（1）模型持久化：ckpt转成pb文件**
+
+这个请参考介绍tensorflow对应部分，此处就不重复讲了。
+
+**（2）生成uff模型：用convert-to-uff工具将.pb文件转化成uff格式**
+
+有了pb模型，需要将其转换为tensorRT可用的uff模型，只需要调用uff包自带的convert脚本即可。
+
+先安装uff包：
+
+```shell
+pip install nvidia-pyindex
+pip install uff
+```
+
+然后在下述路径中找到`convert_to_uff.py`：
+
+```shell
+C:\Users\your_name\Anaconda3\envs\tf1.14\Lib\site-packages\uff\bin\convert_to_uff.py
+```
+
+然后使用如下命令：
+
+```shell
+python C:\Users\your_name\Anaconda3\envs\tf1.14\Lib\site-packages\uff\bin\convert_to_uff.py pb_model.pb
+```
+
+注意，在使用上述命令前，确保conda到了正确的环境下，使用下面的命令来切换到正确的环境下：
+
+```shell
+conda activate tf1.14
+```
+
+然后可能会出错，让你安装某个包，就`pip install xxx`就行，然后运行前面的`convert_to_uff.py`命令，成功，显示入如下：
+
+```shell
+python C:\Users\your_name\Anaconda3\envs\tf1.14\Lib\site-packages\uff\bin\convert_to_uff.py .\pb_model.pb
+Loading .\pb_model.pb
+
+NOTE: UFF has been tested with TensorFlow 1.15.0.
+WARNING: The version of TensorFlow installed on this system is not guaranteed to work with UFF.
+UFF Version 0.6.9
+=== Automatically deduced input nodes ===
+[name: "state"
+op: "Placeholder"
+attr {
+  key: "dtype"
+  value {
+    type: DT_FLOAT
+  }
+}
+attr {
+  key: "shape"
+  value {
+    shape {
+      dim {
+        size: -1
+      }
+      dim {
+        size: 7
+      }
+    }
+  }
+}
+]
+=========================================
+
+=== Automatically deduced output nodes ===
+[name: "pi/mul"
+op: "Mul"
+input: "pi/mul/x"
+input: "pi/actor_mu/Tanh"
+attr {
+  key: "T"
+  value {
+    type: DT_FLOAT
+  }
+}
+]
+==========================================
+
+Using output node pi/mul
+Converting to UFF graph
+DEBUG [C:\Users\your_name\Anaconda3\envs\tf1.14\Lib\site-packages\uff\bin\..\..\uff\converters\tensorflow\converter.py:143] Marking ['pi/mul'] as outputs
+No. nodes: 14
+UFF Output written to .\pd_model.uff
+```
+
+转换成功后会输出包含总结点的个数以及推断出的输入输出节点的信息。
+
+**（3）TensorRT部署模型**
+
+使用tensorrt部署生成好的uff模型需要先将uff中保存的模型权值以及网络结构导入进来，然后执行优化算法生成对应的inference engine。
+
+注：这里尝试过官网给的简单例子，见`C:\Program Files\TensorRT-7.2.3.4\samples\sampleUffMNIST`，用VS2017打开，但是没有成功。由于时间紧迫，就没有再尝试跑通了，暂时就停在这了。本段内容参考的下面的博客：
+
+[TensorRT-tensorflow模型tensorrt部署](https://blog.csdn.net/weixin_43941538/article/details/120852269)
 
 ## Pytorch框架
 
@@ -123,20 +225,21 @@ ONNX（Open Neural Network Exchange，开放神经网络交换）模型格式是
 
 
 
-```shell
-pip install nvidia-pyindex
-pip install uff
-```
-
-
-
 # 参考资料
 
 * [TensorRT 模型加速 1-输入、输出、部署流程](https://blog.csdn.net/qq_41204464/article/details/123998448)
 
 本文主要参考此博客。
 
+* [TensorRT-tensorflow模型tensorrt部署](https://blog.csdn.net/weixin_43941538/article/details/120852269)
+
+"TensorFLow框架 方法2：ckpt->pb->uff->NvUffParser"参考此博客。
+
 ===
+
+* [高性能深度学习支持引擎实战——TensorRT](https://zhuanlan.zhihu.com/p/35657027)
+
+介绍了TensorRT。
 
 * [使用 NVIDIA TensorRT 加速深度学习推理（更新）](https://developer.nvidia.com/zh-cn/blog/speeding-up-deep-learning-inference-using-tensorrt-updated/)
 
@@ -144,10 +247,17 @@ pip install uff
 
 ===
 
-* [tensorflow中ckpt转pb文件（模型持久化）](https://zhuanlan.zhihu.com/p/147658249)
+* [TensorRT学习（二）通过C++使用](https://blog.csdn.net/yangjf91/article/details/97912773)
+
+有具体代码，但不知道是干啥的
+
+* [TensorRT快速上手指南](https://zhuanlan.zhihu.com/p/402074214)
+
+有具体流程。
+
+* [tensorflow 小于_用TensorRT C++ API加速TensorFlow模型实例](https://blog.csdn.net/weixin_29502579/article/details/112439506)
 
 - [TensorRT部署深度学习模型](https://zhuanlan.zhihu.com/p/84125533)
 
-* [tensorflow模型文件(ckpt)转pb文件的方法（不知道输出节点名）](http://www.kaotop.com/it/19844.html)
-
-
+* [TensorRT之第一个示例：mnist手写体识别](https://blog.csdn.net/shanglianlm/article/details/93386306)
+* [【代码分析】TensorRT sampleMNIST 详解](https://blog.csdn.net/HaoBBNuanMM/article/details/102841685)

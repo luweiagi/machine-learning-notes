@@ -1,7 +1,7 @@
 # TensorFlow中ckpt转pb文件（模型持久化）
 
 * [返回上层目录](../tools.md)
-* [tensorflow模型文件解读](#tensorflow模型文件解读)
+* [TensorFlow模型文件解读](#tensorflow模型文件解读)
 * [获取需要持久化模型的输出节点名称](#获取需要持久化模型的输出节点名称)
 * [ckpt文件生成持久化模型pb文件](#ckpt文件生成持久化模型pb文件)
 * [读取生成的pb文件并打印节点名称](#读取生成的pb文件并打印节点名称)
@@ -9,7 +9,7 @@
 
 
 
-# tensorflow模型文件解读
+# TensorFlow模型文件解读
 
 使用tensorflow训练好的模型会自动保存为四个文件，如下
 
@@ -107,6 +107,13 @@ def freeze_graph(input_checkpoint, output_graph):
     # for op in graph.get_operations():
     #     print("index = {}, name = {}, value = {}".format(i, op.name, op.values()))
     #     i += 1
+    
+    # op的打印顺序大致以 以下顺序排列：
+    # 前向传播op
+    # 占位符op
+    # 优化器op
+    # 评估指标（loss、acc）op
+    # 反向传播梯度op
 
 
 if __name__ == '__main__':
@@ -142,7 +149,7 @@ if __name__ == '__main__':
     read_pb(pb_file)
 ```
 
-结果如下，一共有17个节点
+结果如下，一共有17个节点：
 
 ```shell
 state
@@ -162,6 +169,17 @@ pi/net_mu/BiasAdd
 pi/net_mu/Tanh
 pi/mul/x
 pi/mul
+```
+
+之所以只剩下17个节点了，是因为这17个节点是前向传播的，其余的op算子都不属于前向传播推理，所以就被去掉了。
+
+```
+op的打印顺序大致以 以下顺序排列：
+前向传播op
+占位符op
+优化器op
+评估指标（loss、acc）op
+反向传播梯度op
 ```
 
 # 利用生成的pb文件实现推断

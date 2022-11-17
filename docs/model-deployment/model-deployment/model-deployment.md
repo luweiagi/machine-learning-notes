@@ -2,6 +2,7 @@
 
 * [返回上层目录](../model-deployment.md)
 * [TensorRT](tensor-rt/tensor-rt.md)
+* [基于C/C++部署TensorFlow模型](tensorflow-cpp-deployment/tensorflow-cpp-deployment.md)
 
 
 

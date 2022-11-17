@@ -16,3 +16,6 @@ paper： [LIBLINEAR: A Library for Large Linear Classification](https://www.csie
 
 [LibLinear（SVM包）使用说明之（一）README](https://blog.csdn.net/zouxy09/article/details/10947323)
 
+
+
+和libsvm有啥区别？

@@ -59,6 +59,7 @@
     * [Adadelta](mathematics/gradient-update-algorithm/offline-learning/adadelta/adadelta.md)
     * [Adam](mathematics/gradient-update-algorithm/offline-learning/adam/adam.md)
     * [Nadam](mathematics/gradient-update-algorithm/offline-learning/nadam/nadam.md)
+    * AdamW
     * [AMSGrad](mathematics/gradient-update-algorithm/offline-learning/amsgrad/amsgrad.md)
     * [AdasMax](mathematics/gradient-update-algorithm/offline-learning/adamax/adamax.md)
   * [增量学习](mathematics/gradient-update-algorithm/incremental-learning/incremental-learning.md)
@@ -359,6 +360,7 @@
   * 蒸馏
 * [模型部署](model-deployment/model-deployment/model-deployment.md)
   * [TensorRT](model-deployment/model-deployment/tensor-rt/tensor-rt.md)
+  * [基于C/C++部署TensorFlow模型](model-deployment/model-deployment/tensorflow-cpp-deployment/tensorflow-cpp-deployment.md)
 
 # [异常检测](anomaly-detection/anomaly-detection.md)
 

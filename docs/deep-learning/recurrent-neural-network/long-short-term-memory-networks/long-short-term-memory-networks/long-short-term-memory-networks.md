@@ -1,23 +1,29 @@
 # LSTM长短期记忆网络
 
 * [返回上层目录](../long-short-term-memory-networks.md)
-* [什么是LSTM](#什么是LSTM)
-* [LSTM的结构](#LSTM的结构)
-* [LSTM的流程](#LSTM的流程)
-  * [LSTM流程举例](#LSTM流程举例)
-* [将LSTM的cell作为神经元](#将LSTM的cell作为神经元)
-* [为什么LSTM属于RNN](#为什么LSTM属于RNN)
-* [LSTM数据流详细分析](#LSTM数据流详细分析)
+* [LSTM原理介绍](#LSTM原理介绍)
+  * [LSTM的结构](#LSTM的结构)
+  * [LSTM的流程](#LSTM的流程)
+    * [LSTM流程举例](#LSTM流程举例)
+  * [将LSTM的cell作为神经元](#将LSTM的cell作为神经元)
+  * [为什么LSTM属于RNN](#为什么LSTM属于RNN)
+* [LSTM数据流分析](#LSTM数据流分析)
+  * [LSTM数据流详细分析](#LSTM数据流详细分析)
+  * [LSTM输入输出分析](#LSTM输入输出分析)
 
 
 
-# 什么是LSTM
+![paper](pic/paper.png)
+
+paper: [LSTM](https://arxiv.org/pdf/1402.1128v1.pdf)
+
+# LSTM原理介绍
 
 LSTM网络如下图所示，虽然看起来太复杂了，第一次看到的人都是一脸懵逼，这是啥？有用吗？但是原理不难，我们一点点分析。
 
 ![multiple-layer-LSTM](pic/multiple-layer-LSTM.jpg)
 
-# LSTM的结构
+## LSTM的结构
 
 前面讲的SimpleRNN只是RNN中最简单的版本，里面的memory是最简单的，可以随时把值写入，也可随时把值读出。但现在常用的memory称为Long Short-term Memory(LSTM)。
 
@@ -48,7 +54,7 @@ LSTM网络如下图所示，虽然看起来太复杂了，第一次看到的人�
 >
 > 应该是第一个，因为LSTM和前面讲的SimpleRNN一样，还是个Short-term的Memory，只不过SimpleRNN的Memory每一步都会被清除并更新，它的Short-term是非常Short的。相对的，LSTM的Memory不是每一步都会被更新，可以记得比较长一些，只要Forget Gate不Forget的话，它的Memory里的值就会被存起来，所以是比较长的Short-term Memory，即称之为Long Short-term Memory。
 
-# LSTM的流程
+## LSTM的流程
 
 LSTM这个Cell的具体结构和数据流程如下所示。
 
@@ -90,7 +96,7 @@ Memory更新：memory中原有值为$c$，然后乘上遗忘门的控制信号$z
 
 ![cell-7](pic/cell-7.jpg)
 
-# 将LSTM的cell作为神经元
+## 将LSTM的cell作为神经元
 
 看到这里，你可能会疑惑，LSTM一个cell的结构我理解了，但是和神经网络有什么关系呢？其实，**直接把神经网络中的神经元替换成LSTM的cell**就可以了。
 
@@ -102,7 +108,7 @@ Memory更新：memory中原有值为$c$，然后乘上遗忘门的控制信号$z
 
 ![neurons-1](pic/neurons-1.jpg)
 
-# 为什么LSTM属于RNN
+## 为什么LSTM属于RNN
 
 只看上图的话，我们就会很疑惑，这个和RNN的关系是什么呢？怎么看起来不太像RNN。所以要画另外一个图来表示LSTM。
 
@@ -130,7 +136,7 @@ Memory更新：memory中原有值为$c$，然后乘上遗忘门的控制信号$z
 
 虽然上图已经很复杂了，但这并不是LSTM的最终形态，真正的LSTM怎么做呢？
 
-还会把隐藏层的值（即LSTM单元的输出值，但在整个神经网络上它的位置属于隐藏层）也加到输入，还会把memory单元中的值也加到输入中。即在操纵LSTM的时候，输入向量是由$x^t$、$h^t$和$c^t$组成的，然后再分别乘以四个矩阵作为四个门的输入或操纵信号。
+还会把隐藏层的值（即LSTM单元的输出值，但在整个神经网络上它的位置属于隐藏层）也加到输入，还会把memory单元中的值也加到输入中。即在操纵LSTM的时候，输入向量是由$x^t$、$h^t$和$c^t$组成的（注：这只是个变种，原始的LSTM输入向量只有$x^t$和$h^t$），然后再分别乘以四个矩阵作为四个门的输入或操纵信号。
 
 ![LSTM-RNN-3](pic/LSTM-RNN-3.jpg)
 
@@ -144,13 +150,17 @@ Memory更新：memory中原有值为$c$，然后乘上遗忘门的控制信号$z
 
 每一个人第一次都看到这个图，都在想这应该是不work的吧，但其实它确实是work的。现在说自己在用RNN的时候，其实都是在用LSTM了，用Keras的时候，这些都帮你是写好的，你只要输入LSTM四个字就好了。GRU是LSTM的稍微简化版本，只有两个gate，但据说少了一个gate，但表现和LSTM差不多，所以少了三分之一的参数，比较不容易过拟合。所以，我们之前讲的那种最简单的RNN，要称其为SimpleRNN才行，即RNN包含了LSTM、GRU和SimpleRNN。
 
-# LSTM数据流详细分析
+# LSTM数据流分析
+
+## LSTM数据流详细分析
 
 很多分析都没有细节分析，看了之后依然对细节不甚清楚。下图以一组数据为例详细进行了数据流分析，可点开看大图。
 
 ![lstm-detail-process](pic/lstm-detail-process.jpg)
 
+## LSTM输入输出分析
 
+![lstm-input](pic/lstm-input.png)
 
 # 参考资料
 
@@ -167,4 +177,24 @@ Memory更新：memory中原有值为$c$，然后乘上遗忘门的控制信号$z
 [Understanding LSTM Networks翻译：如何简单的理解LSTM——其实没有那么复杂](https://www.jianshu.com/p/4b4701beba92)
 
 [谁能用比较通俗有趣的语言解释RNN和LSTM？](https://www.zhihu.com/question/314002073)
+
+
+
+[TensorFlow学习之LSTM --- 预测sin函数](https://blog.csdn.net/m0_38007695/article/details/84640702)
+
+使用tf1.x，简单清晰，但是使用的是tf内建的lstm
+
+[理解 LSTM 网络](https://www.jianshu.com/p/9dc9f41f0b29)
+
+讲的估计挺好，里面提到了有一种变体就是输入把c也加进去了。这下解决了我对于输入加不加c的疑惑。
+
+[Salon-sai：Tensorflow[基础篇]——LSTM的理解与实现](https://www.jianshu.com/p/b6130685d855)
+
+[Salon-sai/learning-tensorflow/lstm](https://github.com/Salon-sai/learning-tensorflow/blob/master/lesson4/lstm_model.py)
+
+[tensorflow/examples/courses/udacity_deep_learning/6_lstm.ipynb](https://github.com/tensorflow/examples/blob/master/courses/udacity_deep_learning/6_lstm.ipynb)
+
+这里有人仿真tensorflow官网的例子，用tf1.x实现了lstm，手写实现lstm，没用tf内建的lstm。
+
+[LiveCoding如何用TensorFlow2.x手写LSTM底层算法](https://www.bilibili.com/video/av415146151)
 

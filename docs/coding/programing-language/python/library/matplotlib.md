@@ -259,6 +259,8 @@ http://blog.csdn.net/mmc2015/article/details/47746195
 |    ‘k’    |  black  |
 |    ‘w’    |  white  |
 
+python的plt画图支持的全部颜色种类及对应单词：[Python的plt画图中常用颜色值对应的单词](https://blog.csdn.net/u011808596/article/details/121335672)。
+
 ### 支持的线型
 
 http://blog.csdn.net/mmc2015/article/details/47746195

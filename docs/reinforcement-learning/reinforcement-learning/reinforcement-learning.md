@@ -2,6 +2,7 @@
 
 * [返回上层目录](../reinforcement-learning.md)
 * [强化学习概论](reinforcement-learning-introduction/reinforcement-learning-introduction.md)
+* [状态、奖励、动作](state-reward-action/state-reward-action.md)
 * [多臂赌博机及其解法](multi-armed-bandit-and-solutions/multi-armed-bandit-and-solutions.md)
 * [马尔科夫决策过程](markov-decision-processes/markov-decision-processes.md)
 * [动态规划](dynamic-programming/dynamic-programming.md)

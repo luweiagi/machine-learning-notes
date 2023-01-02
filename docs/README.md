@@ -99,6 +99,9 @@
         * [输入输出重定向](coding/cs-courses/operating-system/linux/shell/input_output_redirection/input_output_redirection.md)
       * [Vim编辑器](coding/cs-courses/operating-system/linux/vim/vim.md)
     * [Docker](coding/cs-courses/operating-system/docker/docker.md)
+  * [计算机网络](coding/cs-courses/computer-network/computer-network.md)
+    * [TCP/IP协议族](coding/cs-courses/computer-network/tcp-ip-protocol-family/tcp-ip-protocol-family.md)
+      * [TCP](coding/cs-courses/computer-network/tcp-ip-protocol-family/tcp/tcp.md)
 * [编程语言](coding/programing-language/programing-language.md)
   * [C++](coding/programing-language/c++/c++.md)
     * [STL容器](coding/programing-language/c++/stl-container/stl-container.md)
@@ -148,6 +151,7 @@
     * [工具](coding/machine-learning-framework/tensorflow/tools/tools.md)
       * [TensorFlow中使用GPU](coding/machine-learning-framework/tensorflow/tools/gpu/gpu.md)
       * [TensorFlow中ckpt转pb文件（模型持久化）](coding/machine-learning-framework/tensorflow/tools/ckpt-to-pb/ckpt-to-pb.md)
+      * [得到模型参数值](coding/machine-learning-framework/tensorflow/tools/get-weight/get-weight.md)
   * [PyTorch](coding/machine-learning-framework/pytorch/pytorch.md)
     * [PyTorch基础](coding/machine-learning-framework/pytorch/basis/basis.md)
 
@@ -246,6 +250,8 @@
 # [强化学习](reinforcement-learning/reinforcement-learning.md)
 * [强化学习](reinforcement-learning/reinforcement-learning/reinforcement-learning.md)
   * [强化学习概论](reinforcement-learning/reinforcement-learning/reinforcement-learning-introduction/reinforcement-learning-introduction.md)
+  * [状态、奖励、动作](reinforcement-learning/reinforcement-learning/state-reward-action/state-reward-action.md)
+    * [奖励](reinforcement-learning/reinforcement-learning/state-reward-action/reward/reward.md)
   * [多臂赌博机及其解法](reinforcement-learning/reinforcement-learning/multi-armed-bandit-and-solutions/multi-armed-bandit-and-solutions.md)
   * [马尔科夫决策过程](reinforcement-learning/reinforcement-learning/markov-decision-processes/markov-decision-processes.md)
   * [动态规划](reinforcement-learning/reinforcement-learning/dynamic-programming/dynamic-programming.md)
@@ -278,7 +284,21 @@
     * AlphaCode
     * [AlphaTensor: Discovering faster matrix multiplication algorithms with reinforcement learning Nature2022](reinforcement-learning/industry-application/deepmind/alpha-tensor/Discovering-faster-matrix-multiplication-algorithms-with-reinforcement-learning.md)
     * Agent57 2020
-  * OpenAI
+    * DeepNash
+  * [OpenAI](reinforcement-learning/industry-application/openai/openai.md)
+    * [OpenAI Five: Dota 2 with Large Scale Deep Reinforcement Learning 2019](reinforcement-learning/industry-application/openai/oepnai-five/openai-five.md)
+  * [腾讯](reinforcement-learning/industry-application/tencent/tencent.md)
+    * [王者荣耀Honor of Kings](reinforcement-learning/industry-application/tencent/honor-of-kings/honor-of-kings.md)
+
+# [计算机视觉](computer-vision/computer-vision.md)
+
+- [YOLO](computer-vision/yolo/yolo.md)
+  - [YOLO原理](computer-vision/yolo/yolo-principle/yolo-principle.md)
+  - [DarkNet深度学习框架](computer-vision/yolo/darknet/darknet.md)
+  - [YOLO-v5]()
+- [图像标注工具](computer-vision/image-mark-tool/image-mark-tool.md)
+  - [YOLO_Mark](computer-vision/image-mark-tool/yolo-mark/yolo-mark.md)
+  - [Labelme](computer-vision/image-mark-tool/labelme/labelme.md)
 
 # [自然语言处理](natural-language-processing/natural-language-processing.md)
 * [自然语言处理概论](natural-language-processing/natural-language-processing-introduction/natural-language-processing-introduction.md)
@@ -292,8 +312,35 @@
   * [Transformer模型tensorflow2.0官网demo代码解读](natural-language-processing/self-attention-and-transformer/transformer-tf2-demo-code-explain/transformer-tf2-demo-code-explain.md)
   * [Transformer的细节问题](natural-language-processing/self-attention-and-transformer/transformer-details/transformer-details.md)
 * [BERT](natural-language-processing/bert/bert.md)
+* LLM大语言模型
+  * 业界应用
+    * OpenAI
+      * GPT1
+      * GPT2
+      * GPT3 语言生成模型
+      * Codex
+      * GTP-3.5
+      * ChatGPT 聊天机器人
+    * Google
+      * LaMDA 202105 I/O大会
+      * PaLM 202204 5400亿参数
+      * LaMDA-2 202205 I/O大会
+    * MiscroSoft
+      * Copilot MiscroSoft和OpenAI联合打造的AI编程工具，基于OpenAI的大模型Codex，基于GPT-3框架进行训练
+
+# [多模态机器学习](multimodal-machine-learning/multimodal-machine-learning.md)
+
+- [业界应用](multimodal-machine-learning/industry-application/industry-application.md)
+  - [OpenAI](multimodal-machine-learning/industry-application/openai/openai.md)
+    - DALL·E 图像生成平台
+    - CLIP
+    - DALL·E2
+    - [Point-E 202212 文本生成3D点云模型](multimodal-machine-learning/industry-application/openai/point-e/point-e.md)
+  - Stability.ai
+    - Stable Diffusion开源
 
 # [AutoML](auto-machine-learning/auto-machine-learning.md)
+
 * [AutoML介绍](auto-machine-learning/auto-machine-learning-introduction/auto-ml-introduction.md)
 * 自动数据清理AutoClean
 * 自动特征工程AutoFE
@@ -337,22 +384,16 @@
   * [Google](recommender-systems/industry-application/google/google.md)
     * [MMoE: Modeling Task Relationships in Multi-task Learning with Multi-gate Mixture-of-Experts KDD2018](recommender-systems/industry-application/google/mmoe/Modeling-Task-Relationships-in-Multi-task-Learning-with-Multi-gate-Mixture-of-Experts.md)
 
-# [计算机视觉](computer-vision/computer-vision.md)
-* [YOLO](computer-vision/yolo/yolo.md)
-  * [YOLO原理](computer-vision/yolo/yolo-principle/yolo-principle.md)
-  * [DarkNet深度学习框架](computer-vision/yolo/darknet/darknet.md)
-  * [YOLO-v5]()
-* [图像标注工具](computer-vision/image-mark-tool/image-mark-tool.md)
-  * [YOLO_Mark](computer-vision/image-mark-tool/yolo-mark/yolo-mark.md)
-  * [Labelme](computer-vision/image-mark-tool/labelme/labelme.md)
-
 # [模型部署](model-deployment/model-deployment.md)
+
 * [矩阵加速算法](model-deployment/matrix-acceleration-algorithm/matrix-acceleration-algorithm.md)
   * [im2col: 将卷积转为矩阵乘法来加速计算](model-deployment/matrix-acceleration-algorithm/im2col/im2col.md)
   * [winograd: Fast Algorithms for Convolutional Neural Networks CVPR2016](model-deployment/matrix-acceleration-algorithm/winograd/Fast-Algorithms-for-Convolutional-Neural-Networks.md)
-* 并行计算
-  * OpenCL
-  * CUDA
+* [并行计算](model-deployment/parallel-computing/parallel-computing.md)
+  * [OpenCL](model-deployment/parallel-computing/opencl/opencl.md)
+  * [CUDA](model-deployment/parallel-computing/cuda/cuda.md)
+  * [OpenBlas](model-deployment/parallel-computing/openblas/openblas.md)
+  * [OpenMP](model-deployment/parallel-computing/openmp/openmp.md)
 * [模型压缩](model-deployment/model-compression/model-compression.md)
   * [模型压缩概述](model-deployment/model-compression/model-compression-introduction/model-compression-introduction.md)
   * 剪枝
@@ -361,27 +402,22 @@
 * [模型部署](model-deployment/model-deployment/model-deployment.md)
   * [TensorRT](model-deployment/model-deployment/tensor-rt/tensor-rt.md)
   * [基于C/C++部署TensorFlow模型](model-deployment/model-deployment/tensorflow-cpp-deployment/tensorflow-cpp-deployment.md)
-
-# [异常检测](anomaly-detection/anomaly-detection.md)
-
-# [反绎学习](abductive-learning/abductive-learning.md)
+* [AI编译器](model-deployment/ai-compiler/ai-compiler.md)
 
 # [自动驾驶](autopilot/autopilot.md)
 * 感知
 * [决策](autopilot/decision/decision.md)
 * 规划
 * 制导
-* 控制
-* 导航
+* [控制](autopilot/control/control.md)
+  * [基于强化学习的控制](autopilot/control/reinforcement-learning-based-control/reinforcement-learning-based-control.md)
+* [导航](autopilot/navigation)
+  * [坐标变换](autopilot/navigation/coordinate-transformation/coordinate-transformation.md)
 * 动力学模型
-
-# 多模态机器学习
-
-* 业界应用
-  * OpenAI
-    * DALL·E
-    * CLIP
-    * DALL·E2
+  * 六自由度动力学与运动学模型
+  * 仿真环境
+    * [gym-jsbsim:使用JSBSim飞行动力学模型的飞机控制强化学习环境](https://download.csdn.net/download/weixin_42165980/18471290)
+    * [GymFC是一个OpenAI环境](https://blog.csdn.net/dumao0620/article/details/127667719)
 
 # [通用人工智能](artificial-general-intelligence/artificial-general-intelligence.md)
 * [业界应用](artificial-general-intelligence/industry-application/industry-application.md)

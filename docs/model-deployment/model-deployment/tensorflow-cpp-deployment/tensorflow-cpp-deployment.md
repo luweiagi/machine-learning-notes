@@ -6,7 +6,7 @@
   * [编译](#编译)
   * [C库的API讲解](#C库的API讲解)
 * [TensorFlow官方C++库介绍](#TensorFlow官方C++库介绍)
-* [第一种C++部署工程：Neargye/hello_tf_c_api](#第一种C++部署工程：Neargye/hello_tf_c_api)
+* [第一种C++部署工程Neargye](#第一种C++部署工程Neargye)
   * [下载并打开C++部署的VS工程](#下载并打开C++部署的VS工程)
     * [由cmake创建VS工程](#由cmake创建VS工程)
     * [运行并改造VS工程](#运行并改造VS工程)
@@ -18,7 +18,7 @@
     * [动态库和pb模型文件的放置位置分析](#动态库和pb模型文件的放置位置分析)
     * [警告消除](#警告消除)
     * [GPU还是CPU？](#GPU还是CPU？)
-* [第二种C++部署工程gdyshi/model_deployment](#第二种C++部署工程gdyshi/model_deployment)
+* [第二种C++部署工程gdyshi](#第二种C++部署工程gdyshi)
   * [查看并梳理dyshi工程代码](#查看并梳理dyshi工程代码)
   * [基于gdyshi建立自己的VS工程](#基于gdyshi建立自己的VS工程)
 * [第三种C++部署工程CppFlow](#第三种C++部署工程CppFlow)
@@ -27,11 +27,13 @@
 
 本文介绍使用C++语言实现通用模型的部署。本文主要使用pb格式的模型文件，其它格式的模型文件请先进行格式转换。
 
-# TensorFlow官方C库介绍
+# TensorFlow官方C库
+
+## TensorFlow官方C库介绍
 
 TensorFlow官方同时提供了C++接口和C接口，目前不能直接使用C++接口的调用，使用之前需要使用TensorFlow bazel build编译；而C接口TensorFlow官方提供了预编译库，可直接下载。
 
-## 获取库文件
+### 获取库文件
 
 库文件在获取和安装可参考[TensorFlow官方C库安装教程](https://tensorflow.google.cn/install/lang_c)
 
@@ -68,13 +70,13 @@ Extract the downloaded archive, which contains the header files to include in yo
 
 下载完毕后只需将解压后的库文件和头文件添加到系统环境变量中即可。这里我自己没有加，因为我需要放到其他任意机器上跑。
 
-## 编译
+### 编译
 
 如果以上列表中没有我们想要的平台库，或者我们需要开启一些未开启的加速选项，就需要从源代码编译C库了。具体编译环境搭建可参考官方文档[linux/macOS](https://tensorflow.google.cn/install/source) [windows](https://tensorflow.google.cn/install/source_windows) [树莓派](https://tensorflow.google.cn/install/source_rpi)，编译命令可参考[官方文档](https://github.com/tensorflow/tensorflow/blob/master/tensorflow/tools/lib_package/README.md)
 
 关于TensorFlow的编译因为东西比较多，[参考资料](https://blog.csdn.net/chongtong/article/details/91947690)的作者说会在后续专门写一个博客进行说明。这篇文章主要聚焦在使用C++调用模型文件进行推理这一块。
 
-## C库的API讲解
+### C库的API讲解
 
 TensorFlow的C接口详见[c_api.h](https://github.com/tensorflow/tensorflow/blob/master/tensorflow/c/c_api.h)，这里针对常用接口做一个说明，并跟将C接口跟[tensorflow模型部署系列—单机python部署](https://blog.csdn.net/chongtong/article/details/90693787)中的python代码进行对应，以便于读者更好地理解接口。
 
@@ -147,7 +149,7 @@ TensorFlow的C接口详见[c_api.h](https://github.com/tensorflow/tensorflow/blo
   void TF_DeleteGraph(TF_Graph*);
   ```
 
-# TensorFlow官方C++库介绍
+## TensorFlow官方C++库介绍
 
 TensorFlow官方的C++库接口见这里：[TensorFlow C++ API Reference](https://www.tensorflow.org/api_docs/cc/)，具体界面是：
 
@@ -155,13 +157,34 @@ TensorFlow官方的C++库接口见这里：[TensorFlow C++ API Reference](https:
 
 目前基于C++库的好像很少。下面三种都是基于C库的，封装成了C++形式。
 
-这个[FloopCZ/**tensorflow_cc**](https://github.com/FloopCZ/tensorflow_cc)是基于TensorFlow官方的C++接口，但是我没看懂。
+这篇文章介绍了如何下载编译C++DLL并使用pb文件进行推理。下面参考这篇文章进行下载编译和推理
 
-# 第一种C++部署工程Neargye/hello_tf_c_api
+[windows下编译tensorflow源码 用其c++接口调用训练好的模型](https://blog.csdn.net/yuejisuo1948/article/details/84197534)
+
+### 下载并编译
+
+参考文章：
+
+* [windows下编译tensorflow源码 用其c++接口调用训练好的模型](https://blog.csdn.net/yuejisuo1948/article/details/84197534)
+
+* [indows下编译tensorflow2.5.0 c++库并调用](https://blog.csdn.net/dycljj/article/details/118408400)
+* [Windows10 Bazel 编译 Tensorflow 2 C++ dll 和 lib 文件](https://blog.csdn.net/yx123919804/article/details/107042822)
+
+
+
+# 第一种C++部署工程Neargye
 
 因为C/C++语言本身的特性，tensorflow的C/C++接口相对复杂了不少，好在已有大神把TensorFlow的C接口进行了封装，见[GitHub](https://github.com/Neargye/hello_tf_c_api)，第一种C++部署工程就是参考此GitHub。
 
 ## 下载并打开C++部署的VS工程
+
+打开[GitHub: Neargye/hello_tf_c_api](https://github.com/Neargye/hello_tf_c_api)，下载源代码。看时间应该配套的tensorflow.dll是1.15版本的。
+
+![github-neargye](pic/github-neargye.png)
+
+这里有介绍如何从dll生成配套的lib(引入库，不是静态库)：[Create .lib file from .dll for windows](https://github.com/Neargye/hello_tf_c_api/blob/master/doc/create_lib_file_from_dll_for_windows.md)。
+
+仔细看看ReadMe。
 
 ### 由cmake创建VS工程
 
@@ -169,18 +192,14 @@ TensorFlow官方的C++库接口见这里：[TensorFlow C++ API Reference](https:
 
 ```shell
 git clone --depth 1 https://github.com/Neargye/hello_tf_c_api
-cd hello_tf_c_api
+cd hello_tf_c_api  # cd进去后打开CmakeList，可以看到下载的tf的版本及cpu/gpu,可以自行修改
 mkdir build
 cd build
-cmake -G "Visual Studio 15 2017" -A x64 ..
+cmake -G "Visual Studio 15 2017" -A x64 ..  # 64位 若32位则改为Win32
 cmake --build . --config Debug
 ```
 
 其中，
-
-```shell
-cmake -G "Visual Studio 15 2017" -A x64 ..
-```
 
 ![cmake-create-vs2017](pic/cmake-create-vs2017.png)
 
@@ -447,7 +466,7 @@ Output vals: 0.867242, -0.558126
 
 经过实际运行并查看`nvidia-smi`，显示GPU占用率为0%，故是CPU运行。
 
-# 第二种C++部署工程gdyshi/model_deployment
+# 第二种C++部署工程gdyshi
 
 第二种C++部署工程的原作者的代码，参考了第一种的代码。
 

@@ -326,3 +326,5 @@ AlexNet用ReLU代替了Sigmoid，发现使用ReLU得到的SGD的收敛速度会�
 
 [Activation Functions Explained - GELU, SELU, ELU, ReLU and more](https://mlfromscratch.com/activation-functions-explained/#/)
 
+[一文搞懂激活函数(Sigmoid/ReLU/LeakyReLU/PReLU/ELU)](https://zhuanlan.zhihu.com/p/172254089)
+

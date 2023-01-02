@@ -1069,7 +1069,7 @@ sudo reboot
 
 * Windows上
 
-  Nvidia30xx系列不兼容CUDA10.x，而TendorFlow1.x又必须要CUDA10.x，在CUDA11.x上不能跑，所以Nvidia30xx系列就必须要用TensorFlow2.x了。
+  Nvidia30xx系列不兼容CUDA10.x，而TendorFlow1.x又必须要CUDA10.x，在CUDA11.x上不能跑，所以Nvidia30xx系列就必须要用TensorFlow2.4及以上了。
 
 * Linux上
 

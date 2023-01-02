@@ -8,9 +8,73 @@
 
 PDF: [Proximal Policy Optimization Algorithms](https://arxiv.org/abs/1707.06347)
 
-OpenAI Blog: [Proximal Policy Optimization](https://openai.com/blog/openai-baselines-ppo/)
+OpenAI Blog: [Proximal Policy Optimization](https://openai.com/blog/openai-baselines-ppo/)和[Proximal Policy Optimization](https://spinningup.openai.com/en/latest/algorithms/ppo.html#id3)
 
 GitHub: [openai/baselines/ppo2](https://github.com/openai/baselines/tree/master/baselines/ppo2)
+
+
+
+
+
+正态分布：
+$$
+f(x)=\frac{1}{\sqrt{2\pi}\sigma}\text{exp}\left(-\frac{(x-\mu)^2}{2\sigma^2}\right)
+$$
+![normal-dist](pic/normal-dist.png)
+
+代码(参考资料：[Python绘制高斯分布（正态分布）图像](https://blog.csdn.net/qq_44444503/article/details/124377863))：
+
+```python
+import numpy as np
+import math
+import matplotlib.pyplot as plt
+
+
+def gd(x, mu=0., sigma=1.):
+    # sigma是标准差
+    left = 1 / (np.sqrt(2 * math.pi) * sigma)
+    right = np.exp(-(x - mu) ** 2 / (2 * np.square(sigma)))
+    return left * right
+
+
+if __name__ == '__main__':
+    # 自变量
+    x = np.arange(-5, 5, 0.05)
+    # 因变量（不同均值或方差）
+    y_1 = gd(x, 0, 0.01)
+    y_2 = gd(x, 0, 0.1)
+    y_3 = gd(x, 0, 0.5)
+    y_4 = gd(x, 0, 1.0)
+    y_5 = gd(x, 0, 2.0)
+
+    # 绘图
+    plt.plot(x, y_1, color='green')
+    plt.plot(x, y_2, color='blue')
+    plt.plot(x, y_3, color='thistle')
+    plt.plot(x, y_4, color='red')
+    plt.plot(x, y_5, color='fuchsia')
+    # 设置坐标系
+    plt.xlim(-5.0, 5.0)
+    plt.ylim(-0.2, 2)
+
+    ax = plt.gca()
+    ax.spines['right'].set_color('none')
+    ax.spines['top'].set_color('none')
+    ax.xaxis.set_ticks_position('bottom')
+    ax.spines['bottom'].set_position(('data', 0))
+    ax.yaxis.set_ticks_position('left')
+    ax.spines['left'].set_position(('data', 0))
+
+    plt.legend(labels=[
+        '$\mu = 0, \sigma=0.01$',
+        '$\mu = 0, \sigma=0.1$',
+        '$\mu = 0, \sigma=0.5$',
+        '$\mu = 0, \sigma=1.0$',
+        '$\mu = 0, \sigma=2.0$'])
+    plt.show()
+```
+
+
 
 
 
@@ -109,4 +173,10 @@ PPO2：不用计算KL，同样可以控制θ与θ'之间差距。
   还有对应的课件：[李宏毅深度强化学习(国语)课程(2018) ppo 课件](https://speech.ee.ntu.edu.tw/~tlkagk/courses/MLDS_2018/Lecture/PPO%20(v3).pdf)。
 
 * [Proximal Policy Optimization(PPO)算法原理及实现！ 美团文哥的笔记](https://www.jianshu.com/p/9f113adc0c50)
+
+
+
+[The 37 Implementation Details of Proximal Policy Optimization](https://iclr-blog-track.github.io/2022/03/25/ppo-implementation-details/)
+
+对应的中文翻译：[优化PPO](https://blog.csdn.net/CharilePuth/article/details/125555567)
 

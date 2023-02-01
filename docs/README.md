@@ -195,6 +195,11 @@
 * [降维](machine-learning/dimensionality-reduction/dimensionality-reduction.md)
   * [降维概述](machine-learning/dimensionality-reduction/dimensionality-reduction-introduction/dimensionality-reduction-introduction.md)
   * [PCA主成分分析](machine-learning/dimensionality-reduction/principal-component-analysis/principal-component-analysis.md)
+  * LDA线性判别分析
+  * t-SNE
+  * ICA独立分量分析
+  * 多维缩放（可能不重要）
+  * 自编码器
   * [流形学习](machine-learning/dimensionality-reduction/manifold-learning/manifold-learning.md)
 * [EM算法](machine-learning/expectation-maximization-algorithm/expectation-maximization-algorithm.md)
 * [概率图模型](machine-learning/probability-graphical-model/probability-graphical-model.md)
@@ -265,7 +270,7 @@
   * [强化学习前景](reinforcement-learning/reinforcement-learning/reinforcement-learning-prospect/reinforcement-learning-prospect.md)
   * [强化学习论文](reinforcement-learning/reinforcement-learning/paper/paper.md)
     * [DDPG: Continuous Control With Deep Reinforcement Learning ICLR2016](reinforcement-learning/reinforcement-learning/paper/ddpg/ddpg.md)
-    * [PPO: Proximal Policy Optimization arXiv2017 by OpenAI]()
+    * [PPO: Proximal Policy Optimization arXiv2017 by OpenAI](reinforcement-learning/reinforcement-learning/paper/ppo/Proximal-Policy-Optimization.md)
 * [仿真环境](reinforcement-learning/simulation-platform/simulation-platform.md)
   * [OpenAI: Gym](reinforcement-learning/simulation-platform/openai-gym/openai-gym.md)
   * Unity3D: ml-agents
@@ -273,6 +278,8 @@
 * [多智能体强化学习](reinforcement-learning/multi-agent-reinforcement-learning/multi-agent-reinforcement-learning.md)
   * [多智能体强化学习论文](reinforcement-learning/multi-agent-reinforcement-learning/paper/paper.md)
     * [mean-field: Mean Field Multi-Agent Reinforcement Learning ICML2018](reinforcement-learning/multi-agent-reinforcement-learning/paper/mean-field/Mean-Field-Multi-Agent-Reinforcement-Learning.md)
+* [Transformer+RL](reinforcement-learning/transformer-rl/transformer-rl.md)
+* [决策大模型](reinforcement-learning/decision-making-big-model/decision-making-big-model.md)
 * [业界应用](reinforcement-learning/industry-application/industry-application.md)
   * [DeepMind](reinforcement-learning/industry-application/deepmind/deepmind.md)
     * AlphaGo
@@ -405,6 +412,11 @@
 * [AI编译器](model-deployment/ai-compiler/ai-compiler.md)
 
 # [自动驾驶](autopilot/autopilot.md)
+* [传感器](autopilot/sensor/sensor.md)
+  * [各类型传感器](autopilot/sensor/sensors/sensors.md)
+    * [加速度计](autopilot/sensor/sensors/accelerometer/accelerometer.md)
+      * [加速度计的六面校准法](autopilot/sensor/sensors/accelerometer/accelerometer-six-sided-calibration-method/accelerometer-six-sided-calibration-method.md)
+    * 陀螺仪
 * 感知
 * [决策](autopilot/decision/decision.md)
 * 规划

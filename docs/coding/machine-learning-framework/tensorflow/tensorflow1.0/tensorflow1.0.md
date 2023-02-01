@@ -19,7 +19,7 @@
 
 [Tensorflow将模型导出为一个文件及接口设置](https://blog.csdn.net/huachao1001/article/details/78502910)
 
-
+[tensorflow对训练变量checkpoint的保存与读取](https://blog.csdn.net/sinat_30372583/article/details/79763044)
 
 # variables
 

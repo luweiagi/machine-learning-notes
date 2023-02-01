@@ -14,6 +14,64 @@ GitHub: [openai/baselines/ppo2](https://github.com/openai/baselines/tree/master/
 
 
 
+# 连续输出值的方差的选择
+
+PPO 连续动作的sigma，其实在不同版本的实现里一共有三种
+- fixed：固定 sigma，常用于一些特殊控制任务，如果对环境的 sigma 有足够的先验知识可以这样做
+- independent：即为一个可优化的网络参数，但是和state无关，是一个独立参数。这是一般 PPO 常用的情形
+- state conditioned：由 state 输入通过一定的网络层生成，这种情况在 SAC 中常用，PPO中较少见。不过有 paper 在mujoco环境上做过对比实验，至少在这个控制环境上差别不大
+
+三种类型的代码对比可以参考我们这里的代码 https://github.com/opendilab/DI-engine/blob/main/ding/model/common/head.py#L965
+
+中文版的注释详解可以看这个 https://opendilab.github.io/PPOxFamily/continuous_zh.html
+
+## OpenAI的选择
+
+[OpenAI Spinning Up Part 1: Key Concepts in RL](https://spinningup.openai.com/en/latest/spinningup/rl_intro.html#id2)
+
+> A diagonal Gaussian policy always has a neural network that maps from observations to mean actions,$\mu_{\theta}(s)$. There are two different ways that the covariance matrix is typically represented.
+>
+> **The first way:** There is a single vector of log standard deviations,$log \sigma$, which is **not** a function of state: the $log \sigma$ are standalone parameters. (You Should Know: our implementations of VPG, TRPO, and PPO do it this way.)
+>
+> **The second way:** There is a neural network that maps from states to log standard deviations,$log \sigma_{\theta}(s)$. It may optionally share some layers with the mean network.
+
+
+
+## 参考代码
+
+刚去openailab仓库上翻了翻 https://github.com/opendilab/DI-engine/blob/0a25e46e29638a4be04654c7fd132ebdff4a556a/ding/model/common/head.py#L965
+他们这里连续动作用的ReparameterizationHead就有
+
+可以看openailab的代码  写的挺好的 固定，独立参数，模型推理三种方法都可以选择  莫烦的没有讲的很全面，感觉比较适合入门。
+
+对于独立值：我是这么理解的，当选择的动作在这个分布上的回报高于期望，那就增大这个动作的选择概率，对应的均值向这个动作移动，方差降低。如果低于期望，那方差就调大，增加选择其他动作的概率。
+
+一般选独立参数，比较好训练
+
+其他的参考代码：
+
+independent:
+
+https://github.com/tensorlayer/tensorlayer/blob/master/examples/reinforcement_learning/tutorial_DPPO.py
+
+固定值/线性衰减：
+
+https://github.com/nikhilbarhate99/PPO-PyTorch/blob/master/train.py
+
+基于state训练：
+
+莫凡python：
+
+https://github.com/MorvanZhou/Reinforcement-learning-with-tensorflow/blob/master/contents/12_Proximal_Policy_Optimization/DPPO.py
+
+其他：
+
+我的PPO用的是之前小助手分享的，37个PPO实施细节里的代码，你说的adv_norm，max_grad_norm也是在配置里的
+
+https://github.com/vwxyzjn/ppo-implementation-details
+
+https://iclr-blog-track.github.io/2022/03/25/ppo-implementation-details/
+
 
 
 正态分布：
@@ -76,7 +134,53 @@ if __name__ == '__main__':
 
 
 
+# 连续值action训练时要不要clip
 
+请问ppo的动作a，收集好发回给模型进行训练时，这个动作a应该去掉clip限幅，还是要保留clip限幅？
+p.s.这个动作a输给env.step(a)时肯定是要做限幅的，这个没啥说的。
+
+训练时，不要clip，clip只放在环境里面做。否则你计算时的log prob很容易过大或过小。训练时就用最原始的从概率分布里采样出来的action
+
+
+
+## adv norm
+
+adv norm需要考虑reward的数值范围，如果绝对值在0-100之内其实影响不大，如果绝对值大于这个范围，且reward波动的确实很明显（注意要和稀疏reward区分），那适合用adv norm
+
+然后这种比较直接的 adv norm，应该batch越大统计量越准，所以在实现中，像dppo的话，应该是训练的多卡之间allreduce同步mean和std，然后再norm
+
+出现nan有很多种原因，其中之一就是adv norm
+
+如果数据多样性很差，一个batch里太相近，那么算出来的std就很接近于0，这样norm一除就炸了
+
+mean和std计算用的样本肯定是越多越准，但因为rl本身数据分布就一直在变，所以可能有些场景里对最终性能影响不大，就跟你的实验结果一样。
+
+你要想真正深究这个问题，应该要去可视化这两种设定下算出来的mean和std的变化情况，再分析这个变化对于智能体性能的影响，并在不同类型的环境上做对比看能不能找到普适结论
+
+决策问题(环境)之间的差异性太大了，所以经验性结论经常变化，但是分析方法和手段掌握了之后，具体问题具体分析就好，没有什么玄学的
+
+baseline这个地方只是说减去一项还是无偏估计，并没有说除上这样一个动态变化的std还是无偏估计
+
+如果缩放的因子是整个训练期间都用一个固定值，那没问题，关键就是我们做adv norm是用动态统计量，这个就进入到很麻烦的领域了
+
+# 掩码（mask）是做什么用的
+
+有没有一些这方面的强化学习科普资料？
+
+Musk主要是针对一些动作和参数之间的关系，通过掩码可以建立这种关系，加速收敛。
+
+mask部分一般有两类
+- 离散动作空间的 mask，用于去掉一些当前帧不可选的动作，对训练优化有一定加速作用。我们这次第二节课的作业题会涉及到。
+- 混合动作空间的 mask，用于表达不同 action 部分之间的关系，例如某些动作类型对应特定的动作参数，可以参考这里的讲解例子，尤其是最后的 mask 使用部分 https://opendilab.github.io/PPOxFamily/hybrid_zh.html
+
+
+
+
+# 参考资料
+
+
+
+===
 
 [游戏AI比赛番外篇2：为啥强化学习做游戏AI都喜欢用PPO算法？](https://zhuanlan.zhihu.com/p/550312933)
 
@@ -95,14 +199,6 @@ if __name__ == '__main__':
 A3C在每一次迭代中，都要采集T个samples(T远远小于回合长度)，计算T个n-step return，然后使用这T个数据更新评价网络：
 
 PPO也使用了相同的思路，但是使用GAE实现
-
-
-
-# 参考资料
-
-
-
-
 
 
 
@@ -180,3 +276,20 @@ PPO2：不用计算KL，同样可以控制θ与θ'之间差距。
 
 对应的中文翻译：[优化PPO](https://blog.csdn.net/CharilePuth/article/details/125555567)
 
+
+
+[【强化学习8】PPO](https://zhuanlan.zhihu.com/p/128484325)
+
+参考文献：
+
+[1] TRPO: Schulman, John, et al. “Trust Region Policy Optimization.”*ArXiv Preprint ArXiv:1502.05477*, 2015.
+
+[2] DPPO: Heess, Nicolas, et al. “Emergence of Locomotion Behaviours in Rich Environments.”*ArXiv Preprint ArXiv:1707.02286*, 2017.
+
+[3] PPO: Schulman, John, et al. “Proximal Policy Optimization Algorithms.”*ArXiv Preprint ArXiv:1707.06347*, 2017.
+
+[4] batchPPO: Hafner, D. , Davidson, J. , & Vanhoucke, V. . (2017). Tensorflow agents: efficient batched reinforcement learning in tensorflow.
+
+[5] Implementation Matters in Deep Policy Gradients: a Case Study on PPO and TRPO.
+
+关于用bootstrap法估计advantage和state value函数的内容，可参见“【CS285第6讲】Actor-critic”。

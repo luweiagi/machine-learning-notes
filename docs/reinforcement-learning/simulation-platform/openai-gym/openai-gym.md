@@ -2,6 +2,10 @@
 
 * [返回上层目录](../simulation-platform.md)
 
+[OpenAI Gym 官网](https://www.gymlibrary.dev/)
+
+大家可以到官网上看一下GYM包含的环境。包含了从简单的Classic control、Toy text，到更复杂的MuJoCo、Robotics，当然包括Atari游戏。 环境还在不断扩展，现在也包括一些第三方的环境，例如围棋等。 所以我们经常用它来检验算法的有效性。
+
 
 
 Gym的安装方式：

@@ -17,3 +17,9 @@
 * [强化学习论文](paper/paper.md)
 
 
+
+===
+
+各种强化学习论文及其代码
+
+[keiohta/tf2rl](https://github.com/keiohta/tf2rl)

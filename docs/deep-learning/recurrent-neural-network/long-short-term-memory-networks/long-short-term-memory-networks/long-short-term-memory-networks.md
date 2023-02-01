@@ -198,3 +198,9 @@ Memory更新：memory中原有值为$c$，然后乘上遗忘门的控制信号$z
 
 [LiveCoding如何用TensorFlow2.x手写LSTM底层算法](https://www.bilibili.com/video/av415146151)
 
+
+
+[Pytorch LSTM模型 参数详解](https://blog.csdn.net/weixin_53146190/article/details/120341669)
+
+[tf.nn.dynamic_rnn 详解](https://zhuanlan.zhihu.com/p/43041436)
+

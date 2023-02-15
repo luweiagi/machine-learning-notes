@@ -5,6 +5,7 @@
 * [仿真环境](simulation-platform/simulation-platform.md)
 * [MCTS蒙特卡洛树搜索](monte-carlo-tree-search/monte-carlo-tree-search.md)
 * [多智能体强化学习](multi-agent-reinforcement-learning/multi-agent-reinforcement-learning.md)
+* [模仿学习](imatation-learning/imatation-learning.md)
 * [业界应用](industry-application/industry-application.md)
 
 

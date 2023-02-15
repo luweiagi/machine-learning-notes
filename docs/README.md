@@ -237,6 +237,9 @@
     * [LSTM长短期记忆网络](deep-learning/recurrent-neural-network/long-short-term-memory-networks/long-short-term-memory-networks/long-short-term-memory-networks.md)
     * [pix2code: Generating Code from a Graphical User Interface Screenshot EICS2018](deep-learning/recurrent-neural-network/long-short-term-memory-networks/pix2code/pix2code-Generating-Code-from-a-Graphical-User-Interface-Screenshot.md)
   * [GRU门控循环单元](deep-learning/recurrent-neural-network/gated-recurrent-unit/gated-recurrent-unit.md)
+* [BNN贝叶斯神经网络](deep-learning/beyesian-neural-network/beyesian-neural-network.md)
+  * [贝叶斯神经网络](deep-learning/beyesian-neural-network/beyesian-neural-network/beyesian-neural-network.md)
+  * [Weight Uncertainty in Neural Networks ICML2015](deep-learning/beyesian-neural-network/weight-uncertainty-in-neural-networks/Weight-Uncertainty-in-Neural-Networks.md)
 * [GNN图神经网络](deep-learning/graph-neural-networks/graph-neural-networks.md)
   * [GNN图神经网络综述](deep-learning/graph-neural-networks/graph-neural-networks-review/graph-neural-networks-review.md)
   * [GCN图卷积网络](deep-learning/graph-neural-networks/graph-convolutional-networks/graph-convolutional-networks.md)
@@ -248,7 +251,7 @@
 * [深度生成模型](deep-learning/deep-generative-models/deep-generative-models.md)
   * [深度生成模型概述](deep-learning/deep-generative-models/deep-generative-models-introduction/deep-generative-models-introduction.md)
   * [GAN生成对抗网络](deep-learning/deep-generative-models/generative-adversarial-nets/generative-adversarial-nets.md)
-  * [VAE变微分自动编码器](deep-learning/deep-generative-models/variational-autoencoder/variational-autoencoder.md)
+  * [VAE变分自编码器](deep-learning/deep-generative-models/variational-autoencoder/variational-autoencoder.md)
   * Flow-based Models流模型
   * [Diffusion Models扩散模型](deep-learning/deep-generative-models/diffusion-models/diffusion-models.md)
 
@@ -270,11 +273,20 @@
   * [强化学习前景](reinforcement-learning/reinforcement-learning/reinforcement-learning-prospect/reinforcement-learning-prospect.md)
   * [强化学习论文](reinforcement-learning/reinforcement-learning/paper/paper.md)
     * [DDPG: Continuous Control With Deep Reinforcement Learning ICLR2016](reinforcement-learning/reinforcement-learning/paper/ddpg/ddpg.md)
-    * [PPO: Proximal Policy Optimization arXiv2017 by OpenAI](reinforcement-learning/reinforcement-learning/paper/ppo/Proximal-Policy-Optimization.md)
+    * [PPO: Proximal Policy Optimization arXiv2017OpenAI](reinforcement-learning/reinforcement-learning/paper/ppo/Proximal-Policy-Optimization.md)
 * [仿真环境](reinforcement-learning/simulation-platform/simulation-platform.md)
   * [OpenAI: Gym](reinforcement-learning/simulation-platform/openai-gym/openai-gym.md)
+  * MuJoCo
   * Unity3D: ml-agents
+* [Sim2Real从仿真器到现实环境的迁移](reinforcement-learning/sim2real/sim2real.md)
 * [MCTS蒙特卡洛树搜索](reinforcement-learning/monte-carlo-tree-search/monte-carlo-tree-search.md)
+* [模仿学习](reinforcement-learning/imatation-learning/imatation-learning.md)
+  * [模仿学习介绍](reinforcement-learning/imatation-learning/imatation-learning-introduction/imatation-learning-introduction.md)
+  * BC行为克隆: Behavior Cloning
+  * IRL逆强化学习: Inverse Reinforcement Learning
+  * [GAIL生成式对抗模仿学习: Generative Adversarial Imitation Learning NeurIPS2016](reinforcement-learning/imatation-learning/generative-adversarial-imitation-learning/Generative-Adversarial-Imitation-Learning.md)
+  * [论文](reinforcement-learning/imatation-learning/paper/paper.md)
+    * [Augmenting GAIL with BC for sample efficient imitation learning](reinforcement-learning/imatation-learning/paper/augmenting-GAIL-with-BC-for-sample-efficient-imitation-learning/Augmenting-GAIL-with-BC-for-sample-effici.md)
 * [多智能体强化学习](reinforcement-learning/multi-agent-reinforcement-learning/multi-agent-reinforcement-learning.md)
   * [多智能体强化学习论文](reinforcement-learning/multi-agent-reinforcement-learning/paper/paper.md)
     * [mean-field: Mean Field Multi-Agent Reinforcement Learning ICML2018](reinforcement-learning/multi-agent-reinforcement-learning/paper/mean-field/Mean-Field-Multi-Agent-Reinforcement-Learning.md)
@@ -319,32 +331,43 @@
   * [Transformer模型tensorflow2.0官网demo代码解读](natural-language-processing/self-attention-and-transformer/transformer-tf2-demo-code-explain/transformer-tf2-demo-code-explain.md)
   * [Transformer的细节问题](natural-language-processing/self-attention-and-transformer/transformer-details/transformer-details.md)
 * [BERT](natural-language-processing/bert/bert.md)
-* LLM大语言模型
-  * 业界应用
-    * OpenAI
+* [LLM大语言模型](natural-language-processing/large-language-model/large-language-model.md)
+  * [业界应用](natural-language-processing/large-language-model/industry-application/industry-application.md)
+    * [OpenAI](natural-language-processing/large-language-model/industry-application/openai/openai.md)
       * GPT1
       * GPT2
       * GPT3 语言生成模型
       * Codex
-      * GTP-3.5
-      * ChatGPT 聊天机器人
-    * Google
-      * LaMDA 202105 I/O大会
+      * GPT-3.5
+      * [ChatGPT](natural-language-processing/large-language-model/industry-application/openai/ChatGPT/ChatGPT.md) 聊天机器人
+    * [Google](natural-language-processing/large-language-model/industry-application/google/google.md)
+      * LaMDA 发布于202105 I/O大会
       * PaLM 202204 5400亿参数
       * LaMDA-2 202205 I/O大会
+      * [Bard](natural-language-processing/large-language-model/industry-application/google/Bard/Bard.md) 聊天机器人，对标OpenAI的ChatGPT，发布于202302
     * MiscroSoft
       * Copilot MiscroSoft和OpenAI联合打造的AI编程工具，基于OpenAI的大模型Codex，基于GPT-3框架进行训练
+    * 元语智能
+      * PromptCLUE1.0 202210
+      * PromptCLUE1.5 202211
+      * ChatYuan 202212
+    * 百度
+      * ERNIE Bot 文心一言 202302
 
-# [多模态机器学习](multimodal-machine-learning/multimodal-machine-learning.md)
+# [多模态大模型](multimodal-large-model/multimodal-large-model.md)
 
-- [业界应用](multimodal-machine-learning/industry-application/industry-application.md)
-  - [OpenAI](multimodal-machine-learning/industry-application/openai/openai.md)
+- 论文
+  - [On the Opportunities and Risks of Foundation Models 2021 李飞飞](https://link.zhihu.com/?target=https%3A//arxiv.org/pdf/2108.07258.pdf)
+- [业界应用](multimodal-large-model/industry-application/industry-application.md)
+  - [OpenAI](multimodal-large-model/industry-application/openai/openai.md)
     - DALL·E 图像生成平台
     - CLIP
     - DALL·E2
-    - [Point-E 202212 文本生成3D点云模型](multimodal-machine-learning/industry-application/openai/point-e/point-e.md)
+    - [Point-E 202212 文本生成3D点云模型](multimodal-large-model/industry-application/openai/point-e/point-e.md)
   - Stability.ai
     - Stable Diffusion开源
+  - Salesforce Research
+    - BLIP-2 图像生成文字，能力堪比ChatGPT
 
 # [AutoML](auto-machine-learning/auto-machine-learning.md)
 
@@ -405,7 +428,7 @@
   * [模型压缩概述](model-deployment/model-compression/model-compression-introduction/model-compression-introduction.md)
   * 剪枝
   * 量化
-  * 蒸馏
+  * [知识蒸馏](model-deployment/model-compression/knowledge-distillation/knowledge-distillation.md)
 * [模型部署](model-deployment/model-deployment/model-deployment.md)
   * [TensorRT](model-deployment/model-deployment/tensor-rt/tensor-rt.md)
   * [基于C/C++部署TensorFlow模型](model-deployment/model-deployment/tensorflow-cpp-deployment/tensorflow-cpp-deployment.md)
@@ -416,7 +439,8 @@
   * [各类型传感器](autopilot/sensor/sensors/sensors.md)
     * [加速度计](autopilot/sensor/sensors/accelerometer/accelerometer.md)
       * [加速度计的六面校准法](autopilot/sensor/sensors/accelerometer/accelerometer-six-sided-calibration-method/accelerometer-six-sided-calibration-method.md)
-    * 陀螺仪
+    * [陀螺仪](autopilot/sensor/sensors/gyroscope/gyroscope.md)
+      * [陀螺仪校准](autopilot/sensor/sensors/gyroscope/gyroscope-calibration/gyroscope-calibration.md)
 * 感知
 * [决策](autopilot/decision/decision.md)
 * 规划

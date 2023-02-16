@@ -316,14 +316,13 @@
       * [Humanoid Strike人类击剑](reinforcement-learning/industry-application/inspir-ai/time-chamber/humanoid-strike/humanoid-strike.md)
 
 # [计算机视觉](computer-vision/computer-vision.md)
-
-- [YOLO](computer-vision/yolo/yolo.md)
-  - [YOLO原理](computer-vision/yolo/yolo-principle/yolo-principle.md)
-  - [DarkNet深度学习框架](computer-vision/yolo/darknet/darknet.md)
-  - [YOLO-v5]()
-- [图像标注工具](computer-vision/image-mark-tool/image-mark-tool.md)
-  - [YOLO_Mark](computer-vision/image-mark-tool/yolo-mark/yolo-mark.md)
-  - [Labelme](computer-vision/image-mark-tool/labelme/labelme.md)
+* [YOLO](computer-vision/yolo/yolo.md)
+  * [YOLO原理](computer-vision/yolo/yolo-principle/yolo-principle.md)
+  * [DarkNet深度学习框架](computer-vision/yolo/darknet/darknet.md)
+  * [YOLO-v5]()
+* [图像标注工具](computer-vision/image-mark-tool/image-mark-tool.md)
+  * [YOLO_Mark](computer-vision/image-mark-tool/yolo-mark/yolo-mark.md)
+  * [Labelme](computer-vision/image-mark-tool/labelme/labelme.md)
 
 # [自然语言处理](natural-language-processing/natural-language-processing.md)
 * [自然语言处理概论](natural-language-processing/natural-language-processing-introduction/natural-language-processing-introduction.md)
@@ -365,22 +364,20 @@
       * [ColossalAI](natural-language-processing/large-language-model/industry-application/hpcaitech/colossal-ai/ColossalAI.md) 对标ChatGPT的开源项目 202302
 
 # [多模态大模型](multimodal-large-model/multimodal-large-model.md)
-
-- 论文
-  - [On the Opportunities and Risks of Foundation Models 2021 李飞飞](https://link.zhihu.com/?target=https%3A//arxiv.org/pdf/2108.07258.pdf)
-- [业界应用](multimodal-large-model/industry-application/industry-application.md)
-  - [OpenAI](multimodal-large-model/industry-application/openai/openai.md)
-    - DALL·E 图像生成平台
-    - CLIP
-    - DALL·E2
-    - [Point-E 202212 文本生成3D点云模型](multimodal-large-model/industry-application/openai/point-e/point-e.md)
-  - Stability.ai
-    - Stable Diffusion开源
-  - Salesforce Research
-    - BLIP-2 图像生成文字，能力堪比ChatGPT
+* 论文
+  * [On the Opportunities and Risks of Foundation Models 2021 李飞飞](https://link.zhihu.com/?target=https%3A//arxiv.org/pdf/2108.07258.pdf)
+* [业界应用](multimodal-large-model/industry-application/industry-application.md)
+  * [OpenAI](multimodal-large-model/industry-application/openai/openai.md)
+    * DALL·E 图像生成平台
+    * CLIP
+    * DALL·E2
+    * [Point-E 202212 文本生成3D点云模型](multimodal-large-model/industry-application/openai/point-e/point-e.md)
+  * Stability.ai
+    * Stable Diffusion开源
+  * Salesforce Research
+    * BLIP-2 图像生成文字，能力堪比ChatGPT
 
 # [AutoML](auto-machine-learning/auto-machine-learning.md)
-
 * [AutoML介绍](auto-machine-learning/auto-machine-learning-introduction/auto-ml-introduction.md)
 * 自动数据清理AutoClean
 * 自动特征工程AutoFE
@@ -425,7 +422,6 @@
     * [MMoE: Modeling Task Relationships in Multi-task Learning with Multi-gate Mixture-of-Experts KDD2018](recommender-systems/industry-application/google/mmoe/Modeling-Task-Relationships-in-Multi-task-Learning-with-Multi-gate-Mixture-of-Experts.md)
 
 # [模型部署](model-deployment/model-deployment.md)
-
 * [矩阵加速算法](model-deployment/matrix-acceleration-algorithm/matrix-acceleration-algorithm.md)
   * [im2col: 将卷积转为矩阵乘法来加速计算](model-deployment/matrix-acceleration-algorithm/im2col/im2col.md)
   * [winograd: Fast Algorithms for Convolutional Neural Networks CVPR2016](model-deployment/matrix-acceleration-algorithm/winograd/Fast-Algorithms-for-Convolutional-Neural-Networks.md)

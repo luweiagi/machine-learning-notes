@@ -154,6 +154,7 @@
       * [得到模型参数值](coding/machine-learning-framework/tensorflow/tools/get-weight/get-weight.md)
   * [PyTorch](coding/machine-learning-framework/pytorch/pytorch.md)
     * [PyTorch基础](coding/machine-learning-framework/pytorch/basis/basis.md)
+  * [分布式训练](coding/machine-learning-framework/distributed-training/distributed-training.md)
 
 # [机器学习](machine-learning/machine-learning.md)
 * [机器学习概论](machine-learning/machine-learning-introduction/machine-learning-introduction.md)
@@ -308,6 +309,11 @@
     * [OpenAI Five: Dota 2 with Large Scale Deep Reinforcement Learning 2019](reinforcement-learning/industry-application/openai/oepnai-five/openai-five.md)
   * [腾讯](reinforcement-learning/industry-application/tencent/tencent.md)
     * [王者荣耀Honor of Kings](reinforcement-learning/industry-application/tencent/honor-of-kings/honor-of-kings.md)
+  * [InspirAI启元世界](reinforcement-learning/industry-application/inspir-ai/inspir-ai.md)
+    * [InspirAI启元世界](reinforcement-learning/industry-application/inspir-ai/inspir-ai/inspir-ai.md)
+    * [TimeChamber大规模并行的大规模自对弈框架](reinforcement-learning/industry-application/inspir-ai/time-chamber/time-chamber.md)
+      * [TimeChamber大规模并行的大规模自对弈框架](reinforcement-learning/industry-application/inspir-ai/time-chamber/time-chamber/time-chamber.md)
+      * [Humanoid Strike人类击剑](reinforcement-learning/industry-application/inspir-ai/time-chamber/humanoid-strike/humanoid-strike.md)
 
 # [计算机视觉](computer-vision/computer-vision.md)
 
@@ -352,7 +358,11 @@
       * PromptCLUE1.5 202211
       * ChatYuan 202212
     * 百度
-      * ERNIE Bot 文心一言 202302
+      * ERNIE-Bot文心一言 202302
+    * [BlinkDL](natural-language-processing/large-language-model/industry-application/blinkdl/blinkdl.md)
+      * [ChatRWKV](natural-language-processing/large-language-model/industry-application/blinkdl/ChatRWKV/ChatRWKV.md) 对标ChatGPT的开源项目，基于RNN架构 202208
+    * [HPC-AI Tech](natural-language-processing/large-language-model/industry-application/hpcaitech/hpcaitech.md)
+      * [ColossalAI](natural-language-processing/large-language-model/industry-application/hpcaitech/colossal-ai/ColossalAI.md) 对标ChatGPT的开源项目 202302
 
 # [多模态大模型](multimodal-large-model/multimodal-large-model.md)
 

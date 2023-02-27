@@ -5,5 +5,5 @@
 * [Tensorflow](tensorflow/tensorflow.md)
 * [PyTorch](pytorch/pytorch.md)
 
-* [分布式训练](distributed-training/distributed-training.md)
+* [Ray分布式计算框架](ray/ray.md)
 

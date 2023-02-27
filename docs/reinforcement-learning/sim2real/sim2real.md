@@ -33,3 +33,10 @@ sim2real 中的典型工作大致可以分为以下五类：
 在这一部分我将介绍一下 OpenAI 在 sim2real 领域做出的一个工作，其地位类似于多智能体强化学习领域的 OpenAI Five。
 
 4.1 Learning Dexterous In-Hand Manipulation
+
+
+
+[Sim2Real学习总结](https://zhuanlan.zhihu.com/p/510951914)
+
+最近学习了Sim2Real领域的一些相关工作，以此文做一次学习总结，文章主要参照2020的一篇Survey：[《Sim-to-Real Transfer in Deep Reinforcement Learning for Robotics: a Survey》](https://arxiv.org/pdf/2009.13303.pdf)
+

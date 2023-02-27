@@ -3,6 +3,7 @@
 * [返回上层目录](../README.md)
 * [传感器](sensor/sensor.md)
 * [决策](decision/decision.md)
+* [规划](planning/planning.md)
 
 
 

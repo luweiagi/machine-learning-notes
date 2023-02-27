@@ -10,9 +10,23 @@
 
 ===
 
+[一块RTX3090跑ChatGPT体量模型的方法来了！代码已开源](https://mp.weixin.qq.com/s/8FOojNMnCe1D3q0TOgE_EQ)
+
+[当ChatGPT和Stable diffusion碰撞：谷歌用人类反馈提升文生图效果](https://mp.weixin.qq.com/s/FrqpybryiJ-ikO4ZVeISIg)
+
+[ChatGPT 团队背景（共87人）](https://mp.weixin.qq.com/s/VM2SzNyZF2bZDQ7tYvZFkA)
+
+[李宏毅-ChatGPT 原理剖析1對ChatGPT的常見誤解](https://mp.weixin.qq.com/s/gQ6SCJXmcF86o5TH3mW7Sg)
+
+[打造中国版ChatGPT，这是国内最有实力的一批NLP团队与人才](https://mp.weixin.qq.com/s?__biz=MzA3MzI4MjgzMw==&mid=2650869214&idx=1&sn=e8dab20eab64f3f92d42b2e3fd8e2a2b&chksm=84e4c9a0b39340b6e08200354f72c09d589a99e7763ebaf58bd1d3d0510ee0a954b65a040eff&scene=126&sessionid=1677048170#rd)
+
+[ChatGPT是怎么练成的？斯坦福CS224N课程讲解《自然语言生成》等核心技术，附71页Slides](https://mp.weixin.qq.com/s/wxYdUMBDFc7InBi83OBy-A)
+
+[历史最全ChatGPT、LLM相关书籍、论文、博客、工具、数据集、开源项目等资源整理分享](https://mp.weixin.qq.com/s/VoOEw2-cJ-klGMrl7MJeQQ)
+
+本资源整理了有关 ChatGPT、GPT 和大型语言模型 (LLM)的必读论文、博客、工具、数据集、开源项目等资源，需要自取。
+
 [一文读懂ChatGPT模型原理](https://zhuanlan.zhihu.com/p/589621442)
-
-
 
 [为什么百度没有做出chatGPT这种产品？](https://www.zhihu.com/question/572106826/answer/2808336053)
 

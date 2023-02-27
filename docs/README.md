@@ -9,6 +9,7 @@
 * [机器学习前言](perface/machine-learning-perface/machine-learning-perface.md)
 * [机器学习的学习路径](perface/machine-learning-learning-path/machine-learning-learning-path.md)
 * [机器学习面试](perface/interview/interview.md)
+* [机器学习发展史](perface/machine-learning-history/machine-learning-history.md)
 
 # [数学基础](mathematics/mathematics.md)
 * [机器学习需要的数学](mathematics/mathematics-ml-needs/mathematics-ml-needs.md)
@@ -154,7 +155,7 @@
       * [得到模型参数值](coding/machine-learning-framework/tensorflow/tools/get-weight/get-weight.md)
   * [PyTorch](coding/machine-learning-framework/pytorch/pytorch.md)
     * [PyTorch基础](coding/machine-learning-framework/pytorch/basis/basis.md)
-  * [分布式训练](coding/machine-learning-framework/distributed-training/distributed-training.md)
+  * [Ray分布式计算框架](coding/machine-learning-framework/ray/ray.md)
 
 # [机器学习](machine-learning/machine-learning.md)
 * [机器学习概论](machine-learning/machine-learning-introduction/machine-learning-introduction.md)
@@ -255,6 +256,7 @@
   * [VAE变分自编码器](deep-learning/deep-generative-models/variational-autoencoder/variational-autoencoder.md)
   * Flow-based Models流模型
   * [Diffusion Models扩散模型](deep-learning/deep-generative-models/diffusion-models/diffusion-models.md)
+* [Few-shot Learning小样本学习](deep-learning/few-shot-learning/few-shot-learning.md)
 
 # [强化学习](reinforcement-learning/reinforcement-learning.md)
 * [强化学习](reinforcement-learning/reinforcement-learning/reinforcement-learning.md)
@@ -280,19 +282,30 @@
   * MuJoCo
   * Unity3D: ml-agents
 * [Sim2Real从仿真器到现实环境的迁移](reinforcement-learning/sim2real/sim2real.md)
+  * [论文](reinforcement-learning/sim2real/paper/paper.md)
+    * [i-Sim2Real: Reinforcement Learning of Robotic Policies in Tight Human-Robot Interaction Loops arXiv2022 Google](reinforcement-learning/sim2real/paper/i-sim2real/i-Sim2Real-Reinforcement-Learning-of-Robotic-Policies-in-Tight-Human-Robot-Interaction-Loops.md)
+    * [Legged Robots that Keep on Learning: Fine-Tuning Locomotion Policies in the Real World arXiv2022 Google](reinforcement-learning/sim2real/paper/legged-robots-keep-on-learning/Legged-Robots-that-Keep-on-Learning-Fine-Tuning-Locomotion-Policies-in-the-Real-World.md)
 * [MCTS蒙特卡洛树搜索](reinforcement-learning/monte-carlo-tree-search/monte-carlo-tree-search.md)
 * [模仿学习](reinforcement-learning/imatation-learning/imatation-learning.md)
   * [模仿学习介绍](reinforcement-learning/imatation-learning/imatation-learning-introduction/imatation-learning-introduction.md)
-  * BC行为克隆: Behavior Cloning
-  * IRL逆强化学习: Inverse Reinforcement Learning
+  * [BC行为克隆:Behavior Cloning](reinforcement-learning/imatation-learning/behavior-cloning/behavior-cloning.md)
+    * [论文](reinforcement-learning/imatation-learning/behavior-cloning/paper/paper.md)
+      * [Visual Backtracking Teleoperation: A Data Collection Protocol for Offline Image-Based Reinforcement Learning arXir2022 Google](reinforcement-learning/imatation-learning/behavior-cloning/paper/visual-backtracking-teleoperation/Visual-Backtracking-Teleoperation-A-Data-Collection-Proto.md)
+      * [GoalsEye: Learning High Speed Precision Table Tennis on a Physical Robot Google2022](reinforcement-learning/imatation-learning/behavior-cloning/paper/goals-eye/GoalsEye-Learning-High-Speed-Precision-Table-Tennis-on-a-Physical-Robot.md)
+  * [IRL逆强化学习Inverse Reinforcement Learning](reinforcement-learning/imatation-learning/inverse-reinforcement-learning/inverse-reinforcement-learning.md)
+    * [论文](reinforcement-learning/imatation-learning/inverse-reinforcement-learning/paper/paper.md)
+      * [XIRL: Cross-embodiment Inverse Reinforcement Learning arXir2022 Google](reinforcement-learning/imatation-learning/inverse-reinforcement-learning/paper/xirl/XIRL-Cross-embodiment-Inverse-Reinforcement-Learning.md)
   * [GAIL生成式对抗模仿学习: Generative Adversarial Imitation Learning NeurIPS2016](reinforcement-learning/imatation-learning/generative-adversarial-imitation-learning/Generative-Adversarial-Imitation-Learning.md)
   * [论文](reinforcement-learning/imatation-learning/paper/paper.md)
-    * [Augmenting GAIL with BC for sample efficient imitation learning](reinforcement-learning/imatation-learning/paper/augmenting-GAIL-with-BC-for-sample-efficient-imitation-learning/Augmenting-GAIL-with-BC-for-sample-effici.md)
+    * [Augmenting GAIL with BC for sample efficient imitation learning](reinforcement-learning/imatation-learning/paper/BC+GAIL/Augmenting-GAIL-with-BC-for-sample-effici.md)
+    * [Robotic Table Wiping via Reinforcement Learning and Whole-body Trajectory Optimization arXiv2022 Google](reinforcement-learning/imatation-learning/paper/robotic-table-wiping/Robotic-Table-Wiping-via-Reinforcement-Learning-and-Whole-body-Trajectory-Optimization.md)
+    * [On the Sample Complexity of Stability Constrained Imitation Learning PMLR2022 Google](reinforcement-learning/imatation-learning/paper/sample-complexity/On-the-Sample-Complexity-of-Stability-Constrained-Imitation-Learning.md)
 * [多智能体强化学习](reinforcement-learning/multi-agent-reinforcement-learning/multi-agent-reinforcement-learning.md)
   * [多智能体强化学习论文](reinforcement-learning/multi-agent-reinforcement-learning/paper/paper.md)
     * [mean-field: Mean Field Multi-Agent Reinforcement Learning ICML2018](reinforcement-learning/multi-agent-reinforcement-learning/paper/mean-field/Mean-Field-Multi-Agent-Reinforcement-Learning.md)
 * [Transformer+RL](reinforcement-learning/transformer-rl/transformer-rl.md)
 * [决策大模型](reinforcement-learning/decision-making-big-model/decision-making-big-model.md)
+* [Offline RL离线强化学习](reinforcement-learning/offline-reinforcement-learning/offline-reinforcement-learning.md)
 * [业界应用](reinforcement-learning/industry-application/industry-application.md)
   * [DeepMind](reinforcement-learning/industry-application/deepmind/deepmind.md)
     * AlphaGo
@@ -337,19 +350,25 @@
   * [Transformer的细节问题](natural-language-processing/self-attention-and-transformer/transformer-details/transformer-details.md)
 * [BERT](natural-language-processing/bert/bert.md)
 * [LLM大语言模型](natural-language-processing/large-language-model/large-language-model.md)
+  * [RLHF基于人工反馈的强化学习方法](natural-language-processing/large-language-model/rlhf/rlhf.md)
+  * [Prompt Learning](natural-language-processing/large-language-model/prompt-learning/prompt-learning.md)
   * [业界应用](natural-language-processing/large-language-model/industry-application/industry-application.md)
     * [OpenAI](natural-language-processing/large-language-model/industry-application/openai/openai.md)
+      * [GTP系列介绍](natural-language-processing/large-language-model/industry-application/openai/gpt-series-introduction/gpt-series-introduction.md)
       * GPT1
       * GPT2
       * GPT3 语言生成模型
       * Codex
       * GPT-3.5
+      * instructGPT
       * [ChatGPT](natural-language-processing/large-language-model/industry-application/openai/ChatGPT/ChatGPT.md) 聊天机器人
     * [Google](natural-language-processing/large-language-model/industry-application/google/google.md)
       * LaMDA 发布于202105 I/O大会
       * PaLM 202204 5400亿参数
       * LaMDA-2 202205 I/O大会
       * [Bard](natural-language-processing/large-language-model/industry-application/google/Bard/Bard.md) 聊天机器人，对标OpenAI的ChatGPT，发布于202302
+    * [Meta](natural-language-processing/large-language-model/industry-application/meta/meta.md)
+      * [LLaMa](natural-language-processing/large-language-model/industry-application/meta/LLaMa/LLaMa.md) 对标OpenAI的ChatGPT，开源，发布于202302
     * MiscroSoft
       * Copilot MiscroSoft和OpenAI联合打造的AI编程工具，基于OpenAI的大模型Codex，基于GPT-3框架进行训练
     * 元语智能
@@ -362,6 +381,8 @@
       * [ChatRWKV](natural-language-processing/large-language-model/industry-application/blinkdl/ChatRWKV/ChatRWKV.md) 对标ChatGPT的开源项目，基于RNN架构 202208
     * [HPC-AI Tech](natural-language-processing/large-language-model/industry-application/hpcaitech/hpcaitech.md)
       * [ColossalAI](natural-language-processing/large-language-model/industry-application/hpcaitech/colossal-ai/ColossalAI.md) 对标ChatGPT的开源项目 202302
+    * [复旦大学自然语言处理实验室邱锡鹏团队](natural-language-processing/large-language-model/industry-application/fudan-university-nlp-group/fudan-university-nlp-group.md)
+      * [MOSS](natural-language-processing/large-language-model/industry-application/fudan-university-nlp-group/moss/moss.md) 对标ChatGPT暂未开源 202302
 
 # [多模态大模型](multimodal-large-model/multimodal-large-model.md)
 * 论文
@@ -449,10 +470,22 @@
       * [陀螺仪校准](autopilot/sensor/sensors/gyroscope/gyroscope-calibration/gyroscope-calibration.md)
 * 感知
 * [决策](autopilot/decision/decision.md)
-* 规划
+* [规划](autopilot/planning/planning.md)
+  * [基于LLM大语言模型的规划](autopilot/planning/llm-based-planning/llm-based-planning.md)
+    * [Socratic Models: Composing Zero-Shot Multimodal Reasoning with Language arXiv2022 Google](autopilot/planning/llm-based-planning/socratic-models/Socratic-Models-Composing-Zero-Shot-Multimodal-Reasoning-with-Language.md)
+    * [Towards Helpful Robots: Grounding Language in Robotic Affordances Google2022](autopilot/planning/llm-based-planning/towards-helpful-robots-grounding/Towards-Helpful-Robots-Grounding-Language-in-Robotic-Affordances.md)
+    * [Value Function Spaces: Skill-Centric State Abstractions for Long-Horizon Reasoning arXiv2022 Google](autopilot/planning/llm-based-planning/value-function-spaces/Value-Function-Spaces-Skill-Centric-State-Abstractions-for-Long-Horizon-Reasoning.md)
+    * [Inner Monologue: Embodied Reasoning through Planning with Language Models arXiv2022 Google](autopilot/planning/llm-based-planning/inner-monologue/Inner-Monologue-Embodied-Reasoning-through-Planning-with-Language-Models.md)
+    * [Interactive Language: Talking to Robots in Real Time arXiv2022 Google](autopilot/planning/llm-based-planning/interactive-language/Interactive-Language-Talking-to-Robots-in-Real-Time)
 * 制导
 * [控制](autopilot/control/control.md)
   * [基于强化学习的控制](autopilot/control/reinforcement-learning-based-control/reinforcement-learning-based-control.md)
+  * [基于LLM大语言模型的控制](autopilot/control/llm-based-control/llm-based-control.md)
+    * [Code as Policies: Language Model Programs for Embodied Control arXiv2022 Google](autopilot/control/llm-based-control/code-as-policies/Code-as-Policies-Language-Model-Programs-for-Embodied-Control.md)
+    * [RT-1: Robotics Transformer for Real-World Control at Scale arXiv2022 Google](autopilot/control/llm-based-control/rt-1/RT-1-Robotics-Transformer-for-Real-World-Control-at-Scale.md)
+    * [Performer MPC: Learning Model Predictive Controllers with Real-Time Attention for Real-World Navigation Google2022](autopilot/control/llm-based-control/performer-mpc/Learning-Model-Predictive-Controllers-with-Real-Time-Attention-for-Real-World-Navigation.md)
+  * [ChatGPT for Robotics: Design Principles and Model Abilities MicroSoft2023](autopilot/control/llm-based-control/chatGPT-for-robotics/ChatGPT-for-Robotics-Design-Principles-and-Model-Abilities.md)
+  
 * [导航](autopilot/navigation)
   * [坐标变换](autopilot/navigation/coordinate-transformation/coordinate-transformation.md)
 * 动力学模型
@@ -464,9 +497,13 @@
 # [通用人工智能](artificial-general-intelligence/artificial-general-intelligence.md)
 * [业界应用](artificial-general-intelligence/industry-application/industry-application.md)
   * [DeepMind](artificial-general-intelligence/industry-application/deepmind/deepmind.md)
+    * [DeepMind介绍](artificial-general-intelligence/industry-application/deepmind/deepmind-introduction/deepmind-introduction.md)
     * [PathNet: Evolution Channels Gradient Descent in Super Neural Networks  arXiv2017](artificial-general-intelligence/industry-application/deepmind/pathnet/PathNet：Evolution-Channels-Gradient-Descent-in-Super-Neural-Networks.md)
     * [Reward is enough AI2021](artificial-general-intelligence/industry-application/deepmind/reward-is-enough/Reward-is-enough.md)
     * [Gato: A Generalist Agent arXiv2022](artificial-general-intelligence/industry-application/deepmind/gato/A-Generalist-Agent.md)
+  * [OpenAI](artificial-general-intelligence/industry-application/openai/openai.md)
+    * [OpenAI介绍](artificial-general-intelligence/industry-application/openai/openai-introduction/openai-introduction.md)
+  * [Google](artificial-general-intelligence/industry-application/google/google.md)
 
 # [任务清单](personal/list.md)
 * [收集的各种资料](personal/material.md)

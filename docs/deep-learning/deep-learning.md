@@ -9,6 +9,7 @@
 * [RNN循环神经网络](recurrent-neural-network/recurrent-neural-network.md)
 * [GNN图神经网络](graph-neural-networks/graph-neural-networks.md)
 * [深度生成模型](deep-generative-models/deep-generative-models.md)
+* [Few-shot Learning小样本学习](few-shot-learning/few-shot-learning.md)
 
 
 

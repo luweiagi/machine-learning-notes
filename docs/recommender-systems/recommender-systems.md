@@ -10,3 +10,6 @@
 
 
 我觉得DIN、DIEN、SIM一系列工作是真牛
+
+[推荐系统遇上深度学习(一四三)-[快手]一致性终身用户行为建模方法TWIN](https://mp.weixin.qq.com/s/NXy38_ALOy6VAlvzJFFL-w)
+

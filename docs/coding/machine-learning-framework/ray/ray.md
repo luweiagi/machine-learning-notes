@@ -1,6 +1,12 @@
-# 分布式训练
+# Ray分布式计算框架
 
 * [返回上层目录](../machine-learning-framework.md)
+
+===
+
+[ChatGPT背后的开源AI框架Ray，现在值10亿美元](https://mp.weixin.qq.com/s/6XLWpsCJZRalDs3-yMX4dg)
+
+
 
 光说显卡，chatgpt大概用800G显存，你用4090堆比较亏，要30多张并联。但你又买不到性价比高一点的A100，也没有能并联30张4090的主板，更没有多主板还能并行计算的技术
 

@@ -495,7 +495,6 @@
     * [RT-1: Robotics Transformer for Real-World Control at Scale arXiv2022 Google](autopilot/control/llm-based-control/rt-1/RT-1-Robotics-Transformer-for-Real-World-Control-at-Scale.md)
     * [Performer MPC: Learning Model Predictive Controllers with Real-Time Attention for Real-World Navigation Google2022](autopilot/control/llm-based-control/performer-mpc/Learning-Model-Predictive-Controllers-with-Real-Time-Attention-for-Real-World-Navigation.md)
   * [ChatGPT for Robotics: Design Principles and Model Abilities MicroSoft2023](autopilot/control/llm-based-control/chatGPT-for-robotics/ChatGPT-for-Robotics-Design-Principles-and-Model-Abilities.md)
-  
 * [导航](autopilot/navigation/navigation.md)
   * [坐标变换与欧拉运动学方程](autopilot/navigation/coord-trans-and-euler-kinematics-equation/coord-trans-and-euler-kinematics-equation.md)
 * 动力学模型

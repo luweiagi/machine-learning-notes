@@ -2,6 +2,14 @@
 
 * [返回上层目录](../machine-learning-framework.md)
 
+
+
+github: [ray-project/ray](https://github.com/ray-project/ray)
+
+> Ray is a unified framework for scaling AI and Python applications. Ray consists of a core distributed runtime and a toolkit of libraries (Ray AIR) for accelerating ML workloads.
+
+
+
 ===
 
 [ChatGPT背后的开源AI框架Ray，现在值10亿美元](https://mp.weixin.qq.com/s/6XLWpsCJZRalDs3-yMX4dg)

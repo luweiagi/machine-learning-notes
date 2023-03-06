@@ -625,3 +625,12 @@ Encoder通过处理输入序列开启工作。Encoder顶端的输出之后会变
 
 [Transformer称霸的原因找到了？OpenAI前核心员工揭开注意力头协同工作机理](https://mp.weixin.qq.com/s?__biz=MzA3MzI4MjgzMw==&mid=2650844831&idx=2&sn=e6ae775a0d46dcc2c7f06945c9b7ea1c&chksm=84e56ae1b392e3f7d952ec2f4ba5a224c05f0e331ee8522577cf60961c91274be20c55617711&scene=132#wechat_redirect)
 
+
+
+[哪位大神讲解一下Transformer的Decoder的输入输出都是什么？能解释一下每个部分都是什么?](https://www.zhihu.com/question/337886108/answer/893002189)
+
+[如何从浅入深理解transformer？](https://www.zhihu.com/question/471328838/answer/2905251738)
+
+[如何最简单、通俗地理解Transformer？](https://www.zhihu.com/question/445556653/answer/2884200706)
+
+代码很详细

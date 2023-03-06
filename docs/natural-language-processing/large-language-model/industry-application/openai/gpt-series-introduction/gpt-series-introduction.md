@@ -12,6 +12,10 @@ chatgpt应该算是第3代nlp技术了。前两代是预训练+微调，然后�
 
 ===
 
+nanogpt的实现，开源
+
+
+
 
 
 [从 GPT 到 ChatGPT 的演进与应用思考](https://mp.weixin.qq.com/s/3Pr82xKpZ7mAWQcxPPB1xA)

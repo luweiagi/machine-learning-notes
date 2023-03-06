@@ -6,3 +6,5 @@
 
 
 
+[CNN为什么要用BN， RNN为何要用layer Norm？](https://www.zhihu.com/question/454292446/answer/1837760076)
+

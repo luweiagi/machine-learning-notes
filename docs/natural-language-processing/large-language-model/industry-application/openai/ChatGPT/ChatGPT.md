@@ -10,6 +10,12 @@
 
 ===
 
+[张俊林：通向AGI之路：大型语言模型（LLM）技术精要](https://zhuanlan.zhihu.com/p/597586623)
+
+感谢大佬的总结，非常全面。LLM 作为新型的知识库或许是一个新机会，原来手工构建的知识库可能都会被大模型取代；从 EMNLP19 "Language Models as Knowledge Bases" 就已经有这个端倪，最近一些工作也尝试从模型 probe 出世界知识用到具体任务中，譬如 KDD22 "Proton: Probing Schema Linking Information from Pre-trained Language Models for Text-to-SQL Parsing" 也有比较好的提升；所以 LLM 第一个 "颠覆" 的领域可能是 KB [捂脸]
+
+写得太好了！把最近的 LLM 需要关注的进展总结得淋漓尽致！唯一有一点我觉得可能还值得商榷，就是大模型稀疏化的必要性。从 Google 论文的结果来看，MOE 稀疏化的大模型通常会被小得多的 dense model 吊打。过去几年的各种稀疏化研究似乎也表明似乎深度学习模型可能不太适合稀疏化。
+
 [一块RTX3090跑ChatGPT体量模型的方法来了！代码已开源](https://mp.weixin.qq.com/s/8FOojNMnCe1D3q0TOgE_EQ)
 
 [当ChatGPT和Stable diffusion碰撞：谷歌用人类反馈提升文生图效果](https://mp.weixin.qq.com/s/FrqpybryiJ-ikO4ZVeISIg)

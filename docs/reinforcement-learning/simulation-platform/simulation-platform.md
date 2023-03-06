@@ -2,6 +2,7 @@
 
 * [返回上层目录](../reinforcement-learning.md)
 * [OpenAI: Gym](openai-gym/openai-gym.md)
+* [OpenDILab: GoBigger](OpenDILab-GoBigger/OpenDILab-GoBigger.md)
 
 
 

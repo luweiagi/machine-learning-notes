@@ -223,6 +223,7 @@
 # [深度学习](deep-learning/deep-learning.md)
 * [深度学习概论](deep-learning/deep-learning-introduction/deep-learning-introduction.md)
 * [ANN人工神经网络](deep-learning/artificial-neural-network/artificial-neural-network.md)
+* [Hopfield神经网络](deep-learning/hopfield-neural-network/hopfield-neural-network.md)
 * [知识点](deep-learning/tips/tips.md)
   * [激活函数](deep-learning/tips/activation-functions/activation-functions.md)
   * [深度学习中的正则化](deep-learning/tips/normalization/normalization.md)
@@ -277,10 +278,12 @@
   * [强化学习论文](reinforcement-learning/reinforcement-learning/paper/paper.md)
     * [DDPG: Continuous Control With Deep Reinforcement Learning ICLR2016](reinforcement-learning/reinforcement-learning/paper/ddpg/ddpg.md)
     * [PPO: Proximal Policy Optimization arXiv2017OpenAI](reinforcement-learning/reinforcement-learning/paper/ppo/Proximal-Policy-Optimization.md)
+    * [Soft Actor-Critic](https://www.paperexplained.cn/articles/paper/detail/811df72e210e20de99719539505da54762a11c6d/)
 * [仿真环境](reinforcement-learning/simulation-platform/simulation-platform.md)
   * [OpenAI: Gym](reinforcement-learning/simulation-platform/openai-gym/openai-gym.md)
   * MuJoCo
   * Unity3D: ml-agents
+  * [OpenDILab: GoBigger多智能体仿真平台](reinforcement-learning/simulation-platform/OpenDILab-GoBigger/OpenDILab-GoBigger.md)
 * [Sim2Real从仿真器到现实环境的迁移](reinforcement-learning/sim2real/sim2real.md)
   * [论文](reinforcement-learning/sim2real/paper/paper.md)
     * [i-Sim2Real: Reinforcement Learning of Robotic Policies in Tight Human-Robot Interaction Loops arXiv2022 Google](reinforcement-learning/sim2real/paper/i-sim2real/i-Sim2Real-Reinforcement-Learning-of-Robotic-Policies-in-Tight-Human-Robot-Interaction-Loops.md)
@@ -306,6 +309,7 @@
 * [Transformer+RL](reinforcement-learning/transformer-rl/transformer-rl.md)
 * [决策大模型](reinforcement-learning/decision-making-big-model/decision-making-big-model.md)
 * [Offline RL离线强化学习](reinforcement-learning/offline-reinforcement-learning/offline-reinforcement-learning.md)
+* [MMRL多模态强化学习](reinforcement-learning/multi-modal-reinforcement-learning/multi-modal-reinforcement-learning.md)
 * [业界应用](reinforcement-learning/industry-application/industry-application.md)
   * [DeepMind](reinforcement-learning/industry-application/deepmind/deepmind.md)
     * AlphaGo
@@ -329,6 +333,9 @@
       * [Humanoid Strike人类击剑](reinforcement-learning/industry-application/inspir-ai/time-chamber/humanoid-strike/humanoid-strike.md)
 
 # [计算机视觉](computer-vision/computer-vision.md)
+* ResNet 有捷径的(resnet的跳跃连接)
+* InceptionNet 多岔路的(inception的多分支)
+* DenseNet 通往多个地点的捷径的(densenet的密集连接)
 * [YOLO](computer-vision/yolo/yolo.md)
   * [YOLO原理](computer-vision/yolo/yolo-principle/yolo-principle.md)
   * [DarkNet深度学习框架](computer-vision/yolo/darknet/darknet.md)
@@ -368,9 +375,12 @@
       * LaMDA-2 202205 I/O大会
       * [Bard](natural-language-processing/large-language-model/industry-application/google/Bard/Bard.md) 聊天机器人，对标OpenAI的ChatGPT，发布于202302
     * [Meta](natural-language-processing/large-language-model/industry-application/meta/meta.md)
+      * [OPT](natural-language-processing/large-language-model/industry-application/meta/opt/opt.md) 复现开源了GPT3
       * [LLaMa](natural-language-processing/large-language-model/industry-application/meta/LLaMa/LLaMa.md) 对标OpenAI的ChatGPT，开源，发布于202302
     * MiscroSoft
       * Copilot MiscroSoft和OpenAI联合打造的AI编程工具，基于OpenAI的大模型Codex，基于GPT-3框架进行训练
+    * [阿里达摩院](natural-language-processing/large-language-model/industry-application/alibaba/alibaba.md)
+      * [中文GPT3](natural-language-processing/large-language-model/industry-application/alibaba/gpt3-chinese/gpt3-chinese.md) 对标GPT-3的开源项目
     * 元语智能
       * PromptCLUE1.0 202210
       * PromptCLUE1.5 202211
@@ -486,8 +496,8 @@
     * [Performer MPC: Learning Model Predictive Controllers with Real-Time Attention for Real-World Navigation Google2022](autopilot/control/llm-based-control/performer-mpc/Learning-Model-Predictive-Controllers-with-Real-Time-Attention-for-Real-World-Navigation.md)
   * [ChatGPT for Robotics: Design Principles and Model Abilities MicroSoft2023](autopilot/control/llm-based-control/chatGPT-for-robotics/ChatGPT-for-Robotics-Design-Principles-and-Model-Abilities.md)
   
-* [导航](autopilot/navigation)
-  * [坐标变换](autopilot/navigation/coordinate-transformation/coordinate-transformation.md)
+* [导航](autopilot/navigation/navigation.md)
+  * [坐标变换与欧拉运动学方程](autopilot/navigation/coord-trans-and-euler-kinematics-equation/coord-trans-and-euler-kinematics-equation.md)
 * 动力学模型
   * 六自由度动力学与运动学模型
   * 仿真环境

@@ -489,6 +489,8 @@
     * [Interactive Language: Talking to Robots in Real Time arXiv2022 Google](autopilot/planning/llm-based-planning/interactive-language/Interactive-Language-Talking-to-Robots-in-Real-Time)
 * 制导
 * [控制](autopilot/control/control.md)
+  * [PID控制](autopilot/control/pid-control/pid-control.md)
+    * [Sqrt Controller开方控制器](autopilot/control/pid-control/sqrt-controller/sqrt-controller.md)
   * [基于强化学习的控制](autopilot/control/reinforcement-learning-based-control/reinforcement-learning-based-control.md)
   * [基于LLM大语言模型的控制](autopilot/control/llm-based-control/llm-based-control.md)
     * [Code as Policies: Language Model Programs for Embodied Control arXiv2022 Google](autopilot/control/llm-based-control/code-as-policies/Code-as-Policies-Language-Model-Programs-for-Embodied-Control.md)

@@ -22,8 +22,6 @@
 
 （4）用上下标$b$来表示向量在机体（body）坐标系中，用上下标$e$来表示向量在大地（Earth）坐标系中；
 
-
-
 # 矩阵旋转
 
 ## 对坐标变换的基本理解
@@ -659,7 +657,44 @@ Mat_pqr2rpy =
 [0, sin_phi/(cos_theta*cos_phi^2 + cos_theta*sin_phi^2), cos_phi/(cos_theta*cos_phi^2 + cos_theta*sin_phi^2)]
 ```
 
+## 由体轴角加速度限制求欧拉角角加速度限制
 
+由
+$$
+\begin{aligned}
+\begin{bmatrix}
+p\\
+q\\
+r\\
+\end{bmatrix}
+&=
+\begin{bmatrix}
+1&0&-sin\theta\\
+0&cos\phi&cos\theta sin\phi\\
+0&-sin\phi&cos\theta cos\phi\\
+\end{bmatrix}
+\cdot
+\begin{bmatrix}
+\phi'\\
+\theta'\\
+\psi'\\
+\end{bmatrix}
+\end{aligned}
+$$
+可得
+$$
+\begin{aligned}
+\text{AccMax}_{roll}&=min(r'_{max})\\
+\text{AccMax}_{pitch}&=min(\frac{q'_{max}}{cos\phi},\frac{r'_{max}}{sin\phi})\\
+\text{AccMax}_{roll}&=min(\frac{p'_{max}}{sin\theta},\frac{q'_{max}}{cos\theta sin\phi},\frac{r'_{max}}{cos\theta cos\phi})
+\end{aligned}
+$$
+分析：
+
+假设向量$\overrightarrow{a}$和$\overrightarrow{b}$一起构成了向量$\overrightarrow{c}$，已知向量之间的夹角（即夹角已经固定），那么，$\overrightarrow{c}$的最大限制，其实就是$\overrightarrow{c}$在$\overrightarrow{a}$和$\overrightarrow{b}$上的投影，分别不能超过$\overrightarrow{a}$和$\overrightarrow{b}$各自的最大限制，也即：
+$$
+c_{max}=min(\frac{a_{max}}{cos<a,c>},\frac{b_{max}}{cos<b,c>})
+$$
 
 # 参考资料
 

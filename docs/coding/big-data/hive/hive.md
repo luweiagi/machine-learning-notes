@@ -54,8 +54,6 @@ ALTER TABLE xxx.xxxx DROP IF EXISTS PARTITION(partition_date='20191002', partiti
 
 注意：如果是外部表，则仅仅会删除表的meta信息，实际的数据是不会删除的。如果非要删除外部表的实际数据，则需要把外部表先转为内部表。
 
-
-
 ## LOAD DATA INPATH数据导入函数
 
 ```sql
@@ -64,23 +62,17 @@ LOAD DATA INPATH 'hdfs://nameservice/user/xxxxxxxx/' OVERWRITE INTO TABLE xxx.xx
 
 这样会把原始的hdfs中的数据删除掉，相当于剪切。
 
-
-
 ## desc table查询表的详细信息
 
 ```sql
 desc xxx.table
 ```
 
-
-
 ## show create table建表语句查询
 
 ```sql
 show create table xxxx.xxxxxxxxx;
 ```
-
-
 
 ## desc formatted表的存储位置查询
 
@@ -90,17 +82,11 @@ show create table xxxx.xxxxxxxxx;
 desc formatted xxx.xxxxxx
 ```
 
-
-
 有一类表比较特殊，各个分区是自己用命令load的。因此需要查具体的分区信息：
 
 ```sql
 desc formatted xxxx partition(partition_date=xxx)
 ```
-
-
-
-
 
 ## WITH AS临时表
 

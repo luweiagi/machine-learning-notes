@@ -2,13 +2,16 @@
 
 * [返回上层目录](../navigation.md)
 * [基本假定](#基本假定)
+* [对坐标变换的基本理解](#对坐标变换的基本理解)
+  * [矢量旋转与坐标变换的关系](#矢量旋转与坐标变换的关系)
 * [矩阵旋转](#矩阵旋转)
-  * [对坐标变换的基本理解](#对坐标变换的基本理解)
   * [绕z轴旋转](#绕z轴旋转)
   * [绕y轴旋转](#绕y轴旋转)
   * [绕x轴旋转](#绕x轴旋转)
 * [基于欧拉角的坐标变换](#基于欧拉角的坐标变换)
+  * [万向节死锁](#万向节死锁)
 * [欧拉运动学方程](#欧拉运动学方程)
+  * [由体轴角加速度限制求欧拉角角加速度限制](#由体轴角加速度限制求欧拉角角加速度限制)
 
 # 基本假定
 
@@ -20,17 +23,64 @@
 
 （3）机体坐标系绕其$z$轴旋转所得到的欧拉角称为偏航角$\psi$，机体坐标系绕其$y$轴旋转所得到的欧拉角称为俯仰角$\theta$，机体坐标系绕其$x$轴旋转所得到的欧拉角称为横滚角$\phi$；
 
-（4）用上下标$b$来表示向量在机体（body）坐标系中，用上下标$e$来表示向量在大地（Earth）坐标系中；
+（4）用上下标$b$来表示向量在机体（body）坐标系中，用上下标$e$来表示向量在大地（earth）坐标系中；
 
-# 矩阵旋转
-
-## 对坐标变换的基本理解
+# 对坐标变换的基本理解
 
 机体坐标系在任一时刻的姿态都可以分解为通过大地坐标系绕固定点的三次旋转，每次旋转的的旋转轴对应于将要旋转的坐标系的某一坐标轴，也就是上面提到的欧拉角。旋转的次序不同，最终得到的姿态也不相同，因此，这里也规定这三次旋转的次序分别为先绕$z$旋转，再绕$y$旋转，最后绕$x$旋转，即$\psi\rightarrow \theta \rightarrow \phi$。如下图所示，机体坐标系的旋转已经分解成了三次坐标系之间基本变换。下面就分别推导绕$z$，绕$y$，绕$x$的坐标变换矩阵。
 
 需要注意到的一点是，这里讨论的都是**坐标系之间的变换（不是将向量本身进行旋转）**。也就是说**空间中的位置向量或坐标点本身并不发生变化，而只是将它们从一个参考坐标系变换到了另一个参考系当中**。
 
 ![ypr](pic/ypr.jpg)
+
+## 矢量旋转与坐标变换的关系
+
+矢量旋转和坐标变换是逆向关系。
+
+![vector-rot](D:/2study/%E8%AF%BE%E7%A8%8B%E4%B8%8E%E5%AD%A6%E4%B9%A0/0%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD%E4%B8%8E%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD%E4%B8%8E%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/02%E4%B9%A6%E7%B1%8D/%E4%B9%A6%E7%B1%8D_%E6%95%B0%E6%8D%AE/%E4%B9%A6%E7%B1%8D/%E3%80%8A%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%8B/machine-learning-notes/docs/autopilot/navigation/coord-trans-and-euler-kinematics-equation/pic/vector-rot.png)
+
+设有参考坐标系$R$，坐标轴为$x,y,z$。$r$为固连在刚体上的位置向量，可通过旋转矩阵将其旋转到$r'$位置，即
+$$
+{r'}^R=Dr^R=
+\begin{bmatrix}
+\cos\theta&-\sin\theta\\
+\sin\theta&\cos\theta
+\end{bmatrix}
+r^R
+$$
+记住，此时的$D$是个向量旋转矩阵，而还不是坐标转换矩阵。
+
+记初始时刻的刚体固连坐标系为$b_0$，在初始时刻，刚体固连坐标系和参考坐标系重合，所以
+$$
+r^R=r^{b_0}
+$$
+而在转动过程中，位置向量$r$和$b$系都和刚体固连，所以位置向量和$b$系的相对角位置始终不变，即有
+$$
+r^{b_0}={r'}^{b}
+$$
+根据上两式，有
+$$
+r^R={r'}^b
+$$
+把上式带入前面的向量旋转公式，有
+$$
+{r'}^R=Dr^R=
+\begin{bmatrix}
+\cos\theta&-\sin\theta\\
+\sin\theta&\cos\theta
+\end{bmatrix}
+r^R=
+\begin{bmatrix}
+\cos\theta&-\sin\theta\\
+\sin\theta&\cos\theta
+\end{bmatrix}
+{r'}^b
+$$
+即，$D$为$b$系至$R$系的坐标变换矩阵。
+
+即矢量旋转和坐标变换是逆向关系。
+
+# 矩阵旋转
 
 ## 绕z轴旋转
 
@@ -43,8 +93,8 @@
 上图右侧，向量在$y'$上的投影，等于向量在$y$轴上的分量在$y'$上的投影，减去向量在$x$轴上的分量在$y'$上的投影。
 $$
 \left\{\begin{matrix}
-x'=xcos\psi+ysin\psi\\
-y'=-xsin\psi+ycos\psi
+x'=x\cos\psi+y\sin\psi\\
+y'=-x\sin\psi+y\cos\psi
 \end{matrix}\right.
 $$
 即
@@ -55,8 +105,8 @@ y'
 \end{bmatrix}
 =
 \begin{bmatrix}
-cos\psi & sin\psi\\ 
--sin\psi & cos\psi
+\cos\psi & \sin\psi\\ 
+-\sin\psi & \cos\psi
 \end{bmatrix}
 \begin{bmatrix}
 x\\ 
@@ -72,22 +122,22 @@ $$
 如上图所示，当坐标系绕$z$轴旋转时，空间中的向量与$z$轴之间的相对关系不会改变，因此在旋转前后$z′=z$，现在就只考虑该向量在垂直于$z$轴的平面上的投影$\overrightarrow{OA}$，分别在平面直角坐标系$Oxy$跟平面直角坐标系$Ox'y'$上坐标之间的关系。如果向量$\overrightarrow{OA}$的模为$r$，它在坐标系$Oxy$中的坐标可以表示如下：
 $$
 \left\{\begin{matrix}
-x=rcos(\beta+\psi)=rcos\beta cos\psi-rsin\beta sin\psi\\
-y=rsin(\beta+\psi)=rsin\beta cos\psi+rcos\beta sin\psi
+x=r\cos(\beta+\psi)=r\cos\beta \cos\psi-r\sin\beta \sin\psi\\
+y=r\sin(\beta+\psi)=r\sin\beta \cos\psi+r\cos\beta \sin\psi
 \end{matrix}\right.
 $$
 在坐标系$Ox'y’$中的坐标可以表示如下：
 $$
 \left\{\begin{matrix}
-x'=rcos\beta\\
-y'=rsin\beta
+x'=r\cos\beta\\
+y'=r\sin\beta
 \end{matrix}\right.
 $$
 联合这两组式子可以得到：
 $$
 \left\{\begin{matrix}
-x=x'cos\psi-y'sin\psi\\
-y=y'cos\psi+x'sin\psi
+x=x'\cos\psi-y'\sin\psi\\
+y=y'\cos\psi+x'\sin\psi
 \end{matrix}\right.
 $$
 即
@@ -98,8 +148,8 @@ y
 \end{bmatrix}
 =
 \begin{bmatrix}
-cos\psi & -sin\psi\\ 
-sin\psi & cos\psi
+\cos\psi & -\sin\psi\\ 
+\sin\psi & \cos\psi
 \end{bmatrix}
 \begin{bmatrix}
 x'\\ 
@@ -114,8 +164,8 @@ y'
 \end{bmatrix}
 =
 \begin{bmatrix}
-cos\psi & sin\psi\\ 
--sin\psi & cos\psi
+\cos\psi & \sin\psi\\ 
+-\sin\psi & \cos\psi
 \end{bmatrix}
 \begin{bmatrix}
 x\\ 
@@ -133,8 +183,8 @@ z'
 \end{bmatrix}
 =
 \begin{bmatrix}
-cos\psi & sin\psi & 0\\
--sin\psi & cos\psi & 0\\
+\cos\psi & \sin\psi & 0\\
+-\sin\psi & \cos\psi & 0\\
 0 & 0 & 1
 \end{bmatrix}
 \begin{bmatrix}
@@ -148,8 +198,8 @@ $$
 R_z(\psi)
 =
 \begin{bmatrix}
-cos\psi & sin\psi & 0\\
--sin\psi & cos\psi & 0\\
+\cos\psi & \sin\psi & 0\\
+-\sin\psi & \cos\psi & 0\\
 0 & 0 & 1
 \end{bmatrix}
 $$
@@ -162,22 +212,22 @@ $$
 绕$y$轴旋转的公式推导也与上面是一样的,首先$y'=y$，然后向量$\overrightarrow{OA}$在坐标系$Ozx$中的坐标可以表示如下：
 $$
 \left\{\begin{matrix}
-z=rcos(\beta+\theta)=rcos\beta cos\theta-rsin\beta sin\theta\\
-x=rsin(\beta+\theta)=rsin\beta cos\theta+rcos\beta sin\theta
+z=r\cos(\beta+\theta)=r\cos\beta \cos\theta-r\sin\beta \sin\theta\\
+x=r\sin(\beta+\theta)=r\sin\beta \cos\theta+r\cos\beta \sin\theta
 \end{matrix}\right.
 $$
 在坐标系$Oz'x’$中的坐标可以表示如下：
 $$
 \left\{\begin{matrix}
-z'=rcos\beta\\
-x'=rsin\beta
+z'=r\cos\beta\\
+x'=r\sin\beta
 \end{matrix}\right.
 $$
 联合这两组式子可以得到：
 $$
 \left\{\begin{matrix}
-z=z'cos\theta-x'sin\theta\\
-x=z'sin\theta+x'cos\theta
+z=z'\cos\theta-x'\sin\theta\\
+x=z'\sin\theta+x'\cos\theta
 \end{matrix}\right.
 $$
 即
@@ -188,8 +238,8 @@ x
 \end{bmatrix}
 =
 \begin{bmatrix}
-cos\theta & -sin\theta\\ 
-sin\theta & cos\theta
+\cos\theta & -\sin\theta\\ 
+\sin\theta & \cos\theta
 \end{bmatrix}
 \begin{bmatrix}
 z'\\ 
@@ -204,8 +254,8 @@ x'
 \end{bmatrix}
 =
 \begin{bmatrix}
-cos\theta & sin\theta\\ 
--sin\theta & cos\theta
+\cos\theta & \sin\theta\\ 
+-\sin\theta & \cos\theta
 \end{bmatrix}
 \begin{bmatrix}
 z\\ 
@@ -220,8 +270,8 @@ z'
 \end{bmatrix}
 =
 \begin{bmatrix}
-cos\theta & -sin\theta\\
-sin\theta & cos\theta
+\cos\theta & -\sin\theta\\
+\sin\theta & \cos\theta
 \end{bmatrix}
 \begin{bmatrix}
 x\\ 
@@ -239,9 +289,9 @@ z'
 \end{bmatrix}
 =
 \begin{bmatrix}
-cos\theta & 0 & -sin\theta\\
+\cos\theta & 0 & -\sin\theta\\
 0 & 1 & 0\\
-sin\theta & 0 & cos\theta\\
+\sin\theta & 0 & \cos\theta\\
 \end{bmatrix}
 \begin{bmatrix}
 x\\ 
@@ -254,9 +304,9 @@ $$
 R_y(\theta)
 =
 \begin{bmatrix}
-cos\theta & 0 & -sin\theta\\
+\cos\theta & 0 & -\sin\theta\\
 0 & 1 & 0\\
-sin\theta & 0 & cos\theta\\
+\sin\theta & 0 & \cos\theta\\
 \end{bmatrix}
 $$
 上面这个矩阵就描述了坐标系绕$y$轴的一次旋转。
@@ -268,22 +318,22 @@ $$
 绕$x$轴旋转的公式推导也与上面是一样的,首先$x'=x$，然后向量$\overrightarrow{OA}$在坐标系$Oyz$中的坐标可以表示如下：
 $$
 \left\{\begin{matrix}
-y=rcos(\beta+\phi)=rcos\beta cos\phi-rsin\beta sin\phi\\
-z=rsin(\beta+\phi)=rsin\beta cos\phi+rcos\beta sin\phi
+y=r\cos(\beta+\phi)=r\cos\beta \cos\phi-r\sin\beta \sin\phi\\
+z=r\sin(\beta+\phi)=r\sin\beta \cos\phi+r\cos\beta \sin\phi
 \end{matrix}\right.
 $$
 在坐标系$Oy'z’$中的坐标可以表示如下：
 $$
 \left\{\begin{matrix}
-y'=rcos\phi\\
-z'=rsin\phi
+y'=r\cos\phi\\
+z'=r\sin\phi
 \end{matrix}\right.
 $$
 联合这两组式子可以得到：
 $$
 \left\{\begin{matrix}
-y=y'cos\phi-z'sin\phi\\
-z=y'sin\phi+z'cos\phi
+y=y'\cos\phi-z'\sin\phi\\
+z=y'\sin\phi+z'\cos\phi
 \end{matrix}\right.
 $$
 即
@@ -294,8 +344,8 @@ z
 \end{bmatrix}
 =
 \begin{bmatrix}
-cos\phi & -sin\phi\\ 
-sin\phi & cos\phi
+\cos\phi & -\sin\phi\\ 
+\sin\phi & \cos\phi
 \end{bmatrix}
 \begin{bmatrix}
 y'\\ 
@@ -310,8 +360,8 @@ z'
 \end{bmatrix}
 =
 \begin{bmatrix}
-cos\phi & sin\phi\\ 
--sin\phi & cos\phi
+\cos\phi & \sin\phi\\ 
+-\sin\phi & \cos\phi
 \end{bmatrix}
 \begin{bmatrix}
 y\\ 
@@ -328,8 +378,8 @@ z'
 =
 \begin{bmatrix}
 1 & 0 & 0\\
-0 & cos\phi & sin\phi\\
-0 & -sin\phi & cos\phi\\
+0 & \cos\phi & \sin\phi\\
+0 & -\sin\phi & \cos\phi\\
 \end{bmatrix}
 \begin{bmatrix}
 x\\ 
@@ -343,8 +393,8 @@ R_x(\phi)
 =
 \begin{bmatrix}
 1 & 0 & 0\\
-0 & cos\phi & sin\phi\\
-0 & -sin\phi & cos\phi\\
+0 & \cos\phi & \sin\phi\\
+0 & -\sin\phi & \cos\phi\\
 \end{bmatrix}
 $$
 上面这个矩阵就描述了坐标系绕$x$轴的一次旋转。
@@ -402,20 +452,20 @@ $$
 可利用MatLab求解坐标转换矩阵：
 
 ```matlab
-syms cos_psi sin_psi cos_theta sin_theta cos_phi sin_phi;
+syms \cos_psi \sin_psi \cos_theta \sin_theta \cos_phi \sin_phi;
 
 R_psi = [ % 绕z轴旋转
-    cos_psi  sin_psi 0; 
-    -sin_psi cos_psi 0;
+    \cos_psi  \sin_psi 0; 
+    -\sin_psi \cos_psi 0;
     0        0       1];
 R_theta = [ % 绕y轴旋转
-    cos_theta 0 -sin_theta; 
+    \cos_theta 0 -\sin_theta; 
     0         1 0;
-    sin_theta 0 cos_theta];
+    \sin_theta 0 \cos_theta];
 R_phi = [ % 绕x轴旋转
     1 0        0; 
-    0 cos_phi  sin_phi;
-    0 -sin_phi cos_phi];
+    0 \cos_phi  \sin_phi;
+    0 -\sin_phi \cos_phi];
 
 % 大地轴系到机体轴系的坐标转换矩阵
 R_phi * R_theta * R_psi;
@@ -428,9 +478,9 @@ inv(R_phi * R_theta * R_psi);
 ```matlab
 % 大地轴系到机体轴系的坐标转换矩阵
 R_phi * R_theta * R_psi =
-[cos_psi*cos_theta, cos_theta*sin_psi, -sin_theta]
-[cos_psi*sin_phi*sin_theta - cos_phi*sin_psi, cos_phi*cos_psi + sin_phi*sin_psi*sin_theta, cos_theta*sin_phi]
-[sin_phi*sin_psi + cos_phi*cos_psi*sin_theta, cos_phi*sin_psi*sin_theta - cos_psi*sin_phi, cos_phi*cos_theta]
+[\cos_psi*\cos_theta, \cos_theta*\sin_psi, -\sin_theta]
+[\cos_psi*\sin_phi*\sin_theta - \cos_phi*\sin_psi, \cos_phi*\cos_psi + \sin_phi*\sin_psi*\sin_theta, \cos_theta*\sin_phi]
+[\sin_phi*\sin_psi + \cos_phi*\cos_psi*\sin_theta, \cos_phi*\sin_psi*\sin_theta - \cos_psi*\sin_phi, \cos_phi*\cos_theta]
 ```
 
 也就是
@@ -440,15 +490,45 @@ $$
 T_e^b
 =
 \begin{bmatrix}
-cos\psi cos\theta & cos\theta sin\psi & -sin\theta\\
-cos\psi sin\theta sin\phi - sin\psi cos\phi & sin\psi sin\theta sin\phi + cos\psi cos\phi & cos\theta sin\phi\\
-cos\psi sin\theta cos\phi + sin\psi sin\phi & sin\psi sin\theta cos\phi - cos\psi sin\phi & cos\theta cos\phi\\
+\cos\psi \cos\theta & \cos\theta \sin\psi & -\sin\theta\\
+\cos\psi \sin\theta \sin\phi - \sin\psi \cos\phi & \sin\psi \sin\theta \sin\phi + \cos\psi \cos\phi & \cos\theta \sin\phi\\
+\cos\psi \sin\theta \cos\phi + \sin\psi \sin\phi & \sin\psi \sin\theta \cos\phi - \cos\psi \sin\phi & \cos\theta \cos\phi\\
 \end{bmatrix}
 $$
 机体轴系转大地轴系的坐标转换矩阵$T_b^e$为$T_e^b$的转置：
 $$
 T_b^e=\left(T_e^b\right)^{-1}=\left(T_e^b\right)^T
 $$
+
+## 万向节死锁
+
+比如机头向上抬头90度，那么飞机的滚转角旋转的$x'''$轴就会和偏航角旋转的$z$轴相重合，就无法做出绕$z'''$的侧向摆动了。
+
+即此时$\theta=90^{\circ}$，那么大地轴系转机体轴系的坐标转换矩阵$T_e^b$为
+$$
+\begin{aligned}
+T_e^b
+&=
+\begin{bmatrix}
+\cos\psi \cos\theta & \cos\theta \sin\psi & -\sin\theta\\
+\cos\psi \sin\theta \sin\phi - \sin\psi \cos\phi & \sin\psi \sin\theta \sin\phi + \cos\psi \cos\phi & \cos\theta \sin\phi\\
+\cos\psi \sin\theta \cos\phi + \sin\psi \sin\phi & \sin\psi \sin\theta \cos\phi - \cos\psi \sin\phi & \cos\theta \cos\phi\\
+\end{bmatrix}\\
+&=
+\begin{bmatrix}
+0 & 0 & -1\\
+\cos\psi \sin\phi - \sin\psi \cos\phi & \sin\psi \sin\phi + \cos\psi \cos\phi & 0\\
+\cos\psi \cos\phi + \sin\psi \sin\phi & \sin\psi \cos\phi - \cos\psi \sin\phi & 0\\
+\end{bmatrix}\\
+&=
+\begin{bmatrix}
+0 & 0 & -1\\
+-\sin(\psi-\phi) & \cos(\psi-\phi) & 0\\
+cos(\psi-\phi) & \sin(\psi-\phi) & 0\\
+\end{bmatrix}
+\end{aligned}
+$$
+此时的姿态，其实对应了无数种欧拉角变换，即当俯仰角$\theta=90^{\circ}$时，只要偏航角$\psi$和滚转角$\phi$的大小相等且为任意值，均对应了同一种姿态。
 
 # 欧拉运动学方程
 
@@ -475,14 +555,14 @@ R_x(\phi)\cdot R_y(\theta)\cdot\overrightarrow{\psi'}_{x'y'z'}
 &=
 \begin{bmatrix}
 1 & 0 & 0\\
-0 & cos\phi & sin\phi\\
-0 & -sin\phi & cos\phi\\
+0 & \cos\phi & \sin\phi\\
+0 & -\sin\phi & \cos\phi\\
 \end{bmatrix}
 \cdot
 \begin{bmatrix}
-cos\theta & 0 & -sin\theta\\
+\cos\theta & 0 & -\sin\theta\\
 0 & 1 & 0\\
-sin\theta & 0 & cos\theta\\
+\sin\theta & 0 & \cos\theta\\
 \end{bmatrix}
 \cdot
 \begin{bmatrix}
@@ -492,9 +572,9 @@ sin\theta & 0 & cos\theta\\
 \end{bmatrix}\\
 &=
 \begin{bmatrix}
--sin\theta\\
-cos\theta sin\phi\\
-cos\theta cos\phi\\
+-\sin\theta\\
+\cos\theta \sin\phi\\
+\cos\theta \cos\phi\\
 \end{bmatrix}
 \cdot
 \psi'
@@ -507,8 +587,8 @@ R_x(\phi)\cdot\overrightarrow{\theta'}_{x''y''z''}
 &=
 \begin{bmatrix}
 1 & 0 & 0\\
-0 & cos\phi & sin\phi\\
-0 & -sin\phi & cos\phi\\
+0 & \cos\phi & \sin\phi\\
+0 & -\sin\phi & \cos\phi\\
 \end{bmatrix}
 \cdot
 \begin{bmatrix}
@@ -519,8 +599,8 @@ R_x(\phi)\cdot\overrightarrow{\theta'}_{x''y''z''}
 &=
 \begin{bmatrix}
 0\\
-cos\phi\\
--sin\phi\\
+\cos\phi\\
+-\sin\phi\\
 \end{bmatrix}
 \cdot
 \theta'
@@ -566,16 +646,16 @@ R_x(\phi)\cdot\overrightarrow{\theta'}_{x''y''z''}+
 I\cdot \overrightarrow{\phi'}_{x'''y'''z'''}\\
 &=
 \begin{bmatrix}
--sin\theta\\
-cos\theta sin\phi\\
-cos\theta cos\phi\\
+-\sin\theta\\
+\cos\theta \sin\phi\\
+\cos\theta \cos\phi\\
 \end{bmatrix}
 \cdot
 \psi'+
 \begin{bmatrix}
 0\\
-cos\phi\\
--sin\phi\\
+\cos\phi\\
+-\sin\phi\\
 \end{bmatrix}
 \cdot
 \theta'+
@@ -588,9 +668,9 @@ cos\phi\\
 \phi'\\
 &=
 \begin{bmatrix}
-1&0&-sin\theta\\
-0&cos\phi&cos\theta sin\phi\\
-0&-sin\phi&cos\theta cos\phi\\
+1&0&-\sin\theta\\
+0&\cos\phi&\cos\theta \sin\phi\\
+0&-\sin\phi&\cos\theta \cos\phi\\
 \end{bmatrix}
 \cdot
 \begin{bmatrix}
@@ -610,9 +690,9 @@ $$
 \end{bmatrix}
 &=
 \begin{bmatrix}
-1&0&-sin\theta\\
-0&cos\phi&cos\theta sin\phi\\
-0&-sin\phi&cos\theta cos\phi\\
+1&0&-\sin\theta\\
+0&\cos\phi&\cos\theta \sin\phi\\
+0&-\sin\phi&\cos\theta \cos\phi\\
 \end{bmatrix}^{-1}
 \cdot
 \begin{bmatrix}
@@ -622,9 +702,9 @@ r\\
 \end{bmatrix}\\
 &=
 \begin{bmatrix}
-1&tan\theta sin\phi&tan\theta cos\phi\\
-0&cos\phi&-sin\phi\\
-0&\frac{sin\phi}{cos\theta}&\frac{cos\phi}{cos\theta}\\
+1&\tan\theta \sin\phi&\tan\theta \cos\phi\\
+0&\cos\phi&-\sin\phi\\
+0&\frac{\sin\phi}{\cos\theta}&\frac{\cos\phi}{\cos\theta}\\
 \end{bmatrix}
 \cdot
 \begin{bmatrix}
@@ -637,12 +717,12 @@ $$
 上式中矩阵求逆的MatLab代码如下：
 
 ```matlab
-syms cos_psi sin_psi cos_theta sin_theta cos_phi sin_phi;
+syms \cos_psi \sin_psi \cos_theta \sin_theta \cos_phi \sin_phi;
 
 Mat_rpy2pqr = [
-     1 0        -sin_theta;
-     0 cos_phi  sin_phi * cos_theta;
-     0 -sin_phi cos_phi * cos_theta];
+     1 0        -\sin_theta;
+     0 \cos_phi  \sin_phi * \cos_theta;
+     0 -\sin_phi \cos_phi * \cos_theta];
 
 Mat_pqr2rpy = inv(Mat_rpy2pqr)
 ```
@@ -652,9 +732,9 @@ Mat_pqr2rpy = inv(Mat_rpy2pqr)
 ```matlab
 Mat_pqr2rpy =
  
-[1, (sin_phi*sin_theta)/(cos_theta*cos_phi^2 + cos_theta*sin_phi^2), (cos_phi*sin_theta)/(cos_theta*cos_phi^2 + cos_theta*sin_phi^2)]
-[0, cos_phi/(cos_phi^2 + sin_phi^2), -sin_phi/(cos_phi^2 + sin_phi^2)]
-[0, sin_phi/(cos_theta*cos_phi^2 + cos_theta*sin_phi^2), cos_phi/(cos_theta*cos_phi^2 + cos_theta*sin_phi^2)]
+[1, (\sin_phi*\sin_theta)/(\cos_theta*\cos_phi^2 + \cos_theta*\sin_phi^2), (\cos_phi*\sin_theta)/(\cos_theta*\cos_phi^2 + \cos_theta*\sin_phi^2)]
+[0, \cos_phi/(\cos_phi^2 + \sin_phi^2), -\sin_phi/(\cos_phi^2 + \sin_phi^2)]
+[0, \sin_phi/(\cos_theta*\cos_phi^2 + \cos_theta*\sin_phi^2), \cos_phi/(\cos_theta*\cos_phi^2 + \cos_theta*\sin_phi^2)]
 ```
 
 ## 由体轴角加速度限制求欧拉角角加速度限制
@@ -669,9 +749,9 @@ r\\
 \end{bmatrix}
 &=
 \begin{bmatrix}
-1&0&-sin\theta\\
-0&cos\phi&cos\theta sin\phi\\
-0&-sin\phi&cos\theta cos\phi\\
+1&0&-\sin\theta\\
+0&\cos\phi&\cos\theta \sin\phi\\
+0&-\sin\phi&\cos\theta \cos\phi\\
 \end{bmatrix}
 \cdot
 \begin{bmatrix}
@@ -684,16 +764,16 @@ $$
 可得
 $$
 \begin{aligned}
-\text{AccMax}_{roll}&=min(r'_{max})\\
-\text{AccMax}_{pitch}&=min(\frac{q'_{max}}{cos\phi},\frac{r'_{max}}{sin\phi})\\
-\text{AccMax}_{roll}&=min(\frac{p'_{max}}{sin\theta},\frac{q'_{max}}{cos\theta sin\phi},\frac{r'_{max}}{cos\theta cos\phi})
+\text{AccMax}_{roll}&=\min(r'_{\max})\\
+\text{AccMax}_{pitch}&=\min(\frac{q'_{\max}}{\cos\phi},\frac{r'_{\max}}{\sin\phi})\\
+\text{AccMax}_{roll}&=\min(\frac{p'_{\max}}{\sin\theta},\frac{q'_{\max}}{\cos\theta \sin\phi},\frac{r'_{\max}}{\cos\theta \cos\phi})
 \end{aligned}
 $$
 分析：
 
 假设向量$\overrightarrow{a}$和$\overrightarrow{b}$一起构成了向量$\overrightarrow{c}$，已知向量之间的夹角（即夹角已经固定），那么，$\overrightarrow{c}$的最大限制，其实就是$\overrightarrow{c}$在$\overrightarrow{a}$和$\overrightarrow{b}$上的投影，分别不能超过$\overrightarrow{a}$和$\overrightarrow{b}$各自的最大限制，也即：
 $$
-c_{max}=min(\frac{a_{max}}{cos<a,c>},\frac{b_{max}}{cos<b,c>})
+c_{\max}=\min(\frac{a_{\max}}{\cos<a,c>},\frac{b_{\max}}{\cos<b,c>})
 $$
 
 # 参考资料

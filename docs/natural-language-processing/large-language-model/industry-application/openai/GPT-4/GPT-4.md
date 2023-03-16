@@ -1,36 +1,36 @@
-# GTP系列介绍
+# GPT-4
 
 * [返回上层目录](../openai.md)
 
-GPT-1和GPT-2都有公开的预训练模型和源代码可用，但是这些模型的训练数据和训练代码不是公开的。这些模型的源代码可以在GitHub上找到。
+GPT-4发布于2023年3月15日凌晨。
 
-至于GPT-3，目前它仍然是一个私有的商业产品，只有少数被邀请的合作伙伴才能访问它。OpenAI表示他们不会公开GPT-3的预训练模型和源代码，但是他们提供了一些API接口，供开发人员和研究人员使用。
+官网博客：[OpenAI/GPT-4](https://openai.com/research/gpt-4)
 
-chatgpt应该算是第3代nlp技术了。前两代是预训练+微调，然后是自监督+prompt，现在的是利用了RHLF、instruct等技术。
+![OpenAI-GPT4-blog](pic/OpenAI-GPT4-blog.png)
 
+论文/技术报告：[GPT-4 Technical Report](https://cdn.openai.com/papers/gpt-4.pdf)
 
+![GPT4-paper](pic/GPT4-paper.png)
 
 ===
 
-nanogpt的实现，开源
+[OpenAI 发布 GPT-4，有哪些技术上的优化或突破？](https://www.zhihu.com/question/589639535/answer/2936661611)
 
+GPT-4除了多模态以外，它的核心点是，相比GPT-3.5，如果只是常规的交流，那估计没太大差，但是如果说遇到非常复杂的指令，GPT-4的理解能力和创造力远超3.5。他们做了一大堆实验，来向大家展示GPT-4比GPT-3.5强太多，反正就是一通爆做奥赛和AP的题目。结果直接一图一表秀死大家：
 
+[OpenAI 发布 GPT-4，有哪些技术上的优化或突破？张俊林](https://www.zhihu.com/question/589639535/answer/2937928726)
 
+具身智能毫无疑问会是LLM下一阶段的重点研究方向。这方面的代表就是前阵子Google放出来的PaLM-E了。目前的GPT 4，我们可以认为人类创造出了一个超级大脑，但还是把它封锁在GPU集群里。而这个超级大脑需要一个身体，GPT 4要和物理世界发生联系、交流和互动，并在物理世界中获得真实的反馈，来学会在真实世界里生存，并根据真实世界的反馈，利用比如强化学习来学习在世界游走的能力。这个肯定是最近的将来最热门的LLM研究方向。
 
+多模态LLM给予了GPT 4以眼睛和耳朵，而具身智能给予GPT 4身体、脚和手。GPT 4和你我发生一些联系，而依托于GPT 4本身强大的学习能力，这个事情估计很快会出现在我们身边。
 
-[从 GPT 到 ChatGPT 的演进与应用思考](https://mp.weixin.qq.com/s/3Pr82xKpZ7mAWQcxPPB1xA)
+如果你细想，其实还有很多其它有前途的方向。我的个人判断是：未来5到10年，将会是AGI最快速发展的黄金十年。如果我们站在未来30年的时间节点，当我们回顾这10年时，我们中一定会有人，想起下面的诗句：“懂得，但为时太晚，他们使太阳在途中悲伤， 也并不温和地走进那个良夜。”
 
-[paper: A Comprehensive Survey on Pretrained Foundation Models: A History from BERT to ChatGPT](https://arxiv.org/abs/2302.09419)
+[GPT-4震撼发布：多模态大模型，直接升级ChatGPT、必应，开放API，游戏终结了？](https://mp.weixin.qq.com/s/kA7FBZsT6SIvwIkRwFS-xw)
 
-这里[ChatGPT背后的大模型技术如何炼？MSU等最新《预训练基础模型综述》，97页pdf全面阐述BERT到ChatGPT历史脉络](https://www.zhuanzhi.ai/vip/f9ef3cea409e4e561fa87db1821f57d0)提到了上述论文，预训练基础模型(PFMs)被视为具有不同数据模态的各种下游任务的基础。预训练的基础模型，如BERT、GPT-3、MAE、DALLE-E和ChatGPT，在大规模数据上进行训练，为广泛的下游应用提供了合理的参数初始化。**PFMs背后的预训练思想在大型模型的应用中起着重要的作用。**作为一种迁移学习范式，预训练通过冻结和微调技术应用于计算机视觉，显示出良好的性能。词向量在自然语言处理中也可以看作是修饰词的一
+[新智元 GPT-4王者加冕！读图做题性能炸天，凭自己就能考上斯坦福](https://mp.weixin.qq.com/s/MN35PBHJEMRCJjyTQL5ggA)
 
-[GPT系列的数据集之谜](https://mp.weixin.qq.com/s/p0s6FmEof2gkb0jrHBo3JA)
-
-[ChatGPT背后的经济账]
-
-OneFlow发布了《ChatGPT背后的经济账》，其作者从经济学视角推导了训练大型语言模型的成本。本文作者则整理分析了2018年到2022年初从GPT-1到Gopher的相关大型语言模型的所有数据集相关信息，希望帮助有志于开发“类ChatGPT”模型的团队少走一步弯路。
-
-
+[量子位 GPT-4发布！ChatGPT大升级！太太太太强了！](https://mp.weixin.qq.com/s/6u33Xnp4oEHq26WR4W1kdg)
 
 [GPT-4 的实际体验如何？和之前相比有哪些明显提升？](https://www.zhihu.com/question/589641645/answer/2936696934)
 
@@ -69,3 +69,10 @@ OpenAI 首先想到的就是服务程序员的代码，如果学会了世界上�
 它不会降低知识的门槛，也就是说，如果一个人并不熟悉某个领域，指望就靠 ChatGPT 用处不大。这就好像一个小朋友问围棋之神，我如何才能变成围棋大佬一样，帮助有限。但假如你已经是个业余棋手，有了 ChatGPT 会无限拉进你与世界上顶尖棋手的距离。
 
 即便已经强如 ChatGPT，还是存在一些问题。比如，在复杂语句的推理能力，其实 ChatGPT 还有成长空间。比如倘若你的描述充满非常复杂的逻辑关系，那么 ChatGPT 有可能会遗漏其中的部分要求。这个问题，在我今晚测试的 GPT-4 中，就完全解决啦。
+
+[OpenAI 发布 GPT-4，有哪些技术上的优化或突破？](https://www.zhihu.com/question/589639535/answer/2936639668)
+
+据下面那条 Predictable Scaling 曲线，最右边那个灰色的点应该就是 GPT-3 了，训练 GPT-4 的计算量比 GPT-3 要多 10000 倍。根据 scaling law 是要优先扩增参数达到最佳计算效率的，猜测 GPT-4 参数量至少在 GPT-3 的 100 倍以上，也就是 GPT-4 的参数规模在十万亿，10 T 以上。
+
+技术报告中有一大堆性能展示，就不一一介绍了。这里放一个印象比较深刻的，GPT-4 解物理题，你可能觉得这事 ChatGPT 也能做，但是注意，这道题的输入不是文字，全是图片，这意味着 GPT-4 已经把视觉感知（OCR等）到语义理解到逻辑推理全打通了。。
+

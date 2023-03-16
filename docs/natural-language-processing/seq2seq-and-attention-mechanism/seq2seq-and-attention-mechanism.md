@@ -265,3 +265,7 @@ Seq2Seq 模型分析
 [tensorflow2.0官网demo学习笔记 基于attention的seq2seq机器翻译](https://blog.csdn.net/ziyi9663/article/details/109989814)
 
 这个有tf官网的代码，有空跑起来试试。
+
+[目前主流的attention方法都有哪些？ 张俊林](https://www.zhihu.com/question/68482809/answer/264632289)
+
+张俊林写的，已经看过了其注意力模块，有空仔细看后半部分的自注意力部分。

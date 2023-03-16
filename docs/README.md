@@ -136,26 +136,6 @@
     * [MapReduce](coding/big-data/hadoop/map-reduce.md)
   * [Hive](coding/big-data/hive/hive.md)
   * [Spark](coding/big-data/spark/spark.md)
-* [机器学习框架](coding/machine-learning-framework/machine-learning-framework.md)
-  * [Anaconda](coding/machine-learning-framework/anaconda/anaconda.md)
-  * [TensorFlow](coding/machine-learning-framework/tensorflow/tensorflow.md)
-    * [TensorFlow1.0](coding/machine-learning-framework/tensorflow/tensorflow1.0/tensorflow1.0.md)
-      * [TensorFlow基础](coding/machine-learning-framework/tensorflow/tensorflow1.0/basis/basis.md)
-      * [TensorFlow基础概念解析](coding/machine-learning-framework/tensorflow/tensorflow1.0/basic-concept-analysis/basic-concept-analysis.md)
-      * [TensorFlow机器学习基础](coding/machine-learning-framework/tensorflow/tensorflow1.0/machine-learning-foundation/machine-learning-foundation.md)
-    * [TensorFlow2.0](coding/machine-learning-framework/tensorflow/tensorflow2.0/tensorflow2.0.md)
-      * [TensorFlow2.0基础](coding/machine-learning-framework/tensorflow/tensorflow2.0/basis/basis.md)
-      * [TensorFlow2.0安装](coding/machine-learning-framework/tensorflow/tensorflow2.0/install/install.md)
-      * [keras](coding/machine-learning-framework/tensorflow/tensorflow2.0/keras/keras.md)
-    * [Tensorflow分布式架构](coding/machine-learning-framework/tensorflow/tensorflow-distributed-architecture/tensorflow-distributed-architecture.md)
-    * [TensorFlow Serving](coding/machine-learning-framework/tensorflow/tf_serving/tf_serving.md)
-    * [工具](coding/machine-learning-framework/tensorflow/tools/tools.md)
-      * [TensorFlow中使用GPU](coding/machine-learning-framework/tensorflow/tools/gpu/gpu.md)
-      * [TensorFlow中ckpt转pb文件（模型持久化）](coding/machine-learning-framework/tensorflow/tools/ckpt-to-pb/ckpt-to-pb.md)
-      * [得到模型参数值](coding/machine-learning-framework/tensorflow/tools/get-weight/get-weight.md)
-  * [PyTorch](coding/machine-learning-framework/pytorch/pytorch.md)
-    * [PyTorch基础](coding/machine-learning-framework/pytorch/basis/basis.md)
-  * [Ray分布式计算框架](coding/machine-learning-framework/ray/ray.md)
 
 # [机器学习](machine-learning/machine-learning.md)
 * [机器学习概论](machine-learning/machine-learning-introduction/machine-learning-introduction.md)
@@ -281,8 +261,15 @@
     * [Soft Actor-Critic](https://www.paperexplained.cn/articles/paper/detail/811df72e210e20de99719539505da54762a11c6d/)
 * [仿真环境](reinforcement-learning/simulation-platform/simulation-platform.md)
   * [OpenAI: Gym](reinforcement-learning/simulation-platform/openai-gym/openai-gym.md)
+  
   * MuJoCo
+  
   * Unity3D: ml-agents
+  
+    简言之：行为树是适合解决复杂AI的解决方案。
+  
+    对于Unity用户，Unity商店现在已经有一个比较完善的行为树设计(Behavior Designer)插件可供购买使用。  
+  
   * [OpenDILab: GoBigger多智能体仿真平台](reinforcement-learning/simulation-platform/OpenDILab-GoBigger/OpenDILab-GoBigger.md)
 * [Sim2Real从仿真器到现实环境的迁移](reinforcement-learning/sim2real/sim2real.md)
   * [论文](reinforcement-learning/sim2real/paper/paper.md)
@@ -304,6 +291,7 @@
     * [Robotic Table Wiping via Reinforcement Learning and Whole-body Trajectory Optimization arXiv2022 Google](reinforcement-learning/imatation-learning/paper/robotic-table-wiping/Robotic-Table-Wiping-via-Reinforcement-Learning-and-Whole-body-Trajectory-Optimization.md)
     * [On the Sample Complexity of Stability Constrained Imitation Learning PMLR2022 Google](reinforcement-learning/imatation-learning/paper/sample-complexity/On-the-Sample-Complexity-of-Stability-Constrained-Imitation-Learning.md)
 * [多智能体强化学习](reinforcement-learning/multi-agent-reinforcement-learning/multi-agent-reinforcement-learning.md)
+  
   * [多智能体强化学习论文](reinforcement-learning/multi-agent-reinforcement-learning/paper/paper.md)
     * [mean-field: Mean Field Multi-Agent Reinforcement Learning ICML2018](reinforcement-learning/multi-agent-reinforcement-learning/paper/mean-field/Mean-Field-Multi-Agent-Reinforcement-Learning.md)
 * [Transformer+RL](reinforcement-learning/transformer-rl/transformer-rl.md)
@@ -322,17 +310,52 @@
     * [AlphaTensor: Discovering faster matrix multiplication algorithms with reinforcement learning Nature2022](reinforcement-learning/industry-application/deepmind/alpha-tensor/Discovering-faster-matrix-multiplication-algorithms-with-reinforcement-learning.md)
     * Agent57 2020
     * DeepNash
+    
   * [OpenAI](reinforcement-learning/industry-application/openai/openai.md)
+    
+    * Emergence of grounded compositional language in multi agent populations 2017 在模拟游戏环境里从无到有进化出一种语言
+    
+      OpenAI在2017年先完成了具身智能演化出语言的原理模型之后才立项GPT，Emergence of grounded compositional language in multi agent populations.现在多模态模型的关键要素在文章里都有了，而之前OpenAI还在打游戏。而且这还只是对外公开的部分，谁知道内部发生了啥，马斯克骂骂咧咧的退出了。
+    
     * [OpenAI Five: Dota 2 with Large Scale Deep Reinforcement Learning 2019](reinforcement-learning/industry-application/openai/oepnai-five/openai-five.md)
+    
   * [腾讯](reinforcement-learning/industry-application/tencent/tencent.md)
+    
     * [王者荣耀Honor of Kings](reinforcement-learning/industry-application/tencent/honor-of-kings/honor-of-kings.md)
+    
   * [InspirAI启元世界](reinforcement-learning/industry-application/inspir-ai/inspir-ai.md)
     * [InspirAI启元世界](reinforcement-learning/industry-application/inspir-ai/inspir-ai/inspir-ai.md)
     * [TimeChamber大规模并行的大规模自对弈框架](reinforcement-learning/industry-application/inspir-ai/time-chamber/time-chamber.md)
       * [TimeChamber大规模并行的大规模自对弈框架](reinforcement-learning/industry-application/inspir-ai/time-chamber/time-chamber/time-chamber.md)
       * [Humanoid Strike人类击剑](reinforcement-learning/industry-application/inspir-ai/time-chamber/humanoid-strike/humanoid-strike.md)
 
+# [机器学习框架](machine-learning-framework/machine-learning-framework.md)
+
+- [Anaconda](machine-learning-framework/anaconda/anaconda.md)
+- [TensorFlow](machine-learning-framework/tensorflow/tensorflow.md)
+  - [TensorFlow1.0](machine-learning-framework/tensorflow/tensorflow1.0/tensorflow1.0.md)
+    - [TensorFlow基础](machine-learning-framework/tensorflow/tensorflow1.0/basis/basis.md)
+    - [TensorFlow基础概念解析](machine-learning-framework/tensorflow/tensorflow1.0/basic-concept-analysis/basic-concept-analysis.md)
+    - [TensorFlow机器学习基础](machine-learning-framework/tensorflow/tensorflow1.0/machine-learning-foundation/machine-learning-foundation.md)
+  - [TensorFlow2.0](machine-learning-framework/tensorflow/tensorflow2.0/tensorflow2.0.md)
+    - [TensorFlow2.0基础](machine-learning-framework/tensorflow/tensorflow2.0/basis/basis.md)
+    - [TensorFlow2.0安装](machine-learning-framework/tensorflow/tensorflow2.0/install/install.md)
+    - [keras](machine-learning-framework/tensorflow/tensorflow2.0/keras/keras.md)
+  - [Tensorflow分布式架构](machine-learning-framework/tensorflow/tensorflow-distributed-architecture/tensorflow-distributed-architecture.md)
+  - [TensorFlow Serving](machine-learning-framework/tensorflow/tf_serving/tf_serving.md)
+  - [工具](machine-learning-framework/tensorflow/tools/tools.md)
+    - [TensorFlow中使用GPU](machine-learning-framework/tensorflow/tools/gpu/gpu.md)
+    - [TensorFlow中ckpt转pb文件（模型持久化）](machine-learning-framework/tensorflow/tools/ckpt-to-pb/ckpt-to-pb.md)
+    - [得到模型参数值](machine-learning-framework/tensorflow/tools/get-weight/get-weight.md)
+- [PyTorch](machine-learning-framework/pytorch/pytorch.md)
+  - [PyTorch基础](machine-learning-framework/pytorch/basis/basis.md)
+- [Ray分布式计算框架](machine-learning-framework/ray/ray.md)
+- [RLlib分布式强化学习系统](machine-learning-framework/rllib/rllib.md)
+- [超算集群](machine-learning-framework/supercomputing-cluster/supercomputing-cluster.md)
+  - [微软: 用于训练ChatGPT的超算](machine-learning-framework/supercomputing-cluster/microsoft-supercomputing-cluster-for-chatgpt/microsoft-supercomputing-cluster-for-chatgpt.md)
+
 # [计算机视觉](computer-vision/computer-vision.md)
+
 * ResNet 有捷径的(resnet的跳跃连接)
 * InceptionNet 多岔路的(inception的多分支)
 * DenseNet 通往多个地点的捷径的(densenet的密集连接)
@@ -343,6 +366,8 @@
 * [图像标注工具](computer-vision/image-mark-tool/image-mark-tool.md)
   * [YOLO_Mark](computer-vision/image-mark-tool/yolo-mark/yolo-mark.md)
   * [Labelme](computer-vision/image-mark-tool/labelme/labelme.md)
+* Vision Transformer
+* Swin Transformer
 
 # [自然语言处理](natural-language-processing/natural-language-processing.md)
 * [自然语言处理概论](natural-language-processing/natural-language-processing-introduction/natural-language-processing-introduction.md)
@@ -369,6 +394,7 @@
       * GPT-3.5
       * instructGPT
       * [ChatGPT](natural-language-processing/large-language-model/industry-application/openai/ChatGPT/ChatGPT.md) 聊天机器人
+      * [GPT-4](natural-language-processing/large-language-model/industry-application/openai/GPT-4/GPT-4.md) 202303 输入图/文，输出文
     * [Google](natural-language-processing/large-language-model/industry-application/google/google.md)
       * LaMDA 发布于202105 I/O大会
       * PaLM 202204 5400亿参数
@@ -379,6 +405,9 @@
       * [LLaMa](natural-language-processing/large-language-model/industry-application/meta/LLaMa/LLaMa.md) 对标OpenAI的ChatGPT，开源，发布于202302
     * MiscroSoft
       * Copilot MiscroSoft和OpenAI联合打造的AI编程工具，基于OpenAI的大模型Codex，基于GPT-3框架进行训练
+      * Kosmos-1 20230227发布，第二种才是真正的多模态LLM，才是GPT-4的魅力，他的原理目前OpenAI没有公布细节，但是大家可以参考微软在2月27日发布的Kosmos-1的论文（想一想，为什么偏偏是OpenAI的深度合作伙伴发了这篇论文）。
+    * Together
+      * OpenChatKit ChatGPT的开源平替来了，源代码、模型权重和训练数据集全部公开。由前OpenAI研究员共同打造。[如何看待 Together 推出的开源聊天大模型 OpenChatKit？能否替代 ChatGPT？](https://www.zhihu.com/question/589094770/answer/2934277284)，[ChatGPT开源平替来了，开箱即用！前OpenAI团队打造](https://mp.weixin.qq.com/s/EQk9i6Bu_BMsc6AEYCFI3A)
     * [阿里达摩院](natural-language-processing/large-language-model/industry-application/alibaba/alibaba.md)
       * [中文GPT3](natural-language-processing/large-language-model/industry-application/alibaba/gpt3-chinese/gpt3-chinese.md) 对标GPT-3的开源项目
     * 元语智能
@@ -393,6 +422,10 @@
       * [ColossalAI](natural-language-processing/large-language-model/industry-application/hpcaitech/colossal-ai/ColossalAI.md) 对标ChatGPT的开源项目 202302
     * [复旦大学自然语言处理实验室邱锡鹏团队](natural-language-processing/large-language-model/industry-application/fudan-university-nlp-group/fudan-university-nlp-group.md)
       * [MOSS](natural-language-processing/large-language-model/industry-application/fudan-university-nlp-group/moss/moss.md) 对标ChatGPT暂未开源 202302
+    * 智谱AI
+      * ChatGLM 近日，由清华技术成果转化的公司智谱AI开源了GLM系列模型的新成员——**中英双语对话模型ChatGLM-6B**，支持在单张消费级显卡上进行推理使用。这是继此前开源GLM-130B千亿基座模型之后，智谱AI再次推出大模型方向的研究成果。与此同时，基于千亿基座模型的ChatGLM也同期推出，初具问答和对话功能 [ChatGLM：千亿基座的对话模型启动内测，单卡版模型已全面开源](https://mp.weixin.qq.com/s/08s-BlV5N3jytlSsd5hZ0g)
+    * 斯坦福大学
+      * Alpaca 近日，斯坦福基于 Meta 的 LLaMA 7B 模型微调出一个新模型 Alpaca。该研究让 OpenAI 的 text-davinci-003 模型以 self-instruct 方式生成 52K 指令遵循（instruction-following）样本，以此作为 Alpaca 的训练数据。研究团队已将训练数据、生成训练数据的代码和超参数开源，后续还将发布模型权重和训练代码。 [斯坦福70亿参数开源模型媲美GPT-3.5，100美元即可复现](https://mp.weixin.qq.com/s/U6ioEygg5mlVpAIb2L3cZw)
 
 # [多模态大模型](multimodal-large-model/multimodal-large-model.md)
 * 论文
@@ -486,7 +519,7 @@
     * [Towards Helpful Robots: Grounding Language in Robotic Affordances Google2022](autopilot/planning/llm-based-planning/towards-helpful-robots-grounding/Towards-Helpful-Robots-Grounding-Language-in-Robotic-Affordances.md)
     * [Value Function Spaces: Skill-Centric State Abstractions for Long-Horizon Reasoning arXiv2022 Google](autopilot/planning/llm-based-planning/value-function-spaces/Value-Function-Spaces-Skill-Centric-State-Abstractions-for-Long-Horizon-Reasoning.md)
     * [Inner Monologue: Embodied Reasoning through Planning with Language Models arXiv2022 Google](autopilot/planning/llm-based-planning/inner-monologue/Inner-Monologue-Embodied-Reasoning-through-Planning-with-Language-Models.md)
-    * [Interactive Language: Talking to Robots in Real Time arXiv2022 Google](autopilot/planning/llm-based-planning/interactive-language/Interactive-Language-Talking-to-Robots-in-Real-Time)
+    * [Interactive Language: Talking to Robots in Real Time arXiv2022 Google](autopilot/planning/llm-based-planning/interactive-language/Interactive-Language-Talking-to-Robots-in-Real-Time.md)
 * 制导
 * [控制](autopilot/control/control.md)
   * [PID控制](autopilot/control/pid-control/pid-control.md)
@@ -496,9 +529,11 @@
     * [Code as Policies: Language Model Programs for Embodied Control arXiv2022 Google](autopilot/control/llm-based-control/code-as-policies/Code-as-Policies-Language-Model-Programs-for-Embodied-Control.md)
     * [RT-1: Robotics Transformer for Real-World Control at Scale arXiv2022 Google](autopilot/control/llm-based-control/rt-1/RT-1-Robotics-Transformer-for-Real-World-Control-at-Scale.md)
     * [Performer MPC: Learning Model Predictive Controllers with Real-Time Attention for Real-World Navigation Google2022](autopilot/control/llm-based-control/performer-mpc/Learning-Model-Predictive-Controllers-with-Real-Time-Attention-for-Real-World-Navigation.md)
-  * [ChatGPT for Robotics: Design Principles and Model Abilities MicroSoft2023](autopilot/control/llm-based-control/chatGPT-for-robotics/ChatGPT-for-Robotics-Design-Principles-and-Model-Abilities.md)
+    * [ChatGPT for Robotics: Design Principles and Model Abilities MicroSoft2023](autopilot/control/llm-based-control/chatGPT-for-robotics/ChatGPT-for-Robotics-Design-Principles-and-Model-Abilities.md) ***
+    * [PaLM-E: An Embodied Multimodal Language Model arXiv2023 Google](autopilot/control/llm-based-control/PaLM-E/PaLM-E.md) ***
 * [导航](autopilot/navigation/navigation.md)
   * [坐标变换与欧拉运动学方程](autopilot/navigation/coord-trans-and-euler-kinematics-equation/coord-trans-and-euler-kinematics-equation.md)
+  * [导航常用坐标系及变换](autopilot/navigation/navigation-coord-system-and-trans/navigation-coord-system-and-trans.md)
   * [哥氏定理/科里奥利定理](autopilot/navigation/coriolis-theorem/coriolis-theorem.md)
   * [四元数](autopilot/navigation/quaternion/quaternion.md)
 * 动力学模型

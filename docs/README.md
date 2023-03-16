@@ -261,15 +261,10 @@
     * [Soft Actor-Critic](https://www.paperexplained.cn/articles/paper/detail/811df72e210e20de99719539505da54762a11c6d/)
 * [仿真环境](reinforcement-learning/simulation-platform/simulation-platform.md)
   * [OpenAI: Gym](reinforcement-learning/simulation-platform/openai-gym/openai-gym.md)
-  
   * MuJoCo
-  
   * Unity3D: ml-agents
-  
     简言之：行为树是适合解决复杂AI的解决方案。
-  
     对于Unity用户，Unity商店现在已经有一个比较完善的行为树设计(Behavior Designer)插件可供购买使用。  
-  
   * [OpenDILab: GoBigger多智能体仿真平台](reinforcement-learning/simulation-platform/OpenDILab-GoBigger/OpenDILab-GoBigger.md)
 * [Sim2Real从仿真器到现实环境的迁移](reinforcement-learning/sim2real/sim2real.md)
   * [论文](reinforcement-learning/sim2real/paper/paper.md)
@@ -291,7 +286,6 @@
     * [Robotic Table Wiping via Reinforcement Learning and Whole-body Trajectory Optimization arXiv2022 Google](reinforcement-learning/imatation-learning/paper/robotic-table-wiping/Robotic-Table-Wiping-via-Reinforcement-Learning-and-Whole-body-Trajectory-Optimization.md)
     * [On the Sample Complexity of Stability Constrained Imitation Learning PMLR2022 Google](reinforcement-learning/imatation-learning/paper/sample-complexity/On-the-Sample-Complexity-of-Stability-Constrained-Imitation-Learning.md)
 * [多智能体强化学习](reinforcement-learning/multi-agent-reinforcement-learning/multi-agent-reinforcement-learning.md)
-  
   * [多智能体强化学习论文](reinforcement-learning/multi-agent-reinforcement-learning/paper/paper.md)
     * [mean-field: Mean Field Multi-Agent Reinforcement Learning ICML2018](reinforcement-learning/multi-agent-reinforcement-learning/paper/mean-field/Mean-Field-Multi-Agent-Reinforcement-Learning.md)
 * [Transformer+RL](reinforcement-learning/transformer-rl/transformer-rl.md)
@@ -310,19 +304,12 @@
     * [AlphaTensor: Discovering faster matrix multiplication algorithms with reinforcement learning Nature2022](reinforcement-learning/industry-application/deepmind/alpha-tensor/Discovering-faster-matrix-multiplication-algorithms-with-reinforcement-learning.md)
     * Agent57 2020
     * DeepNash
-    
   * [OpenAI](reinforcement-learning/industry-application/openai/openai.md)
-    
     * Emergence of grounded compositional language in multi agent populations 2017 在模拟游戏环境里从无到有进化出一种语言
-    
       OpenAI在2017年先完成了具身智能演化出语言的原理模型之后才立项GPT，Emergence of grounded compositional language in multi agent populations.现在多模态模型的关键要素在文章里都有了，而之前OpenAI还在打游戏。而且这还只是对外公开的部分，谁知道内部发生了啥，马斯克骂骂咧咧的退出了。
-    
     * [OpenAI Five: Dota 2 with Large Scale Deep Reinforcement Learning 2019](reinforcement-learning/industry-application/openai/oepnai-five/openai-five.md)
-    
   * [腾讯](reinforcement-learning/industry-application/tencent/tencent.md)
-    
     * [王者荣耀Honor of Kings](reinforcement-learning/industry-application/tencent/honor-of-kings/honor-of-kings.md)
-    
   * [InspirAI启元世界](reinforcement-learning/industry-application/inspir-ai/inspir-ai.md)
     * [InspirAI启元世界](reinforcement-learning/industry-application/inspir-ai/inspir-ai/inspir-ai.md)
     * [TimeChamber大规模并行的大规模自对弈框架](reinforcement-learning/industry-application/inspir-ai/time-chamber/time-chamber.md)
@@ -330,32 +317,30 @@
       * [Humanoid Strike人类击剑](reinforcement-learning/industry-application/inspir-ai/time-chamber/humanoid-strike/humanoid-strike.md)
 
 # [机器学习框架](machine-learning-framework/machine-learning-framework.md)
-
-- [Anaconda](machine-learning-framework/anaconda/anaconda.md)
-- [TensorFlow](machine-learning-framework/tensorflow/tensorflow.md)
-  - [TensorFlow1.0](machine-learning-framework/tensorflow/tensorflow1.0/tensorflow1.0.md)
-    - [TensorFlow基础](machine-learning-framework/tensorflow/tensorflow1.0/basis/basis.md)
-    - [TensorFlow基础概念解析](machine-learning-framework/tensorflow/tensorflow1.0/basic-concept-analysis/basic-concept-analysis.md)
-    - [TensorFlow机器学习基础](machine-learning-framework/tensorflow/tensorflow1.0/machine-learning-foundation/machine-learning-foundation.md)
-  - [TensorFlow2.0](machine-learning-framework/tensorflow/tensorflow2.0/tensorflow2.0.md)
-    - [TensorFlow2.0基础](machine-learning-framework/tensorflow/tensorflow2.0/basis/basis.md)
-    - [TensorFlow2.0安装](machine-learning-framework/tensorflow/tensorflow2.0/install/install.md)
-    - [keras](machine-learning-framework/tensorflow/tensorflow2.0/keras/keras.md)
-  - [Tensorflow分布式架构](machine-learning-framework/tensorflow/tensorflow-distributed-architecture/tensorflow-distributed-architecture.md)
-  - [TensorFlow Serving](machine-learning-framework/tensorflow/tf_serving/tf_serving.md)
-  - [工具](machine-learning-framework/tensorflow/tools/tools.md)
-    - [TensorFlow中使用GPU](machine-learning-framework/tensorflow/tools/gpu/gpu.md)
-    - [TensorFlow中ckpt转pb文件（模型持久化）](machine-learning-framework/tensorflow/tools/ckpt-to-pb/ckpt-to-pb.md)
-    - [得到模型参数值](machine-learning-framework/tensorflow/tools/get-weight/get-weight.md)
-- [PyTorch](machine-learning-framework/pytorch/pytorch.md)
-  - [PyTorch基础](machine-learning-framework/pytorch/basis/basis.md)
-- [Ray分布式计算框架](machine-learning-framework/ray/ray.md)
-- [RLlib分布式强化学习系统](machine-learning-framework/rllib/rllib.md)
-- [超算集群](machine-learning-framework/supercomputing-cluster/supercomputing-cluster.md)
-  - [微软: 用于训练ChatGPT的超算](machine-learning-framework/supercomputing-cluster/microsoft-supercomputing-cluster-for-chatgpt/microsoft-supercomputing-cluster-for-chatgpt.md)
+* [Anaconda](machine-learning-framework/anaconda/anaconda.md)
+* [TensorFlow](machine-learning-framework/tensorflow/tensorflow.md)
+  * [TensorFlow1.0](machine-learning-framework/tensorflow/tensorflow1.0/tensorflow1.0.md)
+    * [TensorFlow基础](machine-learning-framework/tensorflow/tensorflow1.0/basis/basis.md)
+    * [TensorFlow基础概念解析](machine-learning-framework/tensorflow/tensorflow1.0/basic-concept-analysis/basic-concept-analysis.md)
+    * [TensorFlow机器学习基础](machine-learning-framework/tensorflow/tensorflow1.0/machine-learning-foundation/machine-learning-foundation.md)
+  * [TensorFlow2.0](machine-learning-framework/tensorflow/tensorflow2.0/tensorflow2.0.md)
+    * [TensorFlow2.0基础](machine-learning-framework/tensorflow/tensorflow2.0/basis/basis.md)
+    * [TensorFlow2.0安装](machine-learning-framework/tensorflow/tensorflow2.0/install/install.md)
+    * [keras](machine-learning-framework/tensorflow/tensorflow2.0/keras/keras.md)
+  * [Tensorflow分布式架构](machine-learning-framework/tensorflow/tensorflow-distributed-architecture/tensorflow-distributed-architecture.md)
+  * [TensorFlow Serving](machine-learning-framework/tensorflow/tf_serving/tf_serving.md)
+  * [工具](machine-learning-framework/tensorflow/tools/tools.md)
+    * [TensorFlow中使用GPU](machine-learning-framework/tensorflow/tools/gpu/gpu.md)
+    * [TensorFlow中ckpt转pb文件（模型持久化）](machine-learning-framework/tensorflow/tools/ckpt-to-pb/ckpt-to-pb.md)
+    * [得到模型参数值](machine-learning-framework/tensorflow/tools/get-weight/get-weight.md)
+* [PyTorch](machine-learning-framework/pytorch/pytorch.md)
+  * [PyTorch基础](machine-learning-framework/pytorch/basis/basis.md)
+* [Ray分布式计算框架](machine-learning-framework/ray/ray.md)
+* [RLlib分布式强化学习系统](machine-learning-framework/rllib/rllib.md)
+* [超算集群](machine-learning-framework/supercomputing-cluster/supercomputing-cluster.md)
+  * [微软: 用于训练ChatGPT的超算](machine-learning-framework/supercomputing-cluster/microsoft-supercomputing-cluster-for-chatgpt/microsoft-supercomputing-cluster-for-chatgpt.md)
 
 # [计算机视觉](computer-vision/computer-vision.md)
-
 * ResNet 有捷径的(resnet的跳跃连接)
 * InceptionNet 多岔路的(inception的多分支)
 * DenseNet 通往多个地点的捷径的(densenet的密集连接)
@@ -556,4 +541,3 @@
 # [任务清单](personal/list.md)
 * [收集的各种资料](personal/material.md)
 * [有用的工具](personal/tools.md)
-

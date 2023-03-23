@@ -16,7 +16,35 @@
 
 ===
 
-地图：
+# 深度强化学习入门
+
+[强化学习怎么入门好？](https://www.zhihu.com/question/277325426/answer/2786792954)
+
+必须推荐王树森、黎彧君、张志华的新书《深度强化学习》，已经正式出版。这是一本正式出版前就注定成为经典的入门书籍——其在线公开课视频播放量超过一百万次，助力数万“云学生”——更加高效、方便、系统地学习相关知识。课程主页这里：https://github.com/wangshusen/DRL 还有对应的在线公开课视频和代码，B站、Github都有。下文内容来自作者王树森写的前言。
+
+[强化学习怎么入门好？](https://www.zhihu.com/question/277325426/answer/1544863580)
+
+1.看李宏毅的强化学习视频-b站随便找一个最新最全的；
+
+2.看郭宪大佬的《深入浅出强化学习》-知乎有他的专栏文章；
+
+3.代码刷openai的spinningup。
+
+目前我认为最简洁最不走弯路的方法。至少节省大家半年的随机探索时间
+
+其他的教材对于强化的公式推导不够透彻，
+
+其他几门视频课难度高，不适合入门；
+
+其他的代码库，新手根本看不懂。
+
+最后贴上我基于spinup封装好的一个强化学习库：
+
+https://github.com/kaixindelele/DRL-tensorflow
+
+https://github.com/kaixindelele/DRLib
+
+# 地图：
 
 [全网首发|| 最全深度强化学习资料(永久更新)](https://mp.weixin.qq.com/s?__biz=MzU0MTgxNDkxOA%3D%3D&idx=1&mid=2247484575&scene=21&sn=42fe3fc7d5978ca9da467fde38a13245#wechat_redirect)
 
@@ -177,6 +205,27 @@ RL-algorithms，更新一些基础的RL代码，附带了各个算法的介绍
 [对话TensorLayer项目发起者董豪](https://zhuanlan.zhihu.com/p/72304092)
 
 [TensorLayer进阶资源](https://www.jianshu.com/p/d206fb7a190d)
+
+
+
+# 新概念
+
+## 重生强化
+
+我记得我刚开始学强化的时候，好奇的一个问题，对于强化的网络，如果一个开始就全给的专家数据，和从零开始学习，从试错，到自己学成专家，哪个会更好一些？
+看了Reset-RL和demo-RL之后，好像答案比较明确了，还是得有高质量的数据，然后少许交互就能快速获得一个高质量策略。而从头开始试错，不断摸索的策略，很可能会因为早期的垃圾数据，导致陷入局部最优（首因偏差)，上不去~
+
+发布于 2022-12-09・IP 属地安徽
+
+这两个是什么算法，求指路
+
+后者是DDPGfD，前者是primacy bias  in rl [ResetNet-The Primacy Bias in Deep Reinforcement Learning](https://www.bilibili.com/video/BV1wG4y157we/?vd_source=147fb813418c7610c21b6a5618c85cb7)
+
+[重生强化【Reincarnating RL】论文梳理](https://zhuanlan.zhihu.com/p/591880627)
+
+
+
+
 
 # 不重要
 

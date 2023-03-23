@@ -399,8 +399,8 @@
       * PromptCLUE1.0 202210
       * PromptCLUE1.5 202211
       * ChatYuan 202212
-    * 百度
-      * ERNIE-Bot文心一言 202302
+    * [百度](natural-language-processing/large-language-model/industry-application/baidu/baidu.md)
+      * [ERNIE-Bot文心一言](natural-language-processing/large-language-model/industry-application/baidu/ERNIE-Bot/ERNIE-Bot.md) 202302
     * [BlinkDL](natural-language-processing/large-language-model/industry-application/blinkdl/blinkdl.md)
       * [ChatRWKV](natural-language-processing/large-language-model/industry-application/blinkdl/ChatRWKV/ChatRWKV.md) 对标ChatGPT的开源项目，基于RNN架构 202208
     * [HPC-AI Tech](natural-language-processing/large-language-model/industry-application/hpcaitech/hpcaitech.md)

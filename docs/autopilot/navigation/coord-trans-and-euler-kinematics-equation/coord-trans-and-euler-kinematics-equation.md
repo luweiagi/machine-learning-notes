@@ -433,21 +433,21 @@ y_b\\
 z_b
 \end{bmatrix}
 =
-T_e^b
+T_n^b
 \begin{bmatrix}
-x_e\\ 
-y_e\\
-z_E
+x_n\\ 
+y_n\\
+z_n
 \end{bmatrix}
 =
 R_x(\phi)\cdot R_y(\theta)\cdot R_z(\psi)
 \begin{bmatrix}
-x_e\\ 
-y_e\\
-z_E
+x_n\\ 
+y_n\\
+z_n
 \end{bmatrix}
 $$
-其中，$[x_b, y_b, z_b]^T$是矢量在机体轴系下的坐标，$[x_e, y_e, z_e]^T$是矢量在大地轴系下的坐标。
+其中，$[x_b, y_b, z_b]^T$是矢量在机体轴系下的坐标，$[x_n, y_n, z_n]^T$是矢量在大地轴系下的坐标。
 
 可利用MatLab求解坐标转换矩阵：
 
@@ -485,9 +485,9 @@ R_phi * R_theta * R_psi =
 
 也就是
 
-大地轴系转机体轴系的坐标转换矩阵$T_e^b$为
+大地轴系转机体轴系的坐标转换矩阵$T_n^b$为
 $$
-T_e^b
+T_n^b
 =
 \begin{bmatrix}
 \cos\psi \cos\theta & \cos\theta \sin\psi & -\sin\theta\\
@@ -495,19 +495,19 @@ T_e^b
 \cos\psi \sin\theta \cos\phi + \sin\psi \sin\phi & \sin\psi \sin\theta \cos\phi - \cos\psi \sin\phi & \cos\theta \cos\phi\\
 \end{bmatrix}
 $$
-机体轴系转大地轴系的坐标转换矩阵$T_b^e$为$T_e^b$的转置：
+机体轴系转大地轴系的坐标转换矩阵$T_b^n$为$T_n^b$的转置：
 $$
-T_b^e=\left(T_e^b\right)^{-1}=\left(T_e^b\right)^T
+T_b^n=\left(T_n^b\right)^{-1}=\left(T_n^b\right)^T
 $$
 
 ## 万向节死锁
 
 比如机头向上抬头90度，那么飞机的滚转角旋转的$x'''$轴就会和偏航角旋转的$z$轴相重合，就无法做出绕$z'''$的侧向摆动了。
 
-即此时$\theta=90^{\circ}$，那么大地轴系转机体轴系的坐标转换矩阵$T_e^b$为
+即此时$\theta=90^{\circ}$，那么大地轴系转机体轴系的坐标转换矩阵$T_n^b$为
 $$
 \begin{aligned}
-T_e^b
+T_n^b
 &=
 \begin{bmatrix}
 \cos\psi \cos\theta & \cos\theta \sin\psi & -\sin\theta\\

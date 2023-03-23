@@ -269,3 +269,6 @@ Seq2Seq 模型分析
 [目前主流的attention方法都有哪些？ 张俊林](https://www.zhihu.com/question/68482809/answer/264632289)
 
 张俊林写的，已经看过了其注意力模块，有空仔细看后半部分的自注意力部分。
+
+[目前主流的attention方法都有哪些？「Attention九层塔——理解Attention的九层境界」](https://www.zhihu.com/question/68482809/answer/1876764572)
+

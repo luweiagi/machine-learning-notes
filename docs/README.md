@@ -335,8 +335,10 @@
     * [得到模型参数值](machine-learning-framework/tensorflow/tools/get-weight/get-weight.md)
 * [PyTorch](machine-learning-framework/pytorch/pytorch.md)
   * [PyTorch基础](machine-learning-framework/pytorch/basis/basis.md)
+* [模型训练云服务器平台](machine-learning-framework/cloud-server-platform/cloud-server-platform.md)
 * [Ray分布式计算框架](machine-learning-framework/ray/ray.md)
 * [RLlib分布式强化学习系统](machine-learning-framework/rllib/rllib.md)
+* [大模型训练方法](machine-learning-framework/large-model-trainning-method/large-model-trainning-method.md)
 * [超算集群](machine-learning-framework/supercomputing-cluster/supercomputing-cluster.md)
   * [微软: 用于训练ChatGPT的超算](machine-learning-framework/supercomputing-cluster/microsoft-supercomputing-cluster-for-chatgpt/microsoft-supercomputing-cluster-for-chatgpt.md)
 

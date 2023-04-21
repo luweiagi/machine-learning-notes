@@ -48,6 +48,40 @@ $$
 
 ![thrust2pwm_curve](pic/thrust2pwm_curve.png)
 
+上图的python代码如下：
+
+```python
+import matplotlib.pyplot as plt
+import math
+
+def apply_thrust_curve_and_volt_scaling(thrust, motors_thrust_curve_expo=0.65):
+    motors_lift_max = 1.0
+    a = (motors_thrust_curve_expo - 1.0) + math.sqrt((1.0 - motors_thrust_curve_expo)**2 + 4.0 * motors_thrust_curve_expo * thrust)
+    b = 2.0 * motors_thrust_curve_expo
+    throttle_ratio = a / b
+    return throttle_ratio
+
+thrust = np.linspace(0, 1, 1001)
+throttle_ratio = [apply_thrust_curve_and_volt_scaling(i) for i in thrust]
+sqrt_x = [math.sqrt(i) for i in thrust]
+
+plt.figure()
+plt.plot(thrust, sqrt_x, '--g', linewidth=3.0, label='$y=\sqrt{x}$')
+plt.plot(thrust, thrust, '--b', linewidth=3.0, label='$y=x$')
+LINE_NUM = 5
+for i in range(LINE_NUM - 1):
+    factor = (i + 1) / LINE_NUM
+    thrust = np.linspace(0, 1, 1001)
+    throttle_ratio = [apply_thrust_curve_and_volt_scaling(i, factor) for i in thrust]
+    plt.plot(thrust, throttle_ratio, '--r')
+plt.grid()
+plt.xlabel("thrust")
+plt.ylabel("throttle_ratio")
+plt.title("$pwm=\sqrt{thrust}$")
+plt.legend()  # plt.legend(loc='upper left')
+plt.show()
+```
+
 猜测：
 
 电调电压和转速线性相关？

@@ -1,6 +1,6 @@
 # 编译过程、静态库和动态库
 
-* [返回上层目录](../tips.md)
+* [返回上层目录](../compiler-principles.md)
 * [编译过程](#编译过程)
   * [编译过程（预处理、编译、汇编和链接）介绍](#编译过程（预处理、编译、汇编和链接）介绍)
   * [编译过程例子](#编译过程例子)
@@ -431,4 +431,10 @@ ls -l main_*
 * [【笔记】GCC/G++ 、动态库与静态库：动态库 执行速度慢和依赖性强，但升级简单、节省内存（牺牲了时间效率换取了空间效率）；静态库 浪费空间和更新困难，但执行速度快（牺牲了空间效率，换取了时间效率](https://blog.csdn.net/nyist_yangguang/article/details/121766408)
 
 显式调用动态链接库的具体实现过程。
+
+* [[Linux的.a、.so和.o文件](https://www.cnblogs.com/ziyunlong/p/6023121.html)](https://www.cnblogs.com/ziyunlong/p/6023121.html)
+
+在说明Linux的.a、.so和.o文件关系之前，先来看看windows下obj,lib,dll,exe的关系
+
+这一篇估计不错，有空好好看下。
 

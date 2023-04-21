@@ -16,3 +16,10 @@
 
 [Google AI年终总结第六弹：没有波士顿动力的谷歌机器人，发展得怎么样了？](https://mp.weixin.qq.com/s/JRCQP2S3CbLtUaq8MkP4pQ)
 
+
+
+[Pathways 论文精读【论文精读】](https://www.bilibili.com/video/BV1xB4y1m7Xi/)
+
+[Introducing Pathways: A next-generation AI architecture](https://blog.google/technology/ai/introducing-pathways-next-generation-ai-architecture/)
+
+[Pathways: Asynchronous Distributed Dataflow for ML](https://arxiv.org/abs/2203.12533)

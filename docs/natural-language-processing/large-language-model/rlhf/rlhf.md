@@ -1,6 +1,7 @@
 # RLHF基于人工反馈的强化学习方法
 
 * [返回上层目录](../large-language-model.md)
+* [ColossalChat](ColossalChat/ColossalChat.md)
 
 
 

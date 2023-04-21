@@ -92,7 +92,8 @@
     * [Leetcode](coding/cs-courses/data-structures-and-algorithms/leetcode/leetcode.md)
       * [动态规划](coding/cs-courses/data-structures-and-algorithms/leetcode/dynamic-programming/dynamic-programming.md)
   * [编译原理](coding/cs-courses/compiler-principles/compiler-principles.md)
-    * [GCC编译器介绍](coding/cs-courses/gcc-compiler-introduction/gcc-compiler-introduction.md)
+    * [编译过程、静态库和动态库](coding/cs-courses/compiler-principles//compilation-process-and-link-library/compilation-process-and-link-library.md)
+    * [GCC编译器介绍](coding/cs-courses/compiler-principles/gcc-compiler-introduction/gcc-compiler-introduction.md)
   * [操作系统](coding/cs-courses/operating-system/operating-system.md)
     * [Linux](coding/cs-courses/operating-system/linux/linux.md)
       * [Linux常用命令](coding/cs-courses/operating-system/linux/linux-command/linux-command.md)
@@ -109,7 +110,6 @@
     * [algorithm算法库](coding/programing-language/c++/algorithm-lib/algorithm-lib.md)
     * [知识点](coding/programing-language/c++/tips/tips.md)
       * [string字符串类](coding/programing-language/c++/tips/string/string.md)
-      * [编译过程、静态库和动态库](coding/programing-language/c++/tips/compilation-process-and-link-library/compilation-process-and-link-library.md)
   * [Python](coding/programing-language/python/python.md)
     * [Python简介](coding/programing-language/python/introduction/introduction.md)
     * [Python语法](coding/programing-language/python/grammar/grammar.md)
@@ -308,6 +308,7 @@
     * Emergence of grounded compositional language in multi agent populations 2017 在模拟游戏环境里从无到有进化出一种语言
       OpenAI在2017年先完成了具身智能演化出语言的原理模型之后才立项GPT，Emergence of grounded compositional language in multi agent populations.现在多模态模型的关键要素在文章里都有了，而之前OpenAI还在打游戏。而且这还只是对外公开的部分，谁知道内部发生了啥，马斯克骂骂咧咧的退出了。
     * [OpenAI Five: Dota 2 with Large Scale Deep Reinforcement Learning 2019](reinforcement-learning/industry-application/openai/oepnai-five/openai-five.md)
+    * 玩魔方
   * [腾讯](reinforcement-learning/industry-application/tencent/tencent.md)
     * [王者荣耀Honor of Kings](reinforcement-learning/industry-application/tencent/honor-of-kings/honor-of-kings.md)
   * [InspirAI启元世界](reinforcement-learning/industry-application/inspir-ai/inspir-ai.md)
@@ -338,7 +339,7 @@
 * [模型训练云服务器平台](machine-learning-framework/cloud-server-platform/cloud-server-platform.md)
 * [Ray分布式计算框架](machine-learning-framework/ray/ray.md)
 * [RLlib分布式强化学习系统](machine-learning-framework/rllib/rllib.md)
-* [大模型训练方法](machine-learning-framework/large-model-trainning-method/large-model-trainning-method.md)
+* [大模型训练框架](machine-learning-framework/large-model-trainning-method/large-model-trainning-method.md)
 * [超算集群](machine-learning-framework/supercomputing-cluster/supercomputing-cluster.md)
   * [微软: 用于训练ChatGPT的超算](machine-learning-framework/supercomputing-cluster/microsoft-supercomputing-cluster-for-chatgpt/microsoft-supercomputing-cluster-for-chatgpt.md)
 
@@ -370,29 +371,39 @@
 * [BERT](natural-language-processing/bert/bert.md)
 * [LLM大语言模型](natural-language-processing/large-language-model/large-language-model.md)
   * [RLHF基于人工反馈的强化学习方法](natural-language-processing/large-language-model/rlhf/rlhf.md)
+    * Alpaca 斯坦福大学
+      - Alpaca 近日，斯坦福基于 Meta 的 LLaMA 7B 模型微调出一个新模型 Alpaca。该研究让 OpenAI 的 text-davinci-003 模型以 self-instruct 方式生成 52K 指令遵循（instruction-following）样本，以此作为Alpaca的训练数据。研究团队已将训练数据、生成训练数据的代码和超参数开源，后续还将发布模型权重和训练代码。 [斯坦福70亿参数开源模型媲美GPT-3.5，100美元即可复现](https://mp.weixin.qq.com/s/U6ioEygg5mlVpAIb2L3cZw)
+    * [ColossalChat By ](natural-language-processing/large-language-model/rlhf/ColossalChat/ColossalChat.md) ColossalChat开源了第一个完整的RLHF pipeline，斯坦福Alpaca没有做RLHF
   * [Prompt Learning](natural-language-processing/large-language-model/prompt-learning/prompt-learning.md)
+  * [Emergence涌现现象](natural-language-processing/large-language-model/emergence/emergence.md)
+  * [自己训练ChatGPT](natural-language-processing/large-language-model/train-ChatGPT-DIY/train-ChatGPT-DIY.md)
   * [业界应用](natural-language-processing/large-language-model/industry-application/industry-application.md)
     * [OpenAI](natural-language-processing/large-language-model/industry-application/openai/openai.md)
       * [GTP系列介绍](natural-language-processing/large-language-model/industry-application/openai/gpt-series-introduction/gpt-series-introduction.md)
+      * [GPT前身Unsupervised Sentiment Neuron](natural-language-processing/large-language-model/industry-application/openai/unsupervised-sentiment-neuron/unsupervised-sentiment-neuron.md)
+        * [Unsupervised Sentiment Neuron](natural-language-processing/large-language-model/industry-application/openai/unsupervised-sentiment-neuron/unsupervised-sentiment-neuron/unsupervised-sentiment-neuron.md)
+        * [Learning to Generate Reviews and Discovering Sentiment ArXiv2017](natural-language-processing/large-language-model/industry-application/openai/unsupervised-sentiment-neuron/paper/Learning-to-Generate-Reviews.md)
       * GPT1
       * GPT2
-      * GPT3 语言生成模型
+      * GPT3 语言生成模型 根据Lambda官网数据，微软为OpenAI设计了一个包含10000块Nvidia V100 GPU的分布式集群进行GPT-3的模型训练，由于模型参数量较大（共1750亿参数），训练完成共耗费30天，消耗总算力为 3640PF-days。以Nvidia Tesla V100的 Lambda GPU实例定价为1.50 美元/小时测算，GPT-3的完整训练成本将达到466万美元/次。
       * Codex
       * GPT-3.5
       * instructGPT
       * [ChatGPT](natural-language-processing/large-language-model/industry-application/openai/ChatGPT/ChatGPT.md) 聊天机器人
       * [GPT-4](natural-language-processing/large-language-model/industry-application/openai/GPT-4/GPT-4.md) 202303 输入图/文，输出文
+    * MiscroSoft
+      - Copilot MiscroSoft和OpenAI联合打造的AI编程工具，基于OpenAI的大模型Codex，基于GPT-3框架进行训练
+      - Kosmos-1 20230227发布，第二种才是真正的多模态LLM，才是GPT-4的魅力，他的原理目前OpenAI没有公布细节，但是大家可以参考微软在2月27日发布的Kosmos-1的论文（想一想，为什么偏偏是OpenAI的深度合作伙伴发了这篇论文）。
+    * [Meta](natural-language-processing/large-language-model/industry-application/meta/meta.md)
+      - [OPT](natural-language-processing/large-language-model/industry-application/meta/opt/opt.md) 复现开源了GPT3
+      - [LLaMa](natural-language-processing/large-language-model/industry-application/meta/LLaMa/LLaMa.md) ** 对标OpenAI的ChatGPT，开源，发布于202302
     * [Google](natural-language-processing/large-language-model/industry-application/google/google.md)
       * LaMDA 发布于202105 I/O大会
       * PaLM 202204 5400亿参数
       * LaMDA-2 202205 I/O大会
+      * T5
       * [Bard](natural-language-processing/large-language-model/industry-application/google/Bard/Bard.md) 聊天机器人，对标OpenAI的ChatGPT，发布于202302
-    * [Meta](natural-language-processing/large-language-model/industry-application/meta/meta.md)
-      * [OPT](natural-language-processing/large-language-model/industry-application/meta/opt/opt.md) 复现开源了GPT3
-      * [LLaMa](natural-language-processing/large-language-model/industry-application/meta/LLaMa/LLaMa.md) 对标OpenAI的ChatGPT，开源，发布于202302
-    * MiscroSoft
-      * Copilot MiscroSoft和OpenAI联合打造的AI编程工具，基于OpenAI的大模型Codex，基于GPT-3框架进行训练
-      * Kosmos-1 20230227发布，第二种才是真正的多模态LLM，才是GPT-4的魅力，他的原理目前OpenAI没有公布细节，但是大家可以参考微软在2月27日发布的Kosmos-1的论文（想一想，为什么偏偏是OpenAI的深度合作伙伴发了这篇论文）。
+      * ReAct是来自谷歌论文《Synergizing Reasoning and Acting in Language Models》中的一个方法，它是2022年12月发表的。这是一种eason+Act（ReAct）的方式，让大模型的行动和推理一起协同，提高大模型解决问题的能力。也就是让模型在访问外部知识的情况下和自己的模型能力结合。其实这就是Bing中的ChatGPT的运行方式！这个简单的方法可以让模型有更强的能力。而它的实现其实只需要简单的几行代码即可。因此，在前面的低成本+浏览器运行的基础上，加上ReAct改造，几乎可以得到一个与ChatGPT类似或者甚至更好的对话模型！
     * Together
       * OpenChatKit ChatGPT的开源平替来了，源代码、模型权重和训练数据集全部公开。由前OpenAI研究员共同打造。[如何看待 Together 推出的开源聊天大模型 OpenChatKit？能否替代 ChatGPT？](https://www.zhihu.com/question/589094770/answer/2934277284)，[ChatGPT开源平替来了，开箱即用！前OpenAI团队打造](https://mp.weixin.qq.com/s/EQk9i6Bu_BMsc6AEYCFI3A)
     * [阿里达摩院](natural-language-processing/large-language-model/industry-application/alibaba/alibaba.md)
@@ -411,12 +422,12 @@
       * [MOSS](natural-language-processing/large-language-model/industry-application/fudan-university-nlp-group/moss/moss.md) 对标ChatGPT暂未开源 202302
     * 智谱AI
       * ChatGLM 近日，由清华技术成果转化的公司智谱AI开源了GLM系列模型的新成员——**中英双语对话模型ChatGLM-6B**，支持在单张消费级显卡上进行推理使用。这是继此前开源GLM-130B千亿基座模型之后，智谱AI再次推出大模型方向的研究成果。与此同时，基于千亿基座模型的ChatGLM也同期推出，初具问答和对话功能 [ChatGLM：千亿基座的对话模型启动内测，单卡版模型已全面开源](https://mp.weixin.qq.com/s/08s-BlV5N3jytlSsd5hZ0g)
-    * 斯坦福大学
-      * Alpaca 近日，斯坦福基于 Meta 的 LLaMA 7B 模型微调出一个新模型 Alpaca。该研究让 OpenAI 的 text-davinci-003 模型以 self-instruct 方式生成 52K 指令遵循（instruction-following）样本，以此作为 Alpaca 的训练数据。研究团队已将训练数据、生成训练数据的代码和超参数开源，后续还将发布模型权重和训练代码。 [斯坦福70亿参数开源模型媲美GPT-3.5，100美元即可复现](https://mp.weixin.qq.com/s/U6ioEygg5mlVpAIb2L3cZw)
+    * 开源
 
 # [多模态大模型](multimodal-large-model/multimodal-large-model.md)
-* 论文
-  * [On the Opportunities and Risks of Foundation Models 2021 李飞飞](https://link.zhihu.com/?target=https%3A//arxiv.org/pdf/2108.07258.pdf)
+* [Foundation Models基础模型](multimodal-large-model/foundation-models/foundation-models.md)
+  * [On the Opportunities and Risks of Foundation Models Stanford2021李飞飞](multimodal-large-model/foundation-models/foundation-models-LeiFeiFei/On-the-Opportunities-and-Risks-of-Foundation-Models.md)
+  * [Can Foundation Models Perform Zero Shot For Robot PMLR2022](multimodal-large-model/foundation-models/Can-Foundation-Models-Perform-Zero-Shot-For-Robot/Can-Foundation-Models-Perform-Zero-Shot-For-Robot.md)
 * [业界应用](multimodal-large-model/industry-application/industry-application.md)
   * [OpenAI](multimodal-large-model/industry-application/openai/openai.md)
     * DALL·E 图像生成平台
@@ -492,12 +503,15 @@
 * [AI编译器](model-deployment/ai-compiler/ai-compiler.md)
 
 # [自动驾驶](autopilot/autopilot.md)
-* [传感器](autopilot/sensor/sensor.md)
-  * [各类型传感器](autopilot/sensor/sensors/sensors.md)
-    * [加速度计](autopilot/sensor/sensors/accelerometer/accelerometer.md)
-      * [加速度计的六面校准法](autopilot/sensor/sensors/accelerometer/accelerometer-six-sided-calibration-method/accelerometer-six-sided-calibration-method.md)
-    * [陀螺仪](autopilot/sensor/sensors/gyroscope/gyroscope.md)
-      * [陀螺仪校准](autopilot/sensor/sensors/gyroscope/gyroscope-calibration/gyroscope-calibration.md)
+* [机电系统](autopilot/electromechanical-systems/electromechanical-systems.md)
+  * [各类型传感器](autopilot/electromechanical-systems/sensors/sensors.md)
+    * [加速度计](autopilot/electromechanical-systems/sensors/accelerometer/accelerometer.md)
+      * [加速度计的六面校准法](autopilot/electromechanical-systems/sensors/accelerometer/accelerometer-six-sided-calibration-method/accelerometer-six-sided-calibration-method.md)
+    * [陀螺仪](autopilot/electromechanical-systems/sensors/gyroscope/gyroscope.md)
+      * [陀螺仪校准](autopilot/electromechanical-systems/sensors/gyroscope/gyroscope-calibration/gyroscope-calibration.md)
+  * [动力系统](autopilot/electromechanical-systems/dynamic-system/dynamic-system.md)
+    * [电调](autopilot/electromechanical-systems/dynamic-system/ESC/ESC.md)
+      * [螺旋桨推力与电调pwm的曲线映射关系](autopilot/electromechanical-systems/dynamic-system/ESC/thrust2pwm_curve/thrust2pwm_curve.md)
 * 感知
 * [决策](autopilot/decision/decision.md)
 * [规划](autopilot/planning/planning.md)
@@ -518,6 +532,7 @@
     * [Performer MPC: Learning Model Predictive Controllers with Real-Time Attention for Real-World Navigation Google2022](autopilot/control/llm-based-control/performer-mpc/Learning-Model-Predictive-Controllers-with-Real-Time-Attention-for-Real-World-Navigation.md)
     * [ChatGPT for Robotics: Design Principles and Model Abilities MicroSoft2023](autopilot/control/llm-based-control/chatGPT-for-robotics/ChatGPT-for-Robotics-Design-Principles-and-Model-Abilities.md) ***
     * [PaLM-E: An Embodied Multimodal Language Model arXiv2023 Google](autopilot/control/llm-based-control/PaLM-E/PaLM-E.md) ***
+    * [Towards a Robotics Foundation Model ML-Collective协会2023]()
 * [导航](autopilot/navigation/navigation.md)
   * [坐标变换与欧拉运动学方程](autopilot/navigation/coord-trans-and-euler-kinematics-equation/coord-trans-and-euler-kinematics-equation.md)
   * [导航常用坐标系及变换](autopilot/navigation/navigation-coord-system-and-trans/navigation-coord-system-and-trans.md)
@@ -538,6 +553,7 @@
     * [Gato: A Generalist Agent arXiv2022](artificial-general-intelligence/industry-application/deepmind/gato/A-Generalist-Agent.md)
   * [OpenAI](artificial-general-intelligence/industry-application/openai/openai.md)
     * [OpenAI介绍](artificial-general-intelligence/industry-application/openai/openai-introduction/openai-introduction.md)
+    * [Emergence of Grounded Compositional Language in Multi-Agent Populations arXiv2017](artificial-general-intelligence/industry-application/openai/emergence_lauguage_in_ma/Emergence-of-Grounded-Compositional-Language-in-Multi-Agent-Populations.md)
   * [Google](artificial-general-intelligence/industry-application/google/google.md)
 
 # [任务清单](personal/list.md)

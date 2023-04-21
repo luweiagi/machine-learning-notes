@@ -900,6 +900,20 @@ anaconda文件夹下有个pkgs文件夹。据我观测（没找到正式说明�
 >
 > 要更积极地节省空间，可以使用 conda clean --force-pkgs-dirs 删除*所有*可写程序包缓存(但要注意的是可能存在环境)与这些目录相关联).如果您不使用环境或在Windows下使用Anaconda，则可能很安全.就我个人而言，我使用此选项没有问题.
 
+使用
+
+```shell
+conda clean -f
+```
+
+可以彻底删除下面两个pkgs的缓存：
+
+```shell
+Remove all contents from the following package caches?
+  - C:\Users\user\Anaconda3\pkgs
+  - C:\Users\user\AppData\Local\conda\conda\pkgs
+```
+
 
 
 ## ubuntu中手动安装nvidia显卡驱动

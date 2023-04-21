@@ -33,3 +33,8 @@ RT-1: Robotics Transformer for Real-World Control at Scale
 ===
 
 [Google AI年终总结第六弹：没有波士顿动力的谷歌机器人，发展得怎么样了？](https://mp.weixin.qq.com/s/JRCQP2S3CbLtUaq8MkP4pQ)
+
+[GoogleBrain一位女机器人工程师的博客，分享了对RT-1的看法](https://twitter.com/keerthanpg/status/1602751890021761026)
+
+> Very excited to introduce the Robotics transformer 1, a large transformer-based imitation-learned robot manipulation policy, that can execute over 700 skills at a 97% success rate. It can also learn from other robots, execute long horizon SayCan and show massive scaling potential
+

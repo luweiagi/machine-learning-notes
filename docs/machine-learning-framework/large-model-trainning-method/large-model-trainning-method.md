@@ -1,4 +1,4 @@
-# AI大模型训练方法
+# AI大模型训练框架
 
 
 * [返回上层目录](../machine-learning-framework.md)
@@ -21,9 +21,27 @@
 
 [如何在多个GPU上训练很大的模型-并行训练](https://zhuanlan.zhihu.com/p/536304655)
 
-本文译自OpenAI研究院Lilian Weng在2021年9月发布，并在2022年4月更新的文章[How to Train Really Large Models on Many GPUs?](https://lilianweng.github.io/posts/2021-09-25-train-large/)中的第一部分-并行训练方法。
+> 本文译自OpenAI研究院Lilian Weng在2021年9月发布，并在2022年4月更新的文章[How to Train Really Large Models on Many GPUs?](https://lilianweng.github.io/posts/2021-09-25-train-large/)中的第一部分-并行训练方法。
 
 [如何训练大模型 Dive into Big Model Training](https://zhuanlan.zhihu.com/p/546215261)
 
 [如何训练千亿/万亿大模型](https://zhuanlan.zhihu.com/p/542596233)
+
+
+
+[什么是大模型？超大模型和 Foundation Model 呢？](https://www.zhihu.com/question/498275802/answer/2221187242)
+
+>  目前部分深度学习框架，例如Pytorch和Tensorflow，没有办法满足超大规模模型训练的需求，于是微软基于Pytroch开发了DeepSpeed，腾讯基于Pytroch开发了派大星PatricStar，达摩院同基于Tensoflow开发的分布式框架Whale。像是华为昇腾的MindSpore、百度的PaddlePaddle，还有国内的追一科技OneFlow等厂商，对超大模型训练进行了深度的跟进与探索，基于原生的AI框架支持超大模型训练。
+
+
+
+[训练ChatGPT需要什么-超大模型训练part1（机器学习系统）](https://zhuanlan.zhihu.com/p/599688923)
+
+[训练ChatGPT需要什么-超大模型训练part2（机器学习系统）](https://zhuanlan.zhihu.com/p/599695149)
+
+
+
+[ChatGPT训练算力估算：1万块A100 GPU是误传，中小创企也可突围](https://zhuanlan.zhihu.com/p/606930232)
+
+> 微软云计算服务平台Azure为OpenAI搭建的用于训练ChatGPT的训练算力集群使用了超过4453颗64核的CPU，以及超过10000个Nvidia Tesla V100 GPU，总计约2227台服务器，成本越8-10亿人民币。如果使用Nvidia最新的A100GPU，大约需要3000-5000块GPU进行训练（一次训练耗时两周），成本大约6-8.5亿人民币，但目前Nvidia A100 GPU对我国禁运。
 

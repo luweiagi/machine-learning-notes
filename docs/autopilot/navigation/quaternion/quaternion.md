@@ -179,7 +179,7 @@ Q_a^b=Q_a^{-1}\otimes Q_b
 $$
 这就是**将四元数$Q_a$的姿态旋转到$Q_b$的姿态的四元数$Q_a^b$**。
 
-注意，该四元数$Q_a^b$标识的旋转，是基于四元数$Q_a$表示的姿态的基础上的，而不是基于初始姿态（$Q_0=\cos(0)+sin(0)\overrightarrow{u}$），就好比$Q_a$旋转时把基础姿态$$Q_0=\cos(0)+sin(0)\overrightarrow{u}$$当做基础姿态一样
+注意，该四元数$Q_a^b$标识的旋转，是基于四元数$Q_a$表示的姿态的基础上的，而不是基于初始姿态（$Q_0=\cos(0)+\sin(0)\overrightarrow{u}$），就好比$Q_a$旋转时把基础姿态$$Q_0=\cos(0)+\sin(0)\overrightarrow{u}$$当做基础姿态一样
 
 想要更深入的理解，那就看下面的matlab代码：
 
@@ -357,7 +357,7 @@ $$
 \begin{aligned}
 R_b^n=
 \begin{bmatrix}
-\cos(\theta)&-sin(\theta)\\
+\cos(\theta)&-\sin(\theta)\\
 \sin(\theta)&\cos(\theta)
 \end{bmatrix}
 \end{aligned}
@@ -375,7 +375,7 @@ $$
 \end{bmatrix}
 =
 \begin{bmatrix}
-\cos(\theta)&-sin(\theta)\\
+\cos(\theta)&-\sin(\theta)\\
 \sin(\theta)&\cos(\theta)
 \end{bmatrix}
 \end{aligned}
@@ -395,7 +395,7 @@ $$
 \end{bmatrix}
 =
 \begin{bmatrix}
-\cos(\theta)&-sin(\theta)\\
+\cos(\theta)&-\sin(\theta)\\
 \sin(\theta)&\cos(\theta)
 \end{bmatrix}
 \end{aligned}
@@ -410,7 +410,7 @@ $$
 
 四元数是四维的，向量坐标是三维的，那怎么直接做坐标变换呢？
 
-需要把待变换坐标的向量$r$看做零标量的四元数，即$r=[0, r]^T$，扩增成四维的。则$r^n$和$r^b$之间的变换关系可采用四元数乘法来直接表示：
+需要把待变换坐标的向量$r$看做零标量的四元数，即$r=[0, r^T]^T$，扩增成四维的。则$r^n$和$r^b$之间的变换关系可采用四元数乘法来直接表示：
 $$
 r_n=Q\otimes r_b\otimes Q^*
 $$
@@ -418,11 +418,119 @@ $$
 
 证明过程略。
 
+其实，**这可以扩充到对四元数旋转的变换**：
+
+> qo_f1 = orientation of frame F1(b) as seen from frame F2(n)
+> qo_f2  = orientation of frame F2(n) is as seen from F1(b))
+> q_f1 = some quaternion in F1(b) frame
+> q_f2 = q_f1 as seen from F2(n)
+
+则
+
+> q_f2 = qo_f2 * q_f1 * qo_f2.inverse()
+
+参考来源：[Convert Quaternion representing rotation from one coordinate system to another](https://stackoverflow.com/questions/18818102/convert-quaternion-representing-rotation-from-one-coordinate-system-to-another)
+
+下面用matlab来验证
+
+![euler-rot](pic/euler-rot.png)
+
+对于上述旋转，
+
+```matlab
+% 在地轴系下把向量旋转为体轴系
+quat_n = quaternion([pi/2, 0, -pi/2], 'euler', 'ZYX', 'frame')  % 0.5-0.5i-0.5j+0.5k
+euler_zyx = eulerd(quat_n ,'ZYX', 'frame')  % [yaw=90, pitch=0, roll=-90]
+% 把地轴系下的向量[1,0,0]变成四元数形态，为了方便做四元数坐标转换
+r_n = quaternion(0, 1, 0, 0)  % 0+1i+0j+0k
+% 把向量坐标从地轴系转换到体轴系系下
+r_n_roted = quat_n' * r_n * quat_n  % 0+0i+0j-1k
+```
+
+把地轴系下的轴角转换的四元数，坐标变换到体轴系下，还是同一个旋转，只不过不同轴系下的表示方式不一样而已。在地轴系下，轴角四元数为绕着x轴转30度；在体轴系下，变换后的轴角四元数为绕着z轴转-30度。你自己模拟一下，是不是这个旋转在绝对空间中是一样的，方向大小都没变！
+
+```matlab
+% 地轴系下的轴角合成的四元数
+quat_n_rot = quaternion([30, 0, 0],'rotvecd') % from轴角 0.96593+0.25882i+0j+0k
+quat_n_rot = quat_n' * quat_n_rot * quat_n  % 0.96593+0i+0j-0.25882k
+euler_zyx = eulerd(quat_n_rot,'ZYX', 'frame')  % [yaw=-30, pitch=0, roll=0]
+```
+
+## 四元数的轴角矢量表示法的高级用法
+
+轴角法的轴和角如下图：
+
+![axis-angle-quat](pic/axis-angle-quat.png)
+
+地轴系下，先绕$x$轴（roll）旋转$30^{\circ}$，然后绕$z$轴（yaw）旋转$45^{\circ}$。注意，这里是按照XYZ的顺序旋转的欧拉角，不是我们平时使用的ZYX顺序的欧拉角。这里这么做的目的是为了简单起见。
+
+![thrust-tilt-separation](pic/thrust-tilt-separation.png)
+
+然后我们想做的就是，把这两次旋转用四元数表示，即
+
+* 先绕$x$轴（roll）旋转$30^{\circ}$，对应四元数为
+
+  ```matlab
+  quat_roll = quaternion([pi/6, 0, 0], 'euler', 'XYZ', 'frame')  
+  % 0.96593+0.25882i+0j+0k 注意：cosd(30/2)=0.96593, sind(30/2)=0.25882
+  ```
+
+* 然后绕$z$轴（yaw）旋转$45^{\circ}$。
+
+  ```matlab
+  quat_yaw = quaternion([0, 0, pi/4], 'euler', 'XYZ', 'frame')
+  % 0.92388+0i+0j+0.38268k
+  ```
+
+然后把这两个旋转合成为一个旋转，即可以用四元数相乘：
+
+```matlab
+%  get final quat from two middle quat
+%  roll 30 deg, then yaw 45 deg
+quat_ry_q = quat_roll * quat_yaw  
+% 0.8924+0.23912i-0.099046j+0.36964k
+```
+
+来验证下这个合成后的四元数对不对，将该四元数转换成欧拉角（注意是YXZ顺序）进行验证
+
+```matlab
+% from quat to euler (XYZ)
+euler_xyz_q = eulerd(quat_ry_q,'XYZ','frame')  
+% [roll=30, pitch=0, yaw=45]
+```
+
+结果显示就是先绕roll转$30^{\circ}$，然后绕yaw转$45^{\circ}$。说明组合的旋转是对的。其次，又再次验证了四元数的旋转和旋转坐标的旋转是一样的。
+
+下面将这个合成的四元数，转换成轴角表示：
+
+```matlab
+% get angle (NOT euler angel) with no order
+angle_xyz = rotvecd(quat_ry_q)
+% 28.4280  -11.7753   43.9459
+```
+
+可以看出，先绕roll转$30^{\circ}$，然后绕yaw转$45^{\circ}$，这种按顺序的欧拉角旋转，等效于按照矢量[x=28.4280  y=-11.7753   z=43.9459]​进行一次旋转，其中，该矢量的方向代表旋转轴，各轴分量代表旋转轴在各轴分量上的旋转角度。
+
+此外，该矢量[x=28.4280  y=-11.7753   z=43.9459]也可以认为是姿态控制中的角度误差，而不能是欧拉角表示的[x=30  y=-0   z=45]，因为该角度不是一次旋转而成的，而是按顺序旋转得到的。实际控制的时候，肯定会同时转，而不是按欧拉角顺序转。欧拉角顺序只是数学上表示姿态的方式，实际的旋转都是一次旋转到位的。
+
+上述代码总结如下：
+
+```matlab
+% from XYZ euler to quat
+quat_roll = quaternion([pi/6, 0, 0], 'euler', 'XYZ', 'frame')  % 0.96593+0.25882i+0j+0k
+quat_yaw = quaternion([0, 0, pi/4], 'euler', 'XYZ', 'frame')  % 0.92388+0i+0j+0.38268k
+%  get final quat from two middle quat
+%  roll 30 deg, then yaw 45 deg
+quat_ry_q = quat_roll * quat_yaw  % 0.8924+0.23912i-0.099046j+0.36964k
+% from quat to euler (XYZ)
+euler_xyz_q = eulerd(quat_ry_q,'XYZ','frame')  % [roll=30, pitch=0, yaw=45]
+% get angle (NOT euler angel) with no order
+angle_xyz = rotvecd(quat_ry_q) % 28.4280  -11.7753   43.9459
+```
+
 ## 线性插值
 
 请查看matlab中的四元数的slerp函数。
-
-
 
 # 参考资料
 
@@ -445,25 +553,12 @@ $$
 
 直观认识四元数，不过比较难以想象四维空间。。
 
-
-
-[一文详解四元数、欧拉角、旋转矩阵、轴角如何相互转换](https://mp.weixin.qq.com/s?__biz=MzU0NjgzMDIxMQ==&mid=2247487439&idx=1&sn=da8c277d40911b114038a415f5873ac9&chksm=fb56ed23cc216435c3bac0429620492e6b4380a63f30f026c8377f37bd81577a320188e1a404&scene=27)
-
-[三维旋转：欧拉角、四元数、旋转矩阵、轴角之间的转换](https://zhuanlan.zhihu.com/p/45404840)
-
-
-
-[四元数的定义与性质](https://blog.csdn.net/wxc_1998/article/details/119038069)
+* [四元数的定义与性质](https://blog.csdn.net/wxc_1998/article/details/119038069)
 
 Graßmann积。纯四元数有一个很重要的特性：如果有两个纯四元数
 
+* [一文详解四元数、欧拉角、旋转矩阵、轴角如何相互转换](https://mp.weixin.qq.com/s?__biz=MzU0NjgzMDIxMQ==&mid=2247487439&idx=1&sn=da8c277d40911b114038a415f5873ac9&chksm=fb56ed23cc216435c3bac0429620492e6b4380a63f30f026c8377f37bd81577a320188e1a404&scene=27)
 
-
-
-
-
-
-
-
+* [三维旋转：欧拉角、四元数、旋转矩阵、轴角之间的转换](https://zhuanlan.zhihu.com/p/45404840)
 
 

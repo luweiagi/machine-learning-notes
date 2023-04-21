@@ -1,7 +1,7 @@
 # 自动驾驶
 
 * [返回上层目录](../README.md)
-* [传感器](sensor/sensor.md)
+* [机电系统](electromechanical-systems/electromechanical-systems.md)
 * [决策](decision/decision.md)
 * [规划](planning/planning.md)
 * [控制](control/control.md)

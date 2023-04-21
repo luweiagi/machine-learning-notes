@@ -187,6 +187,15 @@ find ./ -name "*.md" | xargs sed -i "" "s/abcd/efgh/g"
 
 把每一行中所有`abcd`字符串转为`efgh`。
 
+## file显示文件信息
+
+```shell
+file libxxx.so
+# libxxx.so: ELF 64-bit LSB shared object, x86-64, version 1 (SYSV), dynamically linked, BuildID[sha1]=a5fb794c5f5a4acdc8d365b4fa0f41a45807f49b, with debug_info, not stripped
+```
+
+显示该linux库文件适用于x86-64架构，和arm架构不兼容。
+
 # 移动/传输文件
 
 ## cp复制文件

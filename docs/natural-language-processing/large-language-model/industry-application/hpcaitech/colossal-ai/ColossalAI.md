@@ -14,4 +14,7 @@ github: [hpcaitech/ColossalAI](https://github.com/hpcaitech/ColossalAI)
 
 [开源方案复现ChatGPT流程！1.62GB显存即可体验，单机训练提速7.73倍](https://mp.weixin.qq.com/s?__biz=MzA3MzI4MjgzMw==&mid=2650868445&idx=1&sn=f8b7db5f226533bc04ca3b729efbf6b8&chksm=84e4cea3b39347b5d443260dfcbf313a28dd5bcae0ff889a03c3c3a49c991e92e9b08195a4fa&scene=21#wechat_redirect)
 
-[独一档技术分享：低成本复现ChatGPT完整流程](https://mp.weixin.qq.com/s/vAPCwuMv0PvRxMqQ_JiWYw)
+[ChatGPT低成本复现流程开源！单张消费级显卡、1.62GB显存可体验](https://zhuanlan.zhihu.com/p/606582332)
+
+
+

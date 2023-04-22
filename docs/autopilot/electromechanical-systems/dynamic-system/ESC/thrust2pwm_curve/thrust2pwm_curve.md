@@ -1,16 +1,19 @@
 # 螺旋桨推力与转速的关系
 
-* [返回上层目录](../gyroscope.md)
+* [返回上层目录](../ESC.md)
 
 
 
 螺旋桨推力thrust与转速pwm（假设转速正比于pwm）的关系为：
 $$
-\text{thrust}=0.5\times C_l \times k \times \text{pwm}^2
+\begin{aligned}
+\text{thrust}&=k_1\times C_l \times \text{rpm}^2\\
+&=k_2\times C_l \times \text{pwm}^2
+\end{aligned}
 $$
-其中，$C_l$表示升力系数，$k$为转速和pwm的正比系数。
+其中，$C_l$表示升力系数，$\sqrt{\frac{k_2}{k_1}}$为电调输入pwm和转速rpm的正比系数。
 
-但有点电调比如T-model可能会做pwm到推力的线性化
+但有的电调比如T-model可能会做pwm到推力的线性化
 
 
 ![pwm2thrust_curve](pic/pwm2thrust_curve.png)
@@ -53,6 +56,7 @@ $$
 ```python
 import matplotlib.pyplot as plt
 import math
+import numpy as np
 
 def apply_thrust_curve_and_volt_scaling(thrust, motors_thrust_curve_expo=0.65):
     motors_lift_max = 1.0
@@ -115,3 +119,12 @@ plt.show()
 下面这个xlsx可以自动计算thrust_curve_expo值。
 
 [ArduPilot Motor Thrust Fit.xlsx](https://docs.google.com/spreadsheets/d/1_75aZqiT_K1CdduhUe4-DjRgx3Alun4p8V2pt6vM5P8/edit#gid=0)
+
+* [PX4调参 MC PID Tuning Guide](https://www.bookstack.cn/read/px4-user-guide/zh-config_mc-pid_tuning_guide_multicopter.md#%E6%8E%A8%E5%8A%9B%E6%9B%B2%E7%BA%BF%20/%20%E5%A4%A7%E6%B2%B9%E9%97%A8%20PID%20%E8%A1%B0%E5%87%8F(Throttle%20PID%20Attenuation)%20{#thrust_curve})
+
+这一章：推力曲线 / 大油门 PID 衰减(Throttle PID Attenuation) {#thrust_curve}
+
+> 用 **THR_MDL_FAC**参数来调整[推力曲线](https://www.bookstack.cn/read/px4-user-guide/zh-advanced_config-parameter_reference.md#THR_MDL_FAC)(推荐的方式)。 默认情况下的PWM - 推力 对应关系是线性的。 — 你可以把参数`THR_MDL_FAC`设为1来让这种关系变成二次的。 0~1之间的值表示线性和二次之间的一个插值。 这个参数一般在0.3~0.5之间，你可以每次增加0.1。 如果该参数太大，你可以看到低油门下的振荡现象。
+
+
+

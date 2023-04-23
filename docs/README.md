@@ -509,6 +509,8 @@
       * [加速度计的六面校准法](autopilot/electromechanical-systems/sensors/accelerometer/accelerometer-six-sided-calibration-method/accelerometer-six-sided-calibration-method.md)
     * [陀螺仪](autopilot/electromechanical-systems/sensors/gyroscope/gyroscope.md)
       * [陀螺仪校准](autopilot/electromechanical-systems/sensors/gyroscope/gyroscope-calibration/gyroscope-calibration.md)
+    * [电流计](autopilot/electromechanical-systems/sensors/ammeter/ammeter.md)
+      * [使用电流计测量电池电动势用于pwm电压补偿](autopilot/electromechanical-systems/sensors/ammeter/measure-voltage-for-compensation-to-pwm/measure-voltage-for-compensation-to-pwm.md)
   * [动力系统](autopilot/electromechanical-systems/dynamic-system/dynamic-system.md)
     * [电调](autopilot/electromechanical-systems/dynamic-system/ESC/ESC.md)
       * [螺旋桨推力与电调pwm的曲线映射关系](autopilot/electromechanical-systems/dynamic-system/ESC/thrust2pwm_curve/thrust2pwm_curve.md)

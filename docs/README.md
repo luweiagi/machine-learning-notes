@@ -94,6 +94,7 @@
   * [编译原理](coding/cs-courses/compiler-principles/compiler-principles.md)
     * [编译过程、静态库和动态库](coding/cs-courses/compiler-principles//compilation-process-and-link-library/compilation-process-and-link-library.md)
     * [GCC编译器介绍](coding/cs-courses/compiler-principles/gcc-compiler-introduction/gcc-compiler-introduction.md)
+    * [CMake](coding/cs-courses/compiler-principles/cmake/cmake.md)
   * [操作系统](coding/cs-courses/operating-system/operating-system.md)
     * [Linux](coding/cs-courses/operating-system/linux/linux.md)
       * [Linux常用命令](coding/cs-courses/operating-system/linux/linux-command/linux-command.md)
@@ -419,7 +420,7 @@
     * [HPC-AI Tech](natural-language-processing/large-language-model/industry-application/hpcaitech/hpcaitech.md)
       * [ColossalAI](natural-language-processing/large-language-model/industry-application/hpcaitech/colossal-ai/ColossalAI.md) 对标ChatGPT的开源项目 202302
     * [复旦大学自然语言处理实验室邱锡鹏团队](natural-language-processing/large-language-model/industry-application/fudan-university-nlp-group/fudan-university-nlp-group.md)
-      * [MOSS](natural-language-processing/large-language-model/industry-application/fudan-university-nlp-group/moss/moss.md) 对标ChatGPT暂未开源 202302
+      * [MOSS](natural-language-processing/large-language-model/industry-application/fudan-university-nlp-group/moss/moss.md) 对标ChatGPT已开源 202302
     * 智谱AI
       * ChatGLM 近日，由清华技术成果转化的公司智谱AI开源了GLM系列模型的新成员——**中英双语对话模型ChatGLM-6B**，支持在单张消费级显卡上进行推理使用。这是继此前开源GLM-130B千亿基座模型之后，智谱AI再次推出大模型方向的研究成果。与此同时，基于千亿基座模型的ChatGLM也同期推出，初具问答和对话功能 [ChatGLM：千亿基座的对话模型启动内测，单卡版模型已全面开源](https://mp.weixin.qq.com/s/08s-BlV5N3jytlSsd5hZ0g)
     * 开源
@@ -514,6 +515,8 @@
   * [动力系统](autopilot/electromechanical-systems/dynamic-system/dynamic-system.md)
     * [电调](autopilot/electromechanical-systems/dynamic-system/ESC/ESC.md)
       * [螺旋桨推力与电调pwm的曲线映射关系](autopilot/electromechanical-systems/dynamic-system/ESC/thrust2pwm_curve/thrust2pwm_curve.md)
+    * [电机](autopilot/electromechanical-systems/dynamic-system/motor/motor.md)
+      * [电机的原理](autopilot/electromechanical-systems/dynamic-system/motor/motor-principle/motor-principle.md)
 * 感知
 * [决策](autopilot/decision/decision.md)
 * [规划](autopilot/planning/planning.md)

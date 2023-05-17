@@ -276,3 +276,7 @@ $$
 
 这个讲了怎么用传递函数在simulink中建模。
 
+- [Copter: Voltage compensation to throttle/pwm is used in many places in motor output function, is it used repeatedly? #23575](https://github.com/ArduPilot/ardupilot/issues/23575)
+
+这个Issue详细分析了曲线的来由和电机动力学模型。
+

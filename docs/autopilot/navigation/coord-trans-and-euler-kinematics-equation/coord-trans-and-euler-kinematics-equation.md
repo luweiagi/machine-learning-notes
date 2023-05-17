@@ -9,8 +9,11 @@
   * [绕y轴旋转](#绕y轴旋转)
   * [绕x轴旋转](#绕x轴旋转)
 * [基于欧拉角的坐标变换](#基于欧拉角的坐标变换)
+  * [坐标变换矩阵推导](#坐标变换矩阵推导)
   * [万向节死锁](#万向节死锁)
+  * [已知多旋翼水平加速度求姿态角](#已知多旋翼水平加速度求姿态角)
 * [欧拉运动学方程](#欧拉运动学方程)
+  * [欧拉运动学方程推导](#欧拉运动学方程推导)
   * [由体轴角加速度限制求欧拉角角加速度限制](#由体轴角加速度限制求欧拉角角加速度限制)
 
 # 基本假定
@@ -401,6 +404,8 @@ $$
 
 # 基于欧拉角的坐标变换
 
+## 坐标变换矩阵推导
+
 这里基于欧拉角的坐标变换按照`偏航角->俯仰角->滚转角`的变换顺序，具体过程如下图所示。
 
 ![ypr-process](pic/ypr-process.png)
@@ -530,7 +535,73 @@ cos(\psi-\phi) & \sin(\psi-\phi) & 0\\
 $$
 此时的姿态，其实对应了无数种欧拉角变换，即当俯仰角$\theta=90^{\circ}$时，只要偏航角$\psi$和滚转角$\phi$的大小相等且为任意值，均对应了同一种姿态。
 
+## 已知多旋翼水平加速度求姿态角
+
+已知多旋翼水平加速飞行（即推力$T$在竖直方向上的分量等于重力），以及水平方向（前向和右向）的加速度$a_f$和$a_r$，求其姿态角。
+
+即有（偏航角$\psi=0$）：
+$$
+M_b^e
+\begin{bmatrix}
+0\\
+0\\
+-T\\
+\end{bmatrix}
+=
+\begin{bmatrix}
+ma_f\\
+ma_r\\
+-mg\\
+\end{bmatrix}
+$$
+把坐标变换公式（令偏航角$\psi=0$）具体带入上式中的$M_b^e$，可得
+$$
+\begin{bmatrix}
+\cos\theta & \sin\theta\sin\phi & \sin\theta \cos\phi\\
+0 & \cos\phi & -\sin\phi\\
+-\sin\theta & \cos\theta\sin\phi & \cos\theta\cos\phi\\
+\end{bmatrix}
+\begin{bmatrix}
+0\\
+0\\
+-T\\
+\end{bmatrix}
+=
+\begin{bmatrix}
+ma_f\\
+ma_r\\
+-mg\\
+\end{bmatrix}
+$$
+由上式第三行可得推力$T$：
+$$
+\begin{aligned}
+&\cos\theta\cos\phi \cdot T=mg\\
+\Rightarrow &T=\frac{mg}{\cos\theta\cos\phi}
+\end{aligned}
+$$
+由上上式第一行可得俯仰角$\theta$：
+$$
+\begin{aligned}
+&\sin\theta \cos\phi \cdot (-T)=ma_f\\
+\Rightarrow &\sin\theta \cos\phi \cdot (-\frac{mg}{\cos\theta\cos\phi})=ma_f\\
+\Rightarrow &-\tan\theta \cdot mg=ma_f\\
+\Rightarrow &\theta=\arctan(-\frac{a_f}{g})
+\end{aligned}
+$$
+由上上上式第二行可得滚转角$\phi$：
+$$
+\begin{aligned}
+&\sin\phi \cdot T=ma_r\\
+\Rightarrow &\sin\phi \cdot \frac{mg}{\cos\theta\cos\phi}=ma_r\\
+\Rightarrow &\tan\phi\cdot \frac{mg}{\cos\theta}=ma_r\\
+\Rightarrow &\phi=\arctan(\cos\theta \frac{a_r}{g})
+\end{aligned}
+$$
+
 # 欧拉运动学方程
+
+## 欧拉运动学方程推导
 
 已知机体角速度$w=[p,q,r]^T$，想求欧拉角速度$\phi'$，$\theta'$，$\psi'$。
 

@@ -15,6 +15,8 @@ $$
 
 但有的电调比如T-model可能会做pwm到推力的线性化
 
+下面是经验公式，实际上不符合物理模型，但是能用：
+
 
 ![pwm2thrust_curve](pic/pwm2thrust_curve.png)
 
@@ -88,7 +90,124 @@ plt.show()
 
 猜测：
 
-电调电压和转速线性相关？
+电调电压和转速线性相关？回答：并不线性相关，而是转速和转速平方的加权和。
+
+# 台架实验
+
+使用实验台架测试
+
+电调ECS实时输出PWM值，其范围是$1000us\leqslant \text{ECS} \leqslant 2000us$。
+
+电调ECS输出对应螺旋桨产生的推力是Thrust​，单位为kgf，1kgf表示一公斤质量产生的重力，其实就是9.8N。
+
+电调的实时电压为Voltage，其单位是V。
+
+就只测这三个值，测一组数据（最好能达到100组数据），如下图所示（只列出5个）：
+
+| index | PWM of ECS (us) | Thrust (kgf) | Voltage (V) |
+| ----- | --------------- | ------------ | ----------- |
+| 1     | 1000            | 0.196        | 21.72       |
+| 2     | 1118            | 0.245        | 21.72       |
+| 3     | 1512            | 0.915        | 21.68       |
+| 4     | 1923            | 2.028        | 21.55       |
+| 5     | 2000            | 2.254        | 21.52       |
+
+在计算之前，设定一些阈值
+
+| 参数          | 值   |      | 推出的参数                          | 值          |
+| ------------- | ---- | ---- | ----------------------------------- | ----------- |
+| MOT_PWM_MIN   | 1000 |      | Data   Rows                         | 76          |
+| MOT_PWM_MAX   | 2000 |      | PWM at MOT_SPIN_MIN                 | 1150        |
+| MOT_THST_EXPO | 0.5  |      | PWM at MOT_SPIN_MAX                 | 1950        |
+| MOT_SPIN_ARM  | 0.1  |      | Thrust at MOT_SPIN_MIN              | 0.271       |
+| MOT_SPIN_MIN  | 0.15 |      | Thrust at MOT_SPIN_MAX(应当为scale) | 1.881383512 |
+| MOT_SPIN_MAX  | 0.95 |      |                                     |             |
+
+其中，左侧值是给定值，右侧值是根据左侧给定值和实验数据计算得到：
+
+`PWM at MOT_SPIN_MIN`的值为
+$$
+\begin{aligned}
+&\text{PWM_at_MOT_SPIN_MIN}\\
+=&\text{PWM_MIN} + (\text{PWM_MIN}-\text{PWM_MIN})\cdot \text{SPIN_MIN}\\
+=&1000+(2000-1000)*0.15\\
+=&1150
+\end{aligned}
+$$
+`PWM at MOT_SPIN_MAX`的值为
+$$
+\begin{aligned}
+&\text{PWM_at_MOT_SPIN_MAX}\\
+=&\text{PWM_MIN} + (\text{PWM_MIN}-\text{PWM_MIN})\cdot \text{SPIN_MAX}\\
+=&1000+(2000-1000)*0.95\\
+=&1950
+\end{aligned}
+$$
+`Thrust at MOT SPIN_MIN`的值为
+
+```e
+=INDEX(B12:B1000, MATCH(SMALL(A12:A1000, COUNTIF(A12:A1000, "<"&$G$5)+1), A12:A1000, 0), 1)
+```
+
+该值的含义是，当`SPIN_MIN=0.15`，即`PWM at MOT_SPIN_MIN=1150`时，对应的推力值为0.271kgf。
+
+`Thrust at MOT_SPIN_MAX`的值为1.881383512
+
+其含义是。。。这个值应该是写错了。
+
+1
+
+（1）`Normalized Throttle`为归一化后的油门，归一化的同时，考虑了压降，其定义为
+$$
+\begin{aligned}
+\text{throttle}_{\text{norm}}&=\frac{V}{V_{\text{max}}}max(0, \frac{\text{PWM}-\text{PWM}_{\text{spin_min}}}{\text{PWM}_{\text{spin_max}}-\text{PWM}_{\text{spin_min}}})\\
+&=\frac{21.68}{21.72}max(0, \frac{1555-1150}{1950-1150})\\
+&=0.9982\times 0.5063\\
+&=0.5053
+\end{aligned}
+$$
+
+（2）`Normalized Thrust`为由归一化后的油门计算得到的推力，其定义为
+$$
+\begin{aligned}
+\text{thrust}_{\text{norm}}&=max((1-\text{EXPO})\cdot \text{throttle}_{\text{norm}} + \text{EXPO}\cdot \text{throttle}_{\text{norm}}^2,0)\\
+&=(1-0.5)\times 0.5053 + 0.5\times 0.5053^2\\
+&=0.25265+0.12766\\
+&=0.3803
+\end{aligned}
+$$
+**注意，该变量不是测出来的推力值，而是根据油门值估算出的推力值**。
+
+（3）`Rescaled Thrust`为
+$$
+\begin{aligned}
+\text{thrust}_{\text{rescaled}}&=\frac{\text{thrust}_{\text{real-kgf}}-{\text{thrust}_{\text{spin_min}}}}{\text{thrust}_{\text{norm}}}\\
+&=\frac{1.039-0.271}{0.3803}\\
+&=2.0193
+\end{aligned}
+$$
+这其实是，真实推力值和估算推力值的比值。
+
+（4）`Corrected Thrust`为修正后的推力，其定义为
+$$
+\begin{aligned}
+\text{thrust}_{\text{corrected}}&=\text{thrust}_{\text{norm}}\cdot mean(\text{thrust}_{\text{rescaled}}) + \text{thrust}_{\text{spin_min}}\\
+&=\text{thrust}_{\text{norm}}\cdot mean(\frac{\text{thrust}_{\text{real-kgf}}-{\text{thrust}_{\text{spin_min}}}}{\text{thrust}_{\text{norm}}}) + \text{thrust}_{\text{spin_min}}
+\end{aligned}
+$$
+下面这个xlsx可以自动计算thrust_curve_expo值。
+
+[原版ArduPilot Motor Thrust Fit.xlsx](https://docs.google.com/spreadsheets/d/1_75aZqiT_K1CdduhUe4-DjRgx3Alun4p8V2pt6vM5P8/edit#gid=0)
+
+[我改进的ArduPilot Motor Thrust Fit.xlsx](https://docs.google.com/spreadsheets/d/1_l8iOQ7tlthABDotDbcDRmZIHLIVbNOiLjNEUL10f0M/edit#gid=0)
+
+改进的点：
+
+G7处改为了：
+
+```
+=INDEX(B12:B1000, MATCH(SMALL(A12:A1000, COUNTIF(A12:A1000, "<"&$G$5)+1), A12:A1000, 0), 1)
+```
 
 # 参考资料
 
@@ -126,5 +245,9 @@ plt.show()
 
 > 用 **THR_MDL_FAC**参数来调整[推力曲线](https://www.bookstack.cn/read/px4-user-guide/zh-advanced_config-parameter_reference.md#THR_MDL_FAC)(推荐的方式)。 默认情况下的PWM - 推力 对应关系是线性的。 — 你可以把参数`THR_MDL_FAC`设为1来让这种关系变成二次的。 0~1之间的值表示线性和二次之间的一个插值。 这个参数一般在0.3~0.5之间，你可以每次增加0.1。 如果该参数太大，你可以看到低油门下的振荡现象。
 
+===
 
+* [Copter: Voltage compensation to throttle/pwm is used in many places in motor output function, is it used repeatedly? #23575](https://github.com/ArduPilot/ardupilot/issues/23575)
+
+这个Issue详细分析了曲线的来由和电机动力学模型。
 

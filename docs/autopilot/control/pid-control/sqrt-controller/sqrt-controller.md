@@ -47,9 +47,27 @@ $$
 
 ![sqrt-line-curve](pic/sqrt-line-curve.png)
 
-上图中，当$\Delta S$小于$\Delta S_2$时，位置控制器采用直线$L_2$，直线$L_2$和平方根曲线Sqrt​相切于$(\Delta S_2, v_2)$。直线$L_2$的斜率为$k_2$，这样当$\Delta S$小于$\Delta S_2$时，位置控制器曲线的斜率恒定，不会继续增大。
+上图中，当$\Delta S$小于$\Delta S_2$时，位置控制器采用直线$L_2$，直线$L_2$和平方根曲线Sqrt​相切于$(\Delta S_2, v_2)$。直线$L_2$的斜率为$k_2$，这样当$\Delta S$小于$\Delta S_2$时，位置控制器曲线的斜率恒定，不会继续增大，此时需要的加速度也会随着距离$\Delta S$而线性减小，为什么呢？证明如下：
 
-在相切点$(\Delta S_2, v_2)$处，$V_2=\sqrt{2A\Delta S_2}$。对曲线Sqrt（即$V_{target}=\sqrt{2A\Delta S}$）求导得到其斜率为$\frac{1}{2}\sqrt{\frac{2A}{\Delta S}}$，则在相切点$(\Delta S_2, v_2)$处曲线Sqrt的斜率为
+速度$V$和距离$\Delta S$的斜率关系为：
+$$
+\begin{aligned}
+&V^2-0^2=2aS\\
+\Rightarrow&V=\sqrt{2aS}\\
+\Rightarrow&\frac{\part V}{\part S}=\frac{\frac{1}{2}\cdot 2a}{\sqrt{2aS}}=\sqrt{\frac{a}{2S}}\\
+\end{aligned}
+$$
+可得，当速度$V$和距离$\Delta S$的斜率保持不变时，加速度$a$随着距离$S$的减小而**线性减小**，当距离$S$为0时，加速度$a$也为0。
+
+## 计算直线L的方程
+
+下面计算直线$L$的方程
+
+首先计算直线和曲线切线相交处的斜率。
+
+在相切点$(\Delta S_2, v_2)$处，$V_2=\sqrt{2A\Delta S_2}$。
+
+对曲线Sqrt（即$V_{target}=\sqrt{2A\Delta S}$）求导得到其斜率为$\frac{1}{2}\sqrt{\frac{2A}{\Delta S}}$，则在相切点$(\Delta S_2, v_2)$处曲线Sqrt的斜率为
 $$
 \begin{aligned}
 \frac{1}{2}\sqrt{\frac{2A}{\Delta S_2}}&=\frac{1}{2}\frac{\sqrt{2A}}{\sqrt{\Delta S_2}}=\frac{1}{2}\frac{\sqrt{2A}}{\frac{V_2}{\sqrt{2A}}}=\frac{1}{2}\frac{2A}{V_2}\\
@@ -85,6 +103,8 @@ V_{target}&=k_2\Delta S+b\\
 &=\frac{A}{V_2}\Delta S+\frac{V_2}{2}
 \end{aligned}
 $$
+## 计算直线和曲线的切点
+
 现在求直线$L_2$和横坐标的交点。
 
 令$V_{target}=0$，则
@@ -100,6 +120,8 @@ $$
 
 直线$L_1$、$L_3$和$L_2$同理，直线$L_1$和平方根曲线Sqrt的交点为$(\Delta S_1, V_1)$，斜率为$k_1$，直线$L_3$和平方根曲线Sqrt的交点为 $(\Delta S_3, V_3)$，斜率为$k_3$。
 
+## 得到开方控制器
+
 直线$L_2$（$V_{target}=\frac{A}{V_2}\Delta S+\frac{V_2}{2}$）和纵坐标的交点为$(0,\frac{V_2}{2})$，即当$\Delta S=0$时，$V_{target}=\frac{V_2}{2}$，**这显然是不合理的**，将直线$L_2$和平方根曲线Sqrt沿横坐标方向向右平移$\Delta S_2$，如下图所示：
 
 ![sqrt-line-controller](pic/sqrt-line-controller.png)
@@ -111,13 +133,36 @@ V_{target}=\sqrt{2A(\Delta S-\Delta S_2)} &V_{target}>V_2\\
 V_{target}=\frac{A}{V_2}(\Delta S-\Delta S_2)+\frac{V_2}{2} &V_{target}\leqslant V_2
 \end{matrix}\right.
 $$
-同时,用$V_{max}$对$V_{target}$进行限幅。
+同时，用$V_{max}$对$V_{target}$进行限幅。
 
 当$\Delta S < \Delta S_{V_{max}}$后，开始减速，$\Delta S_{V_{max}}=\frac{V_{max}^2}{2A}+\Delta S_2$。在$V_{target}$小于等于$V_2$后，曲线的斜率恒定。同时和下图
 
 ![sqrt-curve](pic/sqrt-curve.png)
 
 相比，提前开始减速，提前减速的距离为$\Delta S_2$。在减速过程中，如果实际速度和期望速度始终相同，则期望加速度等于最大加速度，即使出现实际速度和期望速度不同的情况，也可以增大或者减小加速度来进行调节。
+
+# 计算$\Delta S_2$的值
+
+![sqrt-line-controller](pic/sqrt-line-controller.png)
+
+这里假设已知直线的斜率为$k$。
+
+**$\Delta S_2$是直线和曲线的切点的横坐标的一半**，则这里曲线的斜率等于直线的斜率$k$。而曲线的斜率计算公式由前面可知为$\frac{A}{V_2}$，则此时切点处的$V_2$的值为
+$$
+\begin{aligned}
+&k=\frac{A}{V_2}\\
+\Rightarrow &V_2=\frac{A}{k}
+\end{aligned}
+$$
+则根据曲线方程可得到$\Delta S_2$：
+$$
+\begin{aligned}
+&V=\sqrt{2A\Delta S}\\
+\Rightarrow &\frac{A}{k}=\sqrt{2A\Delta S}\\
+\Rightarrow &\Delta S=\frac{A^2}{k^2}\cdot \frac{1}{2A}=\frac{1}{2}\cdot A\cdot \frac{1}{k^2}\\
+\Rightarrow &\Delta S_2=2\cdot \Delta S=A\cdot \frac{1}{k^2}
+\end{aligned}
+$$
 
 # 位置控制器的参数 
 

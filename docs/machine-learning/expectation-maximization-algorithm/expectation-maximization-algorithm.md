@@ -769,3 +769,7 @@ EM算法还可以解释为F含糊的极大-极大算法，基于这个解释有�
 * [EM算法存在的意义是什么？](https://www.zhihu.com/question/40797593/answer/453111693)
 * [如何感性地理解EM算法？](https://www.jianshu.com/p/1121509ac1dc)
 
+
+
+[EM算法存在的意义是什么？](https://www.zhihu.com/question/40797593/answer/275171156)
+

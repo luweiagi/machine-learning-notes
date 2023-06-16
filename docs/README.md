@@ -92,9 +92,12 @@
     * [Leetcode](coding/cs-courses/data-structures-and-algorithms/leetcode/leetcode.md)
       * [动态规划](coding/cs-courses/data-structures-and-algorithms/leetcode/dynamic-programming/dynamic-programming.md)
   * [编译原理](coding/cs-courses/compiler-principles/compiler-principles.md)
-    * [编译过程、静态库和动态库](coding/cs-courses/compiler-principles//compilation-process-and-link-library/compilation-process-and-link-library.md)
+    * [编译过程、静态库和动态库](coding/cs-courses/compiler-principles/compilation-process-and-link-library/compilation-process-and-link-library.md)
+    * [关于extern "C"](coding/cs-courses/compiler-principles/extern-c/extern-c.md)
     * [GCC编译器介绍](coding/cs-courses/compiler-principles/gcc-compiler-introduction/gcc-compiler-introduction.md)
+    * [Make](coding/cs-courses/compiler-principles/make/make.md)
     * [CMake](coding/cs-courses/compiler-principles/cmake/cmake.md)
+    * [QMake生成Makefile](coding/cs-courses/compiler-principles/qmake/qmake.md)
   * [操作系统](coding/cs-courses/operating-system/operating-system.md)
     * [Linux](coding/cs-courses/operating-system/linux/linux.md)
       * [Linux常用命令](coding/cs-courses/operating-system/linux/linux-command/linux-command.md)
@@ -293,6 +296,8 @@
 * [决策大模型](reinforcement-learning/decision-making-big-model/decision-making-big-model.md)
 * [Offline RL离线强化学习](reinforcement-learning/offline-reinforcement-learning/offline-reinforcement-learning.md)
 * [MMRL多模态强化学习](reinforcement-learning/multi-modal-reinforcement-learning/multi-modal-reinforcement-learning.md)
+* [LLM+RL](reinforcement-learning/llm-rl/llm-rl.md)
+* [DiffusionModel+RL](reinforcement-learning/diffusion-model-rl/diffusion-model-rl.md)
 * [业界应用](reinforcement-learning/industry-application/industry-application.md)
   * [DeepMind](reinforcement-learning/industry-application/deepmind/deepmind.md)
     * AlphaGo
@@ -423,7 +428,8 @@
       * [MOSS](natural-language-processing/large-language-model/industry-application/fudan-university-nlp-group/moss/moss.md) 对标ChatGPT已开源 202302
     * 智谱AI
       * ChatGLM 近日，由清华技术成果转化的公司智谱AI开源了GLM系列模型的新成员——**中英双语对话模型ChatGLM-6B**，支持在单张消费级显卡上进行推理使用。这是继此前开源GLM-130B千亿基座模型之后，智谱AI再次推出大模型方向的研究成果。与此同时，基于千亿基座模型的ChatGLM也同期推出，初具问答和对话功能 [ChatGLM：千亿基座的对话模型启动内测，单卡版模型已全面开源](https://mp.weixin.qq.com/s/08s-BlV5N3jytlSsd5hZ0g)
-    * 开源
+    * [百川智能](natural-language-processing/large-language-model/industry-application/baichuan-intelligence/baichuan-intelligence.md)
+      * [baichuan-7B](natural-language-processing/large-language-model/industry-application/baichuan-intelligence/baichuan-7B/baichuan-7B.md) 开源 202306
 
 # [多模态大模型](multimodal-large-model/multimodal-large-model.md)
 * [Foundation Models基础模型](multimodal-large-model/foundation-models/foundation-models.md)
@@ -526,7 +532,7 @@
     * [Value Function Spaces: Skill-Centric State Abstractions for Long-Horizon Reasoning arXiv2022 Google](autopilot/planning/llm-based-planning/value-function-spaces/Value-Function-Spaces-Skill-Centric-State-Abstractions-for-Long-Horizon-Reasoning.md)
     * [Inner Monologue: Embodied Reasoning through Planning with Language Models arXiv2022 Google](autopilot/planning/llm-based-planning/inner-monologue/Inner-Monologue-Embodied-Reasoning-through-Planning-with-Language-Models.md)
     * [Interactive Language: Talking to Robots in Real Time arXiv2022 Google](autopilot/planning/llm-based-planning/interactive-language/Interactive-Language-Talking-to-Robots-in-Real-Time.md)
-* 制导
+* [制导](autopilot/guidance/guidance.md)
 * [控制](autopilot/control/control.md)
   * [PID控制](autopilot/control/pid-control/pid-control.md)
     * [Sqrt Controller开方控制器](autopilot/control/pid-control/sqrt-controller/sqrt-controller.md)

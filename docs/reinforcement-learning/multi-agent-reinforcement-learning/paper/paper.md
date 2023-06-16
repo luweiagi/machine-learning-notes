@@ -13,3 +13,6 @@
 
 - 论文地址：https://arxiv.org/pdf/2205.14953.pdf
 - 项目主页：https://sites.google.com/view/multi-agent-transformer
+
+[多智能体在连续动作空间中使用Qmix方法（FACMAC）](https://zhuanlan.zhihu.com/p/635389539)
+

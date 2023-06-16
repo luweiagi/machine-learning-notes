@@ -4,6 +4,7 @@
 * [机电系统](electromechanical-systems/electromechanical-systems.md)
 * [决策](decision/decision.md)
 * [规划](planning/planning.md)
+* [制导](guidance/guidance.md)
 * [控制](control/control.md)
 * [导航](navigation/navigation.md)
 

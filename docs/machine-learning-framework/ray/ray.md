@@ -82,3 +82,12 @@ Ray主要作用就是提供一个调度平台，能够将各个分布式集群�
 [高性能分布式执行框架——Ray](https://blog.csdn.net/weixin_34007020/article/details/85958509)
 
 [cube开源一站式云原生机器学习平台--ray 多机分布式计算](https://blog.51cto.com/u_15858929/6117117)
+
+[实验室有几台ubuntu的工作站，如何组建成一个集群？](https://www.zhihu.com/question/572156620/answer/2801733792)
+
+的话，建议直接用Ray组个集群就可以了，Python只需要改很少几行代码就可以实现集群并行，比Celery还简单，根本用不上题目中说的“一套代码”。
+
+目前Ray已经相当完善了，它本身就是给强化学习框架RLlib做的底层分布式计算框架，有一套机器学习深度学习生态链，既是Python First，又具有很强的机器学习背景，搞数据分析不在话下。对Numpy、Pytorch的支持都很好，内置对GPU资源的分配管理。
+
+具体可以看看我写的介绍文章，一文就足够入门：[Ray从理论到实战](https://zhuanlan.zhihu.com/p/460189842)
+

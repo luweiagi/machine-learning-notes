@@ -123,6 +123,22 @@ endif ()
 
 
 
+## Makefile配置OpenMP
+
+要在Makefile中的两处添加`-fopenmp`标志：
+
+* 在`CXXFLAGS`中添加`-fopenmp`，否则编译器不支持OpenMP并行，并行不起作用。
+
+  `CFLAGS = -pipe -std=c++11 -fopenmp -O2`
+
+加了上面，如果编译报错，那就要在加上：
+
+* 在`LFLAGS`处加上`-foenmp`。
+
+  `LFLAGS = -fopenmp`
+
+
+
 # 参考资料
 
 

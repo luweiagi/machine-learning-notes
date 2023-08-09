@@ -41,7 +41,7 @@ $$
 
 * 从上图中可以看出，速度开始减小以后，曲线的斜率逐渐增加，当$\Delta S$很小时，曲线变得非常陡，这对位置控制是不利的，使得实际位置容易产生超调；
 
-* 当$\Delta S=\frac{V_{max}^2}{2A}$时，才开始减速。假定速度开始减小后的某一时刻，期望速度为$V_{target\_t}$，期望位置和实际位置的偏差$\Delta S=\frac{V_{target\_t}^2}{2A}$。由于某种原因，受控设备的实际速度$V_{actual\_t}$大于$V_{target\_t}$，则停车需要的距离$S_{stop}=\frac{V_{actual\_t}^2}{2A}$。由于加速度已经是最大了，不能更大了，所以$S_{stop}>\Delta S_t$。当速度减为0时，实际位置会发生超调，因此这时候需要以更大的加速度减速，但最大加速度$A$已经是最大了。 
+* 当$\Delta S=\frac{V_{max}^2}{2A}$时，才开始减速。假定速度开始减小后的某一时刻，期望速度为$V_{target\_t}$，期望位置和实际位置的偏差$\Delta S=\frac{V_{target\_t}^2}{2A}$。由于某种原因，受控设备的实际速度$V_{actual\_t}$大于$V_{target\_t}$，则停车需要的距离$S_{stop}=\frac{V_{actual\_t}^2}{2A}>\Delta S$（由于加速度已经是最大了，不能更大了，所以$S_{stop}>\Delta S_t$）。当速度减为0时，实际位置会发生超调，因此这时候需要以更大的加速度减速，但最大加速度$A$已经是最大了。 
 
 由于以上原因，当$\Delta S$较小时，位置控制器可以采用直线，如下图所示。 
 
@@ -141,7 +141,7 @@ $$
 
 相比，提前开始减速，提前减速的距离为$\Delta S_2$。在减速过程中，如果实际速度和期望速度始终相同，则期望加速度等于最大加速度，即使出现实际速度和期望速度不同的情况，也可以增大或者减小加速度来进行调节。
 
-# 计算$\Delta S_2$的值
+# 计算ΔS2的值
 
 ![sqrt-line-controller](pic/sqrt-line-controller.png)
 
@@ -160,11 +160,11 @@ $$
 &V=\sqrt{2A\Delta S}\\
 \Rightarrow &\frac{A}{k}=\sqrt{2A\Delta S}\\
 \Rightarrow &\Delta S=\frac{A^2}{k^2}\cdot \frac{1}{2A}=\frac{1}{2}\cdot A\cdot \frac{1}{k^2}\\
-\Rightarrow &\Delta S_2=2\cdot \Delta S=A\cdot \frac{1}{k^2}
+\Rightarrow &\Delta S_2=\Delta S=\frac{1}{2}\cdot A\cdot \frac{1}{k^2}
 \end{aligned}
 $$
 
-# 位置控制器的参数 
+# 位置控制器的参数
 
 位置控制器的特性由以下参数确定:
 

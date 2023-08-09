@@ -58,7 +58,7 @@ g++则无论是C语言程序（后缀为.c）还是C++程序（后缀为.cpp）�
 ```c++
 // /////math.cpp/////
 int add(int a, int b) {
-        return a + b;
+	return a + b;
 }
 
 // /////main.cpp/////
@@ -70,11 +70,11 @@ using namespace std;
 int add(int, int);
 
 int main() {
-        int a = 1, b = 2;
-        int ret = add(a, b);
-        printf("ret = %d\n", ret);
-        cout << "ret = " << ret << endl;
-        return 0;
+	int a = 1, b = 2;
+	int ret = add(a, b);
+	printf("ret = %d\n", ret);
+	cout << "ret = " << ret << endl;
+	return 0;
 }
 ```
 

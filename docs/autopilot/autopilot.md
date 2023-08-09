@@ -10,6 +10,28 @@
 
 
 
+[自动驾驶为什么不直接让模型输出下一步的动作?](https://www.zhihu.com/question/598088657/answer/3099636476)
+
+可以当然是可以的，英伟达2016年的那篇[End to End Learning for Self-Driving Cars](https://arxiv.org/pdf/1604.07316.pdf) 在自动驾驶行业引发了很大振动，几个摄像头输入到神经网络里，直接回归方向盘转动角度，就是这么简单粗暴。他们还进行了路测，使用第一代DrivePX，说是98%的时间都可以正常行驶，中间有一段路连续开了15公里不需要任何人工介入。我记得当时我们的team lead跟我们说我们要失业了。。。
+
+之后的路就好走了，要让端到端能够真正实现，我尽量把中间过程分拆出来单独学不就可以了？说白了就是把已有的自动驾驶系统，拆成一个一个的子系统，给每一个子系统安排一个模型去学，然后把他们连起来就可以了。这方面最成功的是Wayve公司的创始人Alex Kendall，牛津VGG组博士毕业，不确定度学习的一哥，博士论文就是写这个的。2018年就发表了基于不确定度学习的多任务网络。他的做法就是把整个模型弄成一个多任务模型，每一个任务都训练，最后用强化学习输出控制信号。特斯拉2019的那个多任务网络，其实是他的弟弟。。。他们这条路走通了，还比较成功。
+
+这个端到端系统里面子任务的构成和划分，各个任务的连接方式都可以做文章，于是就出现了CVPR2023的UniAd：
+
+[GitHub - OpenDriveLab/UniAD: [CVPR 2023 Best Paper] Planning-oriented Autonomous Driving](https://github.com/OpenDriveLab/UniAD)
+
+
+
+[为什么这么多年直到马斯克出来才想到做可复用火箭？](https://www.zhihu.com/question/597238433/answer/3080541702)
+
+因为运载火箭回收中最关键的数学问题之一直到2013年才解决。Lossless Convexification of Nonconvex Control Bound and Pointing Constraints of the Soft Landing Optimal Control Problem
+
+
+
+
+
+
+
 下面是自动驾驶的岗位需求，由此可借鉴自动驾驶的专业划分和知识储备：
 
 自动驾驶高端人才需求：

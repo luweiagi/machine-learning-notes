@@ -71,6 +71,8 @@
 # [编程基础](coding/coding.md)
 * [计算机科目](coding/cs-courses/cs-courses.md)
   * [计算机科目概述](coding/cs-courses/cs-courses-introduction/cs-courses-introduction.md)
+  * [计算机组成原理](coding/cs-courses/computer-organization/computer-organization.md)
+    * [嵌入式系统](coding/cs-courses/computer-organization/embedded-system/embedded-system.md)
   * [数据结构与算法](coding/cs-courses/data-structures-and-algorithms/data-structures-and-algorithms.md)
     * [数据结构与算法概述](coding/cs-courses/data-structures-and-algorithms/data-structures-and-algorithms-introduction/data-structures-and-algorithms-introduction.md)
     * [数据结构](coding/cs-courses/data-structures-and-algorithms/data-structures/data-structures.md)
@@ -290,6 +292,7 @@
     * [Robotic Table Wiping via Reinforcement Learning and Whole-body Trajectory Optimization arXiv2022 Google](reinforcement-learning/imatation-learning/paper/robotic-table-wiping/Robotic-Table-Wiping-via-Reinforcement-Learning-and-Whole-body-Trajectory-Optimization.md)
     * [On the Sample Complexity of Stability Constrained Imitation Learning PMLR2022 Google](reinforcement-learning/imatation-learning/paper/sample-complexity/On-the-Sample-Complexity-of-Stability-Constrained-Imitation-Learning.md)
 * [多智能体强化学习](reinforcement-learning/multi-agent-reinforcement-learning/multi-agent-reinforcement-learning.md)
+  * [MAPPO](reinforcement-learning/multi-agent-reinforcement-learning/mappo/mappo.md)
   * [多智能体强化学习论文](reinforcement-learning/multi-agent-reinforcement-learning/paper/paper.md)
     * [mean-field: Mean Field Multi-Agent Reinforcement Learning ICML2018](reinforcement-learning/multi-agent-reinforcement-learning/paper/mean-field/Mean-Field-Multi-Agent-Reinforcement-Learning.md)
 * [Transformer+RL](reinforcement-learning/transformer-rl/transformer-rl.md)
@@ -502,7 +505,7 @@
 * [模型压缩](model-deployment/model-compression/model-compression.md)
   * [模型压缩概述](model-deployment/model-compression/model-compression-introduction/model-compression-introduction.md)
   * 剪枝
-  * 量化
+  * [量化](model-deployment/model-compression/quantization/quantization.md)
   * [知识蒸馏](model-deployment/model-compression/knowledge-distillation/knowledge-distillation.md)
 * [模型部署](model-deployment/model-deployment/model-deployment.md)
   * [TensorRT](model-deployment/model-deployment/tensor-rt/tensor-rt.md)
@@ -516,8 +519,11 @@
       * [加速度计的六面校准法](autopilot/electromechanical-systems/sensors/accelerometer/accelerometer-six-sided-calibration-method/accelerometer-six-sided-calibration-method.md)
     * [陀螺仪](autopilot/electromechanical-systems/sensors/gyroscope/gyroscope.md)
       * [陀螺仪校准](autopilot/electromechanical-systems/sensors/gyroscope/gyroscope-calibration/gyroscope-calibration.md)
+    * [磁力计](autopilot/electromechanical-systems/sensors/magnetometer/magnetometer.md)
+      * [磁力计校准](autopilot/electromechanical-systems/sensors/magnetometer/magnetometer-calibration/magnetometer-calibration.md)
     * [电流计](autopilot/electromechanical-systems/sensors/ammeter/ammeter.md)
       * [使用电流计测量电池电动势用于pwm电压补偿](autopilot/electromechanical-systems/sensors/ammeter/measure-voltage-for-compensation-to-pwm/measure-voltage-for-compensation-to-pwm.md)
+    * [空速计](autopilot/electromechanical-systems/sensors/airspeed_meter/airspeed_meter.md)
   * [动力系统](autopilot/electromechanical-systems/dynamic-system/dynamic-system.md)
     * [电调](autopilot/electromechanical-systems/dynamic-system/ESC/ESC.md)
       * [螺旋桨推力与电调pwm的曲线映射关系](autopilot/electromechanical-systems/dynamic-system/ESC/thrust2pwm_curve/thrust2pwm_curve.md)
@@ -549,11 +555,13 @@
   * [导航常用坐标系及变换](autopilot/navigation/navigation-coord-system-and-trans/navigation-coord-system-and-trans.md)
   * [哥氏定理/科里奥利定理](autopilot/navigation/coriolis-theorem/coriolis-theorem.md)
   * [四元数](autopilot/navigation/quaternion/quaternion.md)
-* 动力学模型
+* [动力学模型](autopilot/dynamic-model/dynamic-model.md)
   * 六自由度动力学与运动学模型
   * 仿真环境
     * [gym-jsbsim:使用JSBSim飞行动力学模型的飞机控制强化学习环境](https://download.csdn.net/download/weixin_42165980/18471290)
     * [GymFC是一个OpenAI环境](https://blog.csdn.net/dumao0620/article/details/127667719)
+  * [空气动力学](autopilot/dynamic-model/aerodynamics/aerodynamics.md)
+    * [熵](autopilot/dynamic-model/aerodynamics/entropy/entropy.md)
 
 # [通用人工智能](artificial-general-intelligence/artificial-general-intelligence.md)
 * [业界应用](artificial-general-intelligence/industry-application/industry-application.md)

@@ -541,7 +541,7 @@ $$
 
 即有（偏航角$\psi=0$）：
 $$
-M_b^e
+T_b^n
 \begin{bmatrix}
 0\\
 0\\
@@ -835,9 +835,9 @@ $$
 可得
 $$
 \begin{aligned}
-\text{AccMax}_{roll}&=\min(r'_{\max})\\
+\text{AccMax}_{roll}&=\min(p'_{\max})\\
 \text{AccMax}_{pitch}&=\min(\frac{q'_{\max}}{\cos\phi},\frac{r'_{\max}}{\sin\phi})\\
-\text{AccMax}_{roll}&=\min(\frac{p'_{\max}}{\sin\theta},\frac{q'_{\max}}{\cos\theta \sin\phi},\frac{r'_{\max}}{\cos\theta \cos\phi})
+\text{AccMax}_{yaw}&=\min(\frac{p'_{\max}}{\sin\theta},\frac{q'_{\max}}{\cos\theta \sin\phi},\frac{r'_{\max}}{\cos\theta \cos\phi})
 \end{aligned}
 $$
 分析：
@@ -846,6 +846,155 @@ $$
 $$
 c_{\max}=\min(\frac{a_{\max}}{\cos<a,c>},\frac{b_{\max}}{\cos<b,c>})
 $$
+
+重新思考，上述分析真的对吗？要注意，我们是求角加速度限制，而不是角速度限制，所以应该根据角加速度的关系式进行推导。
+
+体轴角加速度和欧拉角加速度的关系为：
+$$
+\begin{aligned}
+&p=\phi'-\sin\theta\psi'\\
+\Rightarrow &p'=\phi''-\cos\theta\theta'\psi'-\sin\theta\psi''\\
+&q=\cos\phi\theta'+\cos\theta\sin\phi\psi'\\
+\Rightarrow &q'=-\sin\phi\phi'\theta'+\cos\phi\theta''-\sin\theta\sin\phi\theta'\psi'+\cos\theta\cos\phi\phi'\psi'+\cos\theta\sin\phi\psi''\\
+&r=-\sin\phi\theta'+\cos\theta\cos\phi\psi'\\
+\Rightarrow &r'=-\cos\phi\phi'\theta'-\sin\phi\theta''-\sin\theta\cos\phi\theta'\psi'-\cos\theta\sin\phi\phi'\psi'+\cos\theta\cos\phi\psi''\\
+\end{aligned}
+$$
+即
+$$
+\begin{aligned}
+\begin{bmatrix}
+p'\\
+q'\\
+r'\\
+\end{bmatrix}
+&=
+\begin{bmatrix}
+1&0&-\sin\theta\\
+0&\cos\phi&\cos\theta \sin\phi\\
+0&-\sin\phi&\cos\theta \cos\phi\\
+\end{bmatrix}
+\cdot
+\begin{bmatrix}
+\phi''\\
+\theta''\\
+\psi''\\
+\end{bmatrix}
++
+\begin{bmatrix}
+-\cos\theta\theta'\psi'\\
+-\sin\phi\phi'\theta'-\sin\theta\sin\phi\theta'\psi'+\cos\theta\cos\phi\phi'\psi'\\
+-\cos\phi\phi'\theta'-\sin\theta\cos\phi\theta'\psi'-\cos\theta\sin\phi\phi'\psi'\\
+\end{bmatrix}
+\end{aligned}
+$$
+即
+$$
+\begin{aligned}
+\begin{bmatrix}
+p'\\
+q'\\
+r'\\
+\end{bmatrix}
++
+\begin{bmatrix}
+\cos\theta&0&0\\
+\sin\theta\sin\phi&-\cos\theta\cos\phi&\sin\phi\\
+\sin\theta\cos\phi&\cos\theta\sin\phi&\cos\phi\\
+\end{bmatrix}
+\cdot
+\begin{bmatrix}
+\theta'\psi'\\
+\phi'\psi'\\
+\phi'\theta'\\
+\end{bmatrix}
+&=
+\begin{bmatrix}
+1&0&-\sin\theta\\
+0&\cos\phi&\cos\theta \sin\phi\\
+0&-\sin\phi&\cos\theta \cos\phi\\
+\end{bmatrix}
+\cdot
+\begin{bmatrix}
+\phi''\\
+\theta''\\
+\psi''\\
+\end{bmatrix}
+\end{aligned}
+$$
+令
+$$
+\begin{bmatrix}
+p'_{add}\\
+q'_{add}\\
+r'_{add}\\
+\end{bmatrix}
+=
+\begin{bmatrix}
+\cos\theta&0&0\\
+\sin\theta\sin\phi&-\cos\theta\cos\phi&\sin\phi\\
+\sin\theta\cos\phi&\cos\theta\sin\phi&\cos\phi\\
+\end{bmatrix}
+\cdot
+\begin{bmatrix}
+\theta'\psi'\\
+\phi'\psi'\\
+\phi'\theta'\\
+\end{bmatrix}
+$$
+则有
+$$
+\begin{aligned}
+\begin{bmatrix}
+p'\\
+q'\\
+r'\\
+\end{bmatrix}
++
+\begin{bmatrix}
+p'_{add}\\
+q'_{add}\\
+r'_{add}\\
+\end{bmatrix}
+&=
+\begin{bmatrix}
+1&0&-\sin\theta\\
+0&\cos\phi&\cos\theta \sin\phi\\
+0&-\sin\phi&\cos\theta \cos\phi\\
+\end{bmatrix}
+\cdot
+\begin{bmatrix}
+\phi''\\
+\theta''\\
+\psi''\\
+\end{bmatrix}
+\end{aligned}
+$$
+
+
+下面有两种方法来确定欧拉角加速度限制：
+
+（1）简单但不精确的方法：
+$$
+\begin{aligned}
+p'_{\max}=&\min(abs(\text{AccMax}_p+p'_{add}),abs(-\text{AccMax}_p+p'_{add}))\\
+q'_{\max}=&\min(abs(\text{AccMax}_q+q'_{add}),abs(-\text{AccMax}_q+q'_{add}))\\
+r'_{\max}=&\min(abs(\text{AccMax}_r+r'_{add}),abs(-\text{AccMax}_r+r'_{add}))\\
+\end{aligned}
+$$
+则有
+$$
+\begin{aligned}
+\text{AccMax}_{roll}&=\min(p'_{\max})\\
+\text{AccMax}_{pitch}&=\min(\frac{q'_{\max}}{\cos\phi},\frac{r'_{\max}}{\sin\phi})\\
+\text{AccMax}_{yaw}&=\min(\frac{p'_{\max}}{\sin\theta},\frac{q'_{\max}}{\cos\theta \sin\phi},\frac{r'_{\max}}{\cos\theta \cos\phi})
+\end{aligned}
+$$
+（1）复杂但精确的方法：可能是错的
+
+判断出
+
+
 
 # 参考资料
 

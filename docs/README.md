@@ -514,7 +514,7 @@
 
 # [自动驾驶](autopilot/autopilot.md)
 * [机电系统](autopilot/electromechanical-systems/electromechanical-systems.md)
-  * [各类型传感器](autopilot/electromechanical-systems/sensors/sensors.md)
+  * [各类型传感器](autopilot/electromechanical-systems//sensors.md)
     * [加速度计](autopilot/electromechanical-systems/sensors/accelerometer/accelerometer.md)
       * [加速度计的六面校准法](autopilot/electromechanical-systems/sensors/accelerometer/accelerometer-six-sided-calibration-method/accelerometer-six-sided-calibration-method.md)
     * [陀螺仪](autopilot/electromechanical-systems/sensors/gyroscope/gyroscope.md)
@@ -525,6 +525,7 @@
       * [使用电流计测量电池电动势用于pwm电压补偿](autopilot/electromechanical-systems/sensors/ammeter/measure-voltage-for-compensation-to-pwm/measure-voltage-for-compensation-to-pwm.md)
     * [空速计](autopilot/electromechanical-systems/sensors/airspeed_meter/airspeed_meter.md)
   * [动力系统](autopilot/electromechanical-systems/dynamic-system/dynamic-system.md)
+    * [多旋翼组装选型](autopilot/electromechanical-systems/dynamic-system/copter-assemble-and-lectotype/copter-assemble-and-lectotype.md)
     * [电调](autopilot/electromechanical-systems/dynamic-system/ESC/ESC.md)
       * [螺旋桨推力与电调pwm的曲线映射关系](autopilot/electromechanical-systems/dynamic-system/ESC/thrust2pwm_curve/thrust2pwm_curve.md)
     * [电机](autopilot/electromechanical-systems/dynamic-system/motor/motor.md)
@@ -555,11 +556,11 @@
   * [导航常用坐标系及变换](autopilot/navigation/navigation-coord-system-and-trans/navigation-coord-system-and-trans.md)
   * [哥氏定理/科里奥利定理](autopilot/navigation/coriolis-theorem/coriolis-theorem.md)
   * [四元数](autopilot/navigation/quaternion/quaternion.md)
+* 仿真
+  - [gym-jsbsim:使用JSBSim飞行动力学模型的飞机控制强化学习环境](https://download.csdn.net/download/weixin_42165980/18471290)
+  - [GymFC是一个OpenAI环境](https://blog.csdn.net/dumao0620/article/details/127667719)
 * [动力学模型](autopilot/dynamic-model/dynamic-model.md)
   * 六自由度动力学与运动学模型
-  * 仿真环境
-    * [gym-jsbsim:使用JSBSim飞行动力学模型的飞机控制强化学习环境](https://download.csdn.net/download/weixin_42165980/18471290)
-    * [GymFC是一个OpenAI环境](https://blog.csdn.net/dumao0620/article/details/127667719)
   * [空气动力学](autopilot/dynamic-model/aerodynamics/aerodynamics.md)
     * [熵](autopilot/dynamic-model/aerodynamics/entropy/entropy.md)
 

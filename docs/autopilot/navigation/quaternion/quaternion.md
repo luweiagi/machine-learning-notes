@@ -248,7 +248,7 @@ C_n2b = R_theta * R_psi  % （大地轴系到机体轴系）
 % 欧拉角转四元数（注意，为了模拟推力线倾斜和yaw旋转的作用，采用XYZ欧拉角旋转方式，即roll->pitch-yaw）
 quat_ry = quaternion([pi/6, 0, pi/4], 'euler', 'XYZ', 'frame')  % 0.8924+0.23912i-0.099046j+0.36964k
 % 四元数转欧拉角（度）
-euler_xyz = eulerd(quat_yp,'XYZ', 'frame')  % [roll=30, pitch=0, yaw=45]
+euler_xyz = eulerd(quat_ry,'XYZ', 'frame')  % [roll=30, pitch=0, yaw=45]
 % 四元数转旋转矩阵（注意是大地轴系转机体轴系）
 C_n2b_ry = rotmat(quat_ry, 'frame')
 % [ 0.7071    0.6124    0.3536
@@ -421,7 +421,7 @@ $$
 其实，**这可以扩充到对四元数旋转的变换**：
 
 > qo_f1 = orientation of frame F1(b) as seen from frame F2(n)
-> qo_f2  = orientation of frame F2(n) is as seen from F1(b))
+> qo_f2  = orientation of frame F2(n) as seen from F1(b))
 > q_f1 = some quaternion in F1(b) frame
 > q_f2 = q_f1 as seen from F2(n)
 
@@ -433,6 +433,8 @@ $$
 
 下面用matlab来验证
 
+> q_f1 = qo_f2.inverse() * q_f2 * qo_f2
+
 ![euler-rot](pic/euler-rot.png)
 
 对于上述旋转，
@@ -442,9 +444,9 @@ $$
 quat_n = quaternion([pi/2, 0, -pi/2], 'euler', 'ZYX', 'frame')  % 0.5-0.5i-0.5j+0.5k
 euler_zyx = eulerd(quat_n ,'ZYX', 'frame')  % [yaw=90, pitch=0, roll=-90]
 % 把地轴系下的向量[1,0,0]变成四元数形态，为了方便做四元数坐标转换
-r_n = quaternion(0, 1, 0, 0)  % 0+1i+0j+0k
+r_n = quaternion(0, 1, 0, 0)  % 0+1i+0j+0k,绕x旋转180度
 % 把向量坐标从地轴系转换到体轴系系下
-r_n_roted = quat_n' * r_n * quat_n  % 0+0i+0j-1k
+r_n_roted = quat_n' * r_n * quat_n  % 0+0i+0j-1k，绕-z旋转180度
 ```
 
 把地轴系下的轴角转换的四元数，坐标变换到体轴系下，还是同一个旋转，只不过不同轴系下的表示方式不一样而已。在地轴系下，轴角四元数为绕着x轴转30度；在体轴系下，变换后的轴角四元数为绕着z轴转-30度。你自己模拟一下，是不是这个旋转在绝对空间中是一样的，方向大小都没变！

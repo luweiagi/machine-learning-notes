@@ -227,6 +227,10 @@ RL-algorithms，更新一些基础的RL代码，附带了各个算法的介绍
 
 
 
+# 论文
+
+[Danzero+：用掼蛋为例讲解如何处理大规模动作空间的强化学习问题](https://zhuanlan.zhihu.com/p/673715817)
+
 
 
 # 不重要

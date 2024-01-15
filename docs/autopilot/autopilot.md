@@ -26,7 +26,7 @@
 
 因为运载火箭回收中最关键的数学问题之一直到2013年才解决。Lossless Convexification of Nonconvex Control Bound and Pointing Constraints of the Soft Landing Optimal Control Problem
 
-
+[火箭软着陆最优控制问题 (Soft Landing Optimal Control Problem)](https://zhuanlan.zhihu.com/p/673214838)。看到SpaceX火箭精准回收的时候，心情澎湃激动，作为控制优化的学习者，第一反应是想搞明白它究竟是怎么实现的，难点在哪。在这个领域，一篇关于最优控制的文章《Lossless convexification of nonconvex control bound and pointing constraints of the soft landing optimal control problem》做出了很大的贡献，于是尝试研读记录一下，希望我能搞明白一部分，不会的、错误的希望大佬读者们评论区批评指正。
 
 
 

@@ -107,6 +107,8 @@
         * [输入输出重定向](coding/cs-courses/operating-system/linux/shell/input_output_redirection/input_output_redirection.md)
       * [Vim编辑器](coding/cs-courses/operating-system/linux/vim/vim.md)
     * [Docker](coding/cs-courses/operating-system/docker/docker.md)
+    * [实时操作系统](coding/cs-courses/operating-system/rtos/rtos.md)
+      * [freeRTOS](coding/cs-courses/operating-system/rtos/freertos/freertos.md)
   * [计算机网络](coding/cs-courses/computer-network/computer-network.md)
     * [TCP/IP协议族](coding/cs-courses/computer-network/tcp-ip-protocol-family/tcp-ip-protocol-family.md)
       * [TCP](coding/cs-courses/computer-network/tcp-ip-protocol-family/tcp/tcp.md)
@@ -539,6 +541,7 @@
     * [Value Function Spaces: Skill-Centric State Abstractions for Long-Horizon Reasoning arXiv2022 Google](autopilot/planning/llm-based-planning/value-function-spaces/Value-Function-Spaces-Skill-Centric-State-Abstractions-for-Long-Horizon-Reasoning.md)
     * [Inner Monologue: Embodied Reasoning through Planning with Language Models arXiv2022 Google](autopilot/planning/llm-based-planning/inner-monologue/Inner-Monologue-Embodied-Reasoning-through-Planning-with-Language-Models.md)
     * [Interactive Language: Talking to Robots in Real Time arXiv2022 Google](autopilot/planning/llm-based-planning/interactive-language/Interactive-Language-Talking-to-Robots-in-Real-Time.md)
+    * [ChatGPT for Robotics: Design Principles and Model Abilities Microsoft2023](https://www.microsoft.com/en-us/research/uploads/prod/2023/02/ChatGPT___Robotics.pdf)
 * [制导](autopilot/guidance/guidance.md)
 * [控制](autopilot/control/control.md)
   * [PID控制](autopilot/control/pid-control/pid-control.md)
@@ -551,11 +554,13 @@
     * [ChatGPT for Robotics: Design Principles and Model Abilities MicroSoft2023](autopilot/control/llm-based-control/chatGPT-for-robotics/ChatGPT-for-Robotics-Design-Principles-and-Model-Abilities.md) ***
     * [PaLM-E: An Embodied Multimodal Language Model arXiv2023 Google](autopilot/control/llm-based-control/PaLM-E/PaLM-E.md) ***
     * [Towards a Robotics Foundation Model ML-Collective协会2023]()
+    * 
 * [导航](autopilot/navigation/navigation.md)
   * [坐标变换与欧拉运动学方程](autopilot/navigation/coord-trans-and-euler-kinematics-equation/coord-trans-and-euler-kinematics-equation.md)
   * [导航常用坐标系及变换](autopilot/navigation/navigation-coord-system-and-trans/navigation-coord-system-and-trans.md)
   * [哥氏定理/科里奥利定理](autopilot/navigation/coriolis-theorem/coriolis-theorem.md)
   * [四元数](autopilot/navigation/quaternion/quaternion.md)
+  * [基于互补滤波的组合导航](autopilot/navigation/complementary-filtering/complementary-filtering.md)
 * 仿真
   - [gym-jsbsim:使用JSBSim飞行动力学模型的飞机控制强化学习环境](https://download.csdn.net/download/weixin_42165980/18471290)
   - [GymFC是一个OpenAI环境](https://blog.csdn.net/dumao0620/article/details/127667719)

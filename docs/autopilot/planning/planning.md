@@ -37,3 +37,7 @@ Btraj是一个在线的四旋翼无人机的运动规划框架，主要用于未
 
 首先是热门的技术。Transformer在其他领域方兴未艾，而在RL领域中还正在兴起，爆发只是时间问题。已经开始的爆点就是Diffusion Model+RL（分享一个可视化效果不错的项目，[diffusion-planning.github.io](http://diffusion-planning.github.io)）。
 
+
+
+[Motion Plan软硬约束下的轨迹生成](https://zhuanlan.zhihu.com/p/672855397)
+

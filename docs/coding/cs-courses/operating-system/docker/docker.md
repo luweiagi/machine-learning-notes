@@ -8,8 +8,9 @@
 * [docker命令](#docker命令)
   * [docker常见命令](#docker常见命令)
   * [docker命令集](#docker命令集)
-
-
+* [知识点](#知识点)
+  * [docker使用privileged参数进入特权模式](docker使用privileged参数进入特权模式)
+    * [docker逃逸原理](docker逃逸原理)
 
 # 镜像和容器
 
@@ -247,7 +248,76 @@ docker images -a
 docker top <container-id>
 ```
 
+# 知识点
 
+## docker使用privileged参数进入特权模式
+
+```
+docker run [选项] 镜像名
+选项
+-d 后台运行
+-it 提供容器交互
+--name 设置容器名
+--cpus 设置cpu个数
+--env 设置环境变量
+--mount type=bind,source=/root/target,target=/app或者--mount type=tmpfs,destination=/app 
+--volume <host>:<container>:[rw|ro]挂载一个磁盘卷 例如 --volume /home/hyzhou/docker:/data:rw
+--restart 设置重启策略on-failure,no,always
+--privileged 使用该参数，container内的root拥有真正的root权限。否则，container内的root只是外部的一个普通用户权限。privileged启动的容器，可以看到很多host上的设备，并且可以执行mount。甚至允许你在docker容器中启动docker容器。
+```
+
+这个是先利用镜像创建一个容器，然后运行了这个容器：
+
+```shell
+sudo docker run -ti --privileged ubuntu bash
+```
+
+`--privileged`使用该参数，container内的root拥有真正的root权限。否则，container内的root只是外部的一个普通用户权限。privileged启动的容器，可以看到很多host上的设备，并且可以执行mount。甚至允许你在docker容器中启动docker容器。
+
+使用特权模式启动容器后（docker run --privileged），Docker容器被允许可以访问主机上的所有设备、可以获取大量设备文件的访问权限、并可以执行mount命令进行挂载。
+
+![docker-privileged](pic/docker-privileged.png)
+
+
+
+docker 启动nvidia/cuda的镜像的时候使得容器真正获取主机硬件资源
+
+```shell
+sudo docker run -it —privileged=true —name detectron nvidia/cuda:9.0-cudnn7-devel-ubuntu16.04 /bin/bash
+```
+
+此处必须添加—privileged=true使得容器真正获取主机硬件资源，包括GPU显卡资源。
+
+- [docker privileged作用_美创安全实验室 | Docker逃逸原理](https://blog.csdn.net/weixin_39664998/article/details/110639657?spm=1001.2101.3001.6650.10&utm_medium=distribute.pc_relevant.none-task-blog-2~default~CTRLIST~default-10-110639657-blog-90576040.pc_relevant_default&depth_1-utm_source=distribute.pc_relevant.none-task-blog-2~default~CTRLIST~default-10-110639657-blog-90576040.pc_relevant_default)
+
+### docker逃逸原理
+
+因为Docker所使用的是隔离技术，就导致了容器内的进程无法看到外面的进程，但外面的进程可以看到里面，所以如果一个容器可以访问到外面的资源，甚至是获得了宿主主机的权限，这就叫做“Docker逃逸”。
+目前产生Docker逃逸的原因总共有三种：
+
+1. 由内核漏洞引起。
+2. 由Docker软件设计引起。
+3. 由特权模式与配置不当引起。
+
+03 由于特权模式+目录挂载引起的逃逸
+
+这一种逃逸方法较其他两种来说用的更多。特权模式在6.0版本的时候被引入Docker，其核心作用是允许容器内的root拥有外部物理机的root权限，而此前在容器内的root用户只有外部物理机普通用户的权限。
+
+使用特权模式启动容器后（docker run --privileged），Docker容器被允许可以访问主机上的所有设备、可以获取大量设备文件的访问权限、并可以执行mount命令进行挂载。
+
+当控制使用特权模式的容器时，Docker管理员可通过mount命令将外部宿主机磁盘设备挂载进容器内部，获取对整个宿主机的文件读写权限，此外还可以通过写入计划任务等方式在宿主机执行命令。
+
+除了使用特权模式启动Docker会引起Docker逃逸外，使用功能机制也会造成Docker逃逸。Linux内核自版本2.2引入了功能机制（Capabilities），打破了UNIX/LINUX操作系统中超级用户与普通用户的概念，允许普通用户执行超级用户权限方能运行的命令。例如当容器以--cap-add=SYSADMIN启动，Container进程就被允许执行mount、umount等一系列系统管理命令，如果攻击者此时再将外部设备目录挂载在容器中就会发生Docker逃逸。
+
+下面是使用特权模式后，docker可以挂载主机设备的例子：
+
+主机上的设备`/dev/sda3`：
+
+![host-root](pic/host-root.png)
+
+docker上挂载主机的设备`/dev/sda3`，然后就能在docker上看到主机的设备`/dev/sda3`了，并且还能直接修改，其实就相当于docker获取了主机的root权限：
+
+![docker-mount-host](pic/docker-mount-host.png)
 
 # 参考资料
 

@@ -556,10 +556,12 @@
     * [Towards a Robotics Foundation Model ML-Collective协会2023]()
     * 
 * [导航](autopilot/navigation/navigation.md)
+  * [欧拉旋转定理](autopilot/navigation/euler-rotation-theorem/euler-rotation-theorem.md)
   * [坐标变换与欧拉运动学方程](autopilot/navigation/coord-trans-and-euler-kinematics-equation/coord-trans-and-euler-kinematics-equation.md)
   * [导航常用坐标系及变换](autopilot/navigation/navigation-coord-system-and-trans/navigation-coord-system-and-trans.md)
   * [哥氏定理/科里奥利定理](autopilot/navigation/coriolis-theorem/coriolis-theorem.md)
   * [四元数](autopilot/navigation/quaternion/quaternion.md)
+  * [罗德里格斯公式](autopilot/navigation/rodrigues-formula/rodrigues-formula.md)
   * [基于互补滤波的组合导航](autopilot/navigation/complementary-filtering/complementary-filtering.md)
 * 仿真
   - [gym-jsbsim:使用JSBSim飞行动力学模型的飞机控制强化学习环境](https://download.csdn.net/download/weixin_42165980/18471290)

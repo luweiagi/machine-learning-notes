@@ -7,9 +7,9 @@
   * [叉积矩阵讲解](#叉积矩阵讲解)
   * [罗德里格斯公式推导一](#罗德里格斯公式推导一)
   * [罗德里格斯公式推导二](#罗德里格斯公式推导二)
+  * [罗德里格斯公式推导三（旋转矩阵李代数）](#罗德里格斯公式推导三（旋转矩阵李代数）)
 * [已知旋转矩阵求旋转角度和旋转向量](#已知旋转矩阵求旋转角度和旋转向量)
 * [罗德里格斯公式理解和深入](#罗德里格斯公式理解和深入)
-* [极限的方式简洁推导罗德里格斯公式](#极限的方式简洁推导罗德里格斯公式)
 
 罗德里格斯公式（Rodrigues‘s Formula）是数学中一种广泛应用于旋转向量计算和旋转矩阵表示的几何变换方法。
 
@@ -17,7 +17,7 @@
 
 # 旋转向量
 
-根据**欧拉旋转定理**（具体内容和证明可查看对应章节），实际上，任意旋转都可以用一个旋转轴和一个旋转角来刻画。我们可以使用一个向量$u$，其方向与旋转轴一致，其长度等于旋转角$\theta$，那么向量$\theta u$就可以描述这个旋转，这种向量称为旋转向量（或轴角/角轴，Axis-Angle），只需一个三维向量即可描述旋转。
+根据**欧拉旋转定理**（具体内容和证明可查看对应章节），实际上，任意旋转都可以用一个旋转轴和一个旋转角来刻画。我们可以使用一个向量$k$，其方向与旋转轴一致，其长度等于旋转角$\theta$，那么向量$\theta k$就可以描述这个旋转，这种向量称为旋转向量（或轴角/角轴，Axis-Angle），只需一个三维向量即可描述旋转。
 
 # 罗德里格斯公式定义
 
@@ -204,7 +204,7 @@ $$
 
 再引入叉积矩阵的概念：记$K$为$k=[k_x,k_y,k_z]^T$的叉积矩阵。显然$K$是一个反对称矩阵。
 $$
-K=
+K=k^{\wedge}=
 \begin{bmatrix}
 0 & -k_z & k_y\\
 k_z & 0 & -k_x\\
@@ -439,6 +439,184 @@ $$
 R=\cos\theta\cdot I+(1-\cos\theta)kk^T+\sin\theta K
 $$
 
+## 罗德里格斯公式推导三（旋转矩阵李代数）
+
+**（1）推出反对称矩阵**
+
+有旋转矩阵$R$：
+$$
+\begin{aligned}
+&R^TR=I\quad \text{旋转矩阵为正交阵}\\
+\Rightarrow&R(t)^TR(t)=I\quad\text{随时间t变化，此式不变}\\
+\Rightarrow&\dot{R(t)^T}R(t)+R(t)^T\dot{R(t)}=0\quad\text{左右对时间t求导}\\
+\Rightarrow&\dot{R(t)^T}R(t)=-R(t)^T\dot{R(t)}=-(\dot{R(t)^T}R(t))^T\\
+\Rightarrow&\dot{R(t)^T}R(t)\text{为一个反对称矩阵}\\
+\end{aligned}
+$$
+这一步的结论就是：$\dot{R(t)^T}R(t)$为一个反对称矩阵。
+
+**（2）推出微分方程**
+
+反对称矩阵与一个三维向量有一一对应的关系：
+$$
+\begin{aligned}
+a&=
+\begin{bmatrix}
+a_1\\
+a_2\\
+a_3
+\end{bmatrix}\\
+A&=
+\begin{bmatrix}
+0 & -a_3 & a_2\\
+a_3 & 0 & -a_1\\
+-a_2 & a_1 & 0
+\end{bmatrix}
+\end{aligned}
+$$
+将其关系表示为：
+$$
+a^{\wedge}=A,\quad A^{\vee}=a
+$$
+所以，反对称矩阵$\dot{R(t)^T}R(t)$可表示为$\omega(t)^{\wedge}$，$\omega(t)$是三维向量。即
+$$
+\begin{aligned}
+&\dot{R(t)^T}R(t)=\omega(t)^{\wedge}\\
+\Rightarrow&\dot{R(t)^T}R(t)=\omega(t)^{\wedge}R(t)\\
+\Rightarrow&\dot{R(t)}=\omega(t)^{\wedge}R(t)\\
+\end{aligned}
+$$
+得到了微分方程：$\dot{R(t)}=\omega(t)^{\wedge}R(t)$
+
+我们可以将李代数so(3)解释为$R(t)$在原点处的导数空间；它构成了SO(3)的切线空间，即速度空间。 根据这些事实，我们可以很好地将$\omega(t)$称为瞬时角速度矢量。
+
+**（3）解微分方程**
+
+解此微分方程前需做如下假设：
+
+- $t_0$时刻，$R(0)=I$
+- $t_0$时刻附近，$\omega(t)$为常数$\omega_0$
+
+则在$t=0$时刻附近，上式变为：
+$$
+\dot{R(t)}=\omega_0^{\wedge}R(t)
+$$
+微分方程知识：
+
+当微分方程为
+$$
+\frac{dy}{dx}+Ay=0
+$$
+解为
+$$
+y=Ce^{-Ax}
+$$
+上式微分方程结果：
+$$
+\begin{aligned}
+&R(t)=R(0)\exp(\omega_0^{\wedge}t)\\
+\Rightarrow&R(t)=\exp(\omega_0^{\wedge}t)\quad\text{假设}R(0)=I
+\end{aligned}
+$$
+这一步的结果是得到这样一个表达式：$R(t)=\exp(\omega_0^{\wedge}t)$
+
+**（4）完成推导**
+
+现在将$t$视作常量：
+
+- $R(t)$总是一旋转矩阵，直接写作$R$；
+- $\omega_0^{\wedge}t$依然是反对称矩阵，写作$\omega^{\wedge}$
+
+则有最终的形态：
+$$
+R=\exp(\omega^{\wedge})
+$$
+其中，
+
+- 矩阵$R$是特殊正交群SO(3)中的元素
+- 向量$\omega$是其对应的李代数so(3)中的元素
+- $R$和$\omega$通过上述公式产生了一一对应的联系
+
+**（5）如何由$\omega$计算R**
+
+由
+$$
+R=\exp(\omega^{\wedge})=\exp^{\theta k^{\wedge}}=\exp^{\theta\cdot K}
+$$
+其中，
+
+- 向量$k$是$\omega$的单位方向向量
+- 标量$\theta$是$\omega$的模长
+
+可得
+$$
+R(k^{\wedge}, \theta)=e^{\theta\cdot K}=\lim_{n\to\infty}\left(I+\frac{1}{n}(\theta\cdot K)\right)^n
+$$
+这种方法叫做exponential twist（Murray, Li, and Sastry 1994），旋转$\theta$角度，等价于旋转n次$\theta$角度。
+
+而
+$$
+e^{\theta\cdot K}=I+(\theta\cdot K)+\frac{(\theta\cdot K)^2}{2!}+\frac{(\theta\cdot K)^3}{3!}+...
+$$
+因为
+$$
+K^{n+2}=-K^n,\quad n>0
+$$
+所以有
+$$
+\begin{aligned}
+e^{\theta\cdot K}&=I+(\theta\cdot K)+\frac{(\theta\cdot K)^2}{2!}+\frac{(\theta\cdot K)^3}{3!}+...\\
+&=I+(\theta\cdot K)+\frac{\theta^2\cdot K^2}{2!}-\frac{\theta^3\cdot K}{3!}-\frac{\theta^4\cdot K^2}{4!}+\frac{\theta^5\cdot K}{5!}+\frac{\theta^6\cdot K^2}{6!}+...\\
+&=I+\left(\theta-\frac{\theta^3}{3!}+\frac{\theta^5}{5!}-...\right)\cdot K+(\frac{\theta^2}{2!}-\frac{\theta^4}{4!}+\frac{\theta^6}{6!}-)\cdot K^2\\
+&=I+\sin\theta\cdot K+(1-\cos\theta)\cdot K^2
+\end{aligned}
+$$
+这是因为$\sin\theta$和$\cos\theta$的泰勒展开级数为：
+$$
+\begin{aligned}
+\sin\theta&=x-\frac{x^3}{3!}+\frac{x^5}{5!}-\frac{x^7}{7!}+...\\
+\cos\theta&=1-\frac{x^2}{2!}+\frac{x^4}{4!}-\frac{x^6}{6!}+...\\
+\end{aligned}
+$$
+为什么$K^{n+2}=-K^n,\quad n>0$呢？下面开始解释：
+$$
+\begin{aligned}
+K&=\begin{bmatrix}
+0 & -k_z & k_y\\
+k_z & 0 & -k_x\\
+-k_y & k_x & 0
+\end{bmatrix};\\
+K^2&=\begin{bmatrix}
+-k_z^2-k_y^2 & k_xk_y & k_xk_z\\
+k_xk_y & -k_z^2-k_x^2 & k_yk_z\\
+k_xk_z & k_yk_z & -k_y^2-k_x^2
+\end{bmatrix}\\
+K^3&=\begin{bmatrix}
+-k_z^2-k_y^2 & k_xk_y & k_xk_z\\
+k_xk_y & -k_z^2-k_x^2 & k_yk_z\\
+k_xk_z & k_yk_z & -k_y^2-k_x^2
+\end{bmatrix}
+\begin{bmatrix}
+0 & -k_z & k_y\\
+k_z & 0 & -k_x\\
+-k_y & k_x & 0
+\end{bmatrix}
+=\begin{bmatrix}
+0 & k_z & -k_y\\
+-k_z & 0 & k_x\\
+k_y & -k_x & 0
+\end{bmatrix}
+=-K\\
+\end{aligned}
+$$
+以此类推，$K^4=-K^2$，$K^5=K$，$K^6=K^2$...
+
+这表明，*so*(3)实际上就是由所谓的**旋转向量**组成的空间，而指数映射即罗德里格斯公式。通过它们，我们把*so*(3)中任意一个向量对应到了一个位于SO(3)中的旋转矩阵。反之，如果定义对数映射，也能把SO(3)中的元素对应到*so*(3)中。
+
+李代数小so(3)是三维向量$\omega$的集合，集合中每个向量$\omega$的反对称矩阵都可以表达李群（大SO(3)）上旋转矩阵$R$的导数，而$R$和$\omega$是一个指数映射关系。小so(3)的李代数空间就是由旋转向量组成的的空间，其物理意义就是旋转向量。而前面结论二中的指数映射关系就是罗德里格斯公式。也就是说，李群空间的任意一个旋转矩阵$R$都可以用李代数空间的一个向量$\omega$的反对称矩阵指数来近似。
+
+这样我们可以说旋转矩阵的导数可以由其对应的旋转向量指定，指导如何在旋转矩阵中进行微积分运算。
+
 # 已知旋转矩阵求旋转角度和旋转向量
 
 有了上节的推导和转换结果，我们可以在转换公式的基础上，进行旋转矩阵到旋转向量的转换。
@@ -536,76 +714,9 @@ k_z & 0 & -k_x\\
 $$
 这个式子给出了，非常漂亮的的$\omega$与$R$之间的线性的关系。
 
-# 极限的方式简洁推导罗德里格斯公式
-
-这个其实算是循环论证了，已知结果推结果了。但也有助于理解罗德里格斯公式。
-
-这种方法叫做exponential twist（Murray, Li, and Sastry 1994），旋转$\theta$角度，等价于旋转n次$\theta$角度。
-$$
-R(k^{\wedge}, \theta)=\lim_{n\to\infty}\left(I+\frac{1}{n}(\theta\cdot K)\right)^n=e^{\theta\cdot K}
-$$
-而
-$$
-e^{\theta\cdot K}=I+(\theta\cdot K)+\frac{(\theta\cdot K)^2}{2!}+\frac{(\theta\cdot K)^3}{3!}+...
-$$
-因为
-$$
-K^{n+2}=-K^n,\quad n>0
-$$
-所以有
-$$
-\begin{aligned}
-e^{\theta\cdot K}&=I+(\theta\cdot K)+\frac{(\theta\cdot K)^2}{2!}+\frac{(\theta\cdot K)^3}{3!}+...\\
-&=I+(\theta\cdot K)+\frac{\theta^2\cdot K^2}{2!}-\frac{\theta^3\cdot K}{3!}-\frac{\theta^4\cdot K^2}{4!}+\frac{\theta^5\cdot K}{5!}+\frac{\theta^6\cdot K^2}{6!}+...\\
-&=I+\left(\theta-\frac{\theta^3}{3!}+\frac{\theta^5}{5!}-...\right)\cdot N+(\frac{\theta^2}{2!}-\frac{\theta^4}{4!}+\frac{\theta^6}{6!}-)\cdot N^2\\
-&=I+\sin\theta\cdot N+(1-\cos\theta)\cdot N^2
-\end{aligned}
-$$
-这是因为$\sin\theta$和$\cos\theta$的泰勒展开级数为：
-$$
-\begin{aligned}
-\sin\theta&=x-\frac{x^3}{3!}+\frac{x^5}{5!}-\frac{x^7}{7!}+...\\
-\cos\theta&=1-\frac{x^2}{2!}+\frac{x^4}{4!}-\frac{x^6}{6!}+...\\
-\end{aligned}
-$$
-为什么$K^{n+2}=-K^n,\quad n>0$呢？下面开始解释：
-$$
-\begin{aligned}
-K&=\begin{bmatrix}
-0 & -k_z & k_y\\
-k_z & 0 & -k_x\\
--k_y & k_x & 0
-\end{bmatrix};\\
-K^2&=\begin{bmatrix}
--k_z^2-k_y^2 & k_xk_y & k_xk_z\\
-k_xk_y & -k_z^2-k_x^2 & k_yk_z\\
-k_xk_z & k_yk_z & -k_y^2-k_x^2
-\end{bmatrix}\\
-K^3&=\begin{bmatrix}
--k_z^2-k_y^2 & k_xk_y & k_xk_z\\
-k_xk_y & -k_z^2-k_x^2 & k_yk_z\\
-k_xk_z & k_yk_z & -k_y^2-k_x^2
-\end{bmatrix}
-\begin{bmatrix}
-0 & -k_z & k_y\\
-k_z & 0 & -k_x\\
--k_y & k_x & 0
-\end{bmatrix}
-=\begin{bmatrix}
-0 & k_z & -k_y\\
--k_z & 0 & k_x\\
-k_y & -k_x & 0
-\end{bmatrix}
-=-K\\
-\end{aligned}
-$$
-以此类推，$K^4=-K^2$，$K^5=K$，$K^6=K^2$...
-
 # 参考资料
 
 * [bilibili: 罗德里格斯公式推导](https://www.bilibili.com/video/BV1DF411s7sn/?vd_source=147fb813418c7610c21b6a5618c85cb7)
-
-
 
 本文的推导一过程主要来自该视频。
 
@@ -620,5 +731,10 @@ $$
 * [罗德里格斯公式附图推导，理解](https://blog.csdn.net/renhaofan/article/details/103706544)
 * [罗德里格斯公式推导（Rodrigues‘ Formula）超全，超详细](https://blog.csdn.net/qq_42658249/article/details/114494198)
 
-“已知旋转矩阵求旋转角度和旋转向量”和“极限的方式简洁推导罗德里格斯公式”参考该csdn博客。
+“已知旋转矩阵求旋转角度和旋转向量”和“罗德里格斯公式推导三（旋转矩阵李代数）”参考该csdn博客。
+
+* [旋转矩阵李代数的推导](https://www.jianshu.com/p/345d0ece5005)
+* [大师兄！SLAM 为什么需要李群与李代数？](https://mp.weixin.qq.com/s/sVjy9kr-8qc9W9VN78JoDQ)
+
+“罗德里格斯公式推导三（旋转矩阵李代数）”参考了上述资料。
 

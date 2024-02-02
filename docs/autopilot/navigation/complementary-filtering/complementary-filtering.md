@@ -1,9 +1,22 @@
 # 基于互补滤波器的姿态估计
 
 * [返回上层目录](../navigation.md)
-* [互补滤波的来源](#互补滤波的来源)
-* [互补滤波的复频域表达式](#互补滤波的复频域表达式)
-* [互补滤波总体流程](#互补滤波总体流程)
+* [一维互补滤波器](#一维互补滤波器)
+  * [互补滤波的来源](#互补滤波的来源)
+  * [互补滤波的复频域表达式](#互补滤波的复频域表达式)
+  * [一维互补滤波器完整推导](#一维互补滤波器完整推导)
+* [SO(3)上的互补滤波器](#SO(3)上的互补滤波器)
+* [互补滤波流程](#互补滤波流程)
+  * [互补滤波总体流程](#互补滤波总体流程)
+  * [互补滤波详细流程](#互补滤波详细流程)
+    * [求传感器和估计值之间的差](#求传感器和估计值之间的差)
+      * [求加速度计传感器和估计值之间的差](#求加速度计传感器和估计值之间的差)
+      * [求磁传感器和估计值之间的差](#求磁传感器和估计值之间的差)
+    * [正确值与实际值做差并进行PI来修正当前姿态](#正确值与实际值做差并进行PI来修正当前姿态)
+
+本文介绍了简单的一维互补滤波器，和比较复杂的在SO(3)群上的互补滤波器。互补滤波器的思路是把一个主要包含高频噪声，和一个主要包含低频噪声的信号分别通过一个低通滤波器和高通滤波器，并做平均，从而使平均后的结果是真实信号较为准确的估计。虽然Mahony提出的互补滤波器在无人机领域十分流行，但在最小均方误差的意义下，它是劣于卡尔曼滤波器的。
+
+
 
 首先，澄清一点很多人都在讨论的问题：卡尔曼滤波器是不是真的优于互补滤波器？
 
@@ -253,7 +266,7 @@ $\dot{\hat{R}}=\hat{R}(\omega+k\theta u)^{\wedge}$可以积分为在IMU姿态估
 $$
 \hat{R}_{n+1}=\hat{R}_ne^{\left(\omega_n+k\theta_n u_n\right)^{\wedge}\Delta t}
 $$
-总结：介绍了简单的一维互补滤波器，和比较复杂的在 SO(3) 群上的互补滤波器。互补滤波器的思路是把一个主要包含高频噪声，和一个主要包含低频噪声的信号分别通过一个低通滤波器和高通滤波器，并做平均，从而使平均后的结果是真实信号较为准确的估计。虽然 Mahony 提出的互补滤波器在无人机领域十分流行，但在最小均方误差的意义下，它是劣于卡尔曼滤波器的。
+总结：介绍了简单的一维互补滤波器，和比较复杂的在SO(3)群上的互补滤波器。互补滤波器的思路是把一个主要包含高频噪声，和一个主要包含低频噪声的信号分别通过一个低通滤波器和高通滤波器，并做平均，从而使平均后的结果是真实信号较为准确的估计。虽然Mahony提出的互补滤波器在无人机领域十分流行，但在最小均方误差的意义下，它是劣于卡尔曼滤波器的。
 
 # 互补滤波流程
 
@@ -279,92 +292,113 @@ $$
 
 ![complementary-filtering-process-detail](pic/complementary-filtering-process-detail.png)
 
-### 从传感器获取正确姿态值
+### 求传感器和估计值之间的差
 
-从传感器读取到加速度测量值并归一化为$\hat{a}_b=[a_x,a_y,a_z]^T$；磁力计测量值$\hat{m}_b=[m_x,m_y,m_z]^T$。
-
-将加速度计测量值、磁力计测量值正则化为单位向量，作为期望值，这个值是符合实际的。
-
-### 从姿态矩阵获取当前实际姿态值
-
-（1）获取机体轴系中的重力向量
-
-加速度计在静止时测量的是地球重力加速度$[0,0,1]^T$。有一点要注意，如果在运动时测量，需要减去离心加速度。
-
-需要把归一化后的地轴系的重力向量，通过当前姿态矩阵转到体轴系下，因为要和加速度计传感器测量值进行比较，得到误差，来修正当前姿态。
-
-此时体轴系下的重力向量$\hat{v}_b$其实包含了当前姿态矩阵$C_n^b$的信息，并不是绝对准确的，因为当前姿态$C_n^b$并不准确，需要校正。
+再次把**SO(3)群上互补滤波器**的表达式放在这：
 $$
 \begin{aligned}
-\hat{v}_b=\begin{bmatrix}
-v_x\\
-v_y\\
-v_z
-\end{bmatrix}
-&=
-C_n^b
-\begin{bmatrix}
-0\\
-0\\
-1
-\end{bmatrix}\\
+\dot{\hat{R}}&=R\omega^{\wedge}\\
+&=\hat{R}\left(w(t)+k\left[z_2(t)-\hat{y}(t)\right]\right)\quad\text{当然，这是错的}\\
+&=\hat{R}\left(w(t)+k\left[\hat{R}^TR_y\right]\right)\quad\text{当然，这是错的}\\
+&=\hat{R}(\omega+k\theta u)^{\wedge}
 \end{aligned}
 $$
-如果姿态矩阵$C_n^b$是基于四元数，则
+上式中的$\theta u$其实就是李代数so(3)，虽然李群只对乘法封闭，但是转到李代数下就可以对加法封闭了，所以就可以使用加法了，所以该误差可以由不同的误差（来自加速度计和磁传感器或GPS）分开计算然后加起来作为总的误差。
+
+并且$\theta u$可以看成是轴角，轴角就可以使用两个单位向量的叉乘来计算轴和角，叉乘计算轴很好理解，为什么叉乘还能计算角呢？因为两个单位向量的叉乘的模值为$\sin\theta$，如果两个向量误差比较小的话，$\sin\theta$可近似为$\theta$。
+
+#### 求加速度计传感器和估计值之间的差
+
+从加速度计读取到加速度测量值（机体轴系下）并归一化为$\hat{a}_b=[a_x,a_y,a_z]^T$，
+
+然后将其转换到大地轴系下，得到地轴系下的实际加速度测量值$\hat{a}_n$：
+$$
+\hat{a}_n=C_b^n\cdot \hat{a}_b
+$$
+理论上地轴系下的加速度值（静止时）归一化后为
+$$
+\hat{v}_n=\begin{bmatrix}
+0\\
+0\\
+-1
+\end{bmatrix}\\
+$$
+地轴系下的误差为
+$$
+e_n=\hat{a}_n\times \hat{v}_n
+$$
+注意，**因为$\hat{v}_n=[0,0,-1]^T$始终是竖直向下的，即与地轴系的$z$轴同方向重合，所以任何向量和$\hat{v}_n=[0,0,-1]^T$做叉乘的结果向量$e_n$都是在水平面内的，即只能矫正俯仰和滚转，无法矫正偏航**。偏航就需要马上要讲的磁传感器去矫正了。
+
+为什么叉乘可以作为误差呢？因为前面说过了，叉乘的结果可以近似看成轴角$\theta u$（如下图所示）。这个轴角让存在误差的姿态修正到理论正确值。
+
+![error](pic/error-acc.png)
+
+但此时的轴角误差$e_n$还在大地轴系下，无法直接用于$\dot{\hat{R}}=\hat{R}(\omega+k\theta u)^{\wedge}$中的$\theta u$。还需坐标转换到机体轴系下：
+$$
+e_b=C_n^be_n
+$$
+那么$\dot{\hat{R}}=\hat{R}(\omega+k\theta u)^{\wedge}$中的$\theta u$就可以用$e_b$代替了（其实还要加上接下来要讲的磁传感器的误差），即有
 $$
 \begin{aligned}
-\hat{v}_b
-&=
-\begin{bmatrix}
-1-2(q_2^2+q_3^2)&2(q_1q_2+q_0q_3)&2(q_1q_3-q_0q_2)\\
-2(q_1q_2-q_0q_3)&1-2(q_1^2+q_3^2)&2(q_2q_3+q_0q_1)\\
-2(q_1q_3+q_0q_2)&2(q_2q_3-q_0q_1)&1-2(q_1^2+q_2^2)\\
-\end{bmatrix}
-\begin{bmatrix}
-0\\
-0\\
-1
-\end{bmatrix}\\
-&=
-\begin{bmatrix}
-2(q_1q_3-q_0q_2)\\
-2(q_2q_3+q_0q_1)\\
-1-2(q_1^2+q_2^2)\\
-\end{bmatrix}
+\dot{\hat{R}}&=\hat{R}(\omega+k\theta u)^{\wedge}\\
+&=\hat{R}(\omega+ke_b)^{\wedge}
 \end{aligned}
 $$
-如果姿态矩阵$C_n^b$是基于DCM矩阵，则
+还要注意的是，$\dot{\hat{R}}=\hat{R}(\omega+k\theta u)^{\wedge}$中的$k$本来是固定值，但是还可以改成类似PID中的比例加积分形式。
+
+#### 求磁传感器和估计值之间的差
+
+从磁传感器读取到地磁场测量值（机体轴系下）$\bar{m}_b$。
+
+然后将其转换到大地轴系下，得到地轴系下的实际地磁场测量值$\bar{m}_n$：
+$$
+\bar{m}_n=C_b^n\cdot \bar{m}_b
+$$
+然后只取其地轴系下的xy轴（即水平面的北东向两个分量）的值，并归一化，记作$\hat{m}_n=[m_x,m_y]^T$。
+
+理论上地轴系下的磁场在水平面的xy轴的分量（即水平面的北东向两个分量）归一化后为：
 $$
 \begin{aligned}
-\hat{v}_b
-&=
-\begin{bmatrix}
-\cos\psi \cos\theta & \cos\theta \sin\psi & -\sin\theta\\
-\cos\psi \sin\theta \sin\phi - \sin\psi \cos\phi & \sin\psi \sin\theta \sin\phi + \cos\psi \cos\phi & \cos\theta \sin\phi\\
-\cos\psi \sin\theta \cos\phi + \sin\psi \sin\phi & \sin\psi \sin\theta \cos\phi - \cos\psi \sin\phi & \cos\theta \cos\phi\\
-\end{bmatrix}
-\begin{bmatrix}
-0\\
-0\\
-1
-\end{bmatrix}\\
-&=
-\begin{bmatrix}
--\sin\theta\\
-\cos\theta \sin\phi\\
-\cos\theta \cos\phi\\
-\end{bmatrix}
+\hat{w}_n&=\begin{bmatrix}
+1\\
+0
+\end{bmatrix}\quad\text{如果磁偏角为零}\\
+&=\begin{bmatrix}
+\cos(\text{磁偏角})\\
+\sin(\text{磁偏角})
+\end{bmatrix}\quad\text{如果磁偏角不为零}\\
 \end{aligned}
 $$
-（2）获取机体轴系中的磁场向量
+误差为
+$$
+e_n=\hat{m}_n\times \hat{w}_n
+$$
+注意，**二维向量的叉乘结果$e_n$是个标量，但是其方向是竖直向上的，即与地轴系的$z$轴同轴。也就是说，磁传感器的叉乘结果$e_n$只能校准偏航角，不能校准俯仰和滚准角（这两个角已经被加速度计校准了）**。
 
-磁传感器测量的是地球的磁场的大小和方向，只不过这个方向不再是竖直向下，而是在北半球磁场线是向北且向下的，这里，其中，如果磁偏角为0，那么$b_y=0$。
+**为什么这里只要二维的磁场来做校准呢**？这不是因为不想用三维，而是做起来难啊，因为理论的地磁场在大地轴系下北向和地向的分量是随着经纬度变化的，比如在中国中部地区其值为$\hat{w}_n=[0.5,0,0.6]$，除非你存储了一张全球各地的磁场分布图，否则还是只看北东比较简单，基本只需要存储各地的磁偏角即可。
 
-类似加速度计在地轴系下的参考向量是$[0,0,1]^T$，那么磁传感器在地轴系下的参考向量是$[b_x,b_y,b_z]^T$，这里只考虑其北东二维水平向量，即只取$[b_x,b_y]^T$并归一化，如果磁偏角为0或者不考虑磁偏角，则$[b_x,b_y]^T=[1,0]^T$。
+为什么叉乘可以作为误差呢？因为前面说过了，叉乘的结果可以近似看成轴角$\theta u$（如下图所示）。这个轴角让存在误差的姿态修正到理论正确值。
+
+![error-mag](pic/error-mag.png)
+
+但此时的轴角误差$e_n$还在大地轴系的$z$轴上，无法直接用于$\dot{\hat{R}}=\hat{R}(\omega+k\theta u)^{\wedge}$中的$\theta u$。还需坐标转换到机体轴系下：
+$$
+e_b=C_n^b\cdot [0,0,e_n]^T
+$$
+注意，在某些实际应用中，只取$e_b$的$z$向坐标的值，目前原因未知，例如：[Why only use z component of mag correction in AP_AHRS_DCM.cpp? ](https://discuss.ardupilot.org/t/why-only-use-z-component-of-mag-correction-in-ap-ahrs-dcm-cpp/112565)。
+
+那么$\dot{\hat{R}}=\hat{R}(\omega+k\theta u)^{\wedge}$中的$\theta u$就可以用$e_b$代替了（再加上前面讲的加速度计的误差，因为李代数so(3)具有可加性），即有
+$$
+\begin{aligned}
+\dot{\hat{R}}&=\hat{R}(\omega+k\theta u)^{\wedge}\\
+&=\hat{R}(\omega+ke_b)^{\wedge}
+\end{aligned}
+$$
+还要注意的是，$\dot{\hat{R}}=\hat{R}(\omega+k\theta u)^{\wedge}$中的$k$本来是固定值，但是还可以改成类似PID中的比例加积分形式。
 
 ### 正确值与实际值做差并进行PI来修正当前姿态
 
-此时，需要回顾一下前面的互补滤波复频域表达式：
+此时，需要回顾一下前面的一维互补滤波复频域表达式：
 $$
 \begin{aligned}
 &\hat{\theta}=\omega_g\times \frac{s}{s+C(s)}\times \frac{1}{s}+\theta_a\times\frac{C(s)}{s+C(s)}\\
@@ -373,61 +407,16 @@ $$
 \Rightarrow&s\hat{\theta}=\omega_g+(k_p+\frac{k_i}{s})\times(\theta_a-\hat{\theta})
 \end{aligned}
 $$
-上式的$\theta_a$其实就是加速度计测量的重力向量为$\hat{a}_b=[a_x,a_y,a_z]^T$，上式的$\hat{\theta}$其实就是$\hat{v}_b$，
-
-而上式的角度误差$\theta_a-\hat{\theta}$在小角度下可近似为向量叉乘，即$\hat{a}_b\times \hat{v}_b$。
-
-
-
-### 加速度计差值
-
-
-
-
-
-### 磁传感器差值
-
-需要把磁传感器测量值从体轴系$m_b$转到地轴系下的$m_e$，然后取北东地的北东二维水平向量$[m_{ex},m_{ey}]$，然后和地磁场的参考向量$[b_x,b_y]^T=[1,0]^T$做叉乘进行比较得到误差$error_{bz}$，来修正当前姿态。
-
-注意，这个误差是地轴系下的z向。为什么只取z向呢，因为xy向的地轴误差不需要磁传感器来纠正，用加速度计纠正就够了。
-
-此时地轴系下的重力向量$m_e$其实包含了当前姿态矩阵$C_n^b$的信息，并不是绝对准确的，因为当前姿态$C_n^b$并不准确，需要校正。
-
-然后把地轴系下的z向误差转到体轴系下，但是只取体轴系的z向误差$error_{bz}$，即
+上式是一维的情况，如果把一维升级为SO(3)群，则SO(3)上的互补滤波器的表达式为
 $$
 \begin{aligned}
-&C_n^b
-\begin{bmatrix}
-0\\
-0\\
-error_{nz}
-\end{bmatrix}\\
-=&\begin{bmatrix}
-\cos\psi \cos\theta & \cos\theta \sin\psi & -\sin\theta\\
-\cos\psi \sin\theta \sin\phi - \sin\psi \cos\phi & \sin\psi \sin\theta \sin\phi + \cos\psi \cos\phi & \cos\theta \sin\phi\\
-\cos\psi \sin\theta \cos\phi + \sin\psi \sin\phi & \sin\psi \sin\theta \cos\phi - \cos\psi \sin\phi & \cos\theta \cos\phi\\
-\end{bmatrix}
-\begin{bmatrix}
-0\\
-0\\
-error_{bz}
-\end{bmatrix}\\
-=&
-\begin{bmatrix}
-...\\
-...\\
-(\cos\theta \cos\phi)error_{nz}\\
-\end{bmatrix}
-=
-\begin{bmatrix}
-...\\
-...\\
-error_{bz}\\
-\end{bmatrix}
+\dot{\hat{R}}&=R\omega^{\wedge}\\
+&=\hat{R}\left(w(t)+k\left[z_2(t)-\hat{y}(t)\right]\right)\quad\text{当然，这是错的}\\
+&=\hat{R}\left(w(t)+k\left[\hat{R}^TR_y\right]\right)\quad\text{当然，这是错的}\\
+&=\hat{R}(\omega+k\theta u)^{\wedge}
 \end{aligned}
 $$
-
-
+上式中的$\theta u$就是轴角，本质就是实际姿态到目标姿态的差值，只不过在SO(3)群上，差值以旋转（乘法）的形式来表示而已。而李群SO(3)群的旋转，又可以表示为李代数so(3)的向量形式，而向量形式是可以相加的，所以其差可以分成加速度计的滚转和俯仰差值，加上磁传感器的航向差值。差值的目标姿态是理论值，实际姿态是体轴系的测量值转换到地轴系下的值（即$C_b^n\cdot \text{measure}_b$），可以看到差值里是即存在了传感器测量值的误差，还有姿态的误差，所以，传感器测量误差越小，则姿态误差也越小，因为这里计算姿态时，始终是默认传感器测量误差为0的。
 
 
 # 参考资料

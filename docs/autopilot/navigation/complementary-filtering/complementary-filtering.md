@@ -86,7 +86,7 @@
 
 下图是一个标准的一阶RC滤波器，但是设计成低通还是高通，由选取的输出变量来决定，若选取电阻两端的电压为输出，设计出来的是一阶高通滤波器；若选取电容两端的电压为输出，设计出来的是一阶低通滤波器，现在我们就以常见的一阶低通滤波器为例进行分析。
 
-![rc_low_pass_filter](D:/2study/%E8%AF%BE%E7%A8%8B%E4%B8%8E%E5%AD%A6%E4%B9%A0/0%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD%E4%B8%8E%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD%E4%B8%8E%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/02%E4%B9%A6%E7%B1%8D/%E4%B9%A6%E7%B1%8D_%E6%95%B0%E6%8D%AE/%E4%B9%A6%E7%B1%8D/%E3%80%8A%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%8B/machine-learning-notes/docs/autopilot/navigation/complementary-filtering/pic/rc_low_pass_filter.png)
+![rc_low_pass_filter](pic/rc_low_pass_filter.png)
 
 现在分析电路及传函。输入为电源电压 $V_s(t)$，输出为电容两端电压$V_c(t)$，那么列出电压方程：
 $$

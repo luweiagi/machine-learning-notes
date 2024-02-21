@@ -10,6 +10,37 @@
 
 
 
+
+
+
+
+[大模型能应用在自动驾驶上吗？是否可以让自动驾驶真的走向无人？](https://www.zhihu.com/question/625473884/answer/3258026554)
+
+特斯拉在2023年AI Day公开了occupancy network（占用网络）模型，基于学习进行三维重建，意图为更精准地还原自动驾 驶汽车行驶周围3D环境，可视作BEV视图的升华迭代。
+
+
+
+[大模型能应用在自动驾驶上吗？是否可以让自动驾驶真的走向无人？](https://www.zhihu.com/question/625473884)
+
+其实自动驾驶公司已经开始将研究方向转向大模型了，期望能一个模型解决所有，特斯拉据说已经将模型部署到实车上，国内的各大自动驾驶公司也在争先模仿！推荐一些最新自动驾驶+大模型的工作，可以看看~
+
+1. A Survey on Multimodal Large Language Models for Autonomous Driving
+2. A Survey of Large Language Models for Autonomous Driving
+3. CLIP：Learning Transferable Visual Models From Natural Language Supervision
+4. ...
+
+
+
+[像人一样开车，大语言模型建攻自动驾驶！自动驾驶迎来ChatGPT时刻](https://new.qq.com/rain/a/20230906A03TOE00)
+
+最近有项研究提出了一种新方法，用大型语言模型来重新思考自动驾驶技术。作者讨论了使用LLM来模拟人类理解驾驶环境，并分析其在处理复杂情况时的推理、解释和记忆能力。他们认为传统的自动驾驶系统在处理边界情况时存在性能限制。为解决这个问题，提出了一个理想的自动驾驶系统，它能像人类一样通过驾驶经验和常识来解决问题。为了实现这个目标，我们确定了三个关键能力：推理、解释和记忆。通过构建一个闭环系统，展示了在驾驶场景中使用LLM的可行性，以展示其理解和与环境交互的能力。实验结果表明，LLM展示了令人印象深刻的推理和解决复杂情况的能力，为开发类似人类的自动驾驶系统提供了宝贵的见解。
+
+代码：
+
+https://github.com/PJLab-ADG/DriveLikeAHuman
+
+
+
 [自动驾驶为什么不直接让模型输出下一步的动作?](https://www.zhihu.com/question/598088657/answer/3099636476)
 
 可以当然是可以的，英伟达2016年的那篇[End to End Learning for Self-Driving Cars](https://arxiv.org/pdf/1604.07316.pdf) 在自动驾驶行业引发了很大振动，几个摄像头输入到神经网络里，直接回归方向盘转动角度，就是这么简单粗暴。他们还进行了路测，使用第一代DrivePX，说是98%的时间都可以正常行驶，中间有一段路连续开了15公里不需要任何人工介入。我记得当时我们的team lead跟我们说我们要失业了。。。

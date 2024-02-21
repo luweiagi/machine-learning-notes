@@ -12,3 +12,17 @@
 [DeepMind 研发的围棋 AI AlphaGo 是如何下棋的？](https://www.zhihu.com/question/41176911/answer/90066752)
 
 AlphaGo的第一作者David Silver还在MIT做post-doc的时候(也有可能是visit?)，曾经和我们组师兄合作利用机器学习和蒙特卡罗树搜索玩《文明2》。当时也有不小的轰动：
+
+
+
+[Human-level performance in 3D multiplayer games with population-based reinforcement learning](https://www.science.org/doi/10.1126/science.aau6249)
+
+DeepMind 在多智能体强化学习方面又有了新进展，最新成果登上 Science 杂志！http://www.hzhcontrols.com/new-1161721.html
+
+
+
+
+
+AlphaStar agent  24 JANUARY 2019
+
+https://deepmind.google/discover/blog/alphastar-mastering-the-real-time-strategy-game-starcraft-ii/

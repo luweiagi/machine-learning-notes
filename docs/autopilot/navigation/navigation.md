@@ -7,6 +7,7 @@
 * [哥氏定理/科里奥利定理](coriolis-theorem/coriolis-theorem.md)
 * [四元数](quaternion/quaternion.md)
 * [罗德里格斯公式](rodrigues-formula/rodrigues-formula.md)
+* [李群李代数](lie-group-and-lie-algebra/lie-group-and-lie-algebra.md)
 * [基于互补滤波的组合导航](complementary-filtering/complementary-filtering.md)
 
 

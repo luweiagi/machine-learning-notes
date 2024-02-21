@@ -282,7 +282,7 @@ $$
 
 （4）将由姿态矩阵计算得出的姿态角A，与由加速度计和GPS或磁传感器得出的姿态角B相比作差，得到姿态角偏差
 
-（5）将姿态角偏差进行PI运算，并用此结果对gyro值进行修正。
+（5）将姿态角偏差进行PI运算，并用此结果对gyro值进行修正。即对陀螺仪的测量值做补偿反馈，来产生对真实旋转速率的最佳估计。
 
 以上就是互补滤波的核心原理。
 
@@ -385,7 +385,7 @@ $$
 $$
 e_b=C_n^b\cdot [0,0,e_n]^T
 $$
-注意，在某些实际应用中，只取$e_b$的$z$向坐标的值，目前原因未知，例如：[Why only use z component of mag correction in AP_AHRS_DCM.cpp? ](https://discuss.ardupilot.org/t/why-only-use-z-component-of-mag-correction-in-ap-ahrs-dcm-cpp/112565)。
+注意，在某些实际应用中，只取$e_b$的$z$向坐标的值，例如：[Why only use z component of mag correction in AP_AHRS_DCM.cpp? ](https://discuss.ardupilot.org/t/why-only-use-z-component-of-mag-correction-in-ap-ahrs-dcm-cpp/112565)。经过分析原因，猜测可能是因为，磁传感器数据有延迟，延迟的数据最保险一点还是只校准体轴的z轴吧。
 
 那么$\dot{\hat{R}}=\hat{R}(\omega+k\theta u)^{\wedge}$中的$\theta u$就可以用$e_b$代替了（再加上前面讲的加速度计的误差，因为李代数so(3)具有可加性），即有
 $$

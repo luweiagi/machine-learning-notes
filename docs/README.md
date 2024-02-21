@@ -385,6 +385,7 @@
     * Alpaca 斯坦福大学
       - Alpaca 近日，斯坦福基于 Meta 的 LLaMA 7B 模型微调出一个新模型 Alpaca。该研究让 OpenAI 的 text-davinci-003 模型以 self-instruct 方式生成 52K 指令遵循（instruction-following）样本，以此作为Alpaca的训练数据。研究团队已将训练数据、生成训练数据的代码和超参数开源，后续还将发布模型权重和训练代码。 [斯坦福70亿参数开源模型媲美GPT-3.5，100美元即可复现](https://mp.weixin.qq.com/s/U6ioEygg5mlVpAIb2L3cZw)
     * [ColossalChat By ](natural-language-processing/large-language-model/rlhf/ColossalChat/ColossalChat.md) ColossalChat开源了第一个完整的RLHF pipeline，斯坦福Alpaca没有做RLHF
+  * [LoRA大语言模型的低秩适应](natural-language-processing/large-language-model/lora/lora.md)
   * [Prompt Learning](natural-language-processing/large-language-model/prompt-learning/prompt-learning.md)
   * [Emergence涌现现象](natural-language-processing/large-language-model/emergence/emergence.md)
   * [自己训练ChatGPT](natural-language-processing/large-language-model/train-ChatGPT-DIY/train-ChatGPT-DIY.md)
@@ -446,6 +447,7 @@
     * CLIP
     * DALL·E2
     * [Point-E 202212 文本生成3D点云模型](multimodal-large-model/industry-application/openai/point-e/point-e.md)
+    * [sora202402文字生成视频]()
   * Stability.ai
     * Stable Diffusion开源
   * Salesforce Research
@@ -562,6 +564,7 @@
   * [哥氏定理/科里奥利定理](autopilot/navigation/coriolis-theorem/coriolis-theorem.md)
   * [四元数](autopilot/navigation/quaternion/quaternion.md)
   * [罗德里格斯公式](autopilot/navigation/rodrigues-formula/rodrigues-formula.md)
+  * [李群李代数](autopilot/navigation/lie-group-and-lie-algebra/lie-group-and-lie-algebra.md)
   * [基于互补滤波的组合导航](autopilot/navigation/complementary-filtering/complementary-filtering.md)
 * 仿真
   - [gym-jsbsim:使用JSBSim飞行动力学模型的飞机控制强化学习环境](https://download.csdn.net/download/weixin_42165980/18471290)

@@ -446,14 +446,14 @@ $$
 有旋转矩阵$R$：
 $$
 \begin{aligned}
-&R^TR=I\quad \text{旋转矩阵为正交阵}\\
-\Rightarrow&R(t)^TR(t)=I\quad\text{随时间t变化，此式不变}\\
-\Rightarrow&\dot{R(t)^T}R(t)+R(t)^T\dot{R(t)}=0\quad\text{左右对时间t求导}\\
-\Rightarrow&\dot{R(t)^T}R(t)=-R(t)^T\dot{R(t)}=-(\dot{R(t)^T}R(t))^T\\
-\Rightarrow&\dot{R(t)^T}R(t)\text{为一个反对称矩阵}\\
+&RR^T=I\quad \text{旋转矩阵为正交阵}\\
+\Rightarrow&R(t)R(t)^T=I\quad\text{随时间t变化，此式不变}\\
+\Rightarrow&\dot{R(t)}R(t)^T+R(t)\dot{R(t)}^T=0\quad\text{左右对时间t求导}\\
+\Rightarrow&\dot{R(t)}R(t)^T=-R(t)\dot{R(t)}^T=-(\dot{R(t)}R(t)^T)^T\\
+\Rightarrow&\dot{R(t)}R(t)^T\text{为一个反对称矩阵}\\
 \end{aligned}
 $$
-这一步的结论就是：$\dot{R(t)^T}R(t)$为一个反对称矩阵。
+这一步的结论就是：$\dot{R(t)}R(t)^T$为一个反对称矩阵。
 
 **（2）推出微分方程**
 
@@ -478,17 +478,19 @@ $$
 $$
 a^{\wedge}=A,\quad A^{\vee}=a
 $$
-所以，反对称矩阵$\dot{R(t)^T}R(t)$可表示为$\omega(t)^{\wedge}$，$\omega(t)$是三维向量。即
+所以，反对称矩阵$\dot{R(t)}R(t)^T$可表示为$\omega(t)^{\wedge}$，$\omega(t)$是三维向量。即
 $$
 \begin{aligned}
-&\dot{R(t)^T}R(t)=\omega(t)^{\wedge}\\
-\Rightarrow&\dot{R(t)^T}R(t)=\omega(t)^{\wedge}R(t)\\
+&\dot{R(t)}R(t)^T=\omega(t)^{\wedge}\\
+\Rightarrow&\dot{R(t)}R(t)^TR(t)=\omega(t)^{\wedge}R(t)\\
 \Rightarrow&\dot{R(t)}=\omega(t)^{\wedge}R(t)\\
 \end{aligned}
 $$
 得到了微分方程：$\dot{R(t)}=\omega(t)^{\wedge}R(t)$
 
-我们可以将李代数so(3)解释为$R(t)$在原点处的导数空间；它构成了SO(3)的切线空间，即速度空间。 根据这些事实，我们可以很好地将$\omega(t)$称为瞬时角速度矢量。
+看上面的公式，我们发现旋转矩阵的微分是一个反对称(也叫斜对称)矩阵左乘它本身，也印证了我前面说的，矩阵是可以微分的。对于某个时刻的$R(t)$（李群空间），存在一个三维向量$\omega=(\omega_x，\omega_y，\omega_z)$（李代数空间），用来描述$R$在$t$时刻的局部的导数。
+
+我们可以将李代数so(3)解释为$R(t)$在原点处的导数空间（$\dot{R(0)}=\omega(0)^{\wedge}R(0)=\omega(0)^{\wedge}$）；它构成了SO(3)的切线空间，即速度空间。 根据这些事实，我们可以很好地将$\omega(t)$称为瞬时角速度矢量。
 
 **（3）解微分方程**
 
@@ -503,14 +505,15 @@ $$
 $$
 微分方程知识：
 
-当微分方程为
-$$
-\frac{dy}{dx}+Ay=0
-$$
-解为
-$$
-y=Ce^{-Ax}
-$$
+> 当微分方程为
+> $$
+> \frac{dy}{dx}+Ay=0
+> $$
+> 解为
+> $$
+> y=Ce^{-Ax}
+> $$
+
 上式微分方程结果：
 $$
 \begin{aligned}

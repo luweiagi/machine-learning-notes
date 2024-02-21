@@ -206,11 +206,15 @@ $$
 $$
 \dot{p}=w^{\wedge}p
 $$
-其中，定义$\cdot^{\wedge}$为反对称矩阵算子，例如：$\hat{w}=\begin{Bmatrix}
+其中，定义$\cdot^{\wedge}$为反对称矩阵算子，例如：
+$$
+\hat{w}=\begin{Bmatrix}
 w_1\\
 w_2\\
 w_3
-\end{Bmatrix}$，那么有：
+\end{Bmatrix}
+$$
+，那么有：
 $$
 w^{\wedge}=
 \begin{bmatrix}
@@ -241,8 +245,6 @@ $$
 这其实就是罗德里格斯公式，很多人一直都不知道这个Rodrigues formula到底是干什么的，相信很多人在机器人，SLAM，甚至现在很火的元宇宙技术中经常会遇到这个东西。
 
 **罗德里格斯公式本质上是李群与李代数的结合点。**本质上指数映射，算到最后，其实就是Rodrigues formula。
-
-[李狗嗨：如何通俗地解释李群和李代数的关系？](https://www.zhihu.com/question/356466246/answer/931315125)
 
 # 李代数
 
@@ -380,11 +382,13 @@ $$
 
 本文一开始参考了这篇文章。
 
-* [如何通俗地解释李群和李代数的关系？](https://www.zhihu.com/question/356466246/answer/2612548870)
+* [李狗嗨：如何通俗地解释李群和李代数的关系？](https://www.zhihu.com/question/356466246/answer/931315125)
+
+* [北京航空航天大学 机械设计及理论博士在读：如何通俗地解释李群和李代数的关系？](https://www.zhihu.com/question/356466246/answer/2612548870)
 
 “矩阵指数与旋转矩阵的关系”参考此知乎回答。
 
-* [如何通俗地解释李群和李代数的关系？](https://www.zhihu.com/question/356466246/answer/2612548870)
+* [北京航空航天大学 机械设计及理论博士在读：如何通俗地解释李群和李代数的关系？](https://www.zhihu.com/question/356466246/answer/2612548870)
 
 * [为什么SLAM中很多使用四元数而不使用李代数？优势是什么？](https://www.zhihu.com/question/422718770/answer/3073161793)
 

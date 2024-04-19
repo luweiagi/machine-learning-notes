@@ -1,6 +1,6 @@
 # algorithm算法库
 
-* [返回上层目录](../c++.md)
+* [返回上层目录](../c-c++.md)
 * [sort排序](#sort排序)
 * [reverse反转](#reverse反转)
 

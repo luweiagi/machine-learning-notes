@@ -6,6 +6,36 @@
 
 ===
 
+[如何将机器人与强化学习结合？](https://www.zhihu.com/question/428275198/answer/3324504444)
+
+最近调研了一下Robot Learning领域的热门文章，总结下来，有两个很看好的方向。二者都是基于Imitation Learning，分歧在于需不需要RL+仿真训练。
+
+**Imitation Learning(IL)**
+
+**方法**：通过人类的遥控或示教，采集机器人轨迹-感知数据对。直接学习数据对的分布，训好后根据感知状态来生成新轨迹。
+
+**相关工作**：
+
+RT-2: Vision-Language-Action Models
+PaLM-E: An Embodied Multimodal Language Model
+Dobb·E: An open-source, general framework for learning household robotic manipulation
+
+**IL+Reinforcement Learning+Sim2Real**
+
+方法：通过动作捕捉得到一系列参考数据，retarget到机器人模型上，在物理仿真环境训练机器人模仿参考动作，以实现各类任务。
+
+优势：RL提供了探索能力，上限可以超越人类和参考数据。
+
+相关工作：
+Adversarial Motion Priors Make Good Substitutes for Complex Reward Functions
+Opt-mimic: Imitation of optimized trajectories for dynamic quadruped behaviors
+Learning robust and agile legged locomotion using adversarial motion priors
+Learning agile skills via adversarial imitation of rough partial demonstrations
+
+
+
+
+
 [Science Robotics 预定？ETH最新四足“跑酷”](https://zhuanlan.zhihu.com/p/641918952)
 
 23年6月26号，ETH在arxiv挂出了他们最新的论文，视频暂时还没有放出来。推测这篇应该是投了science robotics。

@@ -108,6 +108,14 @@ conda info
 
 # 环境操作
 
+## 查看已有的环境名
+
+```shell
+conda env list
+# or
+conda info --envs
+```
+
 ## 新建环境
 
 ```shell
@@ -440,6 +448,12 @@ print(tf.config.list_physical_devices('GPU'))
 说明：
 
 * 电脑实际安装的CUDA版本不能比所选的CUDA版本更高。比如实际安装的是11.2版本，就不能选择11.3版本，必须等于或低于11.2版本，所以这里就选择10.2版本。CUDA可以兼容低版本。
+
+  ```shell
+  # CUDA 11.1
+  pip install torch==1.9.1+cu111 torchvision==0.10.1+cu111 torchaudio==0.9.1 -f https://download.pytorch.org/whl/torch_stable.html
+  ```
+
 * pip安装的时候，需要使用`conda activate xxx`先切换到对应环境，再使用pip，不然就安装到其他环境去了。
 
 检查是否安装成功

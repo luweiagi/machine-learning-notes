@@ -2,6 +2,10 @@
 
 - [返回上层目录](../navigation.md)
 
+# 欧拉角
+
+![euler-angle](pic/euler-angle.gif)
+
 
 
 [惯性导航原理（1）：导航坐标系及相互转换](https://blog.csdn.net/Mua111/article/details/125433510)

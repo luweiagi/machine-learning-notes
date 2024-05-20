@@ -357,8 +357,8 @@
 * [强化学习训练框架](machine-learning-training-framework/reinforcement-learning-training-framework/reinforcement-learning-training-framework.md)
   * [清华：天授](machine-learning-training-framework/reinforcement-learning-training-framework/tianshou/tianshou.md)
   * [百度：PARL](machine-learning-training-framework/reinforcement-learning-training-framework/parl/parl.md) 采用了PaddlePaddle，而不是Pytorch
-  * [Ray分布式计算框架](machine-learning-training-framework/ray/ray.md)
-  * [RLlib分布式强化学习系统](machine-learning-training-framework/rllib/rllib.md)
+  * [Ray分布式计算框架](machine-learning-training-framework/reinforcement-learning-training-framework/ray/ray.md)
+  * [RLlib分布式强化学习系统](machine-learning-training-framework/reinforcement-learning-training-framework/rllib/rllib.md)
 * [大模型训练框架](machine-learning-training-framework/large-model-trainning-framework/large-model-trainning-framework.md)
 * [超算集群](machine-learning-training-framework/supercomputing-cluster/supercomputing-cluster.md)
   * [微软: 用于训练ChatGPT的超算](machine-learning-training-framework/supercomputing-cluster/microsoft-supercomputing-cluster-for-chatgpt/microsoft-supercomputing-cluster-for-chatgpt.md)

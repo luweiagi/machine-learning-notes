@@ -1,6 +1,6 @@
 # Ray分布式计算框架
 
-* [返回上层目录](../reinforcement-learning-framework.md)
+* [返回上层目录](../reinforcement-learning-training-framework.md)
 
 
 

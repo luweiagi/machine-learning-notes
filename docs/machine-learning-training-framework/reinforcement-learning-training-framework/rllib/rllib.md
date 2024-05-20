@@ -1,6 +1,6 @@
 # RLlib
 
-* [返回上层目录](../reinforcement-learning-framework.md)
+* [返回上层目录](../reinforcement-learning-training-framework.md)
 
 RLlib：工业级强化学习
 

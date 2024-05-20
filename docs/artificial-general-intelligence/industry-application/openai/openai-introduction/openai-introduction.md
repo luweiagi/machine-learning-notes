@@ -26,7 +26,7 @@ OpenAI历年发表情况（总107）
 
 [ChatGPT背后：从0到1，OpenAI的创立之路](https://mp.weixin.qq.com/s/bo-zVSi5sqe1l7UfCzgEbw)
 
-
+[OpenAI的产品全景，不止 ChatGPT](https://zhuanlan.zhihu.com/p/668134817)
 
 
 

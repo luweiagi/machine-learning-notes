@@ -330,35 +330,38 @@
       * [TimeChamber大规模并行的大规模自对弈框架](reinforcement-learning/industry-application/inspir-ai/time-chamber/time-chamber/time-chamber.md)
       * [Humanoid Strike人类击剑](reinforcement-learning/industry-application/inspir-ai/time-chamber/humanoid-strike/humanoid-strike.md)
 
-# [机器学习框架](machine-learning-framework/machine-learning-framework.md)
-* [Anaconda](machine-learning-framework/anaconda/anaconda.md)
-* [TensorFlow](machine-learning-framework/tensorflow/tensorflow.md)
-  * [TensorFlow1.0](machine-learning-framework/tensorflow/tensorflow1.0/tensorflow1.0.md)
-    * [TensorFlow基础](machine-learning-framework/tensorflow/tensorflow1.0/basis/basis.md)
-    * [TensorFlow基础概念解析](machine-learning-framework/tensorflow/tensorflow1.0/basic-concept-analysis/basic-concept-analysis.md)
-    * [TensorFlow机器学习基础](machine-learning-framework/tensorflow/tensorflow1.0/machine-learning-foundation/machine-learning-foundation.md)
-  * [TensorFlow2.0](machine-learning-framework/tensorflow/tensorflow2.0/tensorflow2.0.md)
-    * [TensorFlow2.0基础](machine-learning-framework/tensorflow/tensorflow2.0/basis/basis.md)
-    * [TensorFlow2.0安装](machine-learning-framework/tensorflow/tensorflow2.0/install/install.md)
-    * [keras](machine-learning-framework/tensorflow/tensorflow2.0/keras/keras.md)
-  * [Tensorflow分布式架构](machine-learning-framework/tensorflow/tensorflow-distributed-architecture/tensorflow-distributed-architecture.md)
-  * [TensorFlow Serving](machine-learning-framework/tensorflow/tf_serving/tf_serving.md)
-  * [工具](machine-learning-framework/tensorflow/tools/tools.md)
-    * [TensorFlow中使用GPU](machine-learning-framework/tensorflow/tools/gpu/gpu.md)
-    * [TensorFlow中ckpt转pb文件（模型持久化）](machine-learning-framework/tensorflow/tools/ckpt-to-pb/ckpt-to-pb.md)
-    * [得到模型参数值](machine-learning-framework/tensorflow/tools/get-weight/get-weight.md)
-* [PyTorch](machine-learning-framework/pytorch/pytorch.md)
-  * [PyTorch基础](machine-learning-framework/pytorch/basis/basis.md)
-* [模型训练云服务器平台](machine-learning-framework/cloud-server-platform/cloud-server-platform.md)
-  * [AutoDL](machine-learning-framework/cloud-server-platform/AutoDL/AutoDL.md)
-  * [MistGPU](machine-learning-framework/cloud-server-platform/MistGPU/MistGPU.md)
-* [本地IDE远程连接服务器](machine-learning-framework/IDE-remote-link-server/IDE-remote-link-server.md)
-  * [Pycharm远程连接服务器](machine-learning-framework/IDE-remote-link-server/pycharm-remote-link-server/pycharm-remote-link-server.md)
-* [Ray分布式计算框架](machine-learning-framework/ray/ray.md)
-* [RLlib分布式强化学习系统](machine-learning-framework/rllib/rllib.md)
-* [大模型训练框架](machine-learning-framework/large-model-trainning-method/large-model-trainning-method.md)
-* [超算集群](machine-learning-framework/supercomputing-cluster/supercomputing-cluster.md)
-  * [微软: 用于训练ChatGPT的超算](machine-learning-framework/supercomputing-cluster/microsoft-supercomputing-cluster-for-chatgpt/microsoft-supercomputing-cluster-for-chatgpt.md)
+# [机器学习训练框架](machine-learning-training-framework/machine-learning-training-framework.md)
+* [Anaconda](machine-learning-training-framework/anaconda/anaconda.md)
+* [模型训练云服务器平台](machine-learning-training-framework/cloud-server-platform/cloud-server-platform.md)
+  - [AutoDL](machine-learning-training-framework/cloud-server-platform/AutoDL/AutoDL.md)
+  - [MistGPU](machine-learning-training-framework/cloud-server-platform/MistGPU/MistGPU.md)
+* [本地IDE远程连接服务器](machine-learning-training-framework/IDE-remote-link-server/IDE-remote-link-server.md)
+  - [Pycharm远程连接服务器](machine-learning-training-framework/IDE-remote-link-server/pycharm-remote-link-server/pycharm-remote-link-server.md)
+* [TensorFlow](machine-learning-training-framework/tensorflow/tensorflow.md)
+  * [TensorFlow1.0](machine-learning-training-framework/tensorflow/tensorflow1.0/tensorflow1.0.md)
+    * [TensorFlow基础](machine-learning-training-framework/tensorflow/tensorflow1.0/basis/basis.md)
+    * [TensorFlow基础概念解析](machine-learning-training-framework/tensorflow/tensorflow1.0/basic-concept-analysis/basic-concept-analysis.md)
+    * [TensorFlow机器学习基础](machine-learning-training-framework/tensorflow/tensorflow1.0/machine-learning-foundation/machine-learning-foundation.md)
+  * [TensorFlow2.0](machine-learning-training-framework/tensorflow/tensorflow2.0/tensorflow2.0.md)
+    * [TensorFlow2.0基础](machine-learning-training-framework/tensorflow/tensorflow2.0/basis/basis.md)
+    * [TensorFlow2.0安装](machine-learning-training-framework/tensorflow/tensorflow2.0/install/install.md)
+    * [keras](machine-learning-training-framework/tensorflow/tensorflow2.0/keras/keras.md)
+  * [Tensorflow分布式架构](machine-learning-training-framework/tensorflow/tensorflow-distributed-architecture/tensorflow-distributed-architecture.md)
+  * [TensorFlow Serving](machine-learning-training-framework/tensorflow/tf_serving/tf_serving.md)
+  * [工具](machine-learning-training-framework/tensorflow/tools/tools.md)
+    * [TensorFlow中使用GPU](machine-learning-training-framework/tensorflow/tools/gpu/gpu.md)
+    * [TensorFlow中ckpt转pb文件（模型持久化）](machine-learning-training-framework/tensorflow/tools/ckpt-to-pb/ckpt-to-pb.md)
+    * [得到模型参数值](machine-learning-training-framework/tensorflow/tools/get-weight/get-weight.md)
+* [PyTorch](machine-learning-training-framework/pytorch/pytorch.md)
+  * [PyTorch基础](machine-learning-training-framework/pytorch/basis/basis.md)
+* [强化学习训练框架](machine-learning-training-framework/reinforcement-learning-training-framework/reinforcement-learning-training-framework.md)
+  * [清华：天授](machine-learning-training-framework/reinforcement-learning-training-framework/tianshou/tianshou.md)
+  * [百度：PARL](machine-learning-training-framework/reinforcement-learning-training-framework/parl/parl.md) 采用了PaddlePaddle，而不是Pytorch
+  * [Ray分布式计算框架](machine-learning-training-framework/ray/ray.md)
+  * [RLlib分布式强化学习系统](machine-learning-training-framework/rllib/rllib.md)
+* [大模型训练框架](machine-learning-training-framework/large-model-trainning-framework/large-model-trainning-framework.md)
+* [超算集群](machine-learning-training-framework/supercomputing-cluster/supercomputing-cluster.md)
+  * [微软: 用于训练ChatGPT的超算](machine-learning-training-framework/supercomputing-cluster/microsoft-supercomputing-cluster-for-chatgpt/microsoft-supercomputing-cluster-for-chatgpt.md)
 
 # [计算机视觉](computer-vision/computer-vision.md)
 * ResNet 有捷径的(resnet的跳跃连接)
@@ -386,78 +389,78 @@
   * [Transformer模型tensorflow2.0官网demo代码解读](natural-language-processing/self-attention-and-transformer/transformer-tf2-demo-code-explain/transformer-tf2-demo-code-explain.md)
   * [Transformer的细节问题](natural-language-processing/self-attention-and-transformer/transformer-details/transformer-details.md)
 * [BERT](natural-language-processing/bert/bert.md)
-* [LLM大语言模型](natural-language-processing/large-language-model/large-language-model.md)
-  * [RLHF基于人工反馈的强化学习方法](natural-language-processing/large-language-model/rlhf/rlhf.md)
-    * Alpaca 斯坦福大学
-      - Alpaca 近日，斯坦福基于 Meta 的 LLaMA 7B 模型微调出一个新模型 Alpaca。该研究让 OpenAI 的 text-davinci-003 模型以 self-instruct 方式生成 52K 指令遵循（instruction-following）样本，以此作为Alpaca的训练数据。研究团队已将训练数据、生成训练数据的代码和超参数开源，后续还将发布模型权重和训练代码。 [斯坦福70亿参数开源模型媲美GPT-3.5，100美元即可复现](https://mp.weixin.qq.com/s/U6ioEygg5mlVpAIb2L3cZw)
-    * [ColossalChat By ](natural-language-processing/large-language-model/rlhf/ColossalChat/ColossalChat.md) ColossalChat开源了第一个完整的RLHF pipeline，斯坦福Alpaca没有做RLHF
-  * [LoRA大语言模型的低秩适应](natural-language-processing/large-language-model/lora/lora.md)
-  * [Prompt Learning](natural-language-processing/large-language-model/prompt-learning/prompt-learning.md)
-  * [Emergence涌现现象](natural-language-processing/large-language-model/emergence/emergence.md)
-  * [自己训练ChatGPT](natural-language-processing/large-language-model/train-ChatGPT-DIY/train-ChatGPT-DIY.md)
-  * [业界应用](natural-language-processing/large-language-model/industry-application/industry-application.md)
-    * [OpenAI](natural-language-processing/large-language-model/industry-application/openai/openai.md)
-      * [GTP系列介绍](natural-language-processing/large-language-model/industry-application/openai/gpt-series-introduction/gpt-series-introduction.md)
-      * [GPT前身Unsupervised Sentiment Neuron](natural-language-processing/large-language-model/industry-application/openai/unsupervised-sentiment-neuron/unsupervised-sentiment-neuron.md)
-        * [Unsupervised Sentiment Neuron](natural-language-processing/large-language-model/industry-application/openai/unsupervised-sentiment-neuron/unsupervised-sentiment-neuron/unsupervised-sentiment-neuron.md)
-        * [Learning to Generate Reviews and Discovering Sentiment ArXiv2017](natural-language-processing/large-language-model/industry-application/openai/unsupervised-sentiment-neuron/paper/Learning-to-Generate-Reviews.md)
-      * GPT1
-      * GPT2
-      * GPT3 语言生成模型 根据Lambda官网数据，微软为OpenAI设计了一个包含10000块Nvidia V100 GPU的分布式集群进行GPT-3的模型训练，由于模型参数量较大（共1750亿参数），训练完成共耗费30天，消耗总算力为 3640PF-days。以Nvidia Tesla V100的 Lambda GPU实例定价为1.50 美元/小时测算，GPT-3的完整训练成本将达到466万美元/次。
-      * Codex
-      * GPT-3.5
-      * instructGPT
-      * [ChatGPT](natural-language-processing/large-language-model/industry-application/openai/ChatGPT/ChatGPT.md) 聊天机器人
-      * [GPT-4](natural-language-processing/large-language-model/industry-application/openai/GPT-4/GPT-4.md) 202303 输入图/文，输出文
-    * MiscroSoft
-      - Copilot MiscroSoft和OpenAI联合打造的AI编程工具，基于OpenAI的大模型Codex，基于GPT-3框架进行训练
-      - Kosmos-1 20230227发布，第二种才是真正的多模态LLM，才是GPT-4的魅力，他的原理目前OpenAI没有公布细节，但是大家可以参考微软在2月27日发布的Kosmos-1的论文（想一想，为什么偏偏是OpenAI的深度合作伙伴发了这篇论文）。
-    * [Meta](natural-language-processing/large-language-model/industry-application/meta/meta.md)
-      - [OPT](natural-language-processing/large-language-model/industry-application/meta/opt/opt.md) 复现开源了GPT3
-      - [LLaMa](natural-language-processing/large-language-model/industry-application/meta/LLaMa/LLaMa.md) ** 对标OpenAI的ChatGPT，开源，发布于202302
-    * [Google](natural-language-processing/large-language-model/industry-application/google/google.md)
-      * LaMDA 发布于202105 I/O大会
-      * PaLM 202204 5400亿参数
-      * LaMDA-2 202205 I/O大会
-      * T5
-      * [Bard](natural-language-processing/large-language-model/industry-application/google/Bard/Bard.md) 聊天机器人，对标OpenAI的ChatGPT，发布于202302
-      * ReAct是来自谷歌论文《Synergizing Reasoning and Acting in Language Models》中的一个方法，它是2022年12月发表的。这是一种eason+Act（ReAct）的方式，让大模型的行动和推理一起协同，提高大模型解决问题的能力。也就是让模型在访问外部知识的情况下和自己的模型能力结合。其实这就是Bing中的ChatGPT的运行方式！这个简单的方法可以让模型有更强的能力。而它的实现其实只需要简单的几行代码即可。因此，在前面的低成本+浏览器运行的基础上，加上ReAct改造，几乎可以得到一个与ChatGPT类似或者甚至更好的对话模型！
-    * Together
-      * OpenChatKit ChatGPT的开源平替来了，源代码、模型权重和训练数据集全部公开。由前OpenAI研究员共同打造。[如何看待 Together 推出的开源聊天大模型 OpenChatKit？能否替代 ChatGPT？](https://www.zhihu.com/question/589094770/answer/2934277284)，[ChatGPT开源平替来了，开箱即用！前OpenAI团队打造](https://mp.weixin.qq.com/s/EQk9i6Bu_BMsc6AEYCFI3A)
-    * [阿里达摩院](natural-language-processing/large-language-model/industry-application/alibaba/alibaba.md)
-      * [中文GPT3](natural-language-processing/large-language-model/industry-application/alibaba/gpt3-chinese/gpt3-chinese.md) 对标GPT-3的开源项目
-    * 元语智能
-      * PromptCLUE1.0 202210
-      * PromptCLUE1.5 202211
-      * ChatYuan 202212
-    * [百度](natural-language-processing/large-language-model/industry-application/baidu/baidu.md)
-      * [ERNIE-Bot文心一言](natural-language-processing/large-language-model/industry-application/baidu/ERNIE-Bot/ERNIE-Bot.md) 202302
-    * [BlinkDL](natural-language-processing/large-language-model/industry-application/blinkdl/blinkdl.md)
-      * [ChatRWKV](natural-language-processing/large-language-model/industry-application/blinkdl/ChatRWKV/ChatRWKV.md) 对标ChatGPT的开源项目，基于RNN架构 202208
-    * [HPC-AI Tech](natural-language-processing/large-language-model/industry-application/hpcaitech/hpcaitech.md)
-      * [ColossalAI](natural-language-processing/large-language-model/industry-application/hpcaitech/colossal-ai/ColossalAI.md) 对标ChatGPT的开源项目 202302
-    * [复旦大学自然语言处理实验室邱锡鹏团队](natural-language-processing/large-language-model/industry-application/fudan-university-nlp-group/fudan-university-nlp-group.md)
-      * [MOSS](natural-language-processing/large-language-model/industry-application/fudan-university-nlp-group/moss/moss.md) 对标ChatGPT已开源 202302
-    * 智谱AI
-      * ChatGLM 近日，由清华技术成果转化的公司智谱AI开源了GLM系列模型的新成员——**中英双语对话模型ChatGLM-6B**，支持在单张消费级显卡上进行推理使用。这是继此前开源GLM-130B千亿基座模型之后，智谱AI再次推出大模型方向的研究成果。与此同时，基于千亿基座模型的ChatGLM也同期推出，初具问答和对话功能 [ChatGLM：千亿基座的对话模型启动内测，单卡版模型已全面开源](https://mp.weixin.qq.com/s/08s-BlV5N3jytlSsd5hZ0g)
-    * [百川智能](natural-language-processing/large-language-model/industry-application/baichuan-intelligence/baichuan-intelligence.md)
-      * [baichuan-7B](natural-language-processing/large-language-model/industry-application/baichuan-intelligence/baichuan-7B/baichuan-7B.md) 开源 202306
 
 # [多模态大模型](multimodal-large-model/multimodal-large-model.md)
-* [Foundation Models基础模型](multimodal-large-model/foundation-models/foundation-models.md)
-  * [On the Opportunities and Risks of Foundation Models Stanford2021李飞飞](multimodal-large-model/foundation-models/foundation-models-LeiFeiFei/On-the-Opportunities-and-Risks-of-Foundation-Models.md)
-  * [Can Foundation Models Perform Zero Shot For Robot PMLR2022](multimodal-large-model/foundation-models/Can-Foundation-Models-Perform-Zero-Shot-For-Robot/Can-Foundation-Models-Perform-Zero-Shot-For-Robot.md)
+
+- [Foundation Models基础模型](multimodal-large-model/foundation-models/foundation-models.md)
+  - [On the Opportunities and Risks of Foundation Models Stanford2021李飞飞](multimodal-large-model/foundation-models/foundation-models-LeiFeiFei/On-the-Opportunities-and-Risks-of-Foundation-Models.md)
+  - [Can Foundation Models Perform Zero Shot For Robot PMLR2022](multimodal-large-model/foundation-models/Can-Foundation-Models-Perform-Zero-Shot-For-Robot/Can-Foundation-Models-Perform-Zero-Shot-For-Robot.md)
+
+* [RLHF基于人工反馈的强化学习方法](multimodal-large-model/rlhf/rlhf.md)
+* [LoRA大语言模型的低秩适应](multimodal-large-model/lora/lora.md)
+* [Prompt Learning](multimodal-large-model/prompt-learning/prompt-learning.md)
+* [Emergence涌现现象](multimodal-large-model/emergence/emergence.md)
+* [自己训练ChatGPT](multimodal-large-model/train-ChatGPT-DIY/train-ChatGPT-DIY.md)
 * [业界应用](multimodal-large-model/industry-application/industry-application.md)
   * [OpenAI](multimodal-large-model/industry-application/openai/openai.md)
-    * DALL·E 图像生成平台
-    * CLIP
-    * DALL·E2
-    * [Point-E 202212 文本生成3D点云模型](multimodal-large-model/industry-application/openai/point-e/point-e.md)
-    * [sora202402文字生成视频]()
+    * 可能大家对于绘画了解的比较多的是midjourney与stable diffusion，实际上这两个产品的基本技术都来源于DALL-E系列，那里的OpenAI还是Open的，它的论文还有足够的内容让我们理解，它里边有什么。于是大家根据它的2021年的DALL-E及CLIP这两个论文，搞出来midjourney，而stable diffusion也是在这个基础上的一个开源方案。
+    * 2021 DALL·E1
+    * 2021 CLIP
+    * 2022 DALL-E2
+    * 2023 DALL-E3 已融合进GPT4中
+    * 202212 [Point-E](multimodal-large-model/industry-application/openai/point-e/point-e.md) 文本生成3D点云模型
+    * [GTP系列介绍](multimodal-large-model/industry-application/openai/gpt-series-introduction/gpt-series-introduction.md)
+    * [GPT前身Unsupervised Sentiment Neuron](multimodal-large-model/industry-application/openai/unsupervised-sentiment-neuron/unsupervised-sentiment-neuron.md)
+      * [Unsupervised Sentiment Neuron](multimodal-large-model/industry-application/openai/unsupervised-sentiment-neuron/unsupervised-sentiment-neuron/unsupervised-sentiment-neuron.md)
+      * [Learning to Generate Reviews and Discovering Sentiment ArXiv2017](multimodal-large-model/industry-application/openai/unsupervised-sentiment-neuron/paper/Learning-to-Generate-Reviews.md)
+    * GPT1
+    * GPT2
+    * GPT3 语言生成模型 根据Lambda官网数据，微软为OpenAI设计了一个包含10000块Nvidia V100 GPU的分布式集群进行GPT-3的模型训练，由于模型参数量较大（共1750亿参数），训练完成共耗费30天，消耗总算力为 3640PF-days。以Nvidia Tesla V100的Lambda GPU实例定价为1.50 美元/小时测算，GPT-3的完整训练成本将达到466万美元/次。
+    * Codex
+    * GPT-3.5
+    * instructGPT
+    * [ChatGPT](multimodal-large-model/industry-application/openai/ChatGPT/ChatGPT.md) 聊天机器人
+    * 202303 [GPT-4](multimodal-large-model/industry-application/openai/GPT-4/GPT-4.md) 输入图/文，输出文
+    * 202402 sora 文字生成视频
+  * [Meta](multimodal-large-model/industry-application/meta/meta.md)
+    - [OPT](multimodal-large-model/industry-application/meta/opt/opt.md) 复现开源了GPT3
+    - 202302 [LLaMa](multimodal-large-model/industry-application/meta/LLaMa/LLaMa.md) **对标OpenAI的ChatGPT，开源**
   * Stability.ai
-    * Stable Diffusion开源
+    - Stable Diffusion开源
+  * MiscroSoft
+    - Copilot MiscroSoft和OpenAI联合打造的AI编程工具，基于OpenAI的大模型Codex，基于GPT-3框架进行训练
+    - Kosmos-1 20230227发布，第二种才是真正的多模态LLM，才是GPT-4的魅力，他的原理目前OpenAI没有公布细节，但是大家可以参考微软在2月27日发布的Kosmos-1的论文（想一想，为什么偏偏是OpenAI的深度合作伙伴发了这篇论文）。
+  * [Google](multimodal-large-model/industry-application/google/google.md)
+    * 202105 LaMDA I/O大会
+    * 202204 PaLM 5400亿参数
+    * 202205 LaMDA-2 I/O大会
+    * T5
+    * 202302 [Bard](multimodal-large-model/industry-application/google/Bard/Bard.md) 聊天机器人，对标OpenAI的ChatGPT
+    * ReAct是来自谷歌论文《Synergizing Reasoning and Acting in Language Models》中的一个方法，它是2022年12月发表的。这是一种eason+Act（ReAct）的方式，让大模型的行动和推理一起协同，提高大模型解决问题的能力。也就是让模型在访问外部知识的情况下和自己的模型能力结合。其实这就是Bing中的ChatGPT的运行方式！这个简单的方法可以让模型有更强的能力。而它的实现其实只需要简单的几行代码即可。因此，在前面的低成本+浏览器运行的基础上，加上ReAct改造，几乎可以得到一个与ChatGPT类似或者甚至更好的对话模型！
+  * 智谱AI
+    - ChatGLM 近日，由清华技术成果转化的公司智谱AI开源了GLM系列模型的新成员——**中英双语对话模型ChatGLM-6B**，支持在单张消费级显卡上进行推理使用。这是继此前开源GLM-130B千亿基座模型之后，智谱AI再次推出大模型方向的研究成果。与此同时，基于千亿基座模型的ChatGLM也同期推出，初具问答和对话功能 [ChatGLM：千亿基座的对话模型启动内测，单卡版模型已全面开源](https://mp.weixin.qq.com/s/08s-BlV5N3jytlSsd5hZ0g)
+  * Together
+    * OpenChatKit ChatGPT的开源平替来了，源代码、模型权重和训练数据集全部公开。由前OpenAI研究员共同打造。[如何看待 Together 推出的开源聊天大模型 OpenChatKit？能否替代 ChatGPT？](https://www.zhihu.com/question/589094770/answer/2934277284)，[ChatGPT开源平替来了，开箱即用！前OpenAI团队打造](https://mp.weixin.qq.com/s/EQk9i6Bu_BMsc6AEYCFI3A)
+  * [阿里达摩院](multimodal-large-model/industry-application/alibaba/alibaba.md)
+    * [中文GPT3](multimodal-large-model/industry-application/alibaba/gpt3-chinese/gpt3-chinese.md) 对标GPT-3的开源项目
+  * 元语智能
+    * 202210 PromptCLUE1.0
+    * 202211 PromptCLUE1.5
+    * 202212 ChatYuan
+  * [百度](multimodal-large-model/industry-application/baidu/baidu.md)
+    * 202302 [ERNIE-Bot文心一言](multimodal-large-model/industry-application/baidu/ERNIE-Bot/ERNIE-Bot.md)
+  * [BlinkDL](multimodal-large-model/industry-application/blinkdl/blinkdl.md)
+    * 202208 [ChatRWKV](multimodal-large-model/industry-application/blinkdl/ChatRWKV/ChatRWKV.md) 对标ChatGPT的开源项目，基于RNN架构
+  * Alpaca 斯坦福大学
+    - Alpaca 近日，斯坦福基于 Meta 的 LLaMA 7B 模型微调出一个新模型 Alpaca。该研究让 OpenAI 的 text-davinci-003 模型以 self-instruct 方式生成 52K 指令遵循（instruction-following）样本，以此作为Alpaca的训练数据。研究团队已将训练数据、生成训练数据的代码和超参数开源，后续还将发布模型权重和训练代码。 [斯坦福70亿参数开源模型媲美GPT-3.5，100美元即可复现](https://mp.weixin.qq.com/s/U6ioEygg5mlVpAIb2L3cZw)
+  * [HPC-AI Tech](multimodal-large-model/industry-application/hpcaitech/hpcaitech.md)
+    * 202302 [ColossalChat](multimodal-large-model/industry-application/hpcaitech/colossalChat/ColossalChat.md) 对标ChatGPT的开源项目。ColossalChat开源了第一个完整的RLHF pipeline，斯坦福Alpaca没有做RLHF
+  * [复旦大学自然语言处理实验室邱锡鹏团队](multimodal-large-model/industry-application/fudan-university-nlp-group/fudan-university-nlp-group.md)
+    * 202302 [MOSS](multimodal-large-model/industry-application/fudan-university-nlp-group/moss/moss.md) 对标ChatGPT已开源
+  * [百川智能](multimodal-large-model/industry-application/baichuan-intelligence/baichuan-intelligence.md)
+    * 202306 [baichuan-7B](multimodal-large-model/industry-application/baichuan-intelligence/baichuan-7B/baichuan-7B.md) 开源
   * Salesforce Research
-    * BLIP-2 图像生成文字，能力堪比ChatGPT
+    - 图生文BLIP-2 能力堪比ChatGPT
 
 # [AutoML](auto-machine-learning/auto-machine-learning.md)
 * [AutoML介绍](auto-machine-learning/auto-machine-learning-introduction/auto-ml-introduction.md)

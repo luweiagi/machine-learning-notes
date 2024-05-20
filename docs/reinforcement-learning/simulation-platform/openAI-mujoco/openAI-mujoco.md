@@ -16,12 +16,35 @@
 
 # mujoco和mujoco-py简介
 
+mujoco官网： https://mujoco.org/
+
+![mujoco-sim](pic/mujoco-sim.gif)
+
+2018年4月27日，OpenAI开源了一个高性能的Python库mujoco-py，主要用于使用MuJoCo引擎进行机器人模拟。MuJoCo是一个物理引擎，是在去年的机器人研究中开发出来的。 mujoco-py是机器人模拟Python库——高效处理并行模拟，GPU加速自动3D渲染。
+
 mujoco和mujoco-py的关系：
 
 * mujoco是一个物理引擎，主要应用于强化学习和最优化控制领域。
 * mujoco-py是mujoco编程的python接口，由OpenAI Gym开发，可以使用mujoco_py方便地调用mujoco的API。
 
-mujoco官网： https://mujoco.org/
+mujoco-py源码地址
+
+> https://github.com/openai/mujoco-py
+
+文档地址
+
+> https://openai.github.io/mujoco-py/build/html/index.html
+
+该库是OpenAI深度学习机器人研究的核心工具之一，现作为mujoco-py的主要版本发布。mujoco-py1.50.1.0（初版）带来了不少新功能，性能方面也有了明显的提升，具体新功能包括：
+
+- 可高效处理并行模拟
+- GPU加速自动3D渲染
+- 可直接获取MuJoCo函数和数据结构
+- 支持所有MuJoCo1.50功能
+
+![mujoco-sim-2](pic/mujoco-sim-2.gif)
+
+# 安装mujoco
 
 **不同mujoco版本对应的mujoco-py版本**
 
@@ -42,8 +65,6 @@ Mujoco210对应的Mujoco-py版本
 ```shell
 pip install mujoco-py==2.1.2.14
 ```
-
-# 安装mujoco
 
  下面介绍Ubuntu20.04下安装mujoco210和mujoco-py。
 

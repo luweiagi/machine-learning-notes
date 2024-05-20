@@ -2,7 +2,8 @@
 
 * [返回上层目录](../reinforcement-learning.md)
 * [OpenAI: Gym](openai-gym/openai-gym.md)
-* [OpenDILab: GoBigger](OpenDILab-GoBigger/OpenDILab-GoBigger.md)
+* [OpenAI: MuJoCo](openAI-mujoco/openAI-mujoco.md)
+* [OpenDILab: GoBigger多智能体仿真平台](OpenDILab-GoBigger/OpenDILab-GoBigger.md)
 
 
 

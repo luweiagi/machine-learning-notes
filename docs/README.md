@@ -270,12 +270,12 @@
     * [PPO: Proximal Policy Optimization arXiv2017OpenAI](reinforcement-learning/reinforcement-learning/paper/ppo/Proximal-Policy-Optimization.md)
     * [Soft Actor-Critic](https://www.paperexplained.cn/articles/paper/detail/811df72e210e20de99719539505da54762a11c6d/)
 * [仿真环境](reinforcement-learning/simulation-platform/simulation-platform.md)
-  * [OpenAI: Gym](reinforcement-learning/simulation-platform/openai-gym/openai-gym.md)
-  * MuJoCo
+  * [OpenAI: Gym](reinforcement-learning/simulation-platform/openAI-gym/openAI-gym.md)
+  * [OpenAI: Mujoco](reinforcement-learning/simulation-platform/openAI-mujoco/openAI-mujoco.md)
+  * [OpenDILab: GoBigger多智能体仿真平台](reinforcement-learning/simulation-platform/OpenDILab-GoBigger/OpenDILab-GoBigger.md)
   * Unity3D: ml-agents
     简言之：行为树是适合解决复杂AI的解决方案。
     对于Unity用户，Unity商店现在已经有一个比较完善的行为树设计(Behavior Designer)插件可供购买使用。  
-  * [OpenDILab: GoBigger多智能体仿真平台](reinforcement-learning/simulation-platform/OpenDILab-GoBigger/OpenDILab-GoBigger.md)
 * [Sim2Real从仿真器到现实环境的迁移](reinforcement-learning/sim2real/sim2real.md)
   * [论文](reinforcement-learning/sim2real/paper/paper.md)
     * [i-Sim2Real: Reinforcement Learning of Robotic Policies in Tight Human-Robot Interaction Loops arXiv2022 Google](reinforcement-learning/sim2real/paper/i-sim2real/i-Sim2Real-Reinforcement-Learning-of-Robotic-Policies-in-Tight-Human-Robot-Interaction-Loops.md)

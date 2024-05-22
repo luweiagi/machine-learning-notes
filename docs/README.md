@@ -355,8 +355,9 @@
 * [PyTorch](machine-learning-training-framework/pytorch/pytorch.md)
   * [PyTorch基础](machine-learning-training-framework/pytorch/basis/basis.md)
 * [强化学习训练框架](machine-learning-training-framework/reinforcement-learning-training-framework/reinforcement-learning-training-framework.md)
+  * [强化学习开源框架整理](machine-learning-training-framework/reinforcement-learning-framework-introduction/reinforcement-learning-framework-introduction.md)
   * [清华：天授](machine-learning-training-framework/reinforcement-learning-training-framework/tianshou/tianshou.md)
-  * [百度：PARL](machine-learning-training-framework/reinforcement-learning-training-framework/parl/parl.md) 采用了PaddlePaddle，而不是Pytorch
+  * [百度：PARL](machine-learning-training-framework/reinforcement-learning-training-framework/parl/parl.md) 用PaddlePaddle实现了所有算法，用Pytorch实现了部分算法
   * [Ray分布式计算框架](machine-learning-training-framework/reinforcement-learning-training-framework/ray/ray.md)
   * [RLlib分布式强化学习系统](machine-learning-training-framework/reinforcement-learning-training-framework/rllib/rllib.md)
 * [大模型训练框架](machine-learning-training-framework/large-model-trainning-framework/large-model-trainning-framework.md)

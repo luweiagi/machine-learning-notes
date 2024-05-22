@@ -6,6 +6,8 @@
 
 
 
+![parl-logo](pic/parl-logo.png)
+
 # PARL介绍
 
 PARL是**百度**出的一款强化学习训练框架/算法库。
@@ -51,7 +53,7 @@ python train.py
 
 ![example-test-error](pic/example-test-error.png)
 
-分析原因：怀疑是那个quickstart目录下的cartpole model.py中的类是继承了parl.Model，其在某个版本不支持parameter参数，解决办法是在这个目录下执行`pip install -r requirement.txt`，然后再运行train
+分析原因：怀疑是那个quickstart目录下的cartpole model.py中的类是继承了parl.Model，其在某个版本不支持parameter参数，解决办法是在这个目录下执行`pip install -r requirement.txt`，只安装quickstart那个目录下的requirements，其他的不用装。然后再运行train.py
 
 尝试执行
 

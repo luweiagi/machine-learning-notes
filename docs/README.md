@@ -333,18 +333,18 @@
 # [机器学习训练框架](machine-learning-training-framework/machine-learning-training-framework.md)
 * [Anaconda](machine-learning-training-framework/anaconda/anaconda.md)
 * [模型训练云服务器平台](machine-learning-training-framework/cloud-server-platform/cloud-server-platform.md)
-  - [AutoDL](machine-learning-training-framework/cloud-server-platform/AutoDL/AutoDL.md)
-  - [MistGPU](machine-learning-training-framework/cloud-server-platform/MistGPU/MistGPU.md)
+  * [AutoDL](machine-learning-training-framework/cloud-server-platform/AutoDL/AutoDL.md)
+  * [MistGPU](machine-learning-training-framework/cloud-server-platform/MistGPU/MistGPU.md)
 * [本地IDE远程连接服务器](machine-learning-training-framework/IDE-remote-link-server/IDE-remote-link-server.md)
-  - [Pycharm远程连接服务器](machine-learning-training-framework/IDE-remote-link-server/pycharm-remote-link-server/pycharm-remote-link-server.md)
+  * [Pycharm远程连接服务器](machine-learning-training-framework/IDE-remote-link-server/pycharm-remote-link-server/pycharm-remote-link-server.md)
 * [TensorFlow](machine-learning-training-framework/tensorflow/tensorflow.md)
   * [TensorFlow1.0](machine-learning-training-framework/tensorflow/tensorflow1.0/tensorflow1.0.md)
     * [TensorFlow基础](machine-learning-training-framework/tensorflow/tensorflow1.0/basis/basis.md)
     * [TensorFlow基础概念解析](machine-learning-training-framework/tensorflow/tensorflow1.0/basic-concept-analysis/basic-concept-analysis.md)
     * [TensorFlow机器学习基础](machine-learning-training-framework/tensorflow/tensorflow1.0/machine-learning-foundation/machine-learning-foundation.md)
   * [TensorFlow2.0](machine-learning-training-framework/tensorflow/tensorflow2.0/tensorflow2.0.md)
-    * [TensorFlow2.0基础](machine-learning-training-framework/tensorflow/tensorflow2.0/basis/basis.md)
     * [TensorFlow2.0安装](machine-learning-training-framework/tensorflow/tensorflow2.0/install/install.md)
+    * [理解Eager模式及tf.function](machine-learning-training-framework/tensorflow/tensorflow2.0/eager-mode-and-tf.function/eager-mode-and-tf.function.md)
     * [keras](machine-learning-training-framework/tensorflow/tensorflow2.0/keras/keras.md)
   * [Tensorflow分布式架构](machine-learning-training-framework/tensorflow/tensorflow-distributed-architecture/tensorflow-distributed-architecture.md)
   * [TensorFlow Serving](machine-learning-training-framework/tensorflow/tf_serving/tf_serving.md)
@@ -392,11 +392,9 @@
 * [BERT](natural-language-processing/bert/bert.md)
 
 # [多模态大模型](multimodal-large-model/multimodal-large-model.md)
-
-- [Foundation Models基础模型](multimodal-large-model/foundation-models/foundation-models.md)
-  - [On the Opportunities and Risks of Foundation Models Stanford2021李飞飞](multimodal-large-model/foundation-models/foundation-models-LeiFeiFei/On-the-Opportunities-and-Risks-of-Foundation-Models.md)
-  - [Can Foundation Models Perform Zero Shot For Robot PMLR2022](multimodal-large-model/foundation-models/Can-Foundation-Models-Perform-Zero-Shot-For-Robot/Can-Foundation-Models-Perform-Zero-Shot-For-Robot.md)
-
+* [Foundation Models基础模型](multimodal-large-model/foundation-models/foundation-models.md)
+  * [On the Opportunities and Risks of Foundation Models Stanford2021李飞飞](multimodal-large-model/foundation-models/foundation-models-LeiFeiFei/On-the-Opportunities-and-Risks-of-Foundation-Models.md)
+  * [Can Foundation Models Perform Zero Shot For Robot PMLR2022](multimodal-large-model/foundation-models/Can-Foundation-Models-Perform-Zero-Shot-For-Robot/Can-Foundation-Models-Perform-Zero-Shot-For-Robot.md)
 * [RLHF基于人工反馈的强化学习方法](multimodal-large-model/rlhf/rlhf.md)
 * [LoRA大语言模型的低秩适应](multimodal-large-model/lora/lora.md)
 * [Prompt Learning](multimodal-large-model/prompt-learning/prompt-learning.md)
@@ -424,13 +422,13 @@
     * 202303 [GPT-4](multimodal-large-model/industry-application/openai/GPT-4/GPT-4.md) 输入图/文，输出文
     * 202402 sora 文字生成视频
   * [Meta](multimodal-large-model/industry-application/meta/meta.md)
-    - [OPT](multimodal-large-model/industry-application/meta/opt/opt.md) 复现开源了GPT3
-    - 202302 [LLaMa](multimodal-large-model/industry-application/meta/LLaMa/LLaMa.md) **对标OpenAI的ChatGPT，开源**
+    * [OPT](multimodal-large-model/industry-application/meta/opt/opt.md) 复现开源了GPT3
+    * 202302 [LLaMa](multimodal-large-model/industry-application/meta/LLaMa/LLaMa.md) **对标OpenAI的ChatGPT，开源**
   * Stability.ai
-    - Stable Diffusion开源
+    * Stable Diffusion开源
   * MiscroSoft
-    - Copilot MiscroSoft和OpenAI联合打造的AI编程工具，基于OpenAI的大模型Codex，基于GPT-3框架进行训练
-    - Kosmos-1 20230227发布，第二种才是真正的多模态LLM，才是GPT-4的魅力，他的原理目前OpenAI没有公布细节，但是大家可以参考微软在2月27日发布的Kosmos-1的论文（想一想，为什么偏偏是OpenAI的深度合作伙伴发了这篇论文）。
+    * Copilot MiscroSoft和OpenAI联合打造的AI编程工具，基于OpenAI的大模型Codex，基于GPT-3框架进行训练
+    * Kosmos-1 20230227发布，第二种才是真正的多模态LLM，才是GPT-4的魅力，他的原理目前OpenAI没有公布细节，但是大家可以参考微软在2月27日发布的Kosmos-1的论文（想一想，为什么偏偏是OpenAI的深度合作伙伴发了这篇论文）。
   * [Google](multimodal-large-model/industry-application/google/google.md)
     * 202105 LaMDA I/O大会
     * 202204 PaLM 5400亿参数
@@ -439,7 +437,7 @@
     * 202302 [Bard](multimodal-large-model/industry-application/google/Bard/Bard.md) 聊天机器人，对标OpenAI的ChatGPT
     * ReAct是来自谷歌论文《Synergizing Reasoning and Acting in Language Models》中的一个方法，它是2022年12月发表的。这是一种eason+Act（ReAct）的方式，让大模型的行动和推理一起协同，提高大模型解决问题的能力。也就是让模型在访问外部知识的情况下和自己的模型能力结合。其实这就是Bing中的ChatGPT的运行方式！这个简单的方法可以让模型有更强的能力。而它的实现其实只需要简单的几行代码即可。因此，在前面的低成本+浏览器运行的基础上，加上ReAct改造，几乎可以得到一个与ChatGPT类似或者甚至更好的对话模型！
   * 智谱AI
-    - ChatGLM 近日，由清华技术成果转化的公司智谱AI开源了GLM系列模型的新成员——**中英双语对话模型ChatGLM-6B**，支持在单张消费级显卡上进行推理使用。这是继此前开源GLM-130B千亿基座模型之后，智谱AI再次推出大模型方向的研究成果。与此同时，基于千亿基座模型的ChatGLM也同期推出，初具问答和对话功能 [ChatGLM：千亿基座的对话模型启动内测，单卡版模型已全面开源](https://mp.weixin.qq.com/s/08s-BlV5N3jytlSsd5hZ0g)
+    * ChatGLM 近日，由清华技术成果转化的公司智谱AI开源了GLM系列模型的新成员——**中英双语对话模型ChatGLM-6B**，支持在单张消费级显卡上进行推理使用。这是继此前开源GLM-130B千亿基座模型之后，智谱AI再次推出大模型方向的研究成果。与此同时，基于千亿基座模型的ChatGLM也同期推出，初具问答和对话功能 [ChatGLM：千亿基座的对话模型启动内测，单卡版模型已全面开源](https://mp.weixin.qq.com/s/08s-BlV5N3jytlSsd5hZ0g)
   * Together
     * OpenChatKit ChatGPT的开源平替来了，源代码、模型权重和训练数据集全部公开。由前OpenAI研究员共同打造。[如何看待 Together 推出的开源聊天大模型 OpenChatKit？能否替代 ChatGPT？](https://www.zhihu.com/question/589094770/answer/2934277284)，[ChatGPT开源平替来了，开箱即用！前OpenAI团队打造](https://mp.weixin.qq.com/s/EQk9i6Bu_BMsc6AEYCFI3A)
   * [阿里达摩院](multimodal-large-model/industry-application/alibaba/alibaba.md)
@@ -453,7 +451,7 @@
   * [BlinkDL](multimodal-large-model/industry-application/blinkdl/blinkdl.md)
     * 202208 [ChatRWKV](multimodal-large-model/industry-application/blinkdl/ChatRWKV/ChatRWKV.md) 对标ChatGPT的开源项目，基于RNN架构
   * Alpaca 斯坦福大学
-    - Alpaca 近日，斯坦福基于 Meta 的 LLaMA 7B 模型微调出一个新模型 Alpaca。该研究让 OpenAI 的 text-davinci-003 模型以 self-instruct 方式生成 52K 指令遵循（instruction-following）样本，以此作为Alpaca的训练数据。研究团队已将训练数据、生成训练数据的代码和超参数开源，后续还将发布模型权重和训练代码。 [斯坦福70亿参数开源模型媲美GPT-3.5，100美元即可复现](https://mp.weixin.qq.com/s/U6ioEygg5mlVpAIb2L3cZw)
+    * Alpaca 近日，斯坦福基于 Meta 的 LLaMA 7B 模型微调出一个新模型 Alpaca。该研究让 OpenAI 的 text-davinci-003 模型以 self-instruct 方式生成 52K 指令遵循（instruction-following）样本，以此作为Alpaca的训练数据。研究团队已将训练数据、生成训练数据的代码和超参数开源，后续还将发布模型权重和训练代码。 [斯坦福70亿参数开源模型媲美GPT-3.5，100美元即可复现](https://mp.weixin.qq.com/s/U6ioEygg5mlVpAIb2L3cZw)
   * [HPC-AI Tech](multimodal-large-model/industry-application/hpcaitech/hpcaitech.md)
     * 202302 [ColossalChat](multimodal-large-model/industry-application/hpcaitech/colossalChat/ColossalChat.md) 对标ChatGPT的开源项目。ColossalChat开源了第一个完整的RLHF pipeline，斯坦福Alpaca没有做RLHF
   * [复旦大学自然语言处理实验室邱锡鹏团队](multimodal-large-model/industry-application/fudan-university-nlp-group/fudan-university-nlp-group.md)
@@ -461,7 +459,7 @@
   * [百川智能](multimodal-large-model/industry-application/baichuan-intelligence/baichuan-intelligence.md)
     * 202306 [baichuan-7B](multimodal-large-model/industry-application/baichuan-intelligence/baichuan-7B/baichuan-7B.md) 开源
   * Salesforce Research
-    - 图生文BLIP-2 能力堪比ChatGPT
+    * 图生文BLIP-2 能力堪比ChatGPT
 
 # [AutoML](auto-machine-learning/auto-machine-learning.md)
 * [AutoML介绍](auto-machine-learning/auto-machine-learning-introduction/auto-ml-introduction.md)
@@ -577,8 +575,8 @@
   * [李群李代数](autopilot/navigation/lie-group-and-lie-algebra/lie-group-and-lie-algebra.md)
   * [基于互补滤波的组合导航](autopilot/navigation/complementary-filtering/complementary-filtering.md)
 * 仿真
-  - [gym-jsbsim:使用JSBSim飞行动力学模型的飞机控制强化学习环境](https://download.csdn.net/download/weixin_42165980/18471290)
-  - [GymFC是一个OpenAI环境](https://blog.csdn.net/dumao0620/article/details/127667719)
+  * [gym-jsbsim:使用JSBSim飞行动力学模型的飞机控制强化学习环境](https://download.csdn.net/download/weixin_42165980/18471290)
+  * [GymFC是一个OpenAI环境](https://blog.csdn.net/dumao0620/article/details/127667719)
 * [动力学模型](autopilot/dynamic-model/dynamic-model.md)
   * 六自由度动力学与运动学模型
   * [空气动力学](autopilot/dynamic-model/aerodynamics/aerodynamics.md)

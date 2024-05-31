@@ -1,10 +1,14 @@
-# TensorFlow2.0基础
+# TensorFlow2.0安装
 
 * [返回上层目录](../tensorflow2.0.md)
+* [安装Tensorflow2.0](#安装Tensorflow2.0)
+  * [Anaconda下安装Tensorflow2.0](#Anaconda下安装Tensorflow2.0)
+  * [linux系统下安装Tensorflow2.1](#linux系统下安装Tensorflow2.1)
+* [测试是否支持GPU](#测试是否支持GPU)
 
 
 
-# 安装Tensorflow
+# 安装Tensorflow2.0
 
 ## Anaconda下安装Tensorflow2.0
 

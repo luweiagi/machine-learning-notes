@@ -12,10 +12,6 @@
 
 ==
 
-* [《30天吃掉那只 TensorFlow2.0 》](https://github.com/lyhue1991/eat_tensorflow2_in_30_days)
-
-可以参考其框架目录。
-
 * [tensorflow架构](https://blog.csdn.net/stdcoutzyx/article/details/51645396)
 
 

@@ -14,6 +14,34 @@ GitHub: [openai/baselines/ppo2](https://github.com/openai/baselines/tree/master/
 
 
 
+DeepMind先在2017年7月月初发了PPO的paper，但是他们参考了OpenAI的一个资料，然后OpenAI发现竟然被DeepMind抢先发了，于是OpenAI也就跟着发了PPO。
+
+# 理解PPO，看李宏毅的视频
+
+[李宏毅深度强化学习(国语)课程(2018) 策略梯度](https://www.bilibili.com/video/BV1MW411w79n/?p=1&vd_source=147fb813418c7610c21b6a5618c85cb7)
+
+[李宏毅深度强化学习(国语)课程(2018) PPO](https://www.bilibili.com/video/BV1MW411w79n/?p=2)
+
+## 策略梯度PolicyGradient
+
+PPO是策略梯度的一个变形。
+
+
+
+## On-policy变为Off-policy
+
+
+
+## 添加约束
+
+
+
+
+
+
+
+
+
 # 连续输出值的方差的选择
 
 PPO 连续动作的sigma，其实在不同版本的实现里一共有三种
@@ -172,6 +200,34 @@ Musk主要是针对一些动作和参数之间的关系，通过掩码可以建�
 mask部分一般有两类
 - 离散动作空间的 mask，用于去掉一些当前帧不可选的动作，对训练优化有一定加速作用。我们这次第二节课的作业题会涉及到。
 - 混合动作空间的 mask，用于表达不同 action 部分之间的关系，例如某些动作类型对应特定的动作参数，可以参考这里的讲解例子，尤其是最后的 mask 使用部分 https://opendilab.github.io/PPOxFamily/hybrid_zh.html
+
+
+
+# 混合动作空间
+
+[Hybrid Actor-Critic Reinforcement Learning in Parameterized Action Space IJCAI2019](https://blog.csdn.net/quintus0505/article/details/111400717)
+
+摘要：提出了一种 actor-critic 的混合模型算法 for reinforcement learning in parameterized action space，并且在PPO算法上面做出了改进，提出了 hybrid proximal policy optimization (H-PPO) 算法，并通过了实验验证了该算法的可靠性。
+
+核心思想：传统的RL大多只针对于连续的或者离散的空间提出优化的方案，但是实际情况下更多的是混合的空间，如在足球场上踢球，在离散的空间中，agent只能选择跑动或者踢球的方向但是不能选择连续的跑动速度/距离或者踢球的力度，但是在混合空间下，使得agent 有可能做出离散 + 连续的选择。传统的RL无法有效的处理混合空间中的联合优化，因此文章提出了一个新的框架来解决这种方法，这种框架基于actor-critic 形式，policy gradient 和 PPO 都可以有效的同时处理离散的和连续的空间，文章选择了在PPO基础上提出H-PPO算法。
+
+[HPPO混合动作PPO算法](https://blog.csdn.net/qq_45889056/article/details/137694740)
+
+
+
+
+
+[混合动作空间｜揭秘创造人工智能的黑魔法（5）](https://blog.csdn.net/m0_55289267/article/details/131414613)
+
+而在近些年来，深度强化学习的研究者们将目光投向了**更通用**的混合动作空间建模方法，开始尝试设计额外的表征学习模块来获得更紧凑（compact）、更高效的动作表征，从而拓展强化学习在复杂动作空间上的应用。在本博客中，我们将会介绍相关工作之一：HyAR [1]。
+
+
+
+[HyAR：通过混合动作表示解决离散-连续动作的强化学习问题](https://zhuanlan.zhihu.com/p/497347569)
+
+离散-连续的混合动作空间在许多强化学习应用的实际应用场景中存在，例如机器人控制和游戏人工智能。比如在实际应用场景机器人足球世界杯中，一个足球机器人可以选择带球（离散）到某个位置（连续坐标）或者用力（连续）将球踢（离散）到某个位置等混合动作；在一些大型游戏中，玩家控制的每个角色在选择释放哪个技能（离散）后还需选择技能释放的位置（连续坐标）。然而，大多数已有的强化学习（RL）工作只支持离散动作空间或连续动作空间，很少考虑混合动作空间。
+
+
 
 
 

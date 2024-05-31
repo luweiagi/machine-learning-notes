@@ -19,3 +19,8 @@
 
 [从零搭建Pytorch模型教程（一）数据读取](https://link.zhihu.com/?target=http%3A//mp.weixin.qq.com/s%3F__biz%3DMzkyMDE2OTA3Mw%3D%3D%26mid%3D2247493728%26idx%3D1%26sn%3D3a30e67a71f2c18df697680c6004336b%26chksm%3Dc194577ef6e3de68e47294d8121c4f43c8170b114b5490cc129f212e8baf6aa379365a7a6fd9%26scene%3D21%23wechat_redirect)
 
+
+
+
+
+[《20天吃掉那只Pytorch》](https://jackiexiao.github.io/eat_pytorch_in_20_days/)

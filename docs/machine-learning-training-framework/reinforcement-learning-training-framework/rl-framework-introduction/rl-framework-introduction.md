@@ -15,3 +15,5 @@
 
 * [astooke/rlpyt](https://github.com/astooke/rlpyt)
 
+* [ikostrikov/pytorch-a3c](https://github.com/ikostrikov/pytorch-a3c)
+

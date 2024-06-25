@@ -4,6 +4,12 @@
 
 
 
+[如何系统的入门大模型？](https://www.zhihu.com/question/621550974/answer/3472996606)
+
+给出了必看的论文。
+
+
+
 [怎么训练高性能计算ChatGPT？](https://www.zhihu.com/question/571182694/answer/2942567980)
 
 最近的一些新的模型技术发展让大家发现可以用8.5万美元来训练一个和ChatGPT差不多的模型。因为类似ChatGPT模型本身就是一个大的生成模型GPT-3加上[指令微调](https://www.zhihu.com/search?q=指令微调&search_source=Entity&hybrid_search_source=Entity&hybrid_search_extra={"sourceType"%3A"answer"%2C"sourceId"%3A2942567980})变成ChatGPT，因此，只需要找到一个低成本的大模型训练方法加一个低成本指令微调方法即可。也就是本文介绍的2个开源方法：LLaMA+Alpaca

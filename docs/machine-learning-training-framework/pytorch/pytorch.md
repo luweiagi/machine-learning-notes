@@ -2,6 +2,7 @@
 
 * [返回上层目录](../machine-learning-training-framework.md)
 * [PyTorch基础](basis/basis.md)
+* [保存加载模型文件](save_load_model/save_load_model.md)
 
 
 
@@ -24,3 +25,8 @@
 
 
 [《20天吃掉那只Pytorch》](https://jackiexiao.github.io/eat_pytorch_in_20_days/)
+
+
+
+[深度学习与PyTorch入门实战视频教程 配套源代码和PPT：Deep-Learning-with-PyTorch-Tutorials](https://github.com/dragen1860/Deep-Learning-with-PyTorch-Tutorials)
+

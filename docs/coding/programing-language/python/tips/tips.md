@@ -431,6 +431,14 @@ print ([id(ele) for ele in wilber])
 
 
 
+#  @property属性
+
+[【python】 @property属性详解](https://blog.csdn.net/weixin_43707042/article/details/133032557)
+
+
+
+
+
 # 参考资料
 
 * [如何理解 C++ 中的深拷贝和浅拷贝？](#如何理解 C++ 中的深拷贝和浅拷贝？)

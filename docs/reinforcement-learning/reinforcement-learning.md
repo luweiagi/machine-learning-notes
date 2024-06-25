@@ -1,6 +1,7 @@
 # 强化学习
 
 * [返回上层目录](../README.md)
+* [强化学习学习路径](rl-learning-path/rl-learning-path.md)
 * [强化学习](reinforcement-learning/reinforcement-learning.md)
 * [仿真环境](simulation-platform/simulation-platform.md)
 * [MCTS蒙特卡洛树搜索](monte-carlo-tree-search/monte-carlo-tree-search.md)

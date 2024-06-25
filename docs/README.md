@@ -250,6 +250,9 @@
 * [Few-shot Learning小样本学习](deep-learning/few-shot-learning/few-shot-learning.md)
 
 # [强化学习](reinforcement-learning/reinforcement-learning.md)
+
+* [强化学习学习路径](reinforcement-learning/rl-learning-path/rl-learning-path.md)
+
 * [强化学习](reinforcement-learning/reinforcement-learning/reinforcement-learning.md)
   * [强化学习概论](reinforcement-learning/reinforcement-learning/reinforcement-learning-introduction/reinforcement-learning-introduction.md)
   * [状态、奖励、动作](reinforcement-learning/reinforcement-learning/state-reward-action/state-reward-action.md)
@@ -354,6 +357,8 @@
     * [得到模型参数值](machine-learning-training-framework/tensorflow/tools/get-weight/get-weight.md)
 * [PyTorch](machine-learning-training-framework/pytorch/pytorch.md)
   * [PyTorch基础](machine-learning-training-framework/pytorch/basis/basis.md)
+  * 计算图与动态图机制 https://blog.csdn.net/qq_37388085/article/details/102559532 来自目录https://blog.csdn.net/qq_37388085/category_9417143.html
+  * [保存加载模型文件](machine-learning-training-framework/pytorch/save_load_model/save_load_model.md)
 * [强化学习训练框架](machine-learning-training-framework/reinforcement-learning-training-framework/reinforcement-learning-training-framework.md)
   * [强化学习开源框架整理](machine-learning-training-framework/reinforcement-learning-training-framework/rl-framework-introduction/rl-framework-introduction.md)
   * [清华：天授](machine-learning-training-framework/reinforcement-learning-training-framework/tianshou/tianshou.md)
@@ -452,8 +457,9 @@
     * 202208 [ChatRWKV](multimodal-large-model/industry-application/blinkdl/ChatRWKV/ChatRWKV.md) 对标ChatGPT的开源项目，基于RNN架构
   * Alpaca 斯坦福大学
     * Alpaca 近日，斯坦福基于 Meta 的 LLaMA 7B 模型微调出一个新模型 Alpaca。该研究让 OpenAI 的 text-davinci-003 模型以 self-instruct 方式生成 52K 指令遵循（instruction-following）样本，以此作为Alpaca的训练数据。研究团队已将训练数据、生成训练数据的代码和超参数开源，后续还将发布模型权重和训练代码。 [斯坦福70亿参数开源模型媲美GPT-3.5，100美元即可复现](https://mp.weixin.qq.com/s/U6ioEygg5mlVpAIb2L3cZw)
-  * [HPC-AI Tech](multimodal-large-model/industry-application/hpcaitech/hpcaitech.md)
+  * [HPC-AI Tech潞晨科技](multimodal-large-model/industry-application/hpcaitech/hpcaitech.md)
     * 202302 [ColossalChat](multimodal-large-model/industry-application/hpcaitech/colossalChat/ColossalChat.md) 对标ChatGPT的开源项目。ColossalChat开源了第一个完整的RLHF pipeline，斯坦福Alpaca没有做RLHF
+    * 202406 Open-Sora
   * [复旦大学自然语言处理实验室邱锡鹏团队](multimodal-large-model/industry-application/fudan-university-nlp-group/fudan-university-nlp-group.md)
     * 202302 [MOSS](multimodal-large-model/industry-application/fudan-university-nlp-group/moss/moss.md) 对标ChatGPT已开源
   * [百川智能](multimodal-large-model/industry-application/baichuan-intelligence/baichuan-intelligence.md)

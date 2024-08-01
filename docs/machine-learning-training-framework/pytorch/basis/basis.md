@@ -3,6 +3,16 @@
 * [返回上层目录](../pytorch.md)
 * [pytorch代码快速入门](#pytorch代码快速入门)
 
+# Pytorch官网
+
+官方文档：
+
+https://pytorch.org/docs/stable/index.html
+
+官方入门手册：
+
+https://pytorch.org/tutorials/index.html
+
 
 
 # pytorch代码快速入门

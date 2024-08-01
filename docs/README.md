@@ -112,6 +112,7 @@
   * [计算机网络](coding/cs-courses/computer-network/computer-network.md)
     * [TCP/IP协议族](coding/cs-courses/computer-network/tcp-ip-protocol-family/tcp-ip-protocol-family.md)
       * [TCP](coding/cs-courses/computer-network/tcp-ip-protocol-family/tcp/tcp.md)
+      * [ZeroMQ](coding/cs-courses/computer-network/tcp-ip-protocol-family/zmq/zmq.md)
 * [编程语言](coding/programing-language/programing-language.md)
   * [C/C++](coding/programing-language/c-c++/c-c++.md)
     * [STL容器](coding/programing-language/c-c++/stl-container/stl-container.md)
@@ -359,6 +360,7 @@
   * [PyTorch基础](machine-learning-training-framework/pytorch/basis/basis.md)
   * 计算图与动态图机制 https://blog.csdn.net/qq_37388085/article/details/102559532 来自目录https://blog.csdn.net/qq_37388085/category_9417143.html
   * [保存加载模型文件](machine-learning-training-framework/pytorch/save_load_model/save_load_model.md)
+  * [推理inference](machine-learning-training-framework/pytorch/inference/inference.md)
 * [强化学习训练框架](machine-learning-training-framework/reinforcement-learning-training-framework/reinforcement-learning-training-framework.md)
   * [强化学习开源框架整理](machine-learning-training-framework/reinforcement-learning-training-framework/rl-framework-introduction/rl-framework-introduction.md)
   * [清华：天授](machine-learning-training-framework/reinforcement-learning-training-framework/tianshou/tianshou.md)

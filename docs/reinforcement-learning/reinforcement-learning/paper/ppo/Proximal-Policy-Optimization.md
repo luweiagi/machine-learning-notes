@@ -205,6 +205,12 @@ mask部分一般有两类
 
 # 混合动作空间
 
+[【RL】混合动作空间](https://zhuanlan.zhihu.com/p/683570631)
+
+
+
+
+
 [欢迎来到 DI-ENGINE 中文文档](https://di-engine-docs.readthedocs.io/zh-cn/latest/index_zh.html)
 
 
@@ -236,6 +242,14 @@ PDF: [Hybrid Actor-Critic Reinforcement Learning in Parameterized Action Space I
 [【论文阅读IJCAI-19】Hybrid Actor-Critic Reinforcement Learning in Parameterized Action Space](https://zhuanlan.zhihu.com/p/649082917)
 
 这个博客参考了上面的博客，但是带了代码：[HPPO混合动作PPO算法](https://blog.csdn.net/qq_45889056/article/details/137694740)
+
+$$
+loss_{actor1}=\frac{p_{new\_actor1}}{p_{old\_actor1}}adv\\
+loss_{actor2}=\frac{p_{new\_actor2}}{p_{old\_actor2}}adv\\
+loss_{actor}=loss_{actor1}+loss_{actor2}\\
+loss_{actor}=\left(ratio_{actor1}\times ratio_{actor2}\right)\times adv=\frac{p_{new\_actor1}}{p_{old\_actor1}}\times \frac{p_{new\_actor2}}{p_{old\_actor2}}\times adv
+$$
+
 
 
 

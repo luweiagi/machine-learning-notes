@@ -6,6 +6,14 @@
 
 ===
 
+[跟真狗学“奔跑跳跃”!腾讯Robotics X用预训练模型和强化学习提升机器狗控制 ](https://www.sohu.com/a/690388766_489960)
+
+[腾讯机器人最新动态：跟真狗学“奔跑跳跃”](https://new.qq.com/rain/a/20230614A05A2C00)
+
+
+
+
+
 [如何将机器人与强化学习结合？](https://www.zhihu.com/question/428275198/answer/3324504444)
 
 最近调研了一下Robot Learning领域的热门文章，总结下来，有两个很看好的方向。二者都是基于Imitation Learning，分歧在于需不需要RL+仿真训练。

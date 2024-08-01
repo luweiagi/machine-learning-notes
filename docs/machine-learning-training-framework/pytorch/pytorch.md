@@ -3,6 +3,7 @@
 * [返回上层目录](../machine-learning-training-framework.md)
 * [PyTorch基础](basis/basis.md)
 * [保存加载模型文件](save_load_model/save_load_model.md)
+* [推理inference](inference/inference.md)
 
 
 

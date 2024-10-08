@@ -231,6 +231,7 @@
     * [LSTM长短期记忆网络](deep-learning/recurrent-neural-network/long-short-term-memory-networks/long-short-term-memory-networks/long-short-term-memory-networks.md)
     * [pix2code: Generating Code from a Graphical User Interface Screenshot EICS2018](deep-learning/recurrent-neural-network/long-short-term-memory-networks/pix2code/pix2code-Generating-Code-from-a-Graphical-User-Interface-Screenshot.md)
   * [GRU门控循环单元](deep-learning/recurrent-neural-network/gated-recurrent-unit/gated-recurrent-unit.md)
+* [LNN液态神经网络Liquid Neural Network](deep-learning/liquid-neural-network/liquid-neural-network.md)
 * [BNN贝叶斯神经网络](deep-learning/beyesian-neural-network/beyesian-neural-network.md)
   * [贝叶斯神经网络](deep-learning/beyesian-neural-network/beyesian-neural-network/beyesian-neural-network.md)
   * [Weight Uncertainty in Neural Networks ICML2015](deep-learning/beyesian-neural-network/weight-uncertainty-in-neural-networks/Weight-Uncertainty-in-Neural-Networks.md)
@@ -552,6 +553,7 @@
       * [电机的原理](autopilot/electromechanical-systems/dynamic-system/motor/motor-principle/motor-principle.md)
 * 感知
 * [决策](autopilot/decision/decision.md)
+  * [行为树](autopilot/decision/behavior_tree/behavior_tree.md)
 * [规划](autopilot/planning/planning.md)
   * [基于LLM大语言模型的规划](autopilot/planning/llm-based-planning/llm-based-planning.md)
     * [Socratic Models: Composing Zero-Shot Multimodal Reasoning with Language arXiv2022 Google](autopilot/planning/llm-based-planning/socratic-models/Socratic-Models-Composing-Zero-Shot-Multimodal-Reasoning-with-Language.md)

@@ -35,7 +35,11 @@ model = torch.jit.load('model_scripted.pt')
 model.eval()
 ```
 
-加eval是为了在推理前设置模型中的dropout和batch norm功能为eval模式。
+加eval是为了在推理前设置模型中的dropout和batch norm功能为eval模式，即使得模型BN层等失效。
+
+> eval()是PyTorch中用来将神经网络设置为评估模式的方法。在评估模式下，网络的参数不会被更新，Dropout和Batch Normalization层的行为也会有所不同。通常在测试阶段使用评估模式。
+>
+> eval() 可以作为模型推理的性能提升方法，在评估模式下，计算图是不被跟踪的，这样可以节省内存使用，提升性能。还可以使用torch.no_grad()配合使用，在评估阶段关闭梯度跟踪，进一步提升性能。
 
 给一段kimi给出的例子吧：
 
@@ -80,3 +84,6 @@ s = torch.unsqueeze(torch.tensor(input, dtype=torch.float), 0)
 
 本文参考此资料。
 
+===
+
+* [pytorch导出模型并使用onnxruntime C++部署加载模型推理](https://zhuanlan.zhihu.com/p/610188093)

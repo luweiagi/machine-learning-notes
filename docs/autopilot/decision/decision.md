@@ -1,6 +1,7 @@
 # 决策
 
 * [返回上层目录](../autopilot.md)
+* [行为树](behavior_tree/behavior_tree.md)
 
 
 

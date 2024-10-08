@@ -8,6 +8,7 @@
 * [CNN卷积神经网络](convolutional-neural-network/convolutional-neural-network.md)
 * [BNN贝叶斯神经网络](beyesian-neural-network/beyesian-neural-network.md)
 * [RNN循环神经网络](recurrent-neural-network/recurrent-neural-network.md)
+* [LNN液态神经网络Liquid Neural Network](liquid-neural-network/liquid-neural-network.md)
 * [GNN图神经网络](graph-neural-networks/graph-neural-networks.md)
 * [深度生成模型](deep-generative-models/deep-generative-models.md)
 * [Few-shot Learning小样本学习](few-shot-learning/few-shot-learning.md)

@@ -227,8 +227,12 @@
   * [TextCNN: Convolutional Neural Networks for Sentence Classification EMNLP2014](deep-learning/convolutional-neural-network/textcnn/Convolutional-Neural-Networks-for-Sentence-Classification.md)
 * [RNN循环神经网络](deep-learning/recurrent-neural-network/recurrent-neural-network.md)
   * [RNN循环神经网络](deep-learning/recurrent-neural-network/recurrent-neural-network/recurrent-neural-network.md)
+    * [RNN循环神经网络](deep-learning/recurrent-neural-network/recurrent-neural-network/recurrent-neural-network/recurrent-neural-network.md)
+    * [Pytorch的RNN源码分析](deep-learning/recurrent-neural-network/recurrent-neural-network/rnn-in-pytorch/rnn-in-pytorch.md)
   * [LSTM长短期记忆网络](deep-learning/recurrent-neural-network/long-short-term-memory-networks/long-short-term-memory-networks.md)
     * [LSTM长短期记忆网络](deep-learning/recurrent-neural-network/long-short-term-memory-networks/long-short-term-memory-networks/long-short-term-memory-networks.md)
+    * [TensorFlow的LSTM源码分析](deep-learning/recurrent-neural-network/long-short-term-memory-networks/lstm-in-tensorflow/lstm-in-tensorflow.md)
+    * [Pytorch的LSTM源码分析](deep-learning/recurrent-neural-network/long-short-term-memory-networks/lstm-in-pytorch/lstm-in-pytorch.md)
     * [pix2code: Generating Code from a Graphical User Interface Screenshot EICS2018](deep-learning/recurrent-neural-network/long-short-term-memory-networks/pix2code/pix2code-Generating-Code-from-a-Graphical-User-Interface-Screenshot.md)
   * [GRU门控循环单元](deep-learning/recurrent-neural-network/gated-recurrent-unit/gated-recurrent-unit.md)
 * [LNN液态神经网络Liquid Neural Network](deep-learning/liquid-neural-network/liquid-neural-network.md)
@@ -272,8 +276,8 @@
   * [强化学习前景](reinforcement-learning/reinforcement-learning/reinforcement-learning-prospect/reinforcement-learning-prospect.md)
   * [强化学习论文](reinforcement-learning/reinforcement-learning/paper/paper.md)
     * [DDPG: Continuous Control With Deep Reinforcement Learning ICLR2016](reinforcement-learning/reinforcement-learning/paper/ddpg/ddpg.md)
-    * [PPO: Proximal Policy Optimization arXiv2017OpenAI](reinforcement-learning/reinforcement-learning/paper/ppo/Proximal-Policy-Optimization.md)
-    * [Soft Actor-Critic](https://www.paperexplained.cn/articles/paper/detail/811df72e210e20de99719539505da54762a11c6d/)
+    * [PPO: Proximal Policy Optimization arXiv2017 OpenAI](reinforcement-learning/reinforcement-learning/paper/ppo/Proximal-Policy-Optimization.md)
+    * [SAC: Soft Actor-Critic](https://www.paperexplained.cn/articles/paper/detail/811df72e210e20de99719539505da54762a11c6d/)
 * [仿真环境](reinforcement-learning/simulation-platform/simulation-platform.md)
   * [OpenAI: Gym](reinforcement-learning/simulation-platform/openAI-gym/openAI-gym.md)
   * [OpenAI: Mujoco](reinforcement-learning/simulation-platform/openAI-mujoco/openAI-mujoco.md)
@@ -497,6 +501,29 @@
   * [深度学习](recommender-systems/advanced-knowledge/deep-learning/deep-learning.md)
     * [DeepFM: A Factorization-Machine based Neural Network for CTR Prediction 2017](recommender-systems/advanced-knowledge/deep-learning/deepfm/DeepFM-A-Factorization-Machine-based-Neural-Network-for-CTR-Prediction.md)
     * [DSSM: Learning Deep Structured Semantic Models for Web Search using Clickthrough Data CIKM2013](recommender-systems/advanced-knowledge/deep-learning/dssm/Learning-Deep-Structured-Semantic-Models-for-Web-Search-using-Clickthrough-Data.md)
+  * [特征交叉]()
+  * [多任务学习](recommender-systems/advanced-knowledge/multy-task-learning/multy-task-learning.md)
+    * MMoE: Modeling Task Relationships in Multi-task Learning with Multi-gate Mixture-of-Experts KDD2018（见业界应用）
+    * [ESMM: Entire Space Multi-Task Model: An Effective Approach for Estimating Post-Click Conversion Rate SIGIR2018（见业界应用）
+  * [用户行为序列](recommender-systems/advanced-knowledge/user-behavior-sequence/user-behavior-sequence.md)
+    * [用户行为序列](recommender-systems/advanced-knowledge/user-behavior-sequence/user-behavior-sequence/user-behavior-sequence.md)
+    * [短序列](recommender-systems/advanced-knowledge/user-behavior-sequence/short-sequence/short-sequence.md)
+      * pooling
+        * YouTubeDNN: Deep Neural Networks for YouTube Recommendations RecSys2016（见业界应用）
+      * RNN
+      * 基于Attention机制的用户行为序列建模
+        * 基于Target-Attention机制的用户行为序列建模
+          * DIN: Deep Interest Network for Click-Through Rate Prediction KDD2018（见业界应用）
+          * DIEN: Deep Interest Evolution Network for Click-Through Rate Prediction（见业界应用）
+          * DSIN: Deep Session Interest Network for Click-Through Rate Prediction IJCAI2019（见业界应用）
+        * 基于Self-Attention机制的用户行为序列建模
+          * 基于Transformer中的Self-Attention的行为序列建模
+    * [长序列](recommender-systems/advanced-knowledge/user-behavior-sequence/long-sequence/long-sequence.md)
+      * MIMN: Practice on Long Sequential User Behavior Modeling for Click-Through Rate Prediction
+      * SIM: Search-based User Interest Modeling with Lifelong Sequential Behavior Data for Click-Through Rate Prediction
+    * 用户多兴趣建模
+      * MIND: Multi-Interest Network with Dynamic Routing for Recommendation at Tmall
+      * DMIN: Deep Multi-Interest Network for Click-through Rate Prediction
   * [图卷积网络](recommender-systems/advanced-knowledge/graph-convolutional-network/graph-convolutional-network.md)
     * [Graph Convolutional Neural Networks for Web-Scale Recommender Systems KDD2018](recommender-systems/advanced-knowledge/graph-convolutional-network/gcn-web-scale/Graph-Convolutional-Neural-Networks-for-Web-Scale-Recommender-Systems.md)
   * [强化学习](recommender-systems/advanced-knowledge/reinforcement-learning/reinforcement-learning.md)
@@ -509,6 +536,7 @@
   * [Alibaba](recommender-systems/industry-application/alibaba/alibaba.md)
     * [TDM: Learning Tree-based Deep Model for Recommender Systems KDD2018](recommender-systems/industry-application/alibaba/tree-based-deep-model/Learning-Tree-based-Deep-Model-for-Recommender-Systems.md)
     * [DIN: Deep Interest Network for Click-Through Rate Prediction KDD2018](recommender-systems/industry-application/alibaba/deep-interest-network/Deep-Interest-Network-for-Click-Through-Rate-Prediction.md)
+    * DIEN: Deep Interest Evolution Network for Click-Through Rate Prediction
     * [DSIN: Deep Session Interest Network for Click-Through Rate Prediction IJCAI2019](recommender-systems/industry-application/alibaba/deep-session-interest-network/DSIN-Deep-Session-Interest-Network-for-Click-Through-Rate-Prediction.md)
     * [ESMM: Entire Space Multi-Task Model: An Effective Approach for Estimating Post-Click Conversion Rate SIGIR2018](recommender-systems/industry-application/alibaba/esmm/Entire-Space-Multi-Task-Model-An-Effective-Approach-for-Estimating-Post-Click-Conversion-Rate.md)
   * [Google](recommender-systems/industry-application/google/google.md)
@@ -534,27 +562,33 @@
 * [AI编译器](model-deployment/ai-compiler/ai-compiler.md)
 
 # [自动驾驶](autopilot/autopilot.md)
-* [机电系统](autopilot/electromechanical-systems/electromechanical-systems.md)
-  * [各类型传感器](autopilot/electromechanical-systems//sensors.md)
-    * [加速度计](autopilot/electromechanical-systems/sensors/accelerometer/accelerometer.md)
-      * [加速度计的六面校准法](autopilot/electromechanical-systems/sensors/accelerometer/accelerometer-six-sided-calibration-method/accelerometer-six-sided-calibration-method.md)
-    * [陀螺仪](autopilot/electromechanical-systems/sensors/gyroscope/gyroscope.md)
-      * [陀螺仪校准](autopilot/electromechanical-systems/sensors/gyroscope/gyroscope-calibration/gyroscope-calibration.md)
-    * [磁力计](autopilot/electromechanical-systems/sensors/magnetometer/magnetometer.md)
-      * [磁力计校准](autopilot/electromechanical-systems/sensors/magnetometer/magnetometer-calibration/magnetometer-calibration.md)
-    * [电流计](autopilot/electromechanical-systems/sensors/ammeter/ammeter.md)
-      * [使用电流计测量电池电动势用于pwm电压补偿](autopilot/electromechanical-systems/sensors/ammeter/measure-voltage-for-compensation-to-pwm/measure-voltage-for-compensation-to-pwm.md)
-    * [空速计](autopilot/electromechanical-systems/sensors/airspeed_meter/airspeed_meter.md)
-  * [动力系统](autopilot/electromechanical-systems/dynamic-system/dynamic-system.md)
-    * [多旋翼组装选型](autopilot/electromechanical-systems/dynamic-system/copter-assemble-and-lectotype/copter-assemble-and-lectotype.md)
-    * [电调](autopilot/electromechanical-systems/dynamic-system/ESC/ESC.md)
-      * [螺旋桨推力与电调pwm的曲线映射关系](autopilot/electromechanical-systems/dynamic-system/ESC/thrust2pwm_curve/thrust2pwm_curve.md)
-    * [电机](autopilot/electromechanical-systems/dynamic-system/motor/motor.md)
-      * [电机的原理](autopilot/electromechanical-systems/dynamic-system/motor/motor-principle/motor-principle.md)
-* 感知
+* [传感器](autopilot/sensor/sensor.md)
+  * [加速度计](autopilot/sensor/accelerometer/accelerometer.md)
+    * [加速度计的六面校准法](autopilot/sensor/accelerometer/accelerometer-six-sided-calibration-method/accelerometer-six-sided-calibration-method.md)
+  * [陀螺仪](autopilot/sensor/gyroscope/gyroscope.md)
+    * [陀螺仪校准](autopilot/sensor/gyroscope/gyroscope-calibration/gyroscope-calibration.md)
+  * [磁力计](autopilot/sensor/magnetometer/magnetometer.md)
+    * [磁力计校准](autopilot/sensor/magnetometer/magnetometer-calibration/magnetometer-calibration.md)
+  * [电流计](autopilot/sensor/ammeter/ammeter.md)
+    * [使用电流计测量电池电动势用于pwm电压补偿](autopilot/sensor/ammeter/measure-voltage-for-compensation-to-pwm/measure-voltage-for-compensation-to-pwm.md)
+  * [空速计](autopilot/sensor/airspeed_meter/airspeed_meter.md)
+
+* [感知](autopilot/perception/perception.md)
+* [导航](autopilot/navigation/navigation.md)
+  - [欧拉旋转定理](autopilot/navigation/euler-rotation-theorem/euler-rotation-theorem.md)
+  - [坐标变换与欧拉运动学方程](autopilot/navigation/coord-trans-and-euler-kinematics-equation/coord-trans-and-euler-kinematics-equation.md)
+  - [导航常用坐标系及变换](autopilot/navigation/navigation-coord-system-and-trans/navigation-coord-system-and-trans.md)
+  - [哥氏定理/科里奥利定理](autopilot/navigation/coriolis-theorem/coriolis-theorem.md)
+  - [四元数](autopilot/navigation/quaternion/quaternion.md)
+  - [罗德里格斯公式](autopilot/navigation/rodrigues-formula/rodrigues-formula.md)
+  - [李群李代数](autopilot/navigation/lie-group-and-lie-algebra/lie-group-and-lie-algebra.md)
+  - [基于互补滤波的组合导航](autopilot/navigation/complementary-filtering/complementary-filtering.md)
+* [轨迹预测](autopilot/trajectory-prediction/trajectory-prediction.md)
 * [决策](autopilot/decision/decision.md)
-  * [行为树](autopilot/decision/behavior_tree/behavior_tree.md)
+  * [行为树](autopilot/decision/behavior-tree/behavior-tree.md)
 * [规划](autopilot/planning/planning.md)
+  * 路径规划
+  * 轨迹规划
   * [基于LLM大语言模型的规划](autopilot/planning/llm-based-planning/llm-based-planning.md)
     * [Socratic Models: Composing Zero-Shot Multimodal Reasoning with Language arXiv2022 Google](autopilot/planning/llm-based-planning/socratic-models/Socratic-Models-Composing-Zero-Shot-Multimodal-Reasoning-with-Language.md)
     * [Towards Helpful Robots: Grounding Language in Robotic Affordances Google2022](autopilot/planning/llm-based-planning/towards-helpful-robots-grounding/Towards-Helpful-Robots-Grounding-Language-in-Robotic-Affordances.md)
@@ -574,16 +608,12 @@
     * [ChatGPT for Robotics: Design Principles and Model Abilities MicroSoft2023](autopilot/control/llm-based-control/chatGPT-for-robotics/ChatGPT-for-Robotics-Design-Principles-and-Model-Abilities.md) ***
     * [PaLM-E: An Embodied Multimodal Language Model arXiv2023 Google](autopilot/control/llm-based-control/PaLM-E/PaLM-E.md) ***
     * [Towards a Robotics Foundation Model ML-Collective协会2023]()
-    * 
-* [导航](autopilot/navigation/navigation.md)
-  * [欧拉旋转定理](autopilot/navigation/euler-rotation-theorem/euler-rotation-theorem.md)
-  * [坐标变换与欧拉运动学方程](autopilot/navigation/coord-trans-and-euler-kinematics-equation/coord-trans-and-euler-kinematics-equation.md)
-  * [导航常用坐标系及变换](autopilot/navigation/navigation-coord-system-and-trans/navigation-coord-system-and-trans.md)
-  * [哥氏定理/科里奥利定理](autopilot/navigation/coriolis-theorem/coriolis-theorem.md)
-  * [四元数](autopilot/navigation/quaternion/quaternion.md)
-  * [罗德里格斯公式](autopilot/navigation/rodrigues-formula/rodrigues-formula.md)
-  * [李群李代数](autopilot/navigation/lie-group-and-lie-algebra/lie-group-and-lie-algebra.md)
-  * [基于互补滤波的组合导航](autopilot/navigation/complementary-filtering/complementary-filtering.md)
+* [动力系统](autopilot/dynamic-system/dynamic-system.md)
+  - [多旋翼组装选型](autopilot/dynamic-system/copter-assemble-and-lectotype/copter-assemble-and-lectotype.md)
+  - [电调](autopilot/dynamic-system/ESC/ESC.md)
+    - [螺旋桨推力与电调pwm的曲线映射关系](autopilot/dynamic-system/ESC/thrust2pwm_curve/thrust2pwm_curve.md)
+  - [电机](autopilot/dynamic-system/motor/motor.md)
+    - [电机的原理](autopilot/dynamic-system/motor/motor-principle/motor-principle.md)
 * 仿真
   * [gym-jsbsim:使用JSBSim飞行动力学模型的飞机控制强化学习环境](https://download.csdn.net/download/weixin_42165980/18471290)
   * [GymFC是一个OpenAI环境](https://blog.csdn.net/dumao0620/article/details/127667719)

@@ -4,6 +4,14 @@
 
 
 
+[个人从零预训练1B LLM心路历程](https://zhuanlan.zhihu.com/p/4777020869)
+
+[大模型LLMs很火，作为新生小白应该怎么入门 LLMs?是否有推荐的入门教程推荐？](https://www.zhihu.com/question/627320398/answer/14003427799)
+
+https://github.com/zhanshijinwat/Steel-LLM
+
+
+
 [如何系统的入门大模型？](https://www.zhihu.com/question/621550974/answer/3472996606)
 
 给出了必看的论文。

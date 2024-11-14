@@ -331,6 +331,14 @@ print(x.tolist())  # [1.0, 2.0]
 
 
 
+## tensor.view改变形状，相当于reshape
+
+```
+x.view(len(x), 1, -1)
+```
+
+
+
 ## torch.no_grad()
 
 被with torch.no_grad()包住的代码，不用跟踪反向梯度计算，来做一个实验：
@@ -345,6 +353,51 @@ with torch.no_grad():
 ```
 
 
+
+## tensor.squeeze移除维度
+
+在PyTorch中，`squeeze`函数用于移除张量（tensor）中所有大小为1的维度。这通常用于简化张量的形状，使其更易于处理。
+
+例如，如果你有一个形状为`(1, 2, 1, 3)`的张量，使用`squeeze()`函数后，它将变为形状`(2, 3)`，因为第一个和第三个维度的大小都是1。
+
+此外，`squeeze`函数还可以接受一个参数，指定要移除的特定维度。如果该维度的大小不是1，那么这个操作将会引发错误。
+
+下面是一些使用`squeeze`的例子：
+
+```python
+import torch
+
+# 创建一个形状为[1, 2, 1, 3]的张量
+x = torch.randn(1, 2, 1, 3)
+
+# 使用squeeze()移除所有大小为1的维度
+x_squeezed = x.squeeze()
+print(x_squeezed.shape)  # 输出: torch.Size([2, 3])
+
+# 指定维度进行squeeze，比如移除第二维
+x_squeezed_dim = x.squeeze(1)
+print(x_squeezed_dim.shape)  # 输出: torch.Size([1, 2, 3])
+```
+
+在这个例子中，`x.squeeze()`移除了所有大小为1的维度，而`x.squeeze(1)`尝试移除第二维（索引为1的维度），但因为第二维的大小不是1，所以这个操作实际上不会改变张量的形状。
+
+
+
+## tensor.unsqueeze增加维度
+
+```
+x.unsqueeze(1)
+```
+
+
+
+## tensor.size()获取矩阵各维度大小
+
+```python
+print(a.size())
+
+# torch.Size([3, 2, 4])
+```
 
 
 

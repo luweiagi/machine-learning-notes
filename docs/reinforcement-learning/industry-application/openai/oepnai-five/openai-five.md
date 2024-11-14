@@ -8,7 +8,7 @@
 
 paper: [Dota 2 with Large Scale Deep Reinforcement Learning](https://cdn.openai.com/dota-2.pdf)
 
-
+code: [OpenAI_Five_vs_Dota2_Explained](https://github.com/llSourcell/OpenAI_Five_vs_Dota2_Explained)（官方并没有公开源码，这只是其他人实现的基本功能）
 
 # 参考资料
 

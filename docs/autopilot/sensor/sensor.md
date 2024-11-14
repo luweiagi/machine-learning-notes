@@ -1,6 +1,6 @@
 # 各类型传感器
 
-* [返回上层目录](../electromechanical-systems.md)
+* [返回上层目录](../autopilot.md)
 * [加速度计](accelerometer/accelerometer.md)
 * [陀螺仪](gyroscope/gyroscope.md)
 * [磁传感器](magnetometer/magnetometer.md)

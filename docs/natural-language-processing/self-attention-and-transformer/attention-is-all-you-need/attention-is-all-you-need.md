@@ -108,11 +108,11 @@ $x_1$和$x_2$互相不知道对方的信息，但因为在第一个步骤Self-At
 
 具体注意力的不同强弱是怎么计算出来的呢？下面就讲解Self-Attention。
 
-首先说下Attention和Self-Attention的区别
+首先说下(Target-)Attention和Self-Attention的区别
 
-> Attention和self-attention的区别
+> (Target-)Attention和self-attention的区别
 >
-> 以Encoder-Decoder框架为例，输入Source和输出Target内容是不一样的，比如对于英-中机器翻译来说，Source是英文句子，Target是对应的翻译出的中文句子，Attention发生在Target的元素Query和Source中的所有元素之间。
+> 以Encoder-Decoder框架为例，输入Source和输出Target内容是不一样的，比如对于英-中机器翻译来说，Source是英文句子，Target是对应的翻译出的中文句子，(Target-)Attention发生在Target的元素Query和Source中的所有元素之间。
 >
 > Self Attention，指的不是Target和Source之间的Attention机制，而是Source内部元素之间或者Target内部元素之间发生的Attention机制，也可以理解为Target=Source这种特殊情况下的Attention。
 >
@@ -132,7 +132,7 @@ $$
 &v_1=x_1 W^V\quad v_2=x_2 W^V\\
 \end{aligned}
 $$
-可以注意到，**上述过程中，不同的$x_i$分享了同一个$W^Q$、$W^K$、$W^v$，通过这个操作，$x_1$和$x_2$已经发生了某种程度上的信息交换**。也就是说，单词和单词之间，通过共享权值，已经相互发生了信息的交换。
+可以注意到，**上述过程中，不同的$x_i$分享了同一个$W^Q$、$W^K$、$W^v$，通过这个操作，$x_1$和$x_2$已经发生了某种程度上的信息交换**。也就是说，单词和单词之间，通过共享权值，已经相互发生了信息的交换（*这是为什么呢？这只不过是对不同的embedding做了同样的处理啊，怎么就交换信息了呢？*）。
 
 然后，有了$q_1$、$k_1$、$v_1$和$q_2$、$k_2$、$v_2$，怎么才能得到$z_1$和$z_2$呢？计算过程是这样子的：我们用$v_1$和$v_2$两个向量的线性组合，来得到$z_1$和$z_2$，即
 $$
@@ -148,6 +148,8 @@ $$
 &[\theta_{21},\theta_{22}]=\text{softmax}\left(\frac{q_2k^T_1}{\sqrt{d_k}},\quad \frac{q_2k^T_2}{\sqrt{d_k}}\right)
 \end{aligned}
 $$
+注意，这里的所有向量，比如$q,k,v$，都是行向量，计算机中对于向量一般认为是行向量（类似数组），不是数学上的列向量。
+
 通过上述的整个流程，就可以把输入的$x_1$和$x_2$转换成了$z_1$和$z_2$。这就是Self-Attention机制。有了$z_1$和$z_2$，再通过全连接层，就能输出该Encoder层的输出$r_1$和$r_2$。
 
 讲到这里，你肯定很困惑为什么要有$q$、$k$、$v$向量，因为这个思路来自于比较早的信息检索领域，$q$就是query，$k$就是key，$v$就是value，(k,v)就是键值对、也就是用query关键词去找到最相关的检索结果。
@@ -155,8 +157,8 @@ $$
 举个例子，假设query是`5G`，然后k-v键值对有
 
 ```
-k-v: 5G : Huawei
-k-v: 4G : Nokia
+k-v : 5G - Huawei
+k-v : 4G - Nokia
 ```
 
 那query（`5G`）和key（`5G`）的相关性是100%，和key（`4G`）的相关性是50%。这就是为什么用query，key，value这种概念。
@@ -177,7 +179,7 @@ $$
 
 > 点积注意力被缩小了深度的平方根倍。这样做是因为对于较大的深度值，点积的大小会增大，从而推动softmax函数往仅有很小的梯度的方向靠拢，导致了一种很硬的（hard）softmax。
 >
-> 例如，假设Q和K的均值为0，方差为1。它们的矩阵乘积将有均值为0，方差为$d_k$ 。因此，*$d_k$的平方根*被用于缩放（而非其他数值），因为，Q和K的矩阵乘积的均值本应该为0，方差本应该为1，这样会获得一个更平缓的softmax。
+> 例如，假设Q和K中的每个元素的均值为0，方差为1。它们的矩阵乘积将有均值为0，方差为$d_k$ 。根据方差的计算法则：$Var(kx)=k^2Var(x)$，可知用除以$\sqrt{d_k}$缩放后，$score(q,k)$的方差由原来的$d_k$缩小到了1。这就消除了dot-product attention在1较大时遇到的问题。这时，softmax函数的梯度就不容易趋近于零了。这就是为什么dot-product attention需要被scaled。
 
 数学理解：[为什么 dot-product attention 需要被 scaled？](https://blog.csdn.net/qq_37430422/article/details/105042303)
 
@@ -204,7 +206,7 @@ $$
 multi-headed Attention用公式表示就是
 $$
 \begin{aligned}
-&\text{MultiHead}(Q,K,V)=\text{Contact}(\text{head}_1,...,\text{head}_2)W^O\\
+&\text{MultiHead}(Q,K,V)=\text{Concat}(\text{head}_1,...,\text{head}_2)W^O\\
 &\quad\quad \text{where}\ \text{head}_i=\text{Attention}(QW^Q_i,KW^K_i,VW^V_i)
 \end{aligned}
 $$

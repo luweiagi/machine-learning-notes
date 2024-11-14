@@ -50,6 +50,9 @@ add_executable(${PROJECT_NAME} ${PRJ_SRC_LIST})
 注意，
 
 * 上述代码中的`include_directories(./)`意思是添加头文件搜索路径，这里只添加了当前CMakeLists所在的根目录，所以代码里引用的头文件地址，必须要从根目录开始引用，比如需要写成`#include "src1/src1.h"`，而不能只写成`#include "src1.h"`，因为其搜索路径只有当前的根目录，除非你加上该地址，比如`include_directories(./;src1/)`，不同头文件搜索路径用空格或分号分开。
+
+  注意，如果包含的目录下还有子目录，那就需要单独再把子目录包含进去，即`include_directories(./;src1/;src1/src1_1/)`，否则子目录下的头文件无法被识别到。
+
 * `file(GLOB_RECURSE root_src_files "${prj_src_dir}/*")`是指在指定目录下递归搜索所有的文件（包括子文件里的文件或子文件夹里的子文件的文件或文件夹，如此递归直到找出所有的文件）。具体解释请看这里：[CMake : 递归的添加所有cpp文件](https://www.cnblogs.com/yongdaimi/p/14689417.html)
 
 另一个简单的入门CMakelists.txt：

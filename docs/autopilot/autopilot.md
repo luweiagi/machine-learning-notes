@@ -1,14 +1,17 @@
 # 自动驾驶
 
 * [返回上层目录](../README.md)
-* [机电系统](electromechanical-systems/electromechanical-systems.md)
+* [传感器](sensor/sensor.md)
+* [感知](perception/perception.md)
+* [导航](navigation/navigation.md)
+* [轨迹预测](trajectory-prediction/trajectory-prediction.md)
 * [决策](decision/decision.md)
 * [规划](planning/planning.md)
 * [制导](guidance/guidance.md)
 * [控制](control/control.md)
-* [导航](navigation/navigation.md)
+* [动力系统](dynamic-system/dynamic-system.md)
 
-
+* [集群](swarm/swarm.md)
 
 
 

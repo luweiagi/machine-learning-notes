@@ -108,6 +108,57 @@ ZMQ_PUSH` -> [ `ZMQ_PULL` , `ZMQ_PUSH`] --> `ZMQ_PULL
 ZMQ_PAIR` <--> `ZMQ_PAIR
 ```
 
+# 在C/C++中集成ZMQ
+
+C语言的zmq实现之一为libzmq：https://github.com/zeromq/libzmq，更多其他实现查看：https://zeromq.org/languages/c/。
+
+C++语言的zmq的实现之一为cppzmq：https://github.com/zeromq/cppzmq，更多其他实现查看：https://zeromq.org/languages/cplusplus/。
+
+> cppzmq是一个轻量级的、头文件唯一的C++绑定库，它简化了与libzmq（ZeroMQ）的交互，让你仅需包含zmq.hpp(可能还有zmq_addon.hpp)即可开始开发。此库采用C++11及以上标准，着重于类型安全、异常处理和资源自动管理，是访问底层libzmq API的现代C++方式。
+
+注：C++语言实现zmq其实都只是在基于C语言的libzmq上用几个头文件封装了接口，其并没有cpp源码。所以，编译C++语言的zmq链接库时，是需要先编译C语言的zmq库libzmq的，然后加个头文件就行。
+
+这里给一个实现在C++中集成ZMQ的CmakeLists.txt吧：
+
+注：需要提前把cppzmq下载到`/external/cppzmq`文件夹中，把libzmq下载到`/external/libzmq`文件夹中。
+
+```cmake
+cmake_minimum_required(VERSION 3.21)
+project(your_proj_name)
+set(CMAKE_CXX_STANDARD 14)
+
+set(prj_src_dir ${CMAKE_CURRENT_SOURCE_DIR}/source)
+file(GLOB_RECURSE root_src_files "${prj_src_dir}/*")
+message(STATUS "root_src_files = ${root_src_files}")
+
+set(PRJ_SRC_LIST)
+list(APPEND PRJ_SRC_LIST ${root_src_files})
+message(STATUS "PRJ_SRC_LIST = ${PRJ_SRC_LIST}")
+
+# header path
+include_directories(./source/;./source/lib/;)
+
+# 注：cppzmq只是基于libzmq用头文件封装了下接口而已，所以需要先编译或者安装libzmq
+# 添加libzmq并需要其内部的cmakelists.txt编译
+add_subdirectory(external/libzmq)
+# 输出libzmq库的生成路径
+# 创建一个文件来保存生成表达式的输出
+file(GENERATE OUTPUT "${CMAKE_BINARY_DIR}/libzmq_path.txt" CONTENT "$<TARGET_FILE:libzmq>")
+# 配置阶段提示
+message(STATUS "libzmq path will be generated to ${CMAKE_BINARY_DIR}/libzmq_path.txt")
+
+# 添加cppzmq的头文件路径
+set(CPPZMQ_INCLUDE_DIR "${CMAKE_SOURCE_DIR}/external/cppzmq")
+include_directories(${CPPZMQ_INCLUDE_DIR})
+
+add_executable(${PROJECT_NAME} ${PRJ_SRC_LIST})
+
+# 链接libzmq
+target_link_libraries(${PROJECT_NAME} PRIVATE libzmq)
+```
+
+
+
 # 参考资料
 
 * [Python ZeroMQ编程 网络通信协议详细说明和教程](https://blog.csdn.net/weixin_39589455/article/details/134898826)

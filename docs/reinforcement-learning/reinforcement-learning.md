@@ -4,6 +4,7 @@
 * [强化学习学习路径](rl-learning-path/rl-learning-path.md)
 * [强化学习](reinforcement-learning/reinforcement-learning.md)
 * [仿真环境](simulation-platform/simulation-platform.md)
+* [混合动作空间Hybrid Action Space](hybrid-action-space/hybrid-action-space.md)
 * [MCTS蒙特卡洛树搜索](monte-carlo-tree-search/monte-carlo-tree-search.md)
 * [模仿学习](imatation-learning/imatation-learning.md)
 * [多智能体强化学习](multi-agent-reinforcement-learning/multi-agent-reinforcement-learning.md)

@@ -21,6 +21,8 @@
 
 ## 交叉熵损失
 
+[八百字讲清楚——BCEWithLogitsLoss二分类损失函数]()
+
 
 
 ### 分类问题中交叉熵优于MSE的原因
@@ -69,6 +71,14 @@ softmax = math.exp(logit[0]) / sum([math.exp(logit[i]) for i in range(3)])
 cross_entropy = - math.log(softmax)
 print(cross_entropy)
 ```
+
+
+
+### torch.nn.BCEWithLogitsLoss
+
+[八百字讲清楚——BCEWithLogitsLoss二分类损失函数](https://blog.csdn.net/AdamCY888/article/details/130167567)
+
+[五分钟理解：BCELoss 和 BCEWithLogitsLoss的区别](https://cloud.tencent.com/developer/article/1660961)
 
 
 

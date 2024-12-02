@@ -157,6 +157,10 @@ add_executable(${PROJECT_NAME} ${PRJ_SRC_LIST})
 target_link_libraries(${PROJECT_NAME} PRIVATE libzmq)
 ```
 
+[libzmq在windows下的编译](https://blog.csdn.net/xiexingshishu/article/details/131275090)
+
+[windows下cppzmq简易使用指南](https://niaoge.blog.csdn.net/article/details/105543506)
+
 
 
 # 参考资料

@@ -2,6 +2,10 @@
 
 * [返回上层目录](../simulation-platform.md)
 
+
+
+# GYM
+
 [OpenAI Gym 官网](https://www.gymlibrary.dev/)
 
 大家可以到官网上看一下GYM包含的环境。包含了从简单的Classic control、Toy text，到更复杂的MuJoCo、Robotics，当然包括Atari游戏。 环境还在不断扩展，现在也包括一些第三方的环境，例如围棋等。 所以我们经常用它来检验算法的有效性。
@@ -17,6 +21,24 @@ pip --default-timeout=100 install gym -i https://pypi.tuna.tsinghua.edu.cn/simpl
 
 
 
+
+# 基于GYM的环境
+
+## gym-hybrid
+
+GitHub地址：[thomashirtz/gym-hybrid](https://github.com/thomashirtz/gym-hybrid)
+
+
+
+
+
+# 参考资料
+
+
+
+
+
+===
 
 [Gym小记（二） 浅析Gym中的env](https://blog.csdn.net/u013745804/article/details/78397106)
 

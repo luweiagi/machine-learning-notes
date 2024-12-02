@@ -224,7 +224,12 @@
   * [梯度爆炸与梯度消失](deep-learning/tips/gradient-explosion-and-vanishing/gradient-explosion-and-vanishing.md)
 * [CNN卷积神经网络](deep-learning/convolutional-neural-network/convolutional-neural-network.md)
   * [CNN卷积神经网络](deep-learning/convolutional-neural-network/convolutional-neural-network/convolutional-neural-network.md)
+  
   * [TextCNN: Convolutional Neural Networks for Sentence Classification EMNLP2014](deep-learning/convolutional-neural-network/textcnn/Convolutional-Neural-Networks-for-Sentence-Classification.md)
+  
+  * 时域卷积网络TCN
+  
+    [时域卷积网络TCN详解：使用卷积进行序列建模和预测](https://zhuanlan.zhihu.com/p/269731045)
 * [RNN循环神经网络](deep-learning/recurrent-neural-network/recurrent-neural-network.md)
   * [RNN循环神经网络](deep-learning/recurrent-neural-network/recurrent-neural-network/recurrent-neural-network.md)
     * [RNN循环神经网络](deep-learning/recurrent-neural-network/recurrent-neural-network/recurrent-neural-network/recurrent-neural-network.md)
@@ -256,9 +261,7 @@
 * [Few-shot Learning小样本学习](deep-learning/few-shot-learning/few-shot-learning.md)
 
 # [强化学习](reinforcement-learning/reinforcement-learning.md)
-
 * [强化学习学习路径](reinforcement-learning/rl-learning-path/rl-learning-path.md)
-
 * [强化学习](reinforcement-learning/reinforcement-learning/reinforcement-learning.md)
   * [强化学习概论](reinforcement-learning/reinforcement-learning/reinforcement-learning-introduction/reinforcement-learning-introduction.md)
   * [状态、奖励、动作](reinforcement-learning/reinforcement-learning/state-reward-action/state-reward-action.md)
@@ -281,10 +284,12 @@
 * [仿真环境](reinforcement-learning/simulation-platform/simulation-platform.md)
   * [OpenAI: Gym](reinforcement-learning/simulation-platform/openAI-gym/openAI-gym.md)
   * [OpenAI: Mujoco](reinforcement-learning/simulation-platform/openAI-mujoco/openAI-mujoco.md)
+  * [SMAC星际争霸](reinforcement-learning/simulation-platform/openAI-mujoco/openAI-mujoco.md)
   * [OpenDILab: GoBigger多智能体仿真平台](reinforcement-learning/simulation-platform/OpenDILab-GoBigger/OpenDILab-GoBigger.md)
   * Unity3D: ml-agents
     简言之：行为树是适合解决复杂AI的解决方案。
     对于Unity用户，Unity商店现在已经有一个比较完善的行为树设计(Behavior Designer)插件可供购买使用。  
+* [混合动作空间Hybrid Action Space](reinforcement-learning/hybrid-action-space/hybrid-action-space.md)
 * [Sim2Real从仿真器到现实环境的迁移](reinforcement-learning/sim2real/sim2real.md)
   * [论文](reinforcement-learning/sim2real/paper/paper.md)
     * [i-Sim2Real: Reinforcement Learning of Robotic Policies in Tight Human-Robot Interaction Loops arXiv2022 Google](reinforcement-learning/sim2real/paper/i-sim2real/i-Sim2Real-Reinforcement-Learning-of-Robotic-Policies-in-Tight-Human-Robot-Interaction-Loops.md)
@@ -292,7 +297,7 @@
 * [MCTS蒙特卡洛树搜索](reinforcement-learning/monte-carlo-tree-search/monte-carlo-tree-search.md)
 * [模仿学习](reinforcement-learning/imatation-learning/imatation-learning.md)
   * [模仿学习介绍](reinforcement-learning/imatation-learning/imatation-learning-introduction/imatation-learning-introduction.md)
-  * [BC行为克隆:Behavior Cloning](reinforcement-learning/imatation-learning/behavior-cloning/behavior-cloning.md)
+  * [BC行为克隆Behavior Cloning](reinforcement-learning/imatation-learning/behavior-cloning/behavior-cloning.md)
     * [论文](reinforcement-learning/imatation-learning/behavior-cloning/paper/paper.md)
       * [Visual Backtracking Teleoperation: A Data Collection Protocol for Offline Image-Based Reinforcement Learning arXir2022 Google](reinforcement-learning/imatation-learning/behavior-cloning/paper/visual-backtracking-teleoperation/Visual-Backtracking-Teleoperation-A-Data-Collection-Proto.md)
       * [GoalsEye: Learning High Speed Precision Table Tennis on a Physical Robot Google2022](reinforcement-learning/imatation-learning/behavior-cloning/paper/goals-eye/GoalsEye-Learning-High-Speed-Precision-Table-Tennis-on-a-Physical-Robot.md)
@@ -304,10 +309,11 @@
     * [Augmenting GAIL with BC for sample efficient imitation learning](reinforcement-learning/imatation-learning/paper/BC+GAIL/Augmenting-GAIL-with-BC-for-sample-effici.md)
     * [Robotic Table Wiping via Reinforcement Learning and Whole-body Trajectory Optimization arXiv2022 Google](reinforcement-learning/imatation-learning/paper/robotic-table-wiping/Robotic-Table-Wiping-via-Reinforcement-Learning-and-Whole-body-Trajectory-Optimization.md)
     * [On the Sample Complexity of Stability Constrained Imitation Learning PMLR2022 Google](reinforcement-learning/imatation-learning/paper/sample-complexity/On-the-Sample-Complexity-of-Stability-Constrained-Imitation-Learning.md)
-* [多智能体强化学习](reinforcement-learning/multi-agent-reinforcement-learning/multi-agent-reinforcement-learning.md)
+* [MARL多智能体强化学习](reinforcement-learning/multi-agent-reinforcement-learning/multi-agent-reinforcement-learning.md)
   * [MAPPO](reinforcement-learning/multi-agent-reinforcement-learning/mappo/mappo.md)
   * [多智能体强化学习论文](reinforcement-learning/multi-agent-reinforcement-learning/paper/paper.md)
     * [mean-field: Mean Field Multi-Agent Reinforcement Learning ICML2018](reinforcement-learning/multi-agent-reinforcement-learning/paper/mean-field/Mean-Field-Multi-Agent-Reinforcement-Learning.md)
+* [异质多智能体强化学习HARL(Heterogeneous-Agent Reinforcement Learning)](reinforcement-learning/heterogeneous-agent-reinforcement-learning/heterogeneous-agent-reinforcement-learning.md)
 * [Transformer+RL](reinforcement-learning/transformer-rl/transformer-rl.md)
 * [决策大模型](reinforcement-learning/decision-making-big-model/decision-making-big-model.md)
 * [Offline RL离线强化学习](reinforcement-learning/offline-reinforcement-learning/offline-reinforcement-learning.md)
@@ -499,17 +505,21 @@
     * [图表征概述](recommender-systems/advanced-knowledge/graph-embedding/graph-embedding-introduction/graph-embedding-introduction.md)
     * [LINE: Large-scale Information Network Embedding ACM2015](recommender-systems/advanced-knowledge/graph-embedding/line/LINE-Large-scale-Information-Network-Embedding.md)
   * [深度学习](recommender-systems/advanced-knowledge/deep-learning/deep-learning.md)
+    * NeuralFM
     * [DeepFM: A Factorization-Machine based Neural Network for CTR Prediction 2017](recommender-systems/advanced-knowledge/deep-learning/deepfm/DeepFM-A-Factorization-Machine-based-Neural-Network-for-CTR-Prediction.md)
+    * xDeepFM
     * [DSSM: Learning Deep Structured Semantic Models for Web Search using Clickthrough Data CIKM2013](recommender-systems/advanced-knowledge/deep-learning/dssm/Learning-Deep-Structured-Semantic-Models-for-Web-Search-using-Clickthrough-Data.md)
-  * [特征交叉]()
+  * [DNN深化](recommender-systems/advanced-knowledge/deepening-dnn/deepening-dnn.md)
+  * [特征交叉](recommender-systems/advanced-knowledge/feature-cross/feature-cross.md)
   * [多任务学习](recommender-systems/advanced-knowledge/multy-task-learning/multy-task-learning.md)
     * MMoE: Modeling Task Relationships in Multi-task Learning with Multi-gate Mixture-of-Experts KDD2018（见业界应用）
     * [ESMM: Entire Space Multi-Task Model: An Effective Approach for Estimating Post-Click Conversion Rate SIGIR2018（见业界应用）
-  * [用户行为序列](recommender-systems/advanced-knowledge/user-behavior-sequence/user-behavior-sequence.md)
-    * [用户行为序列](recommender-systems/advanced-knowledge/user-behavior-sequence/user-behavior-sequence/user-behavior-sequence.md)
+  * [用户行为序列建模](recommender-systems/advanced-knowledge/user-behavior-sequence/user-behavior-sequence.md)
+    * [用户行为序列建模](recommender-systems/advanced-knowledge/user-behavior-sequence/user-behavior-sequence/user-behavior-sequence.md)
     * [短序列](recommender-systems/advanced-knowledge/user-behavior-sequence/short-sequence/short-sequence.md)
       * pooling
         * YouTubeDNN: Deep Neural Networks for YouTube Recommendations RecSys2016（见业界应用）
+      * [共享权重神经网络+池化](recommender-systems/advanced-knowledge/user-behavior-sequence/short-sequence/shared-weight-neural-networks-pooling/shared-weight-neural-networks-pooling.md)
       * RNN
       * 基于Attention机制的用户行为序列建模
         * 基于Target-Attention机制的用户行为序列建模
@@ -530,16 +540,25 @@
     * [DRN: A Deep Reinforcement Learning Framework for News Recommendation WWW2018](recommender-systems/advanced-knowledge/reinforcement-learning/drn/DRN-A-Deep-Reinforcement-Learning-Framework-for-News-Recommendation.md)
 * [业界应用](recommender-systems/industry-application/industry-application.md)
   * [YouTube](recommender-systems/industry-application/youtube/youtube.md)
+    
     * [YouTubeDNN: Deep Neural Networks for YouTube Recommendations RecSys2016](recommender-systems/industry-application/youtube/youtube-dnn/Deep-Neural-Networks-for-YouTube-Recommendations.md)
   * [Facebook](recommender-systems/industry-application/facebook/facebook.md)
+    
     * [XGB+LR: Practical Lessons from Predicting Clicks on Ads at Facebook KDD2014](recommender-systems/industry-application/facebook/xgboost+lr/Practical-Lessons-from-Predicting-Clicks-on-Ads-at-Facebook.md)
   * [Alibaba](recommender-systems/industry-application/alibaba/alibaba.md)
     * [TDM: Learning Tree-based Deep Model for Recommender Systems KDD2018](recommender-systems/industry-application/alibaba/tree-based-deep-model/Learning-Tree-based-Deep-Model-for-Recommender-Systems.md)
+    
     * [DIN: Deep Interest Network for Click-Through Rate Prediction KDD2018](recommender-systems/industry-application/alibaba/deep-interest-network/Deep-Interest-Network-for-Click-Through-Rate-Prediction.md)
+    
     * DIEN: Deep Interest Evolution Network for Click-Through Rate Prediction
+    
+      [也评Deep Interest Evolution Network 石塔西](https://zhuanlan.zhihu.com/p/54838663)
+    
     * [DSIN: Deep Session Interest Network for Click-Through Rate Prediction IJCAI2019](recommender-systems/industry-application/alibaba/deep-session-interest-network/DSIN-Deep-Session-Interest-Network-for-Click-Through-Rate-Prediction.md)
+    
     * [ESMM: Entire Space Multi-Task Model: An Effective Approach for Estimating Post-Click Conversion Rate SIGIR2018](recommender-systems/industry-application/alibaba/esmm/Entire-Space-Multi-Task-Model-An-Effective-Approach-for-Estimating-Post-Click-Conversion-Rate.md)
   * [Google](recommender-systems/industry-application/google/google.md)
+    
     * [MMoE: Modeling Task Relationships in Multi-task Learning with Multi-gate Mixture-of-Experts KDD2018](recommender-systems/industry-application/google/mmoe/Modeling-Task-Relationships-in-Multi-task-Learning-with-Multi-gate-Mixture-of-Experts.md)
 
 # [模型部署](model-deployment/model-deployment.md)
@@ -572,17 +591,16 @@
   * [电流计](autopilot/sensor/ammeter/ammeter.md)
     * [使用电流计测量电池电动势用于pwm电压补偿](autopilot/sensor/ammeter/measure-voltage-for-compensation-to-pwm/measure-voltage-for-compensation-to-pwm.md)
   * [空速计](autopilot/sensor/airspeed_meter/airspeed_meter.md)
-
 * [感知](autopilot/perception/perception.md)
 * [导航](autopilot/navigation/navigation.md)
-  - [欧拉旋转定理](autopilot/navigation/euler-rotation-theorem/euler-rotation-theorem.md)
-  - [坐标变换与欧拉运动学方程](autopilot/navigation/coord-trans-and-euler-kinematics-equation/coord-trans-and-euler-kinematics-equation.md)
-  - [导航常用坐标系及变换](autopilot/navigation/navigation-coord-system-and-trans/navigation-coord-system-and-trans.md)
-  - [哥氏定理/科里奥利定理](autopilot/navigation/coriolis-theorem/coriolis-theorem.md)
-  - [四元数](autopilot/navigation/quaternion/quaternion.md)
-  - [罗德里格斯公式](autopilot/navigation/rodrigues-formula/rodrigues-formula.md)
-  - [李群李代数](autopilot/navigation/lie-group-and-lie-algebra/lie-group-and-lie-algebra.md)
-  - [基于互补滤波的组合导航](autopilot/navigation/complementary-filtering/complementary-filtering.md)
+  * [欧拉旋转定理](autopilot/navigation/euler-rotation-theorem/euler-rotation-theorem.md)
+  * [坐标变换与欧拉运动学方程](autopilot/navigation/coord-trans-and-euler-kinematics-equation/coord-trans-and-euler-kinematics-equation.md)
+  * [导航常用坐标系及变换](autopilot/navigation/navigation-coord-system-and-trans/navigation-coord-system-and-trans.md)
+  * [哥氏定理/科里奥利定理](autopilot/navigation/coriolis-theorem/coriolis-theorem.md)
+  * [四元数](autopilot/navigation/quaternion/quaternion.md)
+  * [罗德里格斯公式](autopilot/navigation/rodrigues-formula/rodrigues-formula.md)
+  * [李群李代数](autopilot/navigation/lie-group-and-lie-algebra/lie-group-and-lie-algebra.md)
+  * [基于互补滤波的组合导航](autopilot/navigation/complementary-filtering/complementary-filtering.md)
 * [轨迹预测](autopilot/trajectory-prediction/trajectory-prediction.md)
 * [决策](autopilot/decision/decision.md)
   * [行为树](autopilot/decision/behavior-tree/behavior-tree.md)
@@ -609,11 +627,11 @@
     * [PaLM-E: An Embodied Multimodal Language Model arXiv2023 Google](autopilot/control/llm-based-control/PaLM-E/PaLM-E.md) ***
     * [Towards a Robotics Foundation Model ML-Collective协会2023]()
 * [动力系统](autopilot/dynamic-system/dynamic-system.md)
-  - [多旋翼组装选型](autopilot/dynamic-system/copter-assemble-and-lectotype/copter-assemble-and-lectotype.md)
-  - [电调](autopilot/dynamic-system/ESC/ESC.md)
-    - [螺旋桨推力与电调pwm的曲线映射关系](autopilot/dynamic-system/ESC/thrust2pwm_curve/thrust2pwm_curve.md)
-  - [电机](autopilot/dynamic-system/motor/motor.md)
-    - [电机的原理](autopilot/dynamic-system/motor/motor-principle/motor-principle.md)
+  * [多旋翼组装选型](autopilot/dynamic-system/copter-assemble-and-lectotype/copter-assemble-and-lectotype.md)
+  * [电调](autopilot/dynamic-system/ESC/ESC.md)
+    * [螺旋桨推力与电调pwm的曲线映射关系](autopilot/dynamic-system/ESC/thrust2pwm_curve/thrust2pwm_curve.md)
+  * [电机](autopilot/dynamic-system/motor/motor.md)
+    * [电机的原理](autopilot/dynamic-system/motor/motor-principle/motor-principle.md)
 * 仿真
   * [gym-jsbsim:使用JSBSim飞行动力学模型的飞机控制强化学习环境](https://download.csdn.net/download/weixin_42165980/18471290)
   * [GymFC是一个OpenAI环境](https://blog.csdn.net/dumao0620/article/details/127667719)
@@ -638,3 +656,4 @@
 # [任务清单](personal/list.md)
 * [收集的各种资料](personal/material.md)
 * [有用的工具](personal/tools.md)
+

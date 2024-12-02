@@ -642,3 +642,8 @@ Encoder通过处理输入序列开启工作。Encoder顶端的输出之后会变
 [Naive Bayes is all you need ?](https://zhuanlan.zhihu.com/p/637493675)
 
 在写完[《NBCE：使用朴素贝叶斯扩展LLM的Context处理长度》](https://kexue.fm/archives/9617)之后，笔者就觉得朴素贝叶斯（Naive Bayes）跟Attention机制有很多相同的特征，后来再推导了一下发现，Attention机制其实可以看成是一种广义的、参数化的朴素贝叶斯。
+
+
+
+[为什么 dot-product attention 需要被 scaled？](https://blog.csdn.net/qq_37430422/article/details/105042303)
+

@@ -4,6 +4,14 @@
 
 
 
+
+
+[CTR预估模型有怎样的发展规律？](https://www.zhihu.com/question/363531892/answer/3593542217)
+
+里面的场景全面化部分需要看一下。
+
+
+
 在上一篇文章中，我们介绍了一种多任务学习的模型Multi-gate Mixture-of-Experts (MMoE) ，
 
 

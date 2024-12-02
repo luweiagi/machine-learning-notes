@@ -2,7 +2,7 @@
 
 * [返回上层目录](../reinforcement-learning.md)
 * [模仿学习介绍](imatation-learning-introduction/imatation-learning-introduction.md)
-* [BC行为克隆:Behavior Cloning](behavior-cloning/behavior-cloning.md)
+* [BC行为克隆Behavior Cloning](behavior-cloning/behavior-cloning.md)
 * [IRL逆强化学习Inverse Reinforcement Learning](inverse-reinforcement-learning/inverse-reinforcement-learning.md)
 * [GAIL生成式对抗模仿学习: Generative Adversarial Imitation Learning NeurIPS2016](generative-adversarial-imitation-learning/Generative-Adversarial-Imitation-Learning.md)
 * [论文](paper/paper.md)

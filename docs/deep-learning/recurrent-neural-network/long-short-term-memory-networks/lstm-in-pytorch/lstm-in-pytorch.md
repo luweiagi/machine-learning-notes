@@ -10,6 +10,10 @@
 
 # 111
 
+[lstm pytorch梳理之 batch_first 参数 和torch.nn.utils.rnn.pack_padded_sequence](https://www.cnblogs.com/yuqinyuqin/p/14100967.html)
+
+[5. 可变序列使用pack_padded_sequence, pad_packed_sequence](https://www.jianshu.com/p/46e68eb265f9)
+
 ## 可变长序列的pad和pack的使用
 
 ```python
@@ -293,3 +297,12 @@ predictions = torch.cat(predictions, dim=1)
 batch_x = batch_x.permute((1, 0, 2))
 ```
 
+
+
+[【PyTorch修炼】用pytorch写一个经常用来测试时序模型的简单常规套路（LSTM多步迭代预测）](https://zhuanlan.zhihu.com/p/450869349)
+
+
+
+[理解Pytorch中LSTM的输入输出参数含义](https://zhuanlan.zhihu.com/p/100360301)
+
+[LSTM细节分析理解（pytorch版）](https://zhuanlan.zhihu.com/p/79064602)

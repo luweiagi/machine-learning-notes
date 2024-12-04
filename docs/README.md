@@ -284,6 +284,7 @@
   * [混合动作空间Hybrid Action Space](reinforcement-learning/advanced-theme-and-technique/hybrid-action-space/hybrid-action-space.md)
   * [基于MCTS（蒙特卡洛树搜索）的强化学习增强方法](reinforcement-learning/advanced-theme-and-technique/rl-and-mcts/rl-and-mcts.md)
     * [强化学习结合MCTS（蒙特卡洛树搜索）的通用框架](reinforcement-learning/advanced-theme-and-technique/rl-and-mcts/rl-and-mcts-general-framework/rl-and-mcts-general-framework.md)
+    * 适用于离散连续动作空间的强化学习+MCTS框架
 * [仿真环境](reinforcement-learning/simulation-platform/simulation-platform.md)
   * [OpenAI: Gym](reinforcement-learning/simulation-platform/openAI-gym/openAI-gym.md)
   * [OpenAI: Mujoco](reinforcement-learning/simulation-platform/openAI-mujoco/openAI-mujoco.md)

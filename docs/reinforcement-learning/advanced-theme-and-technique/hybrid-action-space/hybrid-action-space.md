@@ -1,6 +1,6 @@
 # 混合动作空间
 
-* [返回上层目录](../reinforcement-learning.md)
+* [返回上层目录](../advanced-theme-and-technique.md)
 
 
 

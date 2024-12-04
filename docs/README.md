@@ -281,6 +281,12 @@
     * [DDPG: Continuous Control With Deep Reinforcement Learning ICLR2016](reinforcement-learning/reinforcement-learning/paper/ddpg/ddpg.md)
     * [PPO: Proximal Policy Optimization arXiv2017 OpenAI](reinforcement-learning/reinforcement-learning/paper/ppo/Proximal-Policy-Optimization.md)
     * [SAC: Soft Actor-Critic](https://www.paperexplained.cn/articles/paper/detail/811df72e210e20de99719539505da54762a11c6d/)
+* [高级主题与进阶技巧](reinforcement-learning/advanced-theme-and-technique/advanced-theme-and-technique.md)
+  * [稀疏奖励Sparse Reward](reinforcement-learning/advanced-theme-and-technique/sparse-reward/sparse-reward.md)
+    * [对抗智能体奖励设计](reinforcement-learning/advanced-theme-and-technique/sparse-reward/adversarial-agent-reward-design/adversarial-agent-reward-design.md)
+  * [混合动作空间Hybrid Action Space](reinforcement-learning/advanced-theme-and-technique/hybrid-action-space/hybrid-action-space.md)
+  * [基于MCTS（蒙特卡洛树搜索）的强化学习增强方法](reinforcement-learning/advanced-theme-and-technique/rl-and-mcts/rl-and-mcts.md)
+    * [强化学习结合MCTS（蒙特卡洛树搜索）的通用框架](reinforcement-learning/advanced-theme-and-technique/rl-and-mcts/rl-and-mcts-general-framework/rl-and-mcts-general-framework.md)
 * [仿真环境](reinforcement-learning/simulation-platform/simulation-platform.md)
   * [OpenAI: Gym](reinforcement-learning/simulation-platform/openAI-gym/openAI-gym.md)
   * [OpenAI: Mujoco](reinforcement-learning/simulation-platform/openAI-mujoco/openAI-mujoco.md)
@@ -288,8 +294,7 @@
   * [OpenDILab: GoBigger多智能体仿真平台](reinforcement-learning/simulation-platform/OpenDILab-GoBigger/OpenDILab-GoBigger.md)
   * Unity3D: ml-agents
     简言之：行为树是适合解决复杂AI的解决方案。
-    对于Unity用户，Unity商店现在已经有一个比较完善的行为树设计(Behavior Designer)插件可供购买使用。  
-* [混合动作空间Hybrid Action Space](reinforcement-learning/hybrid-action-space/hybrid-action-space.md)
+    对于Unity用户，Unity商店现在已经有一个比较完善的行为树设计(Behavior Designer)插件可供购买使用。
 * [Sim2Real从仿真器到现实环境的迁移](reinforcement-learning/sim2real/sim2real.md)
   * [论文](reinforcement-learning/sim2real/paper/paper.md)
     * [i-Sim2Real: Reinforcement Learning of Robotic Policies in Tight Human-Robot Interaction Loops arXiv2022 Google](reinforcement-learning/sim2real/paper/i-sim2real/i-Sim2Real-Reinforcement-Learning-of-Robotic-Policies-in-Tight-Human-Robot-Interaction-Loops.md)

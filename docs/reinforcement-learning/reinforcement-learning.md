@@ -3,6 +3,7 @@
 * [返回上层目录](../README.md)
 * [强化学习学习路径](rl-learning-path/rl-learning-path.md)
 * [强化学习](reinforcement-learning/reinforcement-learning.md)
+* [高级主题与进阶技巧](advanced-theme-and-technique/advanced-theme-and-technique.md)
 * [仿真环境](simulation-platform/simulation-platform.md)
 * [混合动作空间Hybrid Action Space](hybrid-action-space/hybrid-action-space.md)
 * [MCTS蒙特卡洛树搜索](monte-carlo-tree-search/monte-carlo-tree-search.md)

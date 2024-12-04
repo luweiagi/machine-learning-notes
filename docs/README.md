@@ -224,11 +224,8 @@
   * [梯度爆炸与梯度消失](deep-learning/tips/gradient-explosion-and-vanishing/gradient-explosion-and-vanishing.md)
 * [CNN卷积神经网络](deep-learning/convolutional-neural-network/convolutional-neural-network.md)
   * [CNN卷积神经网络](deep-learning/convolutional-neural-network/convolutional-neural-network/convolutional-neural-network.md)
-  
   * [TextCNN: Convolutional Neural Networks for Sentence Classification EMNLP2014](deep-learning/convolutional-neural-network/textcnn/Convolutional-Neural-Networks-for-Sentence-Classification.md)
-  
   * 时域卷积网络TCN
-  
     [时域卷积网络TCN详解：使用卷积进行序列建模和预测](https://zhuanlan.zhihu.com/p/269731045)
 * [RNN循环神经网络](deep-learning/recurrent-neural-network/recurrent-neural-network.md)
   * [RNN循环神经网络](deep-learning/recurrent-neural-network/recurrent-neural-network/recurrent-neural-network.md)
@@ -545,25 +542,17 @@
     * [DRN: A Deep Reinforcement Learning Framework for News Recommendation WWW2018](recommender-systems/advanced-knowledge/reinforcement-learning/drn/DRN-A-Deep-Reinforcement-Learning-Framework-for-News-Recommendation.md)
 * [业界应用](recommender-systems/industry-application/industry-application.md)
   * [YouTube](recommender-systems/industry-application/youtube/youtube.md)
-    
     * [YouTubeDNN: Deep Neural Networks for YouTube Recommendations RecSys2016](recommender-systems/industry-application/youtube/youtube-dnn/Deep-Neural-Networks-for-YouTube-Recommendations.md)
   * [Facebook](recommender-systems/industry-application/facebook/facebook.md)
-    
     * [XGB+LR: Practical Lessons from Predicting Clicks on Ads at Facebook KDD2014](recommender-systems/industry-application/facebook/xgboost+lr/Practical-Lessons-from-Predicting-Clicks-on-Ads-at-Facebook.md)
   * [Alibaba](recommender-systems/industry-application/alibaba/alibaba.md)
     * [TDM: Learning Tree-based Deep Model for Recommender Systems KDD2018](recommender-systems/industry-application/alibaba/tree-based-deep-model/Learning-Tree-based-Deep-Model-for-Recommender-Systems.md)
-    
     * [DIN: Deep Interest Network for Click-Through Rate Prediction KDD2018](recommender-systems/industry-application/alibaba/deep-interest-network/Deep-Interest-Network-for-Click-Through-Rate-Prediction.md)
-    
     * DIEN: Deep Interest Evolution Network for Click-Through Rate Prediction
-    
       [也评Deep Interest Evolution Network 石塔西](https://zhuanlan.zhihu.com/p/54838663)
-    
     * [DSIN: Deep Session Interest Network for Click-Through Rate Prediction IJCAI2019](recommender-systems/industry-application/alibaba/deep-session-interest-network/DSIN-Deep-Session-Interest-Network-for-Click-Through-Rate-Prediction.md)
-    
     * [ESMM: Entire Space Multi-Task Model: An Effective Approach for Estimating Post-Click Conversion Rate SIGIR2018](recommender-systems/industry-application/alibaba/esmm/Entire-Space-Multi-Task-Model-An-Effective-Approach-for-Estimating-Post-Click-Conversion-Rate.md)
   * [Google](recommender-systems/industry-application/google/google.md)
-    
     * [MMoE: Modeling Task Relationships in Multi-task Learning with Multi-gate Mixture-of-Experts KDD2018](recommender-systems/industry-application/google/mmoe/Modeling-Task-Relationships-in-Multi-task-Learning-with-Multi-gate-Mixture-of-Experts.md)
 
 # [模型部署](model-deployment/model-deployment.md)
@@ -661,4 +650,3 @@
 # [任务清单](personal/list.md)
 * [收集的各种资料](personal/material.md)
 * [有用的工具](personal/tools.md)
-

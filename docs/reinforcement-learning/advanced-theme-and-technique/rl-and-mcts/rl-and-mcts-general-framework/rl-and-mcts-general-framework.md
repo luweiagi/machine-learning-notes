@@ -2,6 +2,7 @@
 
 * [返回上层目录](../rl-and-mcts.md)
 * [简单的强化学习+MCTS训练框架](#简单的强化学习+MCTS训练框架)
+* [训练阶段使用MCTS的结果总是更优的，这会不会减少了探索，导致训练不充分](#训练阶段使用MCTS的结果总是更优的，这会不会减少了探索，导致训练不充分)
 * [MCTS的环境不是外部PPO的环境](#MCTS的环境不是外部PPO的环境)
 
 
@@ -234,9 +235,9 @@ training_loop.train()
 
 
 
-# 训练阶段使用mcts的结果总是更优的，这会不会减少了探索，导致训练不充分
+# 训练阶段使用MCTS的结果总是更优的，这会不会减少了探索，导致训练不充分
 
-训练阶段使用mcts，这样的结果总是更优的，这会不会减少了探索，导致训练不充分？
+训练阶段使用MCTS，这样的结果总是更优的，这会不会减少了探索，导致训练不充分？
 
 > 这个问题是非常关键的，涉及到 **强化学习** 中的探索（exploration）和利用（exploitation）的平衡问题。在使用 **MCTS** 进行训练时，确实可能出现 **减少探索** 的情况，从而影响训练的充分性，尤其是在训练初期。
 >
@@ -262,6 +263,8 @@ training_loop.train()
 > ### 总结
 >
 > 在训练阶段，使用MCTS确实可能会减少探索，因为它倾向于在每一步选择基于当前策略的最优动作，这可能导致模型过早收敛，忽视了一些潜在的好策略。为了解决这个问题，可以通过混合使用探索（例如引入epsilon-greedy策略）和利用、控制MCTS的仿真次数、引入噪声或奖励衰减等方法来平衡探索和利用。这样能确保模型在探索新策略的同时，又能够利用已知的最优策略提高性能，从而更好地完成训练。
+
+
 
 那为啥要在训练阶段加入mcts呢？能不能只在推理阶段加入mcts？
 
@@ -404,31 +407,6 @@ mcts_env.load_state(env_state)  # 加载主环境的状态
 >
 > 这种方式由环境实现内部深拷贝，确保状态的完整性。
 >
-> 是的，**env_state必须是一个深拷贝的副本**，以确保外部PPO环境的状态不会被MCTS的操作修改。以下是原因和实践细节：
->
-> **1. 为什么需要深拷贝的副本？**
->
-> - **状态独立性**：如果直接使用浅拷贝或共享引用，MCTS对`env_state`的修改会直接影响外部PPO环境，导致训练过程混乱。
-> - **并发安全性**：在并发或多线程场景中，共享状态可能引发不可预期的冲突或错误。
-> - **环境一致性**：MCTS模拟过程中对环境的多次`step()`调用需要修改环境状态，但这些修改不应该影响主环境。
->
-> **2. 如何实现深拷贝的副本？**
->
-> #### **(1) 使用环境提供的保存和加载方法**
->
-> 很多强化学习环境（如`gym`）提供了保存和加载状态的接口，例如：
->
-> ```
-> python
-> 
-> 
-> 复制代码
-> env_state = main_env.save_state()  # 保存主环境状态
-> mcts_env.load_state(env_state)    # 加载到副本环境
-> ```
->
-> 这种方式由环境实现内部深拷贝，确保状态的完整性。
->
 > **(2) 手动深拷贝**
 >
 > 如果环境没有内置的保存和加载功能，可以使用Python的`copy`模块进行深拷贝：
@@ -436,7 +414,7 @@ mcts_env.load_state(env_state)  # 加载主环境的状态
 > ```python
 > import copy
 > 
-> env_state = copy.deepcopy(main_env)  # 深拷贝主环境
+>env_state = copy.deepcopy(main_env)  # 深拷贝主环境
 > ```
 >
 > 这种方式要求`main_env`的状态（如属性和缓存）能够被深拷贝，适用于大多数基于类实现的环境。
@@ -444,51 +422,51 @@ mcts_env.load_state(env_state)  # 加载主环境的状态
 > 方式要求`main_env`的状态（如属性和缓存）能够被深拷贝，适用于大多数基于类实现的环境。
 >
 > **3. 示例代码**
->
+> 
 > 以下是一个完整的代码示例，展示如何确保环境状态的独立性：
->
+> 
 > ```python
 > import gym
 > import copy
 > 
-> # 创建主环境
+># 创建主环境
 > main_env = gym.make('CartPole-v1')
-> 
+>
 > # PPO和MCTS训练过程
-> for episode in range(10):
->     state = main_env.reset()
->     done = False
+>for episode in range(10):
+>  state = main_env.reset()
+> done = False
 > 
->     while not done:
->         # PPO获取当前动作
->         action = 0  # 假设通过PPO得到一个动作
+>  while not done:
+>      # PPO获取当前动作
+>      action = 0  # 假设通过PPO得到一个动作
 > 
->         # 保存主环境的状态
->         env_state = main_env.save_state()  # 或者用 copy.deepcopy(main_env)
+>     # 保存主环境的状态
+>      env_state = main_env.save_state()  # 或者用 copy.deepcopy(main_env)
+>
+>      # 创建MCTS环境副本
+>     mcts_env = gym.make('CartPole-v1')
+>      mcts_env.load_state(env_state)
+>
+>      # 在MCTS环境中模拟动作
+>     best_action = 0  # MCTS搜索得到的最佳动作
 > 
->         # 创建MCTS环境副本
->         mcts_env = gym.make('CartPole-v1')
->         mcts_env.load_state(env_state)
+>      # 在主环境中执行动作
+>      next_state, reward, done, _ = main_env.step(best_action)
 > 
->         # 在MCTS环境中模拟动作
->         best_action = 0  # MCTS搜索得到的最佳动作
-> 
->         # 在主环境中执行动作
->         next_state, reward, done, _ = main_env.step(best_action)
-> 
->         # PPO更新模型
->         # ...
+>      # PPO更新模型
+>      # ...
 > ```
->
+> 
 > **4. 注意事项**
->
-> - **深拷贝效率**：深拷贝可能对性能造成一定开销，尤其在复杂环境中。尽量选择内置的保存和加载方法。
+>    
+>    - **深拷贝效率**：深拷贝可能对性能造成一定开销，尤其在复杂环境中。尽量选择内置的保存和加载方法。
 > - **环境支持性**：确保你的环境实现了深拷贝能力（如保存状态的方法或对深拷贝的支持），否则需要手动实现状态保存逻辑。
-> - **一致性验证**：使用深拷贝后，验证MCTS和主环境的行为是否一致，以避免引入额外的偏差。
->
-> **5. 总结**
->
-> 是的，`env_state`必须是深拷贝的副本。无论通过环境内置的保存方法还是手动实现深拷贝，确保独立的状态管理对于MCTS和PPO的联合训练至关重要。如果深拷贝代价较高，可以探讨优化策略，比如只拷贝环境状态的关键部分而非整个环境对象。
+>    - **一致性验证**：使用深拷贝后，验证MCTS和主环境的行为是否一致，以避免引入额外的偏差。
+>    
+>    **5. 总结**
+> 
+>    是的，`env_state`必须是深拷贝的副本。无论通过环境内置的保存方法还是手动实现深拷贝，确保独立的状态管理对于MCTS和PPO的联合训练至关重要。如果深拷贝代价较高，可以探讨优化策略，比如只拷贝环境状态的关键部分而非整个环境对象。
 
 **总结**
 
@@ -533,11 +511,7 @@ mcts_env.load_state(env_state)  # 加载主环境的状态
 
 Python端的工作流程：
 
-```
-python
-
-
-复制代码
+```python
 # 保存主环境状态
 state_id = zmq_client.send_request("save_state")
 
@@ -897,18 +871,14 @@ for _ in range(mcts_iterations):
 >
 > 方法 3：基于远程服务的实现适用于复杂系统，特别是需要跨语言（如 Python 和 C++）或者跨进程/分布式环境的场景。以下是更详细的说明和步骤：
 >
-> ------
->
 > ### 核心概念
 >
 > 在基于远程服务的实现中：
 >
 > 1. 环境状态由一个服务端集中管理。
-> 2. 客户端通过通信协议（如 ZeroMQ 或 HTTP）与服务端交互，向服务端发送保存和加载状态的请求。
+>2. 客户端通过通信协议（如 ZeroMQ 或 HTTP）与服务端交互，向服务端发送保存和加载状态的请求。
 > 3. 服务端根据请求，执行保存或加载操作，并返回结果给客户端。
->
-> ------
->
+> 
 > ### 实现细节
 >
 > #### 服务端
@@ -916,152 +886,132 @@ for _ in range(mcts_iterations):
 > 服务端负责接收状态保存和加载请求，维护一个状态存储器（如字典或数据库）：
 >
 > ```
-> python
-> 
-> 
-> 复制代码
-> import zmq
+>import zmq
 > import json
-> 
+>
 > class ZMQStateServer:
->     def __init__(self):
->         self.states = {}  # 状态存储器
->         self.next_id = 0  # 用于生成唯一的 state_id
+>  def __init__(self):
+>      self.states = {}  # 状态存储器
+>      self.next_id = 0  # 用于生成唯一的 state_id
 > 
->     def save_state(self, state):
->         """保存状态"""
->         state_id = str(self.next_id)
->         self.states[state_id] = state
+>  def save_state(self, state):
+>      """保存状态"""
+>      state_id = str(self.next_id)
+>      self.states[state_id] = state
 >         self.next_id += 1
 >         return state_id
-> 
->     def load_state(self, state_id):
+>    
+>  def load_state(self, state_id):
 >         """加载状态"""
 >         if state_id in self.states:
 >             return self.states[state_id]
 >         else:
 >             raise ValueError("State ID not found")
-> 
->     def run(self):
+>    
+>  def run(self):
 >         """运行 ZMQ 服务器"""
 >         context = zmq.Context()
 >         socket = context.socket(zmq.REP)  # 应答模式
 >         socket.bind("tcp://*:5555")
-> 
+>    
 >         print("State server running on port 5555...")
 > 
 >         while True:
 >             # 接收请求
 >             message = socket.recv_json()
 >             command = message["command"]
-> 
->             if command == "save":
+>    
+>          if command == "save":
 >                 state = message["state"]
->                 state_id = self.save_state(state)
+>              state_id = self.save_state(state)
 >                 socket.send_json({"state_id": state_id})
-> 
+>    
 >             elif command == "load":
 >                 state_id = message["state_id"]
->                 try:
+>              try:
 >                     state = self.load_state(state_id)
 >                     socket.send_json({"state": state})
 >                 except ValueError as e:
 >                     socket.send_json({"error": str(e)})
 > ```
->
-> ------
->
-> #### 客户端
->
-> 客户端向服务端发送请求，并根据响应结果保存或恢复状态：
->
-> ```
-> python
+>    
+>    #### 客户端
+>    
+>    客户端向服务端发送请求，并根据响应结果保存或恢复状态：
+>    
+>    ```python
+>    import zmq
 > 
+>class ZMQStateClient:
+>  def __init__(self, server_address="tcp://localhost:5555"):
+>     self.context = zmq.Context()
+>      self.socket = self.context.socket(zmq.REQ)  # 请求模式
+>     self.socket.connect(server_address)
 > 
-> 复制代码
-> import zmq
+> def save_state(self, state):
+>      """请求保存状态"""
+>      self.socket.send_json({"command": "save", "state": state})
+>      response = self.socket.recv_json()
+>      return response["state_id"]
 > 
-> class ZMQStateClient:
->     def __init__(self, server_address="tcp://localhost:5555"):
->         self.context = zmq.Context()
->         self.socket = self.context.socket(zmq.REQ)  # 请求模式
->         self.socket.connect(server_address)
-> 
->     def save_state(self, state):
->         """请求保存状态"""
->         self.socket.send_json({"command": "save", "state": state})
->         response = self.socket.recv_json()
->         return response["state_id"]
-> 
->     def load_state(self, state_id):
->         """请求加载状态"""
->         self.socket.send_json({"command": "load", "state_id": state_id})
+>  def load_state(self, state_id):
+>      """请求加载状态"""
+>      self.socket.send_json({"command": "load", "state_id": state_id})
 >         response = self.socket.recv_json()
 >         if "error" in response:
 >             raise ValueError(response["error"])
 >         return response["state"]
 > ```
->
-> ------
->
-> ### 使用示例
->
-> 1. **启动服务端**： 运行服务端以启动状态管理服务器。
->
->    ```
->    python
 >    
+>    ### 使用示例
 >    
->    复制代码
+>    1. **启动服务端**： 运行服务端以启动状态管理服务器。
+>    
+> ```python
 >    if __name__ == "__main__":
 >        server = ZMQStateServer()
 >        server.run()
 >    ```
+>    
+>    2. **客户端交互**： 客户端通过保存和加载状态与服务端交互。
+>    
+> ```python
+>if __name__ == "__main__":
+>     client = ZMQStateClient()
 >
-> 2. **客户端交互**： 客户端通过保存和加载状态与服务端交互。
->
->    ```
->    python
->    
->    
->    复制代码
->    if __name__ == "__main__":
->        client = ZMQStateClient()
->    
->        # 保存状态
->        current_state = {"position": [1, 2, 3], "velocity": [0.5, 0.5, 0]}
->        state_id = client.save_state(current_state)
->        print(f"Saved state with ID: {state_id}")
+>     # 保存状态
+>    current_state = {"position": [1, 2, 3], "velocity": [0.5, 0.5, 0]}
+>     state_id = client.save_state(current_state)
+>    print(f"Saved state with ID: {state_id}")
 >    
 >        # 加载状态
 >        loaded_state = client.load_state(state_id)
 >        print(f"Loaded state: {loaded_state}")
 >    ```
->
-> 状态保存和加载的原理
->
-> 1. **状态序列化**： 客户端将环境状态（如 Python 字典）序列化为 JSON 格式，通过网络发送到服务端。
-> 2. **状态存储**： 服务端将状态存储在内存（字典）或持久化存储（如数据库、文件）中，并分配一个唯一标识符 `state_id`。
+>    
+>    状态保存和加载的原理
+>    
+>    1. **状态序列化**： 客户端将环境状态（如 Python 字典）序列化为 JSON 格式，通过网络发送到服务端。
+>2. **状态存储**： 服务端将状态存储在内存（字典）或持久化存储（如数据库、文件）中，并分配一个唯一标识符 `state_id`。
 > 3. **状态恢复**： 客户端通过指定 `state_id` 向服务端请求加载状态，服务端根据 `state_id` 查找并反序列化状态后返回。
 >
-> 优点和局限性
->
-> 优点
->
-> 1. **分布式支持**：状态存储在远程服务中，可以被多个客户端共享。
-> 2. **语言兼容性**：支持跨语言或跨平台（如 Python 和 C++）。
-> 3. **持久化能力**：可以将状态持久化到数据库或文件中，支持长期存储。
->
-> 局限性
->
-> 1. **延迟**：网络通信会引入一定的延迟。
-> 2. **实现复杂性**：需要处理通信协议、错误恢复等细节。
-> 3. **存储限制**：需要为大规模状态存储设计合适的数据结构或存储机制。
->
-> 总结
->
-> `state_id` 是强化学习中用于存储和恢复环境状态的关键工具，具体实现方式取决于你的环境复杂度和性能需求。
+>    优点和局限性
+>    
+>    优点
+>    
+>    1. **分布式支持**：状态存储在远程服务中，可以被多个客户端共享。
+>    2. **语言兼容性**：支持跨语言或跨平台（如 Python 和 C++）。
+>    3. **持久化能力**：可以将状态持久化到数据库或文件中，支持长期存储。
+>    
+>    局限性
+>    
+>    1. **延迟**：网络通信会引入一定的延迟。
+>    2. **实现复杂性**：需要处理通信协议、错误恢复等细节。
+>    3. **存储限制**：需要为大规模状态存储设计合适的数据结构或存储机制。
+>    
+>    总结
+>    
+>    `state_id` 是强化学习中用于存储和恢复环境状态的关键工具，具体实现方式取决于你的环境复杂度和性能需求。
 
 #### **(2) 启用多个环境实例**
 
@@ -1102,11 +1052,7 @@ for env in mcts_envs:
 
 Python端实现：
 
-```
-python
-
-
-复制代码
+```python
 # 保存主环境关键状态参数
 main_env_state = main_env.get_key_state()  # 仅保存必要的状态变量
 

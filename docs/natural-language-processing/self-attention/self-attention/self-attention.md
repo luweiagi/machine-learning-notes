@@ -489,7 +489,9 @@ print(softmax_score)
 output = torch.matmul(attention_weights, V)  # (batch_size, seq_len, embed_size)
 ```
 
-计算加权输出：$\text{Output} = \text{Attention_Weights} \cdot V$
+计算加权输出：$\text{Output} = \text{Attention_Weights} \cdot V$。
+
+test: 计算加权输出：$\text{Output} = \text{Attention_Weights} \cdot V$
 
 - 权重矩阵 (batch_size,seq_len,seq_len)
 - $V$: (batch_size,seq_len,embed_size)
@@ -513,9 +515,16 @@ $$
 \end{bmatrix}
 \cdot
 \begin{bmatrix}
+\begin{bmatrix}
 -0.2116 & -0.1420 & -0.2478 & -0.1694 \\
 0.2925 & -0.1160 & -0.6358 & -0.1054 \\
 -0.1578 & -0.0537 & -0.6168 &  0.0282 \\
+\end{bmatrix}\\
+\begin{bmatrix}
+-0.2332 & -0.0854 & -0.2655 & -0.1537 \\
+0.1524 & -0.0664 & -0.4976 & -0.0751 \\
+-0.0576 & -0.1168 & -0.6534 & 0.0231 \\
+\end{bmatrix}
 \end{bmatrix}\\
 &=
 \begin{bmatrix}

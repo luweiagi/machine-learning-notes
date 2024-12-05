@@ -235,7 +235,6 @@
     * [LSTM长短期记忆网络](deep-learning/recurrent-neural-network/long-short-term-memory-networks/long-short-term-memory-networks/long-short-term-memory-networks.md)
     * [TensorFlow的LSTM源码分析](deep-learning/recurrent-neural-network/long-short-term-memory-networks/lstm-in-tensorflow/lstm-in-tensorflow.md)
     * [Pytorch的LSTM源码分析](deep-learning/recurrent-neural-network/long-short-term-memory-networks/lstm-in-pytorch/lstm-in-pytorch.md)
-    * [pix2code: Generating Code from a Graphical User Interface Screenshot EICS2018](deep-learning/recurrent-neural-network/long-short-term-memory-networks/pix2code/pix2code-Generating-Code-from-a-Graphical-User-Interface-Screenshot.md)
   * [GRU门控循环单元](deep-learning/recurrent-neural-network/gated-recurrent-unit/gated-recurrent-unit.md)
 * [LNN液态神经网络Liquid Neural Network](deep-learning/liquid-neural-network/liquid-neural-network.md)
 * [BNN贝叶斯神经网络](deep-learning/beyesian-neural-network/beyesian-neural-network.md)
@@ -259,6 +258,7 @@
 
 # [强化学习](reinforcement-learning/reinforcement-learning.md)
 * [强化学习学习路径](reinforcement-learning/rl-learning-path/rl-learning-path.md)
+
 * [强化学习](reinforcement-learning/reinforcement-learning/reinforcement-learning.md)
   * [强化学习概论](reinforcement-learning/reinforcement-learning/reinforcement-learning-introduction/reinforcement-learning-introduction.md)
   * [状态、奖励、动作](reinforcement-learning/reinforcement-learning/state-reward-action/state-reward-action.md)
@@ -278,14 +278,38 @@
     * [DDPG: Continuous Control With Deep Reinforcement Learning ICLR2016](reinforcement-learning/reinforcement-learning/paper/ddpg/ddpg.md)
     * [PPO: Proximal Policy Optimization arXiv2017 OpenAI](reinforcement-learning/reinforcement-learning/paper/ppo/Proximal-Policy-Optimization.md)
     * [SAC: Soft Actor-Critic](https://www.paperexplained.cn/articles/paper/detail/811df72e210e20de99719539505da54762a11c6d/)
-* [高级主题与进阶技巧](reinforcement-learning/advanced-theme-and-technique/advanced-theme-and-technique.md)
-  * [稀疏奖励Sparse Reward](reinforcement-learning/advanced-theme-and-technique/sparse-reward/sparse-reward.md)
-    * [对抗智能体奖励设计](reinforcement-learning/advanced-theme-and-technique/sparse-reward/adversarial-agent-reward-design/adversarial-agent-reward-design.md)
-  * [混合动作空间Hybrid Action Space](reinforcement-learning/advanced-theme-and-technique/hybrid-action-space/hybrid-action-space.md)
-  * [基于MCTS（蒙特卡洛树搜索）的强化学习增强方法](reinforcement-learning/advanced-theme-and-technique/rl-and-mcts/rl-and-mcts.md)
-    * [强化学习结合MCTS（蒙特卡洛树搜索）的通用框架](reinforcement-learning/advanced-theme-and-technique/rl-and-mcts/rl-and-mcts-general-framework/rl-and-mcts-general-framework.md)
-    * 适用于离散连续动作空间的强化学习+MCTS框架
+  
+* [高级主题](reinforcement-learning/advanced-theme/advanced-theme.md)
+  
+  * [稀疏奖励Sparse Reward](reinforcement-learning/advanced-theme/sparse-reward/sparse-reward.md)
+    * [对抗智能体奖励设计](reinforcement-learning/advanced-theme/sparse-reward/adversarial-agent-reward-design/adversarial-agent-reward-design.md)
+  * [混合动作空间Hybrid Action Space](reinforcement-learning/advanced-theme/hybrid-action-space/hybrid-action-space.md)
+  * [MCTS+RL](reinforcement-learning/advanced-theme/mcts-rl/mcts-rl.md)
+    * [MCTS蒙特卡洛树搜索](reinforcement-learning/advanced-theme/monte-carlo-tree-search/monte-carlo-tree-search.md)
+    * [MCTS+RL通用框架](reinforcement-learning/advanced-theme/mcts-rl/mcts-rl-general-framework/mcts-rl-general-framework.md)
+    * 适用于离散连续动作空间的MCTS+RL框架
+  
+  - [模仿学习](reinforcement-learning/advanced-theme/imatation-learning/imatation-learning.md)
+    - [模仿学习介绍](reinforcement-learning/advanced-theme/imatation-learning/imatation-learning-introduction/imatation-learning-introduction.md)
+    - [BC行为克隆Behavior Cloning](reinforcement-learning/advanced-theme/imatation-learning/behavior-cloning/behavior-cloning.md)
+      - [论文](reinforcement-learning/advanced-theme/imatation-learning/behavior-cloning/paper/paper.md)
+        - [Visual Backtracking Teleoperation: A Data Collection Protocol for Offline Image-Based Reinforcement Learning arXir2022 Google](reinforcement-learning/advanced-theme/imatation-learning/behavior-cloning/paper/visual-backtracking-teleoperation/Visual-Backtracking-Teleoperation.md)
+        - [GoalsEye: Learning High Speed Precision Table Tennis on a Physical Robot Google2022](reinforcement-learning/advanced-theme/imatation-learning/behavior-cloning/paper/goals-eye/GoalsEye.md)
+    - [IRL逆强化学习Inverse Reinforcement Learning](reinforcement-learning/advanced-theme/imatation-learning/inverse-reinforcement-learning/inverse-reinforcement-learning.md)
+      - [论文](reinforcement-learning/advanced-theme/imatation-learning/inverse-reinforcement-learning/paper/paper.md)
+        - [XIRL: Cross-embodiment Inverse Reinforcement Learning arXir2022 Google](reinforcement-learning/advanced-theme/imatation-learning/inverse-reinforcement-learning/paper/xirl/XIRL-Cross-embodiment-Inverse-Reinforcement-Learning.md)
+    - [GAIL生成式对抗模仿学习: Generative Adversarial Imitation Learning NeurIPS2016](reinforcement-learning/advanced-theme/imatation-learning/generative-adversarial-imitation-learning/Generative-Adversarial-Imitation-Learning.md)
+    - [论文](reinforcement-learning/advanced-theme/imatation-learning/paper/paper.md)
+      - [Augmenting GAIL with BC for sample efficient imitation learning](reinforcement-learning/advanced-theme/imatation-learning/paper/BC+GAIL/Augmenting-GAIL-with-BC-for-sample-effici.md)
+      - [Robotic Table Wiping via Reinforcement Learning and Whole-body Trajectory Optimization arXiv2022 Google](reinforcement-learning/advanced-theme/imatation-learning/paper/robotic-table-wiping/Robotic-Table-Wiping.md)
+      - [On the Sample Complexity of Stability Constrained Imitation Learning PMLR2022 Google](reinforcement-learning/advanced-theme/imatation-learning/paper/sample-complexity/On-the-Sample-Complexity-of-Stability-Constrained-Imitation-Learning.md)
+  - [Sim2Real从仿真器到现实环境的迁移](reinforcement-learning/advanced-theme/sim2real/sim2real.md)
+    - [论文](reinforcement-learning/advanced-theme/sim2real/paper/paper.md)
+      - [i-Sim2Real: Reinforcement Learning of Robotic Policies in Tight Human-Robot Interaction Loops arXiv2022 Google](reinforcement-learning/advanced-theme/sim2real/paper/i-sim2real/i-Sim2Real-Reinforcement-Learning-of-Robotic-Policies-in-Tight-Human-Robot-Interaction-Loops.md)
+      - [Legged Robots that Keep on Learning: Fine-Tuning Locomotion Policies in the Real World arXiv2022 Google](reinforcement-learning/advanced-theme/sim2real/paper/legged-robots-keep-on-learning/Legged-Robots-that-Keep-on-Learning-Fine-Tuning-Locomotion-Policies-in-the-Real-World.md)
+  
 * [仿真环境](reinforcement-learning/simulation-platform/simulation-platform.md)
+  
   * [OpenAI: Gym](reinforcement-learning/simulation-platform/openAI-gym/openAI-gym.md)
   * [OpenAI: Mujoco](reinforcement-learning/simulation-platform/openAI-mujoco/openAI-mujoco.md)
   * [SMAC星际争霸](reinforcement-learning/simulation-platform/openAI-mujoco/openAI-mujoco.md)
@@ -293,25 +317,7 @@
   * Unity3D: ml-agents
     简言之：行为树是适合解决复杂AI的解决方案。
     对于Unity用户，Unity商店现在已经有一个比较完善的行为树设计(Behavior Designer)插件可供购买使用。
-* [Sim2Real从仿真器到现实环境的迁移](reinforcement-learning/sim2real/sim2real.md)
-  * [论文](reinforcement-learning/sim2real/paper/paper.md)
-    * [i-Sim2Real: Reinforcement Learning of Robotic Policies in Tight Human-Robot Interaction Loops arXiv2022 Google](reinforcement-learning/sim2real/paper/i-sim2real/i-Sim2Real-Reinforcement-Learning-of-Robotic-Policies-in-Tight-Human-Robot-Interaction-Loops.md)
-    * [Legged Robots that Keep on Learning: Fine-Tuning Locomotion Policies in the Real World arXiv2022 Google](reinforcement-learning/sim2real/paper/legged-robots-keep-on-learning/Legged-Robots-that-Keep-on-Learning-Fine-Tuning-Locomotion-Policies-in-the-Real-World.md)
-* [MCTS蒙特卡洛树搜索](reinforcement-learning/monte-carlo-tree-search/monte-carlo-tree-search.md)
-* [模仿学习](reinforcement-learning/imatation-learning/imatation-learning.md)
-  * [模仿学习介绍](reinforcement-learning/imatation-learning/imatation-learning-introduction/imatation-learning-introduction.md)
-  * [BC行为克隆Behavior Cloning](reinforcement-learning/imatation-learning/behavior-cloning/behavior-cloning.md)
-    * [论文](reinforcement-learning/imatation-learning/behavior-cloning/paper/paper.md)
-      * [Visual Backtracking Teleoperation: A Data Collection Protocol for Offline Image-Based Reinforcement Learning arXir2022 Google](reinforcement-learning/imatation-learning/behavior-cloning/paper/visual-backtracking-teleoperation/Visual-Backtracking-Teleoperation-A-Data-Collection-Proto.md)
-      * [GoalsEye: Learning High Speed Precision Table Tennis on a Physical Robot Google2022](reinforcement-learning/imatation-learning/behavior-cloning/paper/goals-eye/GoalsEye-Learning-High-Speed-Precision-Table-Tennis-on-a-Physical-Robot.md)
-  * [IRL逆强化学习Inverse Reinforcement Learning](reinforcement-learning/imatation-learning/inverse-reinforcement-learning/inverse-reinforcement-learning.md)
-    * [论文](reinforcement-learning/imatation-learning/inverse-reinforcement-learning/paper/paper.md)
-      * [XIRL: Cross-embodiment Inverse Reinforcement Learning arXir2022 Google](reinforcement-learning/imatation-learning/inverse-reinforcement-learning/paper/xirl/XIRL-Cross-embodiment-Inverse-Reinforcement-Learning.md)
-  * [GAIL生成式对抗模仿学习: Generative Adversarial Imitation Learning NeurIPS2016](reinforcement-learning/imatation-learning/generative-adversarial-imitation-learning/Generative-Adversarial-Imitation-Learning.md)
-  * [论文](reinforcement-learning/imatation-learning/paper/paper.md)
-    * [Augmenting GAIL with BC for sample efficient imitation learning](reinforcement-learning/imatation-learning/paper/BC+GAIL/Augmenting-GAIL-with-BC-for-sample-effici.md)
-    * [Robotic Table Wiping via Reinforcement Learning and Whole-body Trajectory Optimization arXiv2022 Google](reinforcement-learning/imatation-learning/paper/robotic-table-wiping/Robotic-Table-Wiping-via-Reinforcement-Learning-and-Whole-body-Trajectory-Optimization.md)
-    * [On the Sample Complexity of Stability Constrained Imitation Learning PMLR2022 Google](reinforcement-learning/imatation-learning/paper/sample-complexity/On-the-Sample-Complexity-of-Stability-Constrained-Imitation-Learning.md)
+
 * [MARL多智能体强化学习](reinforcement-learning/multi-agent-reinforcement-learning/multi-agent-reinforcement-learning.md)
   * [MAPPO](reinforcement-learning/multi-agent-reinforcement-learning/mappo/mappo.md)
   * [多智能体强化学习论文](reinforcement-learning/multi-agent-reinforcement-learning/paper/paper.md)
@@ -441,7 +447,6 @@
     * instructGPT
     * [ChatGPT](multimodal-large-model/industry-application/openai/ChatGPT/ChatGPT.md) 聊天机器人
     * 202303 [GPT-4](multimodal-large-model/industry-application/openai/GPT-4/GPT-4.md) 输入图/文，输出文
-    * 202402 sora 文字生成视频
   * [Meta](multimodal-large-model/industry-application/meta/meta.md)
     * [OPT](multimodal-large-model/industry-application/meta/opt/opt.md) 复现开源了GPT3
     * 202302 [LLaMa](multimodal-large-model/industry-application/meta/LLaMa/LLaMa.md) **对标OpenAI的ChatGPT，开源**
@@ -483,12 +488,23 @@
   * Salesforce Research
     * 图生文BLIP-2 能力堪比ChatGPT
 
+# [世界模型](world-model/world-model.md)
+
+* [业界应用](world-model/industry-application/industry-application.md)
+  * [OpenAI](world-model/industry-application/openai/openai.md)
+    * [SORA文字生成视频](world-model/industry-application/openai/sora/sora.md) 202402
+  * [DeepMind](world-model/industry-application/deepmind/deepmind.md)
+    * [Genie2](world-model/industry-application/deepmind/genie2/genie2.md) 202412
+  * [World Labs李飞飞创立](world-model/industry-application/world-labs/world-labs.md)
+    * [Large World Model大世界模型]() 202412
+
 # [AutoML](auto-machine-learning/auto-machine-learning.md)
+
 * [AutoML介绍](auto-machine-learning/auto-machine-learning-introduction/auto-ml-introduction.md)
 * 自动数据清理AutoClean
 * 自动特征工程AutoFE
 * [超参数优化HPO](auto-machine-learning/hyperparameter-optimization/hyperparameter-optimization.md)
-* 元学习MetaLearning 
+* 元学习MetaLearning
 * [神经网络架构搜索NAS](auto-machine-learning/neural-architecture-search/neural-architecture-search.md)
   * [Weight-Agnostic-Neural-Networks Google2019](auto-machine-learning/neural-architecture-search/weight-agnostic-nn/Weight-Agnostic-Neural-Networks.md)
 

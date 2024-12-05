@@ -1,6 +1,6 @@
 # MCTS蒙特卡罗树搜索
 
-* [返回上层目录](../reinforcement-learning.md)
+* [返回上层目录](../mcts-rl.md)
 * [MCTS简介](#MCTS简介)
 * [MCTS流程](#MCTS流程)
   * [MCTS总流程](#MCTS总流程)

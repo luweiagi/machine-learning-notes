@@ -1,6 +1,6 @@
 # 混合动作空间
 
-* [返回上层目录](../advanced-theme-and-technique.md)
+* [返回上层目录](../advanced-theme.md)
 
 
 

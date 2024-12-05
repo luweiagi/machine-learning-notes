@@ -1,6 +1,6 @@
 # 模仿学习
 
-* [返回上层目录](../reinforcement-learning.md)
+* [返回上层目录](../advanced-theme.md)
 * [模仿学习介绍](imatation-learning-introduction/imatation-learning-introduction.md)
 * [BC行为克隆Behavior Cloning](behavior-cloning/behavior-cloning.md)
 * [IRL逆强化学习Inverse Reinforcement Learning](inverse-reinforcement-learning/inverse-reinforcement-learning.md)

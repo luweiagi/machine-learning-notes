@@ -12,3 +12,6 @@
 
 [深度学习第11课：深度生成模型之自编码器与变分自编码器](https://www.bilibili.com/video/BV1KK4y1S79R/?spm_id_from=333.337.search-card.all.click&vd_source=147fb813418c7610c21b6a5618c85cb7)
 
+
+
+[理解VAE算法](https://zhuanlan.zhihu.com/p/10681391614)

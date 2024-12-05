@@ -285,31 +285,30 @@
     * [对抗智能体奖励设计](reinforcement-learning/advanced-theme/sparse-reward/adversarial-agent-reward-design/adversarial-agent-reward-design.md)
   * [混合动作空间Hybrid Action Space](reinforcement-learning/advanced-theme/hybrid-action-space/hybrid-action-space.md)
   * [MCTS+RL](reinforcement-learning/advanced-theme/mcts-rl/mcts-rl.md)
-    * [MCTS蒙特卡洛树搜索](reinforcement-learning/advanced-theme/monte-carlo-tree-search/monte-carlo-tree-search.md)
+    * [MCTS蒙特卡洛树搜索](reinforcement-learning/advanced-theme/mcts-rl/monte-carlo-tree-search/monte-carlo-tree-search.md)
     * [MCTS+RL通用框架](reinforcement-learning/advanced-theme/mcts-rl/mcts-rl-general-framework/mcts-rl-general-framework.md)
     * 适用于离散连续动作空间的MCTS+RL框架
   
-  - [模仿学习](reinforcement-learning/advanced-theme/imatation-learning/imatation-learning.md)
-    - [模仿学习介绍](reinforcement-learning/advanced-theme/imatation-learning/imatation-learning-introduction/imatation-learning-introduction.md)
-    - [BC行为克隆Behavior Cloning](reinforcement-learning/advanced-theme/imatation-learning/behavior-cloning/behavior-cloning.md)
-      - [论文](reinforcement-learning/advanced-theme/imatation-learning/behavior-cloning/paper/paper.md)
-        - [Visual Backtracking Teleoperation: A Data Collection Protocol for Offline Image-Based Reinforcement Learning arXir2022 Google](reinforcement-learning/advanced-theme/imatation-learning/behavior-cloning/paper/visual-backtracking-teleoperation/Visual-Backtracking-Teleoperation.md)
-        - [GoalsEye: Learning High Speed Precision Table Tennis on a Physical Robot Google2022](reinforcement-learning/advanced-theme/imatation-learning/behavior-cloning/paper/goals-eye/GoalsEye.md)
-    - [IRL逆强化学习Inverse Reinforcement Learning](reinforcement-learning/advanced-theme/imatation-learning/inverse-reinforcement-learning/inverse-reinforcement-learning.md)
-      - [论文](reinforcement-learning/advanced-theme/imatation-learning/inverse-reinforcement-learning/paper/paper.md)
-        - [XIRL: Cross-embodiment Inverse Reinforcement Learning arXir2022 Google](reinforcement-learning/advanced-theme/imatation-learning/inverse-reinforcement-learning/paper/xirl/XIRL-Cross-embodiment-Inverse-Reinforcement-Learning.md)
-    - [GAIL生成式对抗模仿学习: Generative Adversarial Imitation Learning NeurIPS2016](reinforcement-learning/advanced-theme/imatation-learning/generative-adversarial-imitation-learning/Generative-Adversarial-Imitation-Learning.md)
-    - [论文](reinforcement-learning/advanced-theme/imatation-learning/paper/paper.md)
-      - [Augmenting GAIL with BC for sample efficient imitation learning](reinforcement-learning/advanced-theme/imatation-learning/paper/BC+GAIL/Augmenting-GAIL-with-BC-for-sample-effici.md)
-      - [Robotic Table Wiping via Reinforcement Learning and Whole-body Trajectory Optimization arXiv2022 Google](reinforcement-learning/advanced-theme/imatation-learning/paper/robotic-table-wiping/Robotic-Table-Wiping.md)
-      - [On the Sample Complexity of Stability Constrained Imitation Learning PMLR2022 Google](reinforcement-learning/advanced-theme/imatation-learning/paper/sample-complexity/On-the-Sample-Complexity-of-Stability-Constrained-Imitation-Learning.md)
-  - [Sim2Real从仿真器到现实环境的迁移](reinforcement-learning/advanced-theme/sim2real/sim2real.md)
-    - [论文](reinforcement-learning/advanced-theme/sim2real/paper/paper.md)
-      - [i-Sim2Real: Reinforcement Learning of Robotic Policies in Tight Human-Robot Interaction Loops arXiv2022 Google](reinforcement-learning/advanced-theme/sim2real/paper/i-sim2real/i-Sim2Real-Reinforcement-Learning-of-Robotic-Policies-in-Tight-Human-Robot-Interaction-Loops.md)
-      - [Legged Robots that Keep on Learning: Fine-Tuning Locomotion Policies in the Real World arXiv2022 Google](reinforcement-learning/advanced-theme/sim2real/paper/legged-robots-keep-on-learning/Legged-Robots-that-Keep-on-Learning-Fine-Tuning-Locomotion-Policies-in-the-Real-World.md)
+  * [模仿学习](reinforcement-learning/advanced-theme/imatation-learning/imatation-learning.md)
+    * [模仿学习介绍](reinforcement-learning/advanced-theme/imatation-learning/imatation-learning-introduction/imatation-learning-introduction.md)
+    * [BC行为克隆Behavior Cloning](reinforcement-learning/advanced-theme/imatation-learning/behavior-cloning/behavior-cloning.md)
+      * [论文](reinforcement-learning/advanced-theme/imatation-learning/behavior-cloning/paper/paper.md)
+        * [Visual Backtracking Teleoperation: A Data Collection Protocol for Offline Image-Based Reinforcement Learning arXir2022 Google](reinforcement-learning/advanced-theme/imatation-learning/behavior-cloning/paper/visual-backtracking-teleoperation/Visual-Backtracking-Teleoperation.md)
+        * [GoalsEye: Learning High Speed Precision Table Tennis on a Physical Robot Google2022](reinforcement-learning/advanced-theme/imatation-learning/behavior-cloning/paper/goals-eye/GoalsEye.md)
+    * [IRL逆强化学习Inverse Reinforcement Learning](reinforcement-learning/advanced-theme/imatation-learning/inverse-reinforcement-learning/inverse-reinforcement-learning.md)
+      * [论文](reinforcement-learning/advanced-theme/imatation-learning/inverse-reinforcement-learning/paper/paper.md)
+        * [XIRL: Cross-embodiment Inverse Reinforcement Learning arXir2022 Google](reinforcement-learning/advanced-theme/imatation-learning/inverse-reinforcement-learning/paper/xirl/XIRL-Cross-embodiment-Inverse-Reinforcement-Learning.md)
+    * [GAIL生成式对抗模仿学习: Generative Adversarial Imitation Learning NeurIPS2016](reinforcement-learning/advanced-theme/imatation-learning/generative-adversarial-imitation-learning/Generative-Adversarial-Imitation-Learning.md)
+    * [论文](reinforcement-learning/advanced-theme/imatation-learning/paper/paper.md)
+      * [Augmenting GAIL with BC for sample efficient imitation learning](reinforcement-learning/advanced-theme/imatation-learning/paper/BC+GAIL/Augmenting-GAIL-with-BC-for-sample-effici.md)
+      * [Robotic Table Wiping via Reinforcement Learning and Whole-body Trajectory Optimization arXiv2022 Google](reinforcement-learning/advanced-theme/imatation-learning/paper/robotic-table-wiping/Robotic-Table-Wiping.md)
+      * [On the Sample Complexity of Stability Constrained Imitation Learning PMLR2022 Google](reinforcement-learning/advanced-theme/imatation-learning/paper/sample-complexity/On-the-Sample-Complexity-of-Stability-Constrained-Imitation-Learning.md)
+  * [Sim2Real从仿真器到现实环境的迁移](reinforcement-learning/advanced-theme/sim2real/sim2real.md)
+    * [论文](reinforcement-learning/advanced-theme/sim2real/paper/paper.md)
+      * [i-Sim2Real: Reinforcement Learning of Robotic Policies in Tight Human-Robot Interaction Loops arXiv2022 Google](reinforcement-learning/advanced-theme/sim2real/paper/i-sim2real/i-Sim2Real-Reinforcement-Learning-of-Robotic-Policies-in-Tight-Human-Robot-Interaction-Loops.md)
+      * [Legged Robots that Keep on Learning: Fine-Tuning Locomotion Policies in the Real World arXiv2022 Google](reinforcement-learning/advanced-theme/sim2real/paper/legged-robots-keep-on-learning/Legged-Robots-that-Keep-on-Learning-Fine-Tuning-Locomotion-Policies-in-the-Real-World.md)
   
 * [仿真环境](reinforcement-learning/simulation-platform/simulation-platform.md)
-  
   * [OpenAI: Gym](reinforcement-learning/simulation-platform/openAI-gym/openAI-gym.md)
   * [OpenAI: Mujoco](reinforcement-learning/simulation-platform/openAI-mujoco/openAI-mujoco.md)
   * [SMAC星际争霸](reinforcement-learning/simulation-platform/openAI-mujoco/openAI-mujoco.md)
@@ -345,9 +344,10 @@
     * Emergence of grounded compositional language in multi agent populations 2017 在模拟游戏环境里从无到有进化出一种语言
       OpenAI在2017年先完成了具身智能演化出语言的原理模型之后才立项GPT，Emergence of grounded compositional language in multi agent populations.现在多模态模型的关键要素在文章里都有了，而之前OpenAI还在打游戏。而且这还只是对外公开的部分，谁知道内部发生了啥，马斯克骂骂咧咧的退出了。
     * [OpenAI Five: Dota 2 with Large Scale Deep Reinforcement Learning 2019](reinforcement-learning/industry-application/openai/oepnai-five/openai-five.md)
-    * 玩魔方
+    * [机械手玩魔方: Solving Rubik’s Cube with a robot hand 201910](reinforcement-learning/industry-application/openai/solving-rubiks-cube/solving-rubiks-cube.md)
   * [腾讯](reinforcement-learning/industry-application/tencent/tencent.md)
     * [王者荣耀Honor of Kings](reinforcement-learning/industry-application/tencent/honor-of-kings/honor-of-kings.md)
+    * 玩魔方，腾讯与港中大相关研究：https://arxiv.org/pdf/1907.11388.pdf
   * [InspirAI启元世界](reinforcement-learning/industry-application/inspir-ai/inspir-ai.md)
     * [InspirAI启元世界](reinforcement-learning/industry-application/inspir-ai/inspir-ai/inspir-ai.md)
     * [TimeChamber大规模并行的大规模自对弈框架](reinforcement-learning/industry-application/inspir-ai/time-chamber/time-chamber.md)
@@ -412,6 +412,9 @@
 * [TF-IDF词频-逆文档频率](natural-language-processing/tf-idf/tf-idf.md)
 * [word2vec](natural-language-processing/word2vec/word2vec.md)
 * [Seq2Seq模型和Attention机制](natural-language-processing/seq2seq-and-attention-mechanism/seq2seq-and-attention-mechanism.md)
+* [Self Attention机制](natural-language-processing/self-attention/self-attention.md)
+  * [Self Attention机制](natural-language-processing/self-attention/self-attention/self-attention.md)
+  * [Multi Head Self Attention机制]
 * [Self-Attention和Transformer](natural-language-processing/self-attention-and-transformer/self-attention-and-transformer.md)
   * [Transformer: Attention Is All You Need  NIPS2017](natural-language-processing/self-attention-and-transformer/attention-is-all-you-need/attention-is-all-you-need.md)
   * [Transformer模型tensorflow2.0官网demo代码解读](natural-language-processing/self-attention-and-transformer/transformer-tf2-demo-code-explain/transformer-tf2-demo-code-explain.md)
@@ -430,11 +433,11 @@
 * [业界应用](multimodal-large-model/industry-application/industry-application.md)
   * [OpenAI](multimodal-large-model/industry-application/openai/openai.md)
     * 可能大家对于绘画了解的比较多的是midjourney与stable diffusion，实际上这两个产品的基本技术都来源于DALL-E系列，那里的OpenAI还是Open的，它的论文还有足够的内容让我们理解，它里边有什么。于是大家根据它的2021年的DALL-E及CLIP这两个论文，搞出来midjourney，而stable diffusion也是在这个基础上的一个开源方案。
-    * 2021 DALL·E1
-    * 2021 CLIP
-    * 2022 DALL-E2
-    * 2023 DALL-E3 已融合进GPT4中
-    * 202212 [Point-E](multimodal-large-model/industry-application/openai/point-e/point-e.md) 文本生成3D点云模型
+    * [DALL·E1 2021]
+    * [CLIP 2021]
+    * [DALL-E2 2022]
+    * [DALL-E3 2023] 已融合进GPT4中
+    * [Point-E 202212](multimodal-large-model/industry-application/openai/point-e/point-e.md) 文本生成3D点云模型
     * [GTP系列介绍](multimodal-large-model/industry-application/openai/gpt-series-introduction/gpt-series-introduction.md)
     * [GPT前身Unsupervised Sentiment Neuron](multimodal-large-model/industry-application/openai/unsupervised-sentiment-neuron/unsupervised-sentiment-neuron.md)
       * [Unsupervised Sentiment Neuron](multimodal-large-model/industry-application/openai/unsupervised-sentiment-neuron/unsupervised-sentiment-neuron/unsupervised-sentiment-neuron.md)
@@ -455,13 +458,14 @@
   * MiscroSoft
     * Copilot MiscroSoft和OpenAI联合打造的AI编程工具，基于OpenAI的大模型Codex，基于GPT-3框架进行训练
     * Kosmos-1 20230227发布，第二种才是真正的多模态LLM，才是GPT-4的魅力，他的原理目前OpenAI没有公布细节，但是大家可以参考微软在2月27日发布的Kosmos-1的论文（想一想，为什么偏偏是OpenAI的深度合作伙伴发了这篇论文）。
-  * [Google](multimodal-large-model/industry-application/google/google.md)
+  * [Google/DeepMind](multimodal-large-model/industry-application/google/google.md)
     * 202105 LaMDA I/O大会
     * 202204 PaLM 5400亿参数
     * 202205 LaMDA-2 I/O大会
     * T5
-    * 202302 [Bard](multimodal-large-model/industry-application/google/Bard/Bard.md) 聊天机器人，对标OpenAI的ChatGPT
-    * ReAct是来自谷歌论文《Synergizing Reasoning and Acting in Language Models》中的一个方法，它是2022年12月发表的。这是一种eason+Act（ReAct）的方式，让大模型的行动和推理一起协同，提高大模型解决问题的能力。也就是让模型在访问外部知识的情况下和自己的模型能力结合。其实这就是Bing中的ChatGPT的运行方式！这个简单的方法可以让模型有更强的能力。而它的实现其实只需要简单的几行代码即可。因此，在前面的低成本+浏览器运行的基础上，加上ReAct改造，几乎可以得到一个与ChatGPT类似或者甚至更好的对话模型！
+    * [Bard聊天机器人 202302](multimodal-large-model/industry-application/google/bard/Bard.md) 对标OpenAI的ChatGPT
+    * ReAct是来自谷歌论文《Synergizing Reasoning and Acting in Language Models》中的一个方法，它是2022年12月发表的。这是一种reason+Act（ReAct）的方式，让大模型的行动和推理一起协同，提高大模型解决问题的能力。也就是让模型在访问外部知识的情况下和自己的模型能力结合。其实这就是Bing中的ChatGPT的运行方式！这个简单的方法可以让模型有更强的能力。而它的实现其实只需要简单的几行代码即可。因此，在前面的低成本+浏览器运行的基础上，加上ReAct改造，几乎可以得到一个与ChatGPT类似或者甚至更好的对话模型！
+    * [Agents Thinking Fast and Slow: A Talker-Reasoner Architecture ArXiv202410](multimodal-large-model/industry-application/google/talker-reasoner-architecture/talker-reasoner-architecture.md)
   * 智谱AI
     * ChatGLM 近日，由清华技术成果转化的公司智谱AI开源了GLM系列模型的新成员——**中英双语对话模型ChatGLM-6B**，支持在单张消费级显卡上进行推理使用。这是继此前开源GLM-130B千亿基座模型之后，智谱AI再次推出大模型方向的研究成果。与此同时，基于千亿基座模型的ChatGLM也同期推出，初具问答和对话功能 [ChatGLM：千亿基座的对话模型启动内测，单卡版模型已全面开源](https://mp.weixin.qq.com/s/08s-BlV5N3jytlSsd5hZ0g)
   * Together
@@ -469,37 +473,35 @@
   * [阿里达摩院](multimodal-large-model/industry-application/alibaba/alibaba.md)
     * [中文GPT3](multimodal-large-model/industry-application/alibaba/gpt3-chinese/gpt3-chinese.md) 对标GPT-3的开源项目
   * 元语智能
-    * 202210 PromptCLUE1.0
-    * 202211 PromptCLUE1.5
-    * 202212 ChatYuan
+    * [PromptCLUE1.0 202210]
+    * [PromptCLUE1.5 202211]
+    * [ChatYuan 202212]
   * [百度](multimodal-large-model/industry-application/baidu/baidu.md)
-    * 202302 [ERNIE-Bot文心一言](multimodal-large-model/industry-application/baidu/ERNIE-Bot/ERNIE-Bot.md)
+    * [ERNIE-Bot文心一言 202302](multimodal-large-model/industry-application/baidu/ERNIE-Bot/ERNIE-Bot.md)
   * [BlinkDL](multimodal-large-model/industry-application/blinkdl/blinkdl.md)
-    * 202208 [ChatRWKV](multimodal-large-model/industry-application/blinkdl/ChatRWKV/ChatRWKV.md) 对标ChatGPT的开源项目，基于RNN架构
+    * [ChatRWKV 202208](multimodal-large-model/industry-application/blinkdl/ChatRWKV/ChatRWKV.md) 对标ChatGPT的开源项目，基于RNN架构
   * Alpaca 斯坦福大学
     * Alpaca 近日，斯坦福基于 Meta 的 LLaMA 7B 模型微调出一个新模型 Alpaca。该研究让 OpenAI 的 text-davinci-003 模型以 self-instruct 方式生成 52K 指令遵循（instruction-following）样本，以此作为Alpaca的训练数据。研究团队已将训练数据、生成训练数据的代码和超参数开源，后续还将发布模型权重和训练代码。 [斯坦福70亿参数开源模型媲美GPT-3.5，100美元即可复现](https://mp.weixin.qq.com/s/U6ioEygg5mlVpAIb2L3cZw)
   * [HPC-AI Tech潞晨科技](multimodal-large-model/industry-application/hpcaitech/hpcaitech.md)
-    * 202302 [ColossalChat](multimodal-large-model/industry-application/hpcaitech/colossalChat/ColossalChat.md) 对标ChatGPT的开源项目。ColossalChat开源了第一个完整的RLHF pipeline，斯坦福Alpaca没有做RLHF
-    * 202406 Open-Sora
+    * [ColossalChat 202302](multimodal-large-model/industry-application/hpcaitech/colossalChat/ColossalChat.md) 对标ChatGPT的开源项目。ColossalChat开源了第一个完整的RLHF pipeline，斯坦福Alpaca没有做RLHF
+    * [Open-Sora 202406]
   * [复旦大学自然语言处理实验室邱锡鹏团队](multimodal-large-model/industry-application/fudan-university-nlp-group/fudan-university-nlp-group.md)
-    * 202302 [MOSS](multimodal-large-model/industry-application/fudan-university-nlp-group/moss/moss.md) 对标ChatGPT已开源
+    * [MOSS 202302](multimodal-large-model/industry-application/fudan-university-nlp-group/moss/moss.md) 对标ChatGPT，已开源
   * [百川智能](multimodal-large-model/industry-application/baichuan-intelligence/baichuan-intelligence.md)
-    * 202306 [baichuan-7B](multimodal-large-model/industry-application/baichuan-intelligence/baichuan-7B/baichuan-7B.md) 开源
+    * [baichuan-7B 202306](multimodal-large-model/industry-application/baichuan-intelligence/baichuan-7B/baichuan-7B.md) 开源
   * Salesforce Research
-    * 图生文BLIP-2 能力堪比ChatGPT
+    * [BLIP-2图生文] 能力堪比ChatGPT
 
 # [世界模型](world-model/world-model.md)
-
 * [业界应用](world-model/industry-application/industry-application.md)
   * [OpenAI](world-model/industry-application/openai/openai.md)
-    * [SORA文字生成视频](world-model/industry-application/openai/sora/sora.md) 202402
+    * [SORA文字生成视频 202402](world-model/industry-application/openai/sora/sora.md)
   * [DeepMind](world-model/industry-application/deepmind/deepmind.md)
-    * [Genie2](world-model/industry-application/deepmind/genie2/genie2.md) 202412
+    * [Genie2 202412](world-model/industry-application/deepmind/genie2/genie2.md)
   * [World Labs李飞飞创立](world-model/industry-application/world-labs/world-labs.md)
-    * [Large World Model大世界模型]() 202412
+    * [Large World Model大世界模型 202412]
 
 # [AutoML](auto-machine-learning/auto-machine-learning.md)
-
 * [AutoML介绍](auto-machine-learning/auto-machine-learning-introduction/auto-ml-introduction.md)
 * 自动数据清理AutoClean
 * 自动特征工程AutoFE

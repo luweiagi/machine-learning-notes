@@ -15,3 +15,6 @@
 
 
 [理解VAE算法](https://zhuanlan.zhihu.com/p/10681391614)
+
+[变分自动编码器 -VAE介绍](https://mp.weixin.qq.com/s/I_-U8WOCLRjtJiBd2MzIFQ)
+

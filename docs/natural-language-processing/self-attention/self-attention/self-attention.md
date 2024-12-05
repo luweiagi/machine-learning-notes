@@ -436,8 +436,10 @@ attention_weights = F.softmax(scores, dim=-1)
 - 对分数矩阵的最后一维（seq_len）进行Softmax操作，确保权重和为1。
 
 $$
-\text{sotfmax}(\frac{Q\cdot K^T}{\sqrt{4}}) =
-\text{sotfmax}(
+\begin{aligned}
+&\text{softmax}(\frac{Q\cdot K^T}{\sqrt{4}})\\
+=&
+\text{softmax}(
 \begin{bmatrix}
 \begin{bmatrix}
 0.0775 & 0.0650 & 0.0945 \\
@@ -449,8 +451,8 @@ $$
 0.0569 & 0.1405 & 0.1612 \\
 0.0967 & 0.1612 & 0.2222 \\
 \end{bmatrix}
-\end{bmatrix})
-=
+\end{bmatrix})\\
+=&
 \begin{bmatrix}
 \begin{bmatrix}
 0.3328 & 0.3287 & 0.3385 \\
@@ -463,6 +465,7 @@ $$
 0.3125 & 0.3333 & 0.3543 \\
 \end{bmatrix}
 \end{bmatrix}
+\end{aligned}
 $$
 
 python计算结果为
@@ -492,6 +495,8 @@ output = torch.matmul(attention_weights, V)  # (batch_size, seq_len, embed_size)
 计算加权输出：$\text{Output} = \text{Attention_Weights} \cdot V$。
 
 test: 计算加权输出：$\text{Output} = \text{Attention_Weights} \cdot V$
+
+asd大声$\text{aaa}$道$$\text{aaa}$$大大
 
 - 权重矩阵 (batch_size,seq_len,seq_len)
 - $V$: (batch_size,seq_len,embed_size)
@@ -679,4 +684,12 @@ if __name__ == "__main__":
     print("Output:", output)
     print("Attention Weights:", attention_weights)
 ```
+
+
+
+# 参考资料
+
+===
+
+* [Understanding Self Attention in Transformers](https://medium.com/@sachinsoni600517/understanding-self-attention-in-transformers-ba06c57aed37)
 

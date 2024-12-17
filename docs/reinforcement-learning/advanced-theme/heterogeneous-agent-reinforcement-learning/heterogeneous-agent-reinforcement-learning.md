@@ -1,6 +1,6 @@
 # 异质多智能体强化学习HARL(Heterogeneous-Agent Reinforcement Learning)
 
-* [返回上层目录](../reinforcement-learning.md)
+* [返回上层目录](../advanced-theme.md)
 
 异质智能体强化学习（Heterogeneous-Agent Reinforcement Learning）是单智能体强化学习还是多智能体强化学习？它和多智能体强化学习的关系与区别是什么？
 

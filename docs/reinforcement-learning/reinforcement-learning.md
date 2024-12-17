@@ -5,7 +5,6 @@
 * [强化学习](reinforcement-learning/reinforcement-learning.md)
 * [高级主题](advanced-theme/advanced-theme.md)
 * [仿真环境](simulation-platform/simulation-platform.md)
-* [多智能体强化学习](multi-agent-reinforcement-learning/multi-agent-reinforcement-learning.md)
 * [Transformer+RL](transformer-rl/transformer-rl.md)
 * [决策大模型](decision-making-big-model/decision-making-big-model.md)
 * [Offline RL离线强化学习](offline-reinforcement-learning/offline-reinforcement-learning.md)

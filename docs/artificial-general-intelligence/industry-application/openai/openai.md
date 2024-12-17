@@ -12,3 +12,7 @@
 
 [OpenAI CEO Sam Altman：OpenAI 对于通用人工智能的未来规划](https://mp.weixin.qq.com/s/ArTmHLZlAo9kXafxyppoUg)
 
+
+
+[为什么 OpenAI 可以跑通所有 AGI 技术栈？](https://www.zhihu.com/question/644486081/answer/3398751210)
+

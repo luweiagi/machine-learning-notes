@@ -258,7 +258,6 @@
 
 # [强化学习](reinforcement-learning/reinforcement-learning.md)
 * [强化学习学习路径](reinforcement-learning/rl-learning-path/rl-learning-path.md)
-
 * [强化学习](reinforcement-learning/reinforcement-learning/reinforcement-learning.md)
   * [强化学习概论](reinforcement-learning/reinforcement-learning/reinforcement-learning-introduction/reinforcement-learning-introduction.md)
   * [状态、奖励、动作](reinforcement-learning/reinforcement-learning/state-reward-action/state-reward-action.md)
@@ -278,9 +277,7 @@
     * [DDPG: Continuous Control With Deep Reinforcement Learning ICLR2016](reinforcement-learning/reinforcement-learning/paper/ddpg/ddpg.md)
     * [PPO: Proximal Policy Optimization arXiv2017 OpenAI](reinforcement-learning/reinforcement-learning/paper/ppo/Proximal-Policy-Optimization.md)
     * [SAC: Soft Actor-Critic](https://www.paperexplained.cn/articles/paper/detail/811df72e210e20de99719539505da54762a11c6d/)
-  
 * [高级主题](reinforcement-learning/advanced-theme/advanced-theme.md)
-  
   * [稀疏奖励Sparse Reward](reinforcement-learning/advanced-theme/sparse-reward/sparse-reward.md)
     * [对抗智能体奖励设计](reinforcement-learning/advanced-theme/sparse-reward/adversarial-agent-reward-design/adversarial-agent-reward-design.md)
   * [混合动作空间Hybrid Action Space](reinforcement-learning/advanced-theme/hybrid-action-space/hybrid-action-space.md)
@@ -288,7 +285,6 @@
     * [MCTS蒙特卡洛树搜索](reinforcement-learning/advanced-theme/mcts-rl/monte-carlo-tree-search/monte-carlo-tree-search.md)
     * [MCTS+RL通用框架](reinforcement-learning/advanced-theme/mcts-rl/mcts-rl-general-framework/mcts-rl-general-framework.md)
     * 适用于离散连续动作空间的MCTS+RL框架
-  
   * [模仿学习](reinforcement-learning/advanced-theme/imatation-learning/imatation-learning.md)
     * [模仿学习介绍](reinforcement-learning/advanced-theme/imatation-learning/imatation-learning-introduction/imatation-learning-introduction.md)
     * [BC行为克隆Behavior Cloning](reinforcement-learning/advanced-theme/imatation-learning/behavior-cloning/behavior-cloning.md)
@@ -307,7 +303,11 @@
     * [论文](reinforcement-learning/advanced-theme/sim2real/paper/paper.md)
       * [i-Sim2Real: Reinforcement Learning of Robotic Policies in Tight Human-Robot Interaction Loops arXiv2022 Google](reinforcement-learning/advanced-theme/sim2real/paper/i-sim2real/i-Sim2Real-Reinforcement-Learning-of-Robotic-Policies-in-Tight-Human-Robot-Interaction-Loops.md)
       * [Legged Robots that Keep on Learning: Fine-Tuning Locomotion Policies in the Real World arXiv2022 Google](reinforcement-learning/advanced-theme/sim2real/paper/legged-robots-keep-on-learning/Legged-Robots-that-Keep-on-Learning-Fine-Tuning-Locomotion-Policies-in-the-Real-World.md)
-  
+  * [MARL多智能体强化学习](reinforcement-learning/advanced-theme/multi-agent-reinforcement-learning/multi-agent-reinforcement-learning.md)
+    - [MAPPO](reinforcement-learning/advanced-theme/multi-agent-reinforcement-learning/mappo/mappo.md)
+    - [多智能体强化学习论文](reinforcement-learning/advanced-theme/multi-agent-reinforcement-learning/paper/paper.md)
+      - [mean-field: Mean Field Multi-Agent Reinforcement Learning ICML2018](reinforcement-learning/advanced-theme/multi-agent-reinforcement-learning/paper/mean-field/Mean-Field-Multi-Agent-Reinforcement-Learning.md)
+  * [HARL异质多智能体强化学习(Heterogeneous-Agent Reinforcement Learning)](reinforcement-learning/advanced-theme/heterogeneous-agent-reinforcement-learning/heterogeneous-agent-reinforcement-learning.md)
 * [仿真环境](reinforcement-learning/simulation-platform/simulation-platform.md)
   * [OpenAI: Gym](reinforcement-learning/simulation-platform/openAI-gym/openAI-gym.md)
   * [OpenAI: Mujoco](reinforcement-learning/simulation-platform/openAI-mujoco/openAI-mujoco.md)
@@ -316,12 +316,6 @@
   * Unity3D: ml-agents
     简言之：行为树是适合解决复杂AI的解决方案。
     对于Unity用户，Unity商店现在已经有一个比较完善的行为树设计(Behavior Designer)插件可供购买使用。
-
-* [MARL多智能体强化学习](reinforcement-learning/multi-agent-reinforcement-learning/multi-agent-reinforcement-learning.md)
-  * [MAPPO](reinforcement-learning/multi-agent-reinforcement-learning/mappo/mappo.md)
-  * [多智能体强化学习论文](reinforcement-learning/multi-agent-reinforcement-learning/paper/paper.md)
-    * [mean-field: Mean Field Multi-Agent Reinforcement Learning ICML2018](reinforcement-learning/multi-agent-reinforcement-learning/paper/mean-field/Mean-Field-Multi-Agent-Reinforcement-Learning.md)
-* [异质多智能体强化学习HARL(Heterogeneous-Agent Reinforcement Learning)](reinforcement-learning/heterogeneous-agent-reinforcement-learning/heterogeneous-agent-reinforcement-learning.md)
 * [Transformer+RL](reinforcement-learning/transformer-rl/transformer-rl.md)
 * [决策大模型](reinforcement-learning/decision-making-big-model/decision-making-big-model.md)
 * [Offline RL离线强化学习](reinforcement-learning/offline-reinforcement-learning/offline-reinforcement-learning.md)
@@ -343,8 +337,8 @@
   * [OpenAI](reinforcement-learning/industry-application/openai/openai.md)
     * Emergence of grounded compositional language in multi agent populations 2017 在模拟游戏环境里从无到有进化出一种语言
       OpenAI在2017年先完成了具身智能演化出语言的原理模型之后才立项GPT，Emergence of grounded compositional language in multi agent populations.现在多模态模型的关键要素在文章里都有了，而之前OpenAI还在打游戏。而且这还只是对外公开的部分，谁知道内部发生了啥，马斯克骂骂咧咧的退出了。
-    * [OpenAI Five: Dota 2 with Large Scale Deep Reinforcement Learning 2019](reinforcement-learning/industry-application/openai/oepnai-five/openai-five.md)
     * [机械手玩魔方: Solving Rubik’s Cube with a robot hand 201910](reinforcement-learning/industry-application/openai/solving-rubiks-cube/solving-rubiks-cube.md)
+    * [OpenAI Five: Dota 2 with Large Scale Deep Reinforcement Learning 201912](reinforcement-learning/industry-application/openai/oepnai-five/openai-five.md)
   * [腾讯](reinforcement-learning/industry-application/tencent/tencent.md)
     * [王者荣耀Honor of Kings](reinforcement-learning/industry-application/tencent/honor-of-kings/honor-of-kings.md)
     * 玩魔方，腾讯与港中大相关研究：https://arxiv.org/pdf/1907.11388.pdf
@@ -645,13 +639,17 @@
     * [螺旋桨推力与电调pwm的曲线映射关系](autopilot/dynamic-system/ESC/thrust2pwm_curve/thrust2pwm_curve.md)
   * [电机](autopilot/dynamic-system/motor/motor.md)
     * [电机的原理](autopilot/dynamic-system/motor/motor-principle/motor-principle.md)
-* 仿真
-  * [gym-jsbsim:使用JSBSim飞行动力学模型的飞机控制强化学习环境](https://download.csdn.net/download/weixin_42165980/18471290)
-  * [GymFC是一个OpenAI环境](https://blog.csdn.net/dumao0620/article/details/127667719)
-* [动力学模型](autopilot/dynamic-model/dynamic-model.md)
-  * 六自由度动力学与运动学模型
-  * [空气动力学](autopilot/dynamic-model/aerodynamics/aerodynamics.md)
-    * [熵](autopilot/dynamic-model/aerodynamics/entropy/entropy.md)
+* [仿真](autopilot/simulation/simulation.md)
+  * [动力学模型](autopilot/simulation/dynamic-model/dynamic-model.md)
+    - 六自由度动力学与运动学模型
+    - [空气动力学](autopilot/simulation/dynamic-model/aerodynamics/aerodynamics.md)
+      - [熵](autopilot/simulation/dynamic-model/aerodynamics/entropy/entropy.md)
+  * [传感器与武器](autopilot/simulation/sensor-and-weapon/sensor-and-weapon.md)
+    * 雷达
+    * [空空导弹](autopilot/simulation/sensor-and-weapon/air-to-air-missile/air-to-air-missile.md)
+  * 仿真环境
+    * [gym-jsbsim:使用JSBSim飞行动力学模型的飞机控制强化学习环境](https://download.csdn.net/download/weixin_42165980/18471290)
+    * [GymFC是一个OpenAI环境](https://blog.csdn.net/dumao0620/article/details/127667719)
 * [集群](autopilot/swarm/swarm.md)
 
 # [通用人工智能](artificial-general-intelligence/artificial-general-intelligence.md)
@@ -665,7 +663,10 @@
     * [OpenAI介绍](artificial-general-intelligence/industry-application/openai/openai-introduction/openai-introduction.md)
     * [Emergence of Grounded Compositional Language in Multi-Agent Populations arXiv2017](artificial-general-intelligence/industry-application/openai/emergence_lauguage_in_ma/Emergence-of-Grounded-Compositional-Language-in-Multi-Agent-Populations.md)
   * [Google](artificial-general-intelligence/industry-application/google/google.md)
+* [论文](artificial-general-intelligence/paper/paper.md)
+  * [The Bitter Lesson惨痛的教训 Rich Sutton 201903](artificial-general-intelligence/paper/the-bitter-lesson/The-Bitter-Lesson.md)
 
 # [任务清单](personal/list.md)
 * [收集的各种资料](personal/material.md)
 * [有用的工具](personal/tools.md)
+

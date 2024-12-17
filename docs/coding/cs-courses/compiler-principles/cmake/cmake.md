@@ -40,6 +40,7 @@ set(PRJ_SRC_LIST)
 list(APPEND PRJ_SRC_LIST ${root_src_files})
 message("PRJ_SRC_LIST = ${PRJ_SRC_LIST}")
 
+# 添加头文件路径搜索目录
 include_directories(./)
 
 add_executable(${PROJECT_NAME} ${PRJ_SRC_LIST})

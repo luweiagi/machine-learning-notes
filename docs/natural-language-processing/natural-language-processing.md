@@ -6,8 +6,8 @@
 * [语言模型和中文分词](language-model-and-chinese-word-segmentation/language-model-and-chinese-word-segmentation.md)
 * [TF-IDF词频-逆文档频率](tf-idf/tf-idf.md)
 * [word2vec](word2vec/word2vec.md)
+* [AttentionMechanism注意力机制](attention-mechanism/attention-mechanism.md)
 * [Seq2Seq模型和Attention机制](seq2seq-and-attention-mechanism/seq2seq-and-attention-mechanism.md)
-* [Self-Attention机制](self-attention/self-attention.md)
 * [Self-Attention和Transformer](self-attention-and-transformer/self-attention-and-transformer.md)
 
 ===

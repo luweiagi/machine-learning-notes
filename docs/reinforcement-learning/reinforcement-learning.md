@@ -5,12 +5,7 @@
 * [强化学习](reinforcement-learning/reinforcement-learning.md)
 * [高级主题](advanced-theme/advanced-theme.md)
 * [仿真环境](simulation-platform/simulation-platform.md)
-* [Transformer+RL](transformer-rl/transformer-rl.md)
-* [决策大模型](decision-making-big-model/decision-making-big-model.md)
-* [Offline RL离线强化学习](offline-reinforcement-learning/offline-reinforcement-learning.md)
-* [MMRL多模态强化学习](multi-modal-reinforcement-learning/multi-modal-reinforcement-learning.md)
-* [LLM+RL](llm-rl/llm-rl.md)
-* [DiffusionModel+RL](diffusion-model-rl/diffusion-model-rl.md)
+* [场景应用](scenarios-application/scenarios-application.md)
 * [业界应用](industry-application/industry-application.md)
 
 

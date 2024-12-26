@@ -236,6 +236,7 @@
     * [TensorFlow的LSTM源码分析](deep-learning/recurrent-neural-network/long-short-term-memory-networks/lstm-in-tensorflow/lstm-in-tensorflow.md)
     * [Pytorch的LSTM源码分析](deep-learning/recurrent-neural-network/long-short-term-memory-networks/lstm-in-pytorch/lstm-in-pytorch.md)
   * [GRU门控循环单元](deep-learning/recurrent-neural-network/gated-recurrent-unit/gated-recurrent-unit.md)
+  * [TBPTT截断的基于时间的反向传播算法Truncated Backpropagation Through Time](deep-learning/recurrent-neural-network/truncated-bptt/truncated-bptt.md)
 * [LNN液态神经网络Liquid Neural Network](deep-learning/liquid-neural-network/liquid-neural-network.md)
 * [BNN贝叶斯神经网络](deep-learning/beyesian-neural-network/beyesian-neural-network.md)
   * [贝叶斯神经网络](deep-learning/beyesian-neural-network/beyesian-neural-network/beyesian-neural-network.md)
@@ -302,26 +303,29 @@
   * [Sim2Real从仿真器到现实环境的迁移](reinforcement-learning/advanced-theme/sim2real/sim2real.md)
     * [论文](reinforcement-learning/advanced-theme/sim2real/paper/paper.md)
       * [i-Sim2Real: Reinforcement Learning of Robotic Policies in Tight Human-Robot Interaction Loops arXiv2022 Google](reinforcement-learning/advanced-theme/sim2real/paper/i-sim2real/i-Sim2Real-Reinforcement-Learning-of-Robotic-Policies-in-Tight-Human-Robot-Interaction-Loops.md)
-      * [Legged Robots that Keep on Learning: Fine-Tuning Locomotion Policies in the Real World arXiv2022 Google](reinforcement-learning/advanced-theme/sim2real/paper/legged-robots-keep-on-learning/Legged-Robots-that-Keep-on-Learning-Fine-Tuning-Locomotion-Policies-in-the-Real-World.md)
+      * [Legged Robots that Keep on Learning: Fine-Tuning Locomotion Policies in the Real World arXiv2022 Google](reinforcement-learning/advanced-theme/sim2real/paper/legged-robots-keep-on-learning/legged-robots-keep-on-learning.md)
   * [MARL多智能体强化学习](reinforcement-learning/advanced-theme/multi-agent-reinforcement-learning/multi-agent-reinforcement-learning.md)
     - [MAPPO](reinforcement-learning/advanced-theme/multi-agent-reinforcement-learning/mappo/mappo.md)
     - [多智能体强化学习论文](reinforcement-learning/advanced-theme/multi-agent-reinforcement-learning/paper/paper.md)
       - [mean-field: Mean Field Multi-Agent Reinforcement Learning ICML2018](reinforcement-learning/advanced-theme/multi-agent-reinforcement-learning/paper/mean-field/Mean-Field-Multi-Agent-Reinforcement-Learning.md)
   * [HARL异质多智能体强化学习(Heterogeneous-Agent Reinforcement Learning)](reinforcement-learning/advanced-theme/heterogeneous-agent-reinforcement-learning/heterogeneous-agent-reinforcement-learning.md)
+  * [Offline RL离线强化学习](reinforcement-learning/advanced-theme/offline-reinforcement-learning/offline-reinforcement-learning.md)
+  * [Transformer+RL](reinforcement-learning/advanced-theme/transformer-rl/transformer-rl.md)
+  * [决策大模型](reinforcement-learning/advanced-theme/decision-making-big-model/decision-making-big-model.md)
+  * [MMRL多模态强化学习](reinforcement-learning/advanced-theme/multi-modal-reinforcement-learning/multi-modal-reinforcement-learning.md)
+  * [LLM+RL](reinforcement-learning/advanced-theme/llm-rl/llm-rl.md)
+  * [DiffusionModel+RL](reinforcement-learning/advanced-theme/diffusion-model-rl/diffusion-model-rl.md)
 * [仿真环境](reinforcement-learning/simulation-platform/simulation-platform.md)
   * [OpenAI: Gym](reinforcement-learning/simulation-platform/openAI-gym/openAI-gym.md)
   * [OpenAI: Mujoco](reinforcement-learning/simulation-platform/openAI-mujoco/openAI-mujoco.md)
-  * [SMAC星际争霸](reinforcement-learning/simulation-platform/openAI-mujoco/openAI-mujoco.md)
+  * SMAC星际争霸 PySC2 —— 星际争霸II学习环境
   * [OpenDILab: GoBigger多智能体仿真平台](reinforcement-learning/simulation-platform/OpenDILab-GoBigger/OpenDILab-GoBigger.md)
   * Unity3D: ml-agents
     简言之：行为树是适合解决复杂AI的解决方案。
     对于Unity用户，Unity商店现在已经有一个比较完善的行为树设计(Behavior Designer)插件可供购买使用。
-* [Transformer+RL](reinforcement-learning/transformer-rl/transformer-rl.md)
-* [决策大模型](reinforcement-learning/decision-making-big-model/decision-making-big-model.md)
-* [Offline RL离线强化学习](reinforcement-learning/offline-reinforcement-learning/offline-reinforcement-learning.md)
-* [MMRL多模态强化学习](reinforcement-learning/multi-modal-reinforcement-learning/multi-modal-reinforcement-learning.md)
-* [LLM+RL](reinforcement-learning/llm-rl/llm-rl.md)
-* [DiffusionModel+RL](reinforcement-learning/diffusion-model-rl/diffusion-model-rl.md)
+* [场景应用](reinforcement-learning/scenarios-application/scenarios-application.md)
+  * [游戏AI](reinforcement-learning/scenarios-application/game/game.md)
+    * [星际争霸StarCraft](reinforcement-learning/scenarios-application/game/starcraft/starcraft.md)
 * [业界应用](reinforcement-learning/industry-application/industry-application.md)
   * [DeepMind](reinforcement-learning/industry-application/deepmind/deepmind.md)
     * AlphaGo
@@ -334,11 +338,13 @@
     * [AlphaTensor: Discovering faster matrix multiplication algorithms with reinforcement learning Nature2022](reinforcement-learning/industry-application/deepmind/alpha-tensor/Discovering-faster-matrix-multiplication-algorithms-with-reinforcement-learning.md)
     * Agent57 2020
     * DeepNash
+    * [Grandmaster-Level Chess Without Search Arxiv202402](reinforcement-learning/industry-application/deepmind/grandmaster-level-chess-without-search/Grandmaster-Level-Chess-Without-Search.md)
   * [OpenAI](reinforcement-learning/industry-application/openai/openai.md)
     * Emergence of grounded compositional language in multi agent populations 2017 在模拟游戏环境里从无到有进化出一种语言
       OpenAI在2017年先完成了具身智能演化出语言的原理模型之后才立项GPT，Emergence of grounded compositional language in multi agent populations.现在多模态模型的关键要素在文章里都有了，而之前OpenAI还在打游戏。而且这还只是对外公开的部分，谁知道内部发生了啥，马斯克骂骂咧咧的退出了。
     * [机械手玩魔方: Solving Rubik’s Cube with a robot hand 201910](reinforcement-learning/industry-application/openai/solving-rubiks-cube/solving-rubiks-cube.md)
-    * [OpenAI Five: Dota 2 with Large Scale Deep Reinforcement Learning 201912](reinforcement-learning/industry-application/openai/oepnai-five/openai-five.md)
+    * [OpenAI Five: Dota 2 with Large Scale Deep Reinforcement Learning 201904](reinforcement-learning/industry-application/openai/oepnai-five/openai-five.md)
+    * [捉迷藏Multi-Agent Hide and Seek: Emergent tool use from multi-agent interaction Arxiv2020](reinforcement-learning/industry-application/openai/hide-and-seek/hide-and-seek.md)
   * [腾讯](reinforcement-learning/industry-application/tencent/tencent.md)
     * [王者荣耀Honor of Kings](reinforcement-learning/industry-application/tencent/honor-of-kings/honor-of-kings.md)
     * 玩魔方，腾讯与港中大相关研究：https://arxiv.org/pdf/1907.11388.pdf
@@ -405,10 +411,11 @@
 * [语言模型和中文分词](natural-language-processing/language-model-and-chinese-word-segmentation/language-model-and-chinese-word-segmentation.md)
 * [TF-IDF词频-逆文档频率](natural-language-processing/tf-idf/tf-idf.md)
 * [word2vec](natural-language-processing/word2vec/word2vec.md)
+* [AttentionMechanism注意力机制](natural-language-processing/attention-mechanism/attention-mechanism.md)
+  - [Target Attention机制]
+  - [Self Attention机制](natural-language-processing/self-attention/self-attention/self-attention.md)
+  - [Multi Head Self Attention机制]
 * [Seq2Seq模型和Attention机制](natural-language-processing/seq2seq-and-attention-mechanism/seq2seq-and-attention-mechanism.md)
-* [Self Attention机制](natural-language-processing/self-attention/self-attention.md)
-  * [Self Attention机制](natural-language-processing/self-attention/self-attention/self-attention.md)
-  * [Multi Head Self Attention机制]
 * [Self-Attention和Transformer](natural-language-processing/self-attention-and-transformer/self-attention-and-transformer.md)
   * [Transformer: Attention Is All You Need  NIPS2017](natural-language-processing/self-attention-and-transformer/attention-is-all-you-need/attention-is-all-you-need.md)
   * [Transformer模型tensorflow2.0官网demo代码解读](natural-language-processing/self-attention-and-transformer/transformer-tf2-demo-code-explain/transformer-tf2-demo-code-explain.md)
@@ -419,6 +426,7 @@
 * [Foundation Models基础模型](multimodal-large-model/foundation-models/foundation-models.md)
   * [On the Opportunities and Risks of Foundation Models Stanford2021李飞飞](multimodal-large-model/foundation-models/foundation-models-LeiFeiFei/On-the-Opportunities-and-Risks-of-Foundation-Models.md)
   * [Can Foundation Models Perform Zero Shot For Robot PMLR2022](multimodal-large-model/foundation-models/Can-Foundation-Models-Perform-Zero-Shot-For-Robot/Can-Foundation-Models-Perform-Zero-Shot-For-Robot.md)
+* [Scaling Law](multimodal-large-model/scaling-law/scaling-law.md)
 * [RLHF基于人工反馈的强化学习方法](multimodal-large-model/rlhf/rlhf.md)
 * [LoRA大语言模型的低秩适应](multimodal-large-model/lora/lora.md)
 * [Prompt Learning](multimodal-large-model/prompt-learning/prompt-learning.md)
@@ -650,13 +658,19 @@
   * 仿真环境
     * [gym-jsbsim:使用JSBSim飞行动力学模型的飞机控制强化学习环境](https://download.csdn.net/download/weixin_42165980/18471290)
     * [GymFC是一个OpenAI环境](https://blog.csdn.net/dumao0620/article/details/127667719)
-* [集群](autopilot/swarm/swarm.md)
+* [端到端自动驾驶](autopilot/end-to-end/end-to-end.md)
+* [Multi-Agent System多智能体系统](autopilot/multi-agent-system/multi-agent-system.md)
+  * [集群](autopilot/multi-agent-system/swarm/swarm.md)
+* [自动驾驶系统](autopilot/autopilot-system/autopilot-system.md)
+  * ArduPilot
+  * PX4
+  * [FMT国产开源自驾仪](autopilot/autopilot-system/fmt/fmt.md)
 
 # [通用人工智能](artificial-general-intelligence/artificial-general-intelligence.md)
 * [业界应用](artificial-general-intelligence/industry-application/industry-application.md)
   * [DeepMind](artificial-general-intelligence/industry-application/deepmind/deepmind.md)
     * [DeepMind介绍](artificial-general-intelligence/industry-application/deepmind/deepmind-introduction/deepmind-introduction.md)
-    * [PathNet: Evolution Channels Gradient Descent in Super Neural Networks  arXiv2017](artificial-general-intelligence/industry-application/deepmind/pathnet/PathNet：Evolution-Channels-Gradient-Descent-in-Super-Neural-Networks.md)
+    * [PathNet: Evolution Channels Gradient Descent in Super Neural Networks arXiv2017](artificial-general-intelligence/industry-application/deepmind/pathnet/PathNet：Evolution-Channels-Gradient-Descent-in-Super-Neural-Networks.md)
     * [Reward is enough AI2021](artificial-general-intelligence/industry-application/deepmind/reward-is-enough/Reward-is-enough.md)
     * [Gato: A Generalist Agent arXiv2022](artificial-general-intelligence/industry-application/deepmind/gato/A-Generalist-Agent.md)
   * [OpenAI](artificial-general-intelligence/industry-application/openai/openai.md)

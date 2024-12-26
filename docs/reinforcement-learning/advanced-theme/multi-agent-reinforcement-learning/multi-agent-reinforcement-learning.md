@@ -48,3 +48,14 @@
 
 [多智能体强化学习代码汇总（pytorch）](https://zhuanlan.zhihu.com/p/541151047)
 
+
+
+[多智能体强化学习入门1-基本Gymnasium环境使用](https://zhuanlan.zhihu.com/p/687793372)
+
+
+
+
+
+[NeurIPS多智能体强化学习竞赛夺冠的背后，是决策智能公司「启元世界」](https://baijiahao.baidu.com/s?id=1629326099833693372)
+
+[北大领衔，多智能体强化学习研究登上Nature子刊](https://baijiahao.baidu.com/s?id=1809415140290538813)

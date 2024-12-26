@@ -143,3 +143,8 @@ $$
 * [强化学习拾遗 —— 再看奖励函数](https://www.jianshu.com/p/1765772c8444)
 
 可以知道如何设计奖励函数
+
+
+
+[RPG: Reward-Randomized Policy Gradient 奖励随机化发现多智能体游戏中多样性策略行为，研究者提全新算法](https://www.51cto.com/article/649725.html)
+

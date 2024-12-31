@@ -7,3 +7,9 @@
 * [ChatGPT for Robotics: Design Principles and Model Abilities MicroSoft2023](chatGPT-for-robotics/ChatGPT-for-Robotics-Design-Principles-and-Model-Abilities.md)
 * [PaLM-E: An Embodied Multimodal Language Model arXiv2023 Google](PaLM-E/PaLM-E.md)
 
+
+
+===
+
+[DrivingGPT：使用多模态自回归Transformers统一驾驶世界建模和规划](https://mp.weixin.qq.com/s/cLV9Cm4srCEFn9nQppJ_ow)
+

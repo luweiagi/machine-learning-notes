@@ -216,17 +216,19 @@
 * [ANN人工神经网络](deep-learning/artificial-neural-network/artificial-neural-network.md)
 * [Hopfield神经网络](deep-learning/hopfield-neural-network/hopfield-neural-network.md)
 * [知识点](deep-learning/tips/tips.md)
+  * [深度学习的高阶特征交叉原理](deep-learning/tips/feature-crossing/feature-crossing.md)
   * [激活函数](deep-learning/tips/activation-functions/activation-functions.md)
   * [深度学习中的正则化](deep-learning/tips/normalization/normalization.md)
     * [Batch Normalization](deep-learning/tips/normalization/batch-normalization/batch-normalization.md)
     * [Layer Normalization](deep-learning/tips/normalization/layer-normalization/layer-normalization.md)
-  * [深度学习的高阶特征交叉原理](deep-learning/tips/feature-crossing/feature-crossing.md)
-  * [梯度爆炸与梯度消失](deep-learning/tips/gradient-explosion-and-vanishing/gradient-explosion-and-vanishing.md)
+  * [反向传播](deep-learning/tips/back-propagation/back-propagation.md)
+    * [神经网络的反向传播原理](deep-learning/tips/back-propagation/neural-network-back-propagation/neural-network-back-propagation.md)
+    * [梯度爆炸与梯度消失](deep-learning/tips/back-propagation/gradient-explosion-and-vanishing/gradient-explosion-and-vanishing.md)
+    * [TBPTT截断的基于时间的反向传播算法Truncated Backpropagation Through Time（LSTM使用的反向传播方式）](deep-learning/tips/back-propagation/truncated-bptt/truncated-bptt.md)
 * [CNN卷积神经网络](deep-learning/convolutional-neural-network/convolutional-neural-network.md)
   * [CNN卷积神经网络](deep-learning/convolutional-neural-network/convolutional-neural-network/convolutional-neural-network.md)
   * [TextCNN: Convolutional Neural Networks for Sentence Classification EMNLP2014](deep-learning/convolutional-neural-network/textcnn/Convolutional-Neural-Networks-for-Sentence-Classification.md)
-  * 时域卷积网络TCN
-    [时域卷积网络TCN详解：使用卷积进行序列建模和预测](https://zhuanlan.zhihu.com/p/269731045)
+  * [时域卷积网络TCN](deep-learning/convolutional-neural-network/temporal-convolutional-network/temporal-convolutional-network.md)
 * [RNN循环神经网络](deep-learning/recurrent-neural-network/recurrent-neural-network.md)
   * [RNN循环神经网络](deep-learning/recurrent-neural-network/recurrent-neural-network/recurrent-neural-network.md)
     * [RNN循环神经网络](deep-learning/recurrent-neural-network/recurrent-neural-network/recurrent-neural-network/recurrent-neural-network.md)
@@ -236,7 +238,6 @@
     * [TensorFlow的LSTM源码分析](deep-learning/recurrent-neural-network/long-short-term-memory-networks/lstm-in-tensorflow/lstm-in-tensorflow.md)
     * [Pytorch的LSTM源码分析](deep-learning/recurrent-neural-network/long-short-term-memory-networks/lstm-in-pytorch/lstm-in-pytorch.md)
   * [GRU门控循环单元](deep-learning/recurrent-neural-network/gated-recurrent-unit/gated-recurrent-unit.md)
-  * [TBPTT截断的基于时间的反向传播算法Truncated Backpropagation Through Time](deep-learning/recurrent-neural-network/truncated-bptt/truncated-bptt.md)
 * [LNN液态神经网络Liquid Neural Network](deep-learning/liquid-neural-network/liquid-neural-network.md)
 * [BNN贝叶斯神经网络](deep-learning/beyesian-neural-network/beyesian-neural-network.md)
   * [贝叶斯神经网络](deep-learning/beyesian-neural-network/beyesian-neural-network/beyesian-neural-network.md)
@@ -431,7 +432,8 @@
 * [LoRA大语言模型的低秩适应](multimodal-large-model/lora/lora.md)
 * [Prompt Learning](multimodal-large-model/prompt-learning/prompt-learning.md)
 * [Emergence涌现现象](multimodal-large-model/emergence/emergence.md)
-* [自己训练ChatGPT](multimodal-large-model/train-ChatGPT-DIY/train-ChatGPT-DIY.md)
+* [自己运行大语言模型](multimodal-large-model/run-llm-diy/run-llm-diy.md)
+* [自己训练大语言模型](multimodal-large-model/train-llm-diy/train-llm-diy.md)
 * [业界应用](multimodal-large-model/industry-application/industry-application.md)
   * [OpenAI](multimodal-large-model/industry-application/openai/openai.md)
     * 可能大家对于绘画了解的比较多的是midjourney与stable diffusion，实际上这两个产品的基本技术都来源于DALL-E系列，那里的OpenAI还是Open的，它的论文还有足够的内容让我们理解，它里边有什么。于是大家根据它的2021年的DALL-E及CLIP这两个论文，搞出来midjourney，而stable diffusion也是在这个基础上的一个开源方案。
@@ -457,17 +459,20 @@
     * 202302 [LLaMa](multimodal-large-model/industry-application/meta/LLaMa/LLaMa.md) **对标OpenAI的ChatGPT，开源**
   * Stability.ai
     * Stable Diffusion开源
-  * MiscroSoft
-    * Copilot MiscroSoft和OpenAI联合打造的AI编程工具，基于OpenAI的大模型Codex，基于GPT-3框架进行训练
-    * Kosmos-1 20230227发布，第二种才是真正的多模态LLM，才是GPT-4的魅力，他的原理目前OpenAI没有公布细节，但是大家可以参考微软在2月27日发布的Kosmos-1的论文（想一想，为什么偏偏是OpenAI的深度合作伙伴发了这篇论文）。
-  * [Google/DeepMind](multimodal-large-model/industry-application/google/google.md)
-    * 202105 LaMDA I/O大会
-    * 202204 PaLM 5400亿参数
-    * 202205 LaMDA-2 I/O大会
+  * [Google/DeepMind](multimodal-large-model/industry-application/google-deepmind/google-deepmind.md)
+    * LaMDA I/O大会202105
+    * PaLM 202204 5400亿参数
+    * LaMDA-2 I/O大会202205
     * T5
-    * [Bard聊天机器人 202302](multimodal-large-model/industry-application/google/bard/Bard.md) 对标OpenAI的ChatGPT
+    * [Bard聊天机器人 202302](multimodal-large-model/industry-application/google-deepmind/bard/Bard.md) 对标OpenAI的ChatGPT
     * ReAct是来自谷歌论文《Synergizing Reasoning and Acting in Language Models》中的一个方法，它是2022年12月发表的。这是一种reason+Act（ReAct）的方式，让大模型的行动和推理一起协同，提高大模型解决问题的能力。也就是让模型在访问外部知识的情况下和自己的模型能力结合。其实这就是Bing中的ChatGPT的运行方式！这个简单的方法可以让模型有更强的能力。而它的实现其实只需要简单的几行代码即可。因此，在前面的低成本+浏览器运行的基础上，加上ReAct改造，几乎可以得到一个与ChatGPT类似或者甚至更好的对话模型！
-    * [Agents Thinking Fast and Slow: A Talker-Reasoner Architecture ArXiv202410](multimodal-large-model/industry-application/google/talker-reasoner-architecture/talker-reasoner-architecture.md)
+    * [Agents Thinking Fast and Slow: A Talker-Reasoner Architecture ArXiv202410](multimodal-large-model/industry-application/google-deepmind/talker-reasoner-architecture/talker-reasoner-architecture.md)
+    * [Large Language Models can Learn Rules Arxiv202412](multimodal-large-model/industry-application/google-deepmind/llms_can_learn_rules/llms_can_learn_rules.md) 消除幻觉，让 LLMs 学会规则库和多步推理，代码开源
+  * MiscroSoft
+    - Copilot MiscroSoft和OpenAI联合打造的AI编程工具，基于OpenAI的大模型Codex，基于GPT-3框架进行训练
+    - Kosmos-1 20230227发布，第二种才是真正的多模态LLM，才是GPT-4的魅力，他的原理目前OpenAI没有公布细节，但是大家可以参考微软在2月27日发布的Kosmos-1的论文（想一想，为什么偏偏是OpenAI的深度合作伙伴发了这篇论文）。
+  * [DeepSeek幻方量化对冲基金](multimodal-large-model/industry-application/deepseek/deepseek.md)
+    * [DeepSeek V3 202412](multimodal-large-model/industry-application/deepseek/deepseek-v3/deepseek-v3.md) 一家中国量化基金公司年底发布了最强开源LLM：DeepSeek V3
   * 智谱AI
     * ChatGLM 近日，由清华技术成果转化的公司智谱AI开源了GLM系列模型的新成员——**中英双语对话模型ChatGLM-6B**，支持在单张消费级显卡上进行推理使用。这是继此前开源GLM-130B千亿基座模型之后，智谱AI再次推出大模型方向的研究成果。与此同时，基于千亿基座模型的ChatGLM也同期推出，初具问答和对话功能 [ChatGLM：千亿基座的对话模型启动内测，单卡版模型已全面开源](https://mp.weixin.qq.com/s/08s-BlV5N3jytlSsd5hZ0g)
   * Together
@@ -590,10 +595,14 @@
   * 剪枝
   * [量化](model-deployment/model-compression/quantization/quantization.md)
   * [知识蒸馏](model-deployment/model-compression/knowledge-distillation/knowledge-distillation.md)
+* [AI编译器](model-deployment/ai-compiler/ai-compiler.md)
 * [模型部署](model-deployment/model-deployment/model-deployment.md)
   * [TensorRT](model-deployment/model-deployment/tensor-rt/tensor-rt.md)
   * [基于C/C++部署TensorFlow模型](model-deployment/model-deployment/tensorflow-cpp-deployment/tensorflow-cpp-deployment.md)
-* [AI编译器](model-deployment/ai-compiler/ai-compiler.md)
+* [硬件平台](model-deployment/hardware-platform/hardware-platform.md)
+  * [Nvidia Jetson平台](model-deployment/hardware-platform/nvidia-jetson/nvidia-jetson.md)
+    * [基于NanoLLM开发平台运行大模型](model-deployment/hardware-platform/nvidia-jetson/nano-llm-infer/nano-llm-infer.md)
+    * [TensorRT-LLM大语言模型推理](model-deployment/hardware-platform/nvidia-jetson/tensor-rt-llm-infer/tensor-rt-llm-infer.md)
 
 # [自动驾驶](autopilot/autopilot.md)
 * [传感器](autopilot/sensor/sensor.md)
@@ -631,8 +640,10 @@
     * [ChatGPT for Robotics: Design Principles and Model Abilities Microsoft2023](https://www.microsoft.com/en-us/research/uploads/prod/2023/02/ChatGPT___Robotics.pdf)
 * [制导](autopilot/guidance/guidance.md)
 * [控制](autopilot/control/control.md)
-  * [PID控制](autopilot/control/pid-control/pid-control.md)
-    * [Sqrt Controller开方控制器](autopilot/control/pid-control/sqrt-controller/sqrt-controller.md)
+  * [传统控制](autopilot/control/traditional-control/traditional-control.md)
+    * [PID控制](autopilot/control/traditional-control/pid-control/pid-control.md)
+      * [Sqrt Controller开方控制器](autopilot/control/traditional-control/pid-control/sqrt-controller/sqrt-controller.md)
+    * [MPC控制](autopilot/control/traditional-control/mpc-control/mpc-control.md)
   * [基于强化学习的控制](autopilot/control/reinforcement-learning-based-control/reinforcement-learning-based-control.md)
   * [基于LLM大语言模型的控制](autopilot/control/llm-based-control/llm-based-control.md)
     * [Code as Policies: Language Model Programs for Embodied Control arXiv2022 Google](autopilot/control/llm-based-control/code-as-policies/Code-as-Policies-Language-Model-Programs-for-Embodied-Control.md)
@@ -664,7 +675,7 @@
 * [自动驾驶系统](autopilot/autopilot-system/autopilot-system.md)
   * ArduPilot
   * PX4
-  * [FMT国产开源自驾仪](autopilot/autopilot-system/fmt/fmt.md)
+  * [FMT国产开源自驾仪](autopilot/autopilot-system/fmt/fmt.md) 基于模型的设计Model Based Design
 
 # [通用人工智能](artificial-general-intelligence/artificial-general-intelligence.md)
 * [业界应用](artificial-general-intelligence/industry-application/industry-application.md)

@@ -1,6 +1,6 @@
 # Bard
 
-* [返回上层目录](../google.md)
+* [返回上层目录](../google-deepmind.md)
 
 
 

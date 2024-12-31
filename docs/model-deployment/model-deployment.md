@@ -4,8 +4,9 @@
 * [矩阵加速算法](matrix-acceleration-algorithm/matrix-acceleration-algorithm.md)
 * [并行计算](parallel-computing/parallel-computing.md)
 * [模型压缩](model-compression/model-compression.md)
-* [模型部署](model-deployment\model-deployment.md)
 * [AI编译器](ai-compiler/ai-compiler.md)
+* [模型部署](model-deployment\model-deployment.md)
+* [硬件平台](hardware-platform/hardware-platform.md)
 
 
 

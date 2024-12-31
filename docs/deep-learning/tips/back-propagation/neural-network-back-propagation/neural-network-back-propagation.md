@@ -43,8 +43,8 @@ $$
 $$
 该层的反向传播的梯度计算为：
 $$
-\frac{\part E}{\part x_i}=\frac{1}{2}\cdot 2 \cdot (x_i-t_i)=x_i-t_i\\
-\delta x = \left[ \frac{\part E}{\part x_i} \right]_i=x-t
+\frac{\partial E}{\partial x_i}=\frac{1}{2}\cdot 2 \cdot (x_i-t_i)=x_i-t_i\\
+\delta x = \left[ \frac{\partial E}{\partial x_i} \right]_i=x-t
 $$
 $\delta x$和$t$的尺寸是$m\times 1$。
 
@@ -64,8 +64,8 @@ $$
 
 那么反向传播的梯度计算为：
 $$
-\frac{\part E}{\part x_i}=-\frac{t_i}{x_i}\\
-\delta x = \left[ \frac{\part E}{\part x_i} \right]_i=-t\odot \frac{1}{x}
+\frac{\partial E}{\partial x_i}=-\frac{t_i}{x_i}\\
+\delta x = \left[ \frac{\partial E}{\partial x_i} \right]_i=-t\odot \frac{1}{x}
 $$
 $\delta x$和$t$的尺寸是$m\times 1$。
 
@@ -85,12 +85,12 @@ y_i=\frac{1}{1+e^{-x_i}}
 $$
 那么反向传播的梯度计算为：
 $$
-\frac{\part E}{\part x_i}=\frac{\part E}{\part y_i}\cdot \frac{\part y_i}{\part x_i}=\delta y_i\cdot \frac{\part y_i}{\part x_i}
+\frac{\partial E}{\partial x_i}=\frac{\partial E}{\partial y_i}\cdot \frac{\partial y_i}{\partial x_i}=\delta y_i\cdot \frac{\partial y_i}{\partial x_i}
 $$
  而
 $$
 \begin{aligned}
-&\frac{\part y_i}{\part x_i}=\frac{e^{-x_i}}{(1+e^{-x_i})^2}\\
+&\frac{\partial y_i}{\partial x_i}=\frac{e^{-x_i}}{(1+e^{-x_i})^2}\\
 =&\frac{1}{1+e^{-x_i}}\cdot \frac{1+e^{-x_i}-1}{1+e^{-x_i}}\\
 =&\frac{1}{1+e^{-x_i}}\cdot (1-\frac{1}{1+e^{-x_i}})\\
 =&y_i\cdot(1-y_i)
@@ -98,8 +98,8 @@ $$
 $$
 所以有
 $$
-\frac{\part E}{\part x_i}=\delta y_i\cdot y_i\cdot(1-y_i)\\
-\delta x = \left[ \frac{\part E}{\part x_i} \right]_i=\delta y\odot y\odot(1-y)
+\frac{\partial E}{\partial x_i}=\delta y_i\cdot y_i\cdot(1-y_i)\\
+\delta x = \left[ \frac{\partial E}{\partial x_i} \right]_i=\delta y\odot y\odot(1-y)
 $$
 注意，在本层，输入维度$m$和输出维度$n$是相等的，即$m=n$。
 
@@ -121,12 +121,12 @@ $$
 
 那么反向传播的梯度计算为：
 $$
-\frac{\part E}{\part x_i}=\sum_{j=1}^n\left(\frac{\part E}{\part y_i}\cdot \frac{\part y_i}{\part x_i}\right)
+\frac{\partial E}{\partial x_i}=\sum_{j=1}^n\left(\frac{\partial E}{\partial y_i}\cdot \frac{\partial y_i}{\partial x_i}\right)
 $$
  如果$i=j$，则
 $$
 \begin{aligned}
-&\frac{\part y_i}{\part x_i}=\frac{\part}{\part x_i}\left(\frac{e^{x_i}}{\sum_{k=1}^me^{x_k}}\right)\\
+&\frac{\partial y_i}{\partial x_i}=\frac{\partial}{\partial x_i}\left(\frac{e^{x_i}}{\sum_{k=1}^me^{x_k}}\right)\\
 =&\frac{e^{x_i}(\sum_{k=1}^me^{x_k})-(e^{x_i})^2}{\left(\sum_{k=1}^me^{x_k}\right)^2}\\
 =&\frac{e^{x_i}}{\sum_{k=1}^me^{x_k}}-\frac{(e^{x_i})^2}{\left(\sum_{k=1}^me^{x_k}\right)^2}\\
 =&\frac{e^{x_i}}{\sum_{k=1}^me^{x_k}}\left(1-\frac{e^{x_i}}{\sum_{k=1}^me^{x_k}}\right)\\
@@ -137,7 +137,7 @@ $$
  如果$i\neq j$，则
 $$
 \begin{aligned}
-&\frac{\part y_i}{\part x_i}=\frac{\part}{\part x_i}\left(\frac{e^{x_j}}{\sum_{k=1}^me^{x_k}}\right)\\
+&\frac{\partial y_i}{\partial x_i}=\frac{\partial}{\partial x_i}\left(\frac{e^{x_j}}{\sum_{k=1}^me^{x_k}}\right)\\
 =&\frac{-e^{x_i}e^{x_j}}{\left(\sum_{k=1}^me^{x_k}\right)^2}\\
 =&-\frac{e^{x_i}}{\sum_{k=1}^me^{x_k}}\cdot\frac{e^{x_j}}{\sum_{k=1}^me^{x_k}}\\
 =&-y_i\cdot y_j\\
@@ -147,10 +147,10 @@ $$
 所以有
 $$
 \begin{aligned}
-\frac{\part E}{\part x_i}&=\sum_{j=1}^n\delta y_j\cdot y_i\cdot (1\{i=j\}-y_j)\\
+\frac{\partial E}{\partial x_i}&=\sum_{j=1}^n\delta y_j\cdot y_i\cdot (1\{i=j\}-y_j)\\
 &=\sum_{j=1}^nJ_{ij}\times \delta y_j\\
 \text{Where} \quad J_{ij}&=y_i\cdot (1\{i=j\}-y_j)\\
-\delta x &= \left[ \frac{\part E}{\part x_i} \right]_i = J\times \delta y
+\delta x &= \left[ \frac{\partial E}{\partial x_i} \right]_i = J\times \delta y
 \end{aligned}
 $$
 注意，在本层，输入维度$m$和输出维度$n$是相等的，即$m=n$。
@@ -176,35 +176,35 @@ $$
 
 那么反向传播的梯度计算为：
 $$
-\frac{\part E}{\part x_i}=\sum_{j=1}^n\left(\frac{\part E}{\part y_i}\cdot \frac{\part y_i}{\part x_i}\right)
+\frac{\partial E}{\partial x_i}=\sum_{j=1}^n\left(\frac{\partial E}{\partial y_i}\cdot \frac{\partial y_i}{\partial x_i}\right)
 $$
 其中，
 $$
-\frac{\part y_i}{\part x_i}=\frac{\part\left( \sum\limits_{i=1}^mw_{ij}\cdot x_i \right)}{\part x_i}=w_{ji}
+\frac{\partial y_i}{\partial x_i}=\frac{\partial\left( \sum\limits_{i=1}^mw_{ij}\cdot x_i \right)}{\partial x_i}=w_{ji}
 $$
 所以
 $$
-\frac{\part E}{\part x_i}=\sum_{j=1}^n\left(\delta y_j\cdot w_{ji}\right)=\sum_{j=1}^n\left(w_{ij}^T\cdot \delta y_j\right)
+\frac{\partial E}{\partial x_i}=\sum_{j=1}^n\left(\delta y_j\cdot w_{ji}\right)=\sum_{j=1}^n\left(w_{ij}^T\cdot \delta y_j\right)
 $$
 则有
 $$
-\delta x = \left[ \frac{\part E}{\part x_i} \right]_i = W^T\times \delta y
+\delta x = \left[ \frac{\partial E}{\partial x_i} \right]_i = W^T\times \delta y
 $$
 $\delta x$的维度是$m\times 1$，$W^T$的维度是$m\times n$，$\delta y$的维度是$n\times 1$。
 $$
-\frac{\part E}{\part w_{ji}}=\frac{\part E}{\part y_i}\cdot \frac{\part y_i}{\part w_{ji}}=\delta y_j\cdot \frac{\part y_j}{\part w_{ji}}
+\frac{\partial E}{\partial w_{ji}}=\frac{\partial E}{\partial y_i}\cdot \frac{\partial y_i}{\partial w_{ji}}=\delta y_j\cdot \frac{\partial y_j}{\partial w_{ji}}
 $$
 其中，
 $$
-\frac{\part y_j}{\part w_{ji}}=\frac{\part\left( \sum\limits_{i=1}^mw_{ji}\cdot x_i \right)}{\part w_{ji}}=x_i
+\frac{\partial y_j}{\partial w_{ji}}=\frac{\partial\left( \sum\limits_{i=1}^mw_{ji}\cdot x_i \right)}{\partial w_{ji}}=x_i
 $$
 所以
 $$
-\frac{\part E}{\part w_{ji}}=\delta y_j\cdot x_i
+\frac{\partial E}{\partial w_{ji}}=\delta y_j\cdot x_i
 $$
 则有
 $$
-\delta w = \left[ \frac{\part E}{\part w_{ji}} \right]_{ji} = \delta y\times x^T
+\delta w = \left[ \frac{\partial E}{\partial w_{ji}} \right]_{ji} = \delta y\times x^T
 $$
 $\delta w$的维度是$n\times m$，$\delta y$的维度是$n\times 1$，$x^T$的维度是$1\times m$。
 

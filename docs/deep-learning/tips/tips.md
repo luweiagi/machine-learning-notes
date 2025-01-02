@@ -4,7 +4,7 @@
 * [深度学习的高阶特征交叉原理](feature-crossing/feature-crossing.md)
 * [激活函数](activation-functions/activation-functions.md)
 * [深度学习中的正则化](normalization/normalization.md)
-* [梯度爆炸与梯度消失](gradient-explosion-and-vanishing/gradient-explosion-and-vanishing.md)
+* [反向传播](back-propagation/back-propagation.md)
 
 
 

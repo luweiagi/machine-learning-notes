@@ -281,14 +281,18 @@ h^{t-1}\\
 $$
 $\delta h^{t-1}$可以从$\delta I^t$中抽取出来。
 
+那此时的关于$h$的梯度可以全部计算出来了，具体为下式和下图所示。
+$$
+\delta h^t = \frac{\partial E}{\partial h^t} + \delta T^{t+1}_{[h^t]}
+$$
+
+
+![unrolled-backward-ct-ht-ht2](pic/unrolled-backward-ct-ht-ht2.png)
+
 （2）求$\delta W^t$
 $$
 \delta W^t = \delta z^t \times (I^t)^T
 $$
-那此时的
-
-![unrolled-backward-ct-ht-ht2](pic/unrolled-backward-ct-ht-ht2.png)
-
 ## 更新参数
 
 如果输入$x$有$T$个时间步，即

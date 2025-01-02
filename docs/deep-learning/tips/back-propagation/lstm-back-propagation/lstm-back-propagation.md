@@ -305,6 +305,50 @@ $$
 $$
 然后$W$会被更新，使用随机梯度下降法。
 
+
+
+LSTM和RNN梯度回传过程差不多，我们先看看RNN再看LSTM。**RNN网络结构可以被看做为同一个神经网络的多次复制**，每个神经网络模块会将信息传递给下一层模块。
+
+RNN每一层的权重$W$都是共享的。**总体Loss由每一步的Loss组合而成**。
+
+**梯度回传时也会回传到每一步**，然后从每一步再依次向前回传到第0步（BPTT）。
+
+![rnn-forward-backward](pic/rnn-forward-backward.png)
+
+说明：
+$$
+\begin{aligned}
+L&=\sum_{t=1}^TL_t\\
+L_t&=Loss(\hat{y}_t, y_t)\\
+\hat{y}_t&=W_{hy}h_t\\
+h_t&=\tanh(z_t)=\tanh(W_{hh}h_{t-1}+W_{xh}x_t)\\
+\end{aligned}
+$$
+**梯度多次流经相同的权重W，这意味着计算梯度时将包括多次关于W的重复计算。**
+
+![rnn-forward-backward-flow](pic/rnn-forward-backward-flow.png)
+
+而在LSTM中，存在着一条从$C_t$到$C_{t−1}$再一直到$C_0$的不被影响的梯度流，因此可以缓解梯度消失的问题。之所以说是 “缓解”，是因为只有在这一条路上能解决，而其他路上还是存在梯度消失的问题。
+
+![lstm-uninterrupted-gradient-flow](pic/lstm-uninterrupted-gradient-flow.png)
+
+多次回传会带来一些问题，比较典型的问题是**梯度爆炸or消失**：
+
+![rnn-forward-backward-flow-2](pic/rnn-forward-backward-flow-2.png)
+
+对于梯度爆炸： 可考虑梯度裁剪，将过大的梯度裁剪到一定范围。
+
+对于梯度消失： 可考虑设置合适的激活函数，合适的权重初始化，设计更合理的网络结构。
+
+
+
 # 参考资料
 
 * [LSTM Forward and Backward Pass](https://arunmallya.github.io/writeups/nn/lstm/index.html#/)
+
+本文主要参考此博客。
+
+* [如何理解LSTM模型的bptt？](https://www.zhihu.com/question/50525265/answer/2505069915)
+
+本文最后的章节参考此知乎回答。
+

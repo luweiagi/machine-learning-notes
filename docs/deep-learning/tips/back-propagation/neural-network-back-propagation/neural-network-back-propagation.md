@@ -155,7 +155,7 @@ $$
 $$
 注意，在本层，输入维度$m$和输出维度$n$是相等的，即$m=n$。
 
-$\delta x$的维度是$m\times 1$，，$J$的维度是$m\times n$，$\delta y$的维度是$n\times 1$。
+$\delta x$的维度是$m\times 1$，$J$的维度是$m\times n$，$\delta y$的维度是$n\times 1$。
 
 用来更新参数的各变量梯度为：
 $$

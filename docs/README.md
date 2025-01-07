@@ -334,7 +334,6 @@
   * [MMRL多模态强化学习](reinforcement-learning/advanced-theme/multi-modal-reinforcement-learning/multi-modal-reinforcement-learning.md)
   * [LLM+RL](reinforcement-learning/advanced-theme/llm-rl/llm-rl.md)
   * [DiffusionModel+RL](reinforcement-learning/advanced-theme/diffusion-model-rl/diffusion-model-rl.md)
-  
 * [仿真环境](reinforcement-learning/simulation-platform/simulation-platform.md)
   * [OpenAI: Gym](reinforcement-learning/simulation-platform/openAI-gym/openAI-gym.md)
   * [OpenAI: Mujoco](reinforcement-learning/simulation-platform/openAI-mujoco/openAI-mujoco.md)
@@ -343,11 +342,9 @@
   * Unity3D: ml-agents
     简言之：行为树是适合解决复杂AI的解决方案。
     对于Unity用户，Unity商店现在已经有一个比较完善的行为树设计(Behavior Designer)插件可供购买使用。
-  
 * [场景应用](reinforcement-learning/scenarios-application/scenarios-application.md)
   * [游戏AI](reinforcement-learning/scenarios-application/game/game.md)
     * [星际争霸StarCraft](reinforcement-learning/scenarios-application/game/starcraft/starcraft.md)
-  
 * [业界应用](reinforcement-learning/industry-application/industry-application.md)
   * [DeepMind](reinforcement-learning/industry-application/deepmind/deepmind.md)
     * AlphaGo

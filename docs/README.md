@@ -224,8 +224,10 @@
   * [反向传播](deep-learning/tips/back-propagation/back-propagation.md)
     * [神经网络的反向传播原理](deep-learning/tips/back-propagation/neural-network-back-propagation/neural-network-back-propagation.md)
     * [梯度爆炸与梯度消失](deep-learning/tips/back-propagation/gradient-explosion-and-vanishing/gradient-explosion-and-vanishing.md)
+    * [RNN的反向传播原理](deep-learning/tips/back-propagation/rnn-back-propagation/rnn-back-propagation.md)
     * [LSTM的反向传播原理](deep-learning/tips/back-propagation/lstm-back-propagation/lstm-back-propagation.md)
     * [TBPTT截断的基于时间的反向传播算法Truncated Backpropagation Through Time（LSTM使用的反向传播方式）](deep-learning/tips/back-propagation/truncated-bptt/truncated-bptt.md)
+  * batch size [深度学习 | Batch Size大小对训练过程的影响（转）](https://zhuanlan.zhihu.com/p/86529347)
 * [CNN卷积神经网络](deep-learning/convolutional-neural-network/convolutional-neural-network.md)
   * [CNN卷积神经网络](deep-learning/convolutional-neural-network/convolutional-neural-network/convolutional-neural-network.md)
   * [TextCNN: Convolutional Neural Networks for Sentence Classification EMNLP2014](deep-learning/convolutional-neural-network/textcnn/Convolutional-Neural-Networks-for-Sentence-Classification.md)
@@ -261,26 +263,41 @@
 
 # [强化学习](reinforcement-learning/reinforcement-learning.md)
 * [强化学习学习路径](reinforcement-learning/rl-learning-path/rl-learning-path.md)
-* [强化学习](reinforcement-learning/reinforcement-learning/reinforcement-learning.md)
-  * [强化学习概论](reinforcement-learning/reinforcement-learning/reinforcement-learning-introduction/reinforcement-learning-introduction.md)
-  * [状态、奖励、动作](reinforcement-learning/reinforcement-learning/state-reward-action/state-reward-action.md)
-    * [奖励](reinforcement-learning/reinforcement-learning/state-reward-action/reward/reward.md)
-  * [多臂赌博机及其解法](reinforcement-learning/reinforcement-learning/multi-armed-bandit-and-solutions/multi-armed-bandit-and-solutions.md)
-  * [马尔科夫决策过程](reinforcement-learning/reinforcement-learning/markov-decision-processes/markov-decision-processes.md)
+* [强化学习基础概念](reinforcement-learning/reinforcement-learning-basic-concept/reinforcement-learning-basic-concept.md)
+  * [强化学习概论](reinforcement-learning/reinforcement-learning-basic-concept/reinforcement-learning-introduction/reinforcement-learning-introduction.md)
+  * [马尔可夫决策过程（MDP）](reinforcement-learning/reinforcement-learning-basic-concept/markov-decision-processes/markov-decision-processes.md)
+    * [马尔科夫决策过程](reinforcement-learning/reinforcement-learning-basic-concept/markov-decision-processes/markov-decision-processes/markov-decision-processes.md)
+    * [状态、奖励、动作](reinforcement-learning/reinforcement-learning-basic-concept/markov-decision-processes/state-reward-action/state-reward-action.md)
+      * [奖励](reinforcement-learning/reinforcement-learning-basic-concept/markov-decision-processes/state-reward-action/reward/reward.md)
+  * [探索与利用](reinforcement-learning/reinforcement-learning-basic-concept/exploration-and-exploitation/exploration-and-exploitation.md)
+    * [多臂赌博机](reinforcement-learning/reinforcement-learning-basic-concept/exploration-and-exploitation/multi-armed-bandit/multi-armed-bandit.md)
+* [强化学习算法](reinforcement-learning/reinforcement-learning-algorithm/reinforcement-learning-algorithm.md)
   * [动态规划](reinforcement-learning/reinforcement-learning/dynamic-programming/dynamic-programming.md)
-  * [无模型方法一：蒙特卡洛](reinforcement-learning/reinforcement-learning/model-free-methods-1-monte-carlo/model-free-methods-1-monte-carlo.md)
-  * [无模型方法二：时间差分](reinforcement-learning/reinforcement-learning/model-free-methods-2-time-difference/model-free-methods-2-time-difference.md)
-  * [无模型方法三：多步自举](reinforcement-learning/reinforcement-learning/model-free-methods-3-multi-step-bootstrap/model-free-methods-3-multi-step-bootstrap.md)
-  * [函数近似和深度网络](reinforcement-learning/reinforcement-learning/function-approximation-and-deep-network/function-approximation-and-deep-network.md)
-  * [策略梯度算法](reinforcement-learning/reinforcement-learning/policy-gradient-algorithm/policy-gradient-algorithm.md)
-  * [深度强化学习](reinforcement-learning/reinforcement-learning/deep-reinforcement-learning/deep-reinforcement-learning.md)
-  * [基于模型的强化学习](reinforcement-learning/reinforcement-learning/model-based-reinforcement-learning/model-based-reinforcement-learning.md)
-  * [强化学习前景](reinforcement-learning/reinforcement-learning/reinforcement-learning-prospect/reinforcement-learning-prospect.md)
-  * [强化学习论文](reinforcement-learning/reinforcement-learning/paper/paper.md)
+  * [蒙特卡洛](reinforcement-learning/reinforcement-learning-algorithm/monte-carlo/monte-carlo.md)
+  * [时间差分TD(0)](reinforcement-learning/reinforcement-learning-algorithm/time-difference/time-difference.md)
+  * [多步自举TD(λ)](reinforcement-learning/reinforcement-learning-algorithm/multi-step-bootstrap/multi-step-bootstrap.md)
+* [深度强化学习](reinforcement-learning/deep-reinforcement-learning/deep-reinforcement-learning.md)
+  * [函数近似和深度网络](reinforcement-learning/deep-reinforcement-learning/function-approximation-and-deep-network/function-approximation-and-deep-network.md)
+  * [深度强化学习概述](reinforcement-learning/deep-reinforcement-learning/deep-reinforcement-learning-introduction/deep-reinforcement-learning-introduction.md)
+  * [基于值的深度强化学习](reinforcement-learning/deep-reinforcement-learning/value-based-drl/value-based-drl.md)
+    * DQN
+  * [基于策略的深度强化学习](reinforcement-learning/deep-reinforcement-learning/policy-based-drl/policy-based-drl.md)
+    * [策略梯度算法](reinforcement-learning/deep-reinforcement-learning/policy-based-drl/policy-gradient-algorithm/policy-gradient-algorithm.md)
+    * DPG
     * [DDPG: Continuous Control With Deep Reinforcement Learning ICLR2016](reinforcement-learning/reinforcement-learning/paper/ddpg/ddpg.md)
-    * [PPO: Proximal Policy Optimization arXiv2017 OpenAI](reinforcement-learning/reinforcement-learning/paper/ppo/Proximal-Policy-Optimization.md)
-    * [SAC: Soft Actor-Critic](https://www.paperexplained.cn/articles/paper/detail/811df72e210e20de99719539505da54762a11c6d/)
+  * Actor-Critic
+    * A3C
+    * A2C
+  * [基于信赖域的深度强化学习](reinforcement-learning/deep-reinforcement-learning/trust-region-based-drl/trust-region-based-drl.md)
+    * TRPO
+    * [PPO近端策略优化: Proximal Policy Optimization](reinforcement-learning/deep-reinforcement-learning/trust-region-based-drl/ppo/proximal-policy-optimization.md)
+      * [Proximal Policy Optimization Algorithms arXiv2017 OpenAI](reinforcement-learning/deep-reinforcement-learning/trust-region-based-drl/ppo/ppo-openai/ppo-openai.md)
+      * [PPO实现细节](reinforcement-learning/deep-reinforcement-learning/trust-region-based-drl/ppo/ppo-implementation-details/ppo-implementation-details.md)
+      * [Recurrent Proximal Policy Optimization using Truncated BPTT](reinforcement-learning/deep-reinforcement-learning/trust-region-based-drl/ppo/ppo-rnn/ppo-rnn.md)
+  * [SAC: Soft Actor-Critic](https://www.paperexplained.cn/articles/paper/detail/811df72e210e20de99719539505da54762a11c6d/)
 * [高级主题](reinforcement-learning/advanced-theme/advanced-theme.md)
+  * [强化学习前景](reinforcement-learning/advanced-theme/reinforcement-learning-prospect/reinforcement-learning-prospect.md)
+  * [基于模型的强化学习](reinforcement-learning/advanced-theme/model-based-reinforcement-learning/model-based-reinforcement-learning.md)
   * [稀疏奖励Sparse Reward](reinforcement-learning/advanced-theme/sparse-reward/sparse-reward.md)
     * [对抗智能体奖励设计](reinforcement-learning/advanced-theme/sparse-reward/adversarial-agent-reward-design/adversarial-agent-reward-design.md)
   * [混合动作空间Hybrid Action Space](reinforcement-learning/advanced-theme/hybrid-action-space/hybrid-action-space.md)
@@ -307,9 +324,9 @@
       * [i-Sim2Real: Reinforcement Learning of Robotic Policies in Tight Human-Robot Interaction Loops arXiv2022 Google](reinforcement-learning/advanced-theme/sim2real/paper/i-sim2real/i-Sim2Real-Reinforcement-Learning-of-Robotic-Policies-in-Tight-Human-Robot-Interaction-Loops.md)
       * [Legged Robots that Keep on Learning: Fine-Tuning Locomotion Policies in the Real World arXiv2022 Google](reinforcement-learning/advanced-theme/sim2real/paper/legged-robots-keep-on-learning/legged-robots-keep-on-learning.md)
   * [MARL多智能体强化学习](reinforcement-learning/advanced-theme/multi-agent-reinforcement-learning/multi-agent-reinforcement-learning.md)
-    - [MAPPO](reinforcement-learning/advanced-theme/multi-agent-reinforcement-learning/mappo/mappo.md)
-    - [多智能体强化学习论文](reinforcement-learning/advanced-theme/multi-agent-reinforcement-learning/paper/paper.md)
-      - [mean-field: Mean Field Multi-Agent Reinforcement Learning ICML2018](reinforcement-learning/advanced-theme/multi-agent-reinforcement-learning/paper/mean-field/Mean-Field-Multi-Agent-Reinforcement-Learning.md)
+    * [MAPPO](reinforcement-learning/advanced-theme/multi-agent-reinforcement-learning/mappo/mappo.md)
+    * [多智能体强化学习论文](reinforcement-learning/advanced-theme/multi-agent-reinforcement-learning/paper/paper.md)
+      * [mean-field: Mean Field Multi-Agent Reinforcement Learning ICML2018](reinforcement-learning/advanced-theme/multi-agent-reinforcement-learning/paper/mean-field/Mean-Field-Multi-Agent-Reinforcement-Learning.md)
   * [HARL异质多智能体强化学习(Heterogeneous-Agent Reinforcement Learning)](reinforcement-learning/advanced-theme/heterogeneous-agent-reinforcement-learning/heterogeneous-agent-reinforcement-learning.md)
   * [Offline RL离线强化学习](reinforcement-learning/advanced-theme/offline-reinforcement-learning/offline-reinforcement-learning.md)
   * [Transformer+RL](reinforcement-learning/advanced-theme/transformer-rl/transformer-rl.md)
@@ -317,6 +334,7 @@
   * [MMRL多模态强化学习](reinforcement-learning/advanced-theme/multi-modal-reinforcement-learning/multi-modal-reinforcement-learning.md)
   * [LLM+RL](reinforcement-learning/advanced-theme/llm-rl/llm-rl.md)
   * [DiffusionModel+RL](reinforcement-learning/advanced-theme/diffusion-model-rl/diffusion-model-rl.md)
+  
 * [仿真环境](reinforcement-learning/simulation-platform/simulation-platform.md)
   * [OpenAI: Gym](reinforcement-learning/simulation-platform/openAI-gym/openAI-gym.md)
   * [OpenAI: Mujoco](reinforcement-learning/simulation-platform/openAI-mujoco/openAI-mujoco.md)
@@ -325,9 +343,11 @@
   * Unity3D: ml-agents
     简言之：行为树是适合解决复杂AI的解决方案。
     对于Unity用户，Unity商店现在已经有一个比较完善的行为树设计(Behavior Designer)插件可供购买使用。
+  
 * [场景应用](reinforcement-learning/scenarios-application/scenarios-application.md)
   * [游戏AI](reinforcement-learning/scenarios-application/game/game.md)
     * [星际争霸StarCraft](reinforcement-learning/scenarios-application/game/starcraft/starcraft.md)
+  
 * [业界应用](reinforcement-learning/industry-application/industry-application.md)
   * [DeepMind](reinforcement-learning/industry-application/deepmind/deepmind.md)
     * AlphaGo
@@ -414,9 +434,9 @@
 * [TF-IDF词频-逆文档频率](natural-language-processing/tf-idf/tf-idf.md)
 * [word2vec](natural-language-processing/word2vec/word2vec.md)
 * [AttentionMechanism注意力机制](natural-language-processing/attention-mechanism/attention-mechanism.md)
-  - [Target Attention机制]
-  - [Self Attention机制](natural-language-processing/self-attention/self-attention/self-attention.md)
-  - [Multi Head Self Attention机制]
+  * [Target Attention机制]
+  * [Self Attention机制](natural-language-processing/self-attention/self-attention/self-attention.md)
+  * [Multi Head Self Attention机制]
 * [Seq2Seq模型和Attention机制](natural-language-processing/seq2seq-and-attention-mechanism/seq2seq-and-attention-mechanism.md)
 * [Self-Attention和Transformer](natural-language-processing/self-attention-and-transformer/self-attention-and-transformer.md)
   * [Transformer: Attention Is All You Need  NIPS2017](natural-language-processing/self-attention-and-transformer/attention-is-all-you-need/attention-is-all-you-need.md)
@@ -661,9 +681,9 @@
     * [电机的原理](autopilot/dynamic-system/motor/motor-principle/motor-principle.md)
 * [仿真](autopilot/simulation/simulation.md)
   * [动力学模型](autopilot/simulation/dynamic-model/dynamic-model.md)
-    - 六自由度动力学与运动学模型
-    - [空气动力学](autopilot/simulation/dynamic-model/aerodynamics/aerodynamics.md)
-      - [熵](autopilot/simulation/dynamic-model/aerodynamics/entropy/entropy.md)
+    * 六自由度动力学与运动学模型
+    * [空气动力学](autopilot/simulation/dynamic-model/aerodynamics/aerodynamics.md)
+      * [熵](autopilot/simulation/dynamic-model/aerodynamics/entropy/entropy.md)
   * [传感器与武器](autopilot/simulation/sensor-and-weapon/sensor-and-weapon.md)
     * 雷达
     * [空空导弹](autopilot/simulation/sensor-and-weapon/air-to-air-missile/air-to-air-missile.md)
@@ -695,4 +715,3 @@
 # [任务清单](personal/list.md)
 * [收集的各种资料](personal/material.md)
 * [有用的工具](personal/tools.md)
-

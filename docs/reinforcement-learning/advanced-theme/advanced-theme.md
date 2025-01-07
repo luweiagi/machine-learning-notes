@@ -1,6 +1,8 @@
 # 高级主题
 
 * [返回上层目录](../reinforcement-learning.md)
+* [强化学习前景](reinforcement-learning-prospect/reinforcement-learning-prospect.md)
+* [基于模型的强化学习](model-based-reinforcement-learning/model-based-reinforcement-learning.md)
 * [稀疏奖励Sparse Reward](sparse-reward/sparse-reward.md)
 * [混合动作空间Hybrid Action Space](hybrid-action-space/hybrid-action-space.md)
 * [MCTS+RL](mcts-rl/mcts-rl.md)

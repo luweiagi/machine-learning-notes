@@ -2,7 +2,9 @@
 
 * [返回上层目录](../README.md)
 * [强化学习学习路径](rl-learning-path/rl-learning-path.md)
-* [强化学习](reinforcement-learning/reinforcement-learning.md)
+* [强化学习基础概念](reinforcement-learning-basic-concept/reinforcement-learning-basic-concept.md)
+* [强化学习算法](reinforcement-learning-algorithm/reinforcement-learning-algorithm.md)
+* [深度强化学习](deep-reinforcement-learning/deep-reinforcement-learning.md)
 * [高级主题](advanced-theme/advanced-theme.md)
 * [仿真环境](simulation-platform/simulation-platform.md)
 * [场景应用](scenarios-application/scenarios-application.md)
@@ -225,6 +227,10 @@ RL-algorithms，更新一些基础的RL代码，附带了各个算法的介绍
 
 [Danzero+：用掼蛋为例讲解如何处理大规模动作空间的强化学习问题](https://zhuanlan.zhihu.com/p/673715817)
 
+各种强化学习论文及其代码
+
+[keiohta/tf2rl](https://github.com/keiohta/tf2rl)
+
 
 
 # 不重要
@@ -235,5 +241,7 @@ RL-algorithms，更新一些基础的RL代码，附带了各个算法的介绍
 
 
 
+# 代码
 
+[GitHub万星资源：强化学习算法实现，教程代码样样全，还有详细学习规划](https://mp.weixin.qq.com/s/lBFcTPaVDwucM1pEd-dwpg)
 

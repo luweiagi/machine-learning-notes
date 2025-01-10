@@ -117,6 +117,7 @@
   * [C/C++](coding/programing-language/c-c++/c-c++.md)
     * [STL容器](coding/programing-language/c-c++/stl-container/stl-container.md)
     * [algorithm算法库](coding/programing-language/c-c++/algorithm-lib/algorithm-lib.md)
+    * [多线程编程](coding/programing-language/c-c++/multi-threading/multi-threading.md)
     * [知识点](coding/programing-language/c-c++/tips/tips.md)
       * [string字符串类](coding/programing-language/c-c++/tips/string/string.md)
       * [volatile关键字](coding/programing-language/c-c++/tips/volatile/volatile.md)

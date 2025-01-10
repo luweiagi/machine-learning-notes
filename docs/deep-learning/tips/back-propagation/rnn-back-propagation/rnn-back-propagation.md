@@ -8,6 +8,8 @@
 
 
 
+尽管Transformer类的模型已经攻占了NLP的多数领域，但诸如LSTM、GRU之类的RNN模型依然在某些场景下有它的独特价值，所以RNN依然是值得我们好好学习的模型。而对于RNN梯度的相关分析，则是一个从优化角度思考分析模型的优秀例子。
+
 # RNN的运行原理
 
 ![rnn-forward-backward](pic/rnn-forward-backward.png)
@@ -125,6 +127,9 @@ $$
 
 # 链式传播导致的梯度消失和梯度爆炸
 
+参数共享是双刃剑，网络预测时具有平稳性，但是梯度计算的时候会有依赖。
+
+随着$t$和$s$的距离越来越大，梯度传播的计算，长时序的依赖不足。
 $$
 \frac{\partial h_t}{\partial h_s}=\frac{\partial h_t}{\partial h_{t-1}}\cdot \frac{\partial h_{t-1}}{\partial h_{t-2}}... \frac{\partial h_{s+1}}{\partial h_{s}}
 $$
@@ -217,6 +222,10 @@ $$
 当然，这些结果都是“概论”，你非要构造一个会梯度消失/爆炸的LSTM来，那也是能构造出来的。此外，就算LSTM能缓解这两个问题，也是在一定步数内，如果你的序列很长，比如几千上万步，那么该消失的还会消失。毕竟单靠一个向量，也缓存不了那么多信息啊～
 
 # 参考资料
+
+* [时间序列的反向传播算法（BPTT）](https://thnum.blog.csdn.net/article/details/106033310)
+
+本文前面参考此博客。
 
 * [也来谈谈RNN的梯度消失/爆炸问题](https://kexue.fm/archives/7888)
 

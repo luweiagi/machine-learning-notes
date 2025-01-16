@@ -6,8 +6,9 @@
   * [lock_guard和unique_lock的区别](#lock_guard和unique_lock的区别)
   * [条件变量（std::condition_variable）](#条件变量（std::condition_variable）)
 * [生产者-消费者模型](#)
-  * [单生产者-单消费者模型](#单生产者-单消费者模型)
-  * [单生产者多消费者的多线程程序](#单生产者多消费者的多线程程序)
+  * [单生产者单消费者](#单生产者单消费者)
+  * [单生产者多消费者](#单生产者多消费者)
+  * [单生产者多消费者步骤同步](#单生产者多消费者步骤同步)
 * [知识点](#)
   * [等待互斥锁队列和等待条件队列的区别](#等待互斥锁队列和等待条件队列的区别)
   * [条件变量的等待队列被唤醒线程是否从头运行](#条件变量的等待队列被唤醒线程是否从头运行)
@@ -140,7 +141,7 @@ void notifyingFunction() {
 
 # 生产者-消费者模型
 
-## 单生产者-单消费者模型
+## 单生产者单消费者
 
 ```c++
 #include <iostream>
@@ -197,7 +198,7 @@ int main() {
 
 
 
-## 单生产者多消费者的多线程程序
+## 单生产者多消费者
 
 以下是一个单生产者多消费者的多线程程序。在这个程序中，生产者线程会不断地生产数据，多个消费者线程会从队列中取数据并进行消费。我们将使用 `std::mutex` 来保护共享资源（队列），并且使用 `std::condition_variable` 来协调生产者和消费者的工作。
 
@@ -311,6 +312,179 @@ g++ -std=c++11 -o producer_consumer producer_consumer.cpp -pthread
 ```
 
 在 Windows 上，可以使用 Visual Studio 或其他支持 C++11 及线程库的编译器来运行。
+
+## 单生产者多消费者步骤同步
+
+注意：下面的代码虽然表面上看起来貌似没问题，但是实际运行起来会遇到生产者卡在wait的情况，而且和printf的位置有随机的关系，我也不清楚是不是背后的逻辑哪里有问题。但是既然写了就放在这吧，起到一个提供思路的作用。
+
+使用了两个条件变量来分开生产者和消费者的唤醒操作，解决了生产者和消费者之间的同步问题。
+
+```c++
+#include <iostream>
+#include <thread>
+#include <queue>
+#include <array>
+#include <algorithm>
+#include <vector>
+#include <mutex>
+#include <condition_variable>
+
+// 定义队列和锁
+std::mutex mtx;
+std::condition_variable cv_consumer;  // 消费者唤醒的条件变量
+std::condition_variable cv_producer;  // 生产者唤醒的条件变量
+
+// 运行的最大次数
+const int max_step = 3;
+const int consumer_num = 2;
+
+std::array<bool, consumer_num> can_run = {}; // 默认初始化为 false
+
+// 生产者线程函数
+void producer() {
+    for (int i = 0; i < max_step; ++i) {
+        std::this_thread::sleep_for(std::chrono::milliseconds(100)); // 模拟生产过程
+
+        std::unique_lock<std::mutex> lock(mtx);
+        // 如果队列满了，生产者就等待
+        cv_producer.wait(lock, [&can_run]() {
+            return std::all_of(can_run.begin(), can_run.end(), [](bool value) {
+                return !value; // 判断所有值是否都是 false
+            });
+        });
+
+        can_run.fill(true);
+
+        std::cout << "Produced: " << i << std::endl;
+
+        // 通知消费者可以消费了
+        cv_consumer.notify_all();
+        // 生产者：生产者唤醒 所有消费者，因为生产者生产一轮数据后，需要通知所有消费者来消费。多个消费者可以并行消费数据。
+    }
+}
+
+// 消费者线程函数
+void consumer(int id) {
+    for (int i = 0; i < max_step; ++i) {
+        std::unique_lock<std::mutex> lock(mtx);
+        // 如果队列为空，消费者就等待
+        cv_consumer.wait(lock, [&id]{ return can_run[id]; });
+
+        // 消费一个数据并从队列中取出
+        can_run[id] = false;
+        std::cout << "Consumer " << id << " consumed" << std::endl;
+
+        // 通知生产者可以继续生产了
+        cv_producer.notify_one();
+        // 消费者：消费者在消费完数据后应该 只唤醒生产者，而不是唤醒其他消费者，因为如果多个消费者同时唤醒生产者，可能会导致不必要的竞争或误同步。
+
+        std::this_thread::sleep_for(std::chrono::milliseconds(150)); // 模拟消费过程
+    }
+}
+
+int main() {
+    std::vector<std::thread> consumers;
+
+    // 启动一个生产者线程
+    std::thread producer_thread(producer);
+
+    // 启动多个消费者线程
+    for (int i = 0; i < 2; ++i) {
+        consumers.push_back(std::thread(consumer, i));
+    }
+
+    // 等待生产者线程完成
+    producer_thread.join();
+
+    // 注意：这里为了简单起见，我们没有设置消费者的退出条件
+    // 通常，你可以设计一种方式让消费者线程在生产者结束后退出，例如使用标志变量
+    for (auto& consumer_thread : consumers) {
+        consumer_thread.join();
+    }
+
+    return 0;
+}
+```
+
+下面逐一分析代码并确认它的实现逻辑。
+
+**（1）生产者线程 (producer)**：
+
+```c++
+std::unique_lock<std::mutex> lock(mtx);
+bool all_false = std::all_of(can_run.begin(), can_run.end(), [](bool value) {
+    return !value; // 判断所有值是否都是 false
+});
+cv_producer.wait(lock, [&all_false]() { return all_false; });
+```
+
+- 生产者在每次生产数据之前，先判断 `can_run` 数组中的所有值是否为 `false`。如果是，说明所有消费者已经消费完，可以开始生产数据。
+- 然后调用 `cv_producer.wait()` 等待所有的消费者都消费完。
+- 你使用了一个条件变量 `cv_producer` 来等待消费者的通知，确保每次只有在消费者都已经消费完后，生产者才会进行生产。
+
+**（2）消费者线程 (consumer)**：
+
+```c++
+cv_consumer.wait(lock, [&id]{ return can_run[id]; });
+can_run[id] = false;
+```
+
+- 每个消费者在开始消费之前，会检查 `can_run[id]` 是否为 `true`，如果是，说明该消费者可以消费数据。
+- 消费后将 `can_run[id]` 设置为 `false`，表示该消费者已经消费了相应的数据。
+
+**（3）通知机制**：
+
+- 生产者调用 `cv_consumer.notify_all()` 来唤醒所有消费者进行消费。
+- 消费者在消费完数据后调用 `cv_producer.notify_one()` 唤醒生产者继续生产。
+
+**（4）整体同步流程**：
+
+- 生产者等待所有消费者消费完数据（通过 `cv_producer.wait()`）。
+- 当生产者生产数据时，所有消费者会被唤醒（`cv_consumer.notify_all()`）。
+- 每个消费者在消费数据后，会通知生产者（`cv_producer.notify_one()`），以确保生产者可以继续生产。
+
+**（5）总结**：
+
+- **多消费者问题：** 你的代码很好地处理了多个消费者的同步问题。消费者在消费完数据后通知生产者继续生产，而生产者唤醒所有消费者开始消费。这保证了生产者不会因多个消费者的唤醒而进入竞争状态。
+- **条件变量的使用：** 两个条件变量 `cv_consumer` 和 `cv_producer` 被恰当地用来分别控制生产者和消费者的同步，避免了过多的通知导致的竞争或不必要的唤醒。
+
+# 多线程同步
+
+需要使用c++20版本。
+
+```c++
+#include <iostream>
+#include <thread>
+#include <barrier>
+
+std::barrier barrier(3); // 创建一个屏障，等待3个线程
+
+void task(int id) {
+    for (int i = 0; i <3; i++) {
+        // 等待其他线程，所有线程都到达此点后，继续执行
+        barrier.arrive_and_wait();
+
+        // 模拟长时间运行的任务
+        printf("step:%d, task:%d, begin...........\n", i, id);
+    }
+}
+
+int main() {
+    std::thread threads[3];
+
+    for (int i = 0; i < 3; ++i) {
+        threads[i] = std::thread(task, i);
+    }
+
+    for (auto& t : threads) {
+        t.join();
+    }
+
+    return 0;
+}
+```
+
+
 
 # 知识点
 

@@ -681,6 +681,7 @@
     * [电机的原理](autopilot/dynamic-system/motor/motor-principle/motor-principle.md)
 * [仿真](autopilot/simulation/simulation.md)
   * [动力学模型](autopilot/simulation/dynamic-model/dynamic-model.md)
+    * [三自由度动力学与运动学模型](autopilot/simulation/dynamic-model/three-dof/three-dof.md)
     * 六自由度动力学与运动学模型
     * [空气动力学](autopilot/simulation/dynamic-model/aerodynamics/aerodynamics.md)
       * [熵](autopilot/simulation/dynamic-model/aerodynamics/entropy/entropy.md)

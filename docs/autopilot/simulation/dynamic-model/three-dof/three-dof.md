@@ -31,6 +31,7 @@ $$
 \left\{\begin{matrix}
 v\cdot \cos\theta\cdot \cos\psi\\
 v\cdot \cos\theta\cdot \sin\psi\\
+v\cdot \sin\theta\\
 \frac{T\cdot \cos\alpha-D}{m}-g\cdot \sin\theta\\
 \frac{(L+T\cdot \sin\alpha)\cdot \sin\phi}{m\cdot v\cdot \cos\theta}\\
 \frac{(L+T\cdot \sin\alpha)\cdot \cos\phi}{m\cdot v}-\frac{g\cos\theta}{v}

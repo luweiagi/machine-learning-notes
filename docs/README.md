@@ -279,25 +279,45 @@
   * [蒙特卡洛](reinforcement-learning/reinforcement-learning-algorithm/monte-carlo/monte-carlo.md)
   * [时间差分TD(0)](reinforcement-learning/reinforcement-learning-algorithm/time-difference/time-difference.md)
   * [多步自举TD(λ)](reinforcement-learning/reinforcement-learning-algorithm/multi-step-bootstrap/multi-step-bootstrap.md)
-* [深度强化学习](reinforcement-learning/deep-reinforcement-learning/deep-reinforcement-learning.md)
+* [深度强化学习](reinforcement-learning/deep-reinforcement-learning/deep-reinforcement-learning.md) 可以将强化学习算法分为基于策略（Policy-Based）的方法和基于价值（Value-Based）的方法，基于价值的方法通过值函数间接获取最优策略，包括策略迭代、价值迭代、Sarsa、Q-learning、Deep Q-network等。基于策略的方法包括Vanilla PG、TRPO、PPO、SAC等。介于二者之间的算法是DDPG和TD3。
   * [函数近似和深度网络](reinforcement-learning/deep-reinforcement-learning/function-approximation-and-deep-network/function-approximation-and-deep-network.md)
   * [深度强化学习概述](reinforcement-learning/deep-reinforcement-learning/deep-reinforcement-learning-introduction/deep-reinforcement-learning-introduction.md)
-  * [基于值的深度强化学习](reinforcement-learning/deep-reinforcement-learning/value-based-drl/value-based-drl.md)
-    * DQN
-  * [基于策略的深度强化学习](reinforcement-learning/deep-reinforcement-learning/policy-based-drl/policy-based-drl.md)
-    * [策略梯度算法](reinforcement-learning/deep-reinforcement-learning/policy-based-drl/policy-gradient-algorithm/policy-gradient-algorithm.md)
-    * DPG
-    * [DDPG: Continuous Control With Deep Reinforcement Learning ICLR2016](reinforcement-learning/reinforcement-learning/paper/ddpg/ddpg.md)
-  * Actor-Critic
+  * [基于纯价值的深度强化学习](reinforcement-learning/deep-reinforcement-learning/value-based-drl/value-based-drl.md) 局限性：离散动作空间、策略间接优化
+    * Q-learning与贝尔曼方程
+    * 深度Q网络（DQN）及其变体（Double DQN, Dueling DQN）
+    * Sarsa
+  * [基于纯策略的深度强化学习](reinforcement-learning/deep-reinforcement-learning/policy-based-drl/policy-based-drl.md) 局限性：高方差、低样本效率
+    * 策略梯度基础
+      * [策略梯度算法](reinforcement-learning/deep-reinforcement-learning/policy-based-drl/policy-gradient-algorithm/policy-gradient-algorithm.md)
+      * 随机策略梯度（Stochastic Policy Gradient）REINFORCE（蒙特卡洛策略梯度）
+      * 确定性策略梯度（Deterministic Policy Gradient, DPG）
+      * 自然策略梯度（Natural Policy Gradient）
+  * Actor-Critic 策略与价值结合
     * A3C
     * A2C
-  * [基于信赖域的深度强化学习](reinforcement-learning/deep-reinforcement-learning/trust-region-based-drl/trust-region-based-drl.md)
-    * TRPO
-    * [PPO近端策略优化: Proximal Policy Optimization](reinforcement-learning/deep-reinforcement-learning/trust-region-based-drl/ppo/proximal-policy-optimization.md)
-      * [Proximal Policy Optimization Algorithms arXiv2017 OpenAI](reinforcement-learning/deep-reinforcement-learning/trust-region-based-drl/ppo/ppo-openai/ppo-openai.md)
-      * [PPO实现细节](reinforcement-learning/deep-reinforcement-learning/trust-region-based-drl/ppo/ppo-implementation-details/ppo-implementation-details.md)
-      * [Recurrent Proximal Policy Optimization using Truncated BPTT](reinforcement-learning/deep-reinforcement-learning/trust-region-based-drl/ppo/ppo-rnn/ppo-rnn.md)
-  * [SAC: Soft Actor-Critic](https://www.paperexplained.cn/articles/paper/detail/811df72e210e20de99719539505da54762a11c6d/)
+    * [确定性策略梯度DDPG: Continuous Control With Deep Reinforcement Learning ICLR2016](reinforcement-learning/reinforcement-learning/paper/ddpg/ddpg.md)
+    * 概念
+      * Advantage Advantage函数A(s,a) = Q(s,a) - V(s)，用于衡量某个动作相对于平均值的优势
+  * 高级策略优化技术
+    * 信赖域方法（Trust Region Methods）策略更新约束技术（与策略类型解耦）[基于信赖域的深度强化学习](reinforcement-learning/deep-reinforcement-learning/trust-region-based-drl/trust-region-based-drl.md)
+      * TRPO（二阶优化与KL散度约束）
+      * [PPO近端策略优化: Proximal Policy Optimization](reinforcement-learning/deep-reinforcement-learning/trust-region-based-drl/ppo/proximal-policy-optimization.md) （Clipping/Penalty简化实现）
+        * [Proximal Policy Optimization Algorithms arXiv2017 OpenAI](reinforcement-learning/deep-reinforcement-learning/trust-region-based-drl/ppo/ppo-openai/ppo-openai.md)
+        * [PPO实现细节](reinforcement-learning/deep-reinforcement-learning/trust-region-based-drl/ppo/ppo-implementation-details/ppo-implementation-details.md)
+        * [Recurrent Proximal Policy Optimization using Truncated BPTT](reinforcement-learning/deep-reinforcement-learning/trust-region-based-drl/ppo/ppo-rnn/ppo-rnn.md)
+    * 随机策略+熵正则化（Entropy Regularization）策略探索增强技术（与随机策略强耦合）
+      * [SAC: Soft Actor-Critic](https://www.paperexplained.cn/articles/paper/detail/811df72e210e20de99719539505da54762a11c6d/) SAC（Soft Actor-Critic）的熵最大化目标
+* 工程技巧
+  * 分布式训练与加速
+    * A3C（异步多线程）
+    * A2C（同步多线程）
+    * 参数服务器与数据并行
+  * 经验回放与目标网络
+    * DQN、DDPG中的经验回放设计
+    * 目标网络软更新技巧
+  * 探索与稳定性增强
+    * 动作噪声（OU噪声、高斯噪声）
+    * 优势函数估计（GAE，Generalized Advantage Estimation）GAE则是Advantage的一种估计方法，结合了多步的TD误差，减少方差。
 * [高级主题](reinforcement-learning/advanced-theme/advanced-theme.md)
   * [强化学习前景](reinforcement-learning/advanced-theme/reinforcement-learning-prospect/reinforcement-learning-prospect.md)
   * [基于模型的强化学习](reinforcement-learning/advanced-theme/model-based-reinforcement-learning/model-based-reinforcement-learning.md)
@@ -435,8 +455,8 @@
 * [word2vec](natural-language-processing/word2vec/word2vec.md)
 * [AttentionMechanism注意力机制](natural-language-processing/attention-mechanism/attention-mechanism.md)
   * [Target Attention机制]
-  * [Self Attention机制](natural-language-processing/self-attention/self-attention/self-attention.md)
-  * [Multi Head Self Attention机制]
+  * [Self Attention机制](natural-language-processing/attention-mechanism/self-attention/self-attention.md)
+  * [Multi Head Self Attention机制](natural-language-processing/attention-mechanism/multi-head-self-attention/multi-head-self-attention.md)
 * [Seq2Seq模型和Attention机制](natural-language-processing/seq2seq-and-attention-mechanism/seq2seq-and-attention-mechanism.md)
 * [Self-Attention和Transformer](natural-language-processing/self-attention-and-transformer/self-attention-and-transformer.md)
   * [Transformer: Attention Is All You Need  NIPS2017](natural-language-processing/self-attention-and-transformer/attention-is-all-you-need/attention-is-all-you-need.md)
@@ -474,7 +494,7 @@
     * GPT-3.5
     * instructGPT
     * [ChatGPT](multimodal-large-model/industry-application/openai/ChatGPT/ChatGPT.md) 聊天机器人
-    * 202303 [GPT-4](multimodal-large-model/industry-application/openai/GPT-4/GPT-4.md) 输入图/文，输出文
+    * [GPT-4](multimodal-large-model/industry-application/openai/GPT-4/GPT-4.md) 202303 输入图/文，输出文
   * [Meta](multimodal-large-model/industry-application/meta/meta.md)
     * [OPT](multimodal-large-model/industry-application/meta/opt/opt.md) 复现开源了GPT3
     * 202302 [LLaMa](multimodal-large-model/industry-application/meta/LLaMa/LLaMa.md) **对标OpenAI的ChatGPT，开源**
@@ -688,9 +708,10 @@
   * [传感器与武器](autopilot/simulation/sensor-and-weapon/sensor-and-weapon.md)
     * 雷达
     * [空空导弹](autopilot/simulation/sensor-and-weapon/air-to-air-missile/air-to-air-missile.md)
-  * 仿真环境
+  * [仿真环境](autopilot/simulation/simulation-environment/simulation-environment.md)
     * [gym-jsbsim:使用JSBSim飞行动力学模型的飞机控制强化学习环境](https://download.csdn.net/download/weixin_42165980/18471290)
     * [GymFC是一个OpenAI环境](https://blog.csdn.net/dumao0620/article/details/127667719)
+    * [Tacview](autopilot/simulation/simulation-environment/tacview/tacview.md)
 * [端到端自动驾驶](autopilot/end-to-end/end-to-end.md)
 * [Multi-Agent System多智能体系统](autopilot/multi-agent-system/multi-agent-system.md)
   * [集群](autopilot/multi-agent-system/swarm/swarm.md)

@@ -4,6 +4,8 @@
 
 
 
+ppo-truncated-bptt，如MemoryGym中的Mortar Mayhem和Mystery Path，这些任务需要代理记住过去的观察和动作。
+
 GitHub代码：
 
 * PPO+GRU [MarcoMeter/recurrent-ppo-truncated-bptt](https://github.com/MarcoMeter/recurrent-ppo-truncated-bptt)
@@ -12,6 +14,40 @@ GitHub代码：
 测试环境：[MarcoMeter/endless-memory-gym](https://github.com/MarcoMeter/endless-memory-gym/) 环境库面有三个环境
 
 论文：[Memory Gym: Towards Endless Tasks to Benchmark Memory Capabilities of Agents Arxiv202409](https://arxiv.org/pdf/2309.17207)
+
+该论文的中文介绍博客：
+
+[探索记忆与策略：Recurrent Proximal Policy Optimization 项目推荐](https://blog.csdn.net/gitblog_00041/article/details/142194352)
+
+[开源项目指南：循环策略梯度 - PPO结合截断式反向传播](https://blog.csdn.net/gitblog_00822/article/details/142120090)
+
+有人写了一篇在PPO中使用RNN的知乎博客，很好，必须要看：
+
+[在PPO中使用RNN](https://zhuanlan.zhihu.com/p/592700653)
+
+其他类似的支持LSTM的PPO的Github：[xixiha5230/Continuous-PPO](https://github.com/xixiha5230/Continuous-PPO)
+
+该Github的功能有：
+
+> 1. 支持离散和连续动作
+> 2. 多进程采集数据
+> 3. 支持lstm
+> 4. 支持复杂输入(图像 与 向量)
+> 5. 支持rnd随机网络蒸馏(探索)
+> 6. 多任务训练、任务预测、任务自主选择
+
+该Github参考了：
+
+> - [conv1d、conv2d网络](https://github.com/BlueFisher/Advanced-Soft-Actor-Critic)
+> - [lstm、多线程](https://github.com/MarcoMeter/recurrent-ppo-truncated-bptt)
+> - [PPO精简实现](https://github.com/seungeunrho/minimalRL)
+> - [PPO实现](https://github.com/nikhilbarhate99/PPO-PyTorch)
+> - [ppo优化技巧](https://github.com/Lizhi-sjtu/DRL-code-pytorch)
+> - [RND 随机网络蒸馏](https://github.com/alirezakazemipour/PPO-RND)
+
+
+
+# 论文总结
 
 这篇论文测试了GRU和Transformer在需要记忆的环境中的表现。论文总结：
 
@@ -56,4 +92,6 @@ GitHub代码：
 * [Explain My Surprise: Learning Efficient Long-Term Memory by Predicting Uncertain Outcome Arxiv202211](https://arxiv.org/pdf/2207.13649)
 
 含有关键字：We could not successfully train a single PPO-LSTM or AMRL agent even with TBPTT rollout of
+
+
 

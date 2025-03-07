@@ -10,23 +10,21 @@ paper: [An Efficient Gradient-Based Algorithm for On-Line Training of Recurrent 
 
 
 
-ppo-truncated-bptt
+# Truncated-BPTT介绍
 
-如MemoryGym中的Mortar Mayhem和Mystery Path，这些任务需要代理记住过去的观察和动作。
+RNN的反向传播算法BPTT（Back-Propagation Through Time）：
 
-## 截断时间步骤
+![bptt](pic/bptt.png)
 
-其思想是在时间步长T之后停止计算梯度总和，这将导致真实梯度的近似值，并在实践中产生相当好的结果。此版本的BPTT称为截断时间反向传播（称为TBPTT）。由于此方法，模型开始关注短期影响而不是长期影响，因此模型变得有偏差。
+在长时序下会遇到计算效率的问题，其解决方案为Truncated BPTT：
 
+![truncated-bptt](pic/truncated-bptt.png)
 
+BPTT只在子序列的内部去做反向传播，只关心内部的计算。在实际的计算中，很少有人用full BPTT，一般是使用Truncated BPTT。已经提出TBPTT的实际限制为约200至400倍步。
 
-已经提出 TBPTT 的实际限制为约 200 至 400 倍步。
+TBPTT的思想是在时间步长T之后停止计算梯度总和，这将导致真实梯度的近似值，并在实践中产生相当好的结果。此版本的BPTT称为截断时间反向传播（称为TBPTT）。由于此方法，模型开始关注短期影响而不是长期影响，因此模型变得有偏差。
 
-
-
-
-
-
+# 问题
 
 每次截断后开始训练下一次时，hidden state应该是上一次最后的hidden state吧？
 
@@ -189,6 +187,14 @@ BPTT(1, 1)与标准BPTT的区别
 > 标准 BPTT（不截断）会在整个序列范围内传播梯度，即反向传播的路径可以回溯到序列的第一个时间步。这种方法可以更好地捕捉长时间依赖，但计算成本高，且容易发生梯度爆炸/消失问题。
 >
 > 而 BPTT(1, 1) 是一种极端形式的**截断 BPTT**，每次只传播一个时间步的梯度，非常高效但能力有限。
+
+
+
+# 参考资料
+
+* [时间序列的反向传播算法（BPTT）](https://thnum.blog.csdn.net/article/details/106033310)
+
+‘”Truncated-BPTT介绍“一节参考此CNDN博客。
 
 
 

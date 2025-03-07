@@ -1,19 +1,24 @@
 # JSON
 
 * [返回上层目录](../data-format.md)
-* [C++中的nlohmann-json库](#C++中的nlohmann-json库)
-  * [安装配置nlohmann-json库](#安装配置nlohmann-json库)
+* [C++中的nlohmann::json库](#C++中的nlohmann::json库)
+  * [安装配置nlohmann::json库](#安装配置nlohmann::json库)
   * [示例代码](#示例代码)
   * [JOSN构造方法](#JOSN构造方法)
   * [多个JSON处理](#多个JSON处理)
+* [遍历与查询](#遍历与查询)
+  * [遍历](#遍历)
+    * [遍历json的键（key）](#遍历json的键（key）)
+  * [查询](#查询)
+    * [确认某个键是否存在于json中](#确认某个键是否存在于json中)
 
 
 
-# C++中的nlohmann-json库
+# C++中的nlohmann::json库
 
 C++中流行的JSON库比如**nlohmann/json**库，它在C++中使用非常方便。
 
-## 安装配置nlohmann-json库
+## 安装配置nlohmann::json库
 
 **（1）下载JSON库**
 
@@ -576,3 +581,83 @@ int main() {
 - 如果需要将多个JSON嵌套组合，直接通过 `big_json["key"] = json;` 动态构造。
 - 如果需要合并键值对，可以使用 `update` 或遍历插入键值。
 - `nlohmann::json` 提供了强大的动态操作能力，适合各种场景下的JSON生成与组合。
+
+
+
+# 遍历与查询
+
+## 遍历
+
+### 遍历json的键（key）
+
+你可以通过 `json` 对象的 `items()` 方法或者 `begin()` 和 `end()` 方法来遍历 JSON 对象中的键值对。
+
+**示例代码：**
+
+```c++
+#include <iostream>
+#include <nlohmann/json.hpp>
+using namespace std;
+using json = nlohmann::json;
+
+int main() {
+    // 创建一个示例 JSON 对象
+    json j = {
+        {"name", "Alice"},
+        {"age", 30},
+        {"city", "Wonderland"}
+    };
+
+    // 遍历 JSON 的所有键值对
+    for (auto& [key, value] : j.items()) {
+        cout << "Key: " << key << ", Value: " << value << endl;
+    }
+
+    return 0;
+}
+```
+
+在这个例子中，`j.items()` 返回一个可以迭代的键值对序列，你可以直接通过 `auto& [key, value]` 来解构出每一个键（`key`）和对应的值（`value`）。
+
+## 查询
+
+### 确认某个键是否存在于json中
+
+你可以使用 `json` 对象的 `contains()` 方法来检查一个键是否存在于 JSON 对象中。`contains()` 返回一个 `bool` 值，表示该键是否存在。
+
+**示例代码：**
+
+```c++
+#include <iostream>
+#include <nlohmann/json.hpp>
+using namespace std;
+using json = nlohmann::json;
+
+int main() {
+    // 创建一个示例 JSON 对象
+    json j = {
+        {"name", "Alice"},
+        {"age", 30},
+        {"city", "Wonderland"}
+    };
+
+    // 检查是否存在某个键
+    string key_to_check = "name";
+    if (j.contains(key_to_check)) {
+        cout << "The key '" << key_to_check << "' exists. Value: " << j[key_to_check] << endl;
+    } else {
+        cout << "The key '" << key_to_check << "' does not exist." << endl;
+    }
+
+    // 检查另一个不存在的键
+    key_to_check = "country";
+    if (j.contains(key_to_check)) {
+        cout << "The key '" << key_to_check << "' exists. Value: " << j[key_to_check] << endl;
+    } else {
+        cout << "The key '" << key_to_check << "' does not exist." << endl;
+    }
+
+    return 0;
+}
+```
+

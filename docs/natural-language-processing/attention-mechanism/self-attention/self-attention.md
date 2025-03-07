@@ -496,8 +496,6 @@ output = torch.matmul(attention_weights, V)  # (batch_size, seq_len, embed_size)
 
 test: 计算加权输出：$\text{Output} = \text{Attention_Weights} \cdot V$
 
-asd大声$\text{aaa}$道$$\text{aaa}$$大大
-
 - 权重矩阵 (batch_size,seq_len,seq_len)
 - $V$: (batch_size,seq_len,embed_size)
 - 最终输出形状：(batch_size,seq_len,embed_size)

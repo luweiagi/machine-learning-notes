@@ -15,17 +15,17 @@ $$
 \dot{x}=f(x, u)
 $$
 
-其中，状态量$x=[pos_N, pos_E, h, v, \psi, \theta, \phi, \alpha]^T$，控制量为$\mu=[\zeta, \phi, \alpha]$。
+其中，状态量$x=[pos_N, pos_E, h, v, \psi, \theta, \phi, \alpha]^T$，控制量为$\mu=[\zeta, \phi, \alpha]^T$。
 
 即
 $$
 \left\{\begin{matrix}
-\dot{pos_N}\\
-\dot{pos_E}\\
-\dot{h}\\
-\dot{v}\\
-\dot{\psi}\\
-\dot{\theta}\\
+\dot{pos_N}\quad\text{位置北}\\
+\dot{pos_E}\quad\text{位置东}\\
+\dot{h}\quad\text{高度}\\
+\dot{v}\quad\text{速度}\\
+\dot{\psi}\quad\text{偏航角}\\
+\dot{\theta}\quad\text{航迹角}\\
 \end{matrix}\right\}
 =
 \left\{\begin{matrix}
@@ -46,7 +46,7 @@ $$
 F16有好多种，下面的数据基本是综合了一下的平均值，而不是某一款机型的准确值。
 
 * 空重：约8500千克（具体数值因批次和配置而异）
-* 总重：15吨
+* 总重：13吨
 * 燃油：3200公斤
 * 机翼面积：27.87平方米
 * 零升阻力系数：0.02
@@ -55,7 +55,7 @@ F16有好多种，下面的数据基本是综合了一下的平均值，而不�
 * 最大平飞速度：正常最大马赫数达到1.6，但可冲刺到2马赫（约2,410公里/小时）
 * 推重比：约1.095
 * 最大滚转速度：270°/秒
-* 发动机最大推力：75千牛。耗油率：不加力状态：0.694 kg/(daN*h)，daN=10N（千达牛顿等于10牛顿）
+* 发动机最大推力：105.7千牛。耗油率：不加力状态：0.694 kg/(daN*h)，daN=10N（千达牛顿等于10牛顿）
 * 迎角限制：[-5度, 25度]
 * 迎角变化率限制为？还没查到
 
@@ -84,7 +84,6 @@ float cl_of_aoa(float aoa) {
     const int arr_size = 7;
     static float aoa_deg_arr[arr_size] = {-10.0f, -5.0f, 20.0f, 30.0f, 37.0f, 42.0f, 67.0f};
     static float cl_arr[arr_size] = {-0.72f, -0.4f, 1.35f, 1.88f, 1.88f, 1.78f, 1.0f};
-
 
     if (aoa < aoa_deg_arr[0]) {
         return cl_arr[0];
@@ -117,7 +116,7 @@ float cl_of_aoa(float aoa) {
 
 在中等迎角时的诱导阻力系数$C_{Di}$与升力系数$C_L$的平方成正比，此正比系数称作“升致阻力因子”或“K”。即
 $$
-C_{Di}=KC_l^2
+C_{Di}=KC_L^2
 $$
 我们从上图的最左边的曲线取一些数据点来拟合$K$。
 
@@ -188,7 +187,7 @@ F-16则是美国三代机里攻角限制最严格的一架，其最大可用攻�
 | 50000        | 2700       |
 | 60000        | 1500       |
 
-用代码来表示推力因子-高度映射关系：
+用代码来表示推力衰减因子-高度映射关系：
 
 ```c++
 float thrust_alt_ratio(float alt) {
@@ -210,13 +209,13 @@ float thrust_alt_ratio(float alt) {
 
     alt = alt / 0.3048f;  // m -> ft
 
-    float ratio = 1.0f;
     if (alt < alt_arr[0]) {
         return 1.0f;
     } else if (alt >= alt_arr[arr_size - 1]) {
         return thrust_arr[arr_size - 1] / thrust_arr[0];
     }
 
+    float ratio = 1.0f;
     for (int i = 0; i < arr_size - 1; ++i) {
         if (alt < alt_arr[i + 1]) {
             float thrust = map_between(alt, alt_arr[i], alt_arr[i + 1], thrust_arr[i], thrust_arr[i + 1]);

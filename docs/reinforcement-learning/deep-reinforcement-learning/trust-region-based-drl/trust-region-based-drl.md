@@ -2,4 +2,5 @@
 
 * [返回上层目录](../deep-reinforcement-learning.md)
 * [PPO近端策略优化: Proximal Policy Optimization](ppo/proximal-policy-optimization.md)
+* [GAE广义优势估计Generalized Advantage Estimation](gae/gae.md)
 

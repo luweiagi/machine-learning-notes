@@ -305,6 +305,7 @@
         * [Proximal Policy Optimization Algorithms arXiv2017 OpenAI](reinforcement-learning/deep-reinforcement-learning/trust-region-based-drl/ppo/ppo-openai/ppo-openai.md)
         * [PPO实现细节](reinforcement-learning/deep-reinforcement-learning/trust-region-based-drl/ppo/ppo-implementation-details/ppo-implementation-details.md)
         * [Recurrent Proximal Policy Optimization using Truncated BPTT](reinforcement-learning/deep-reinforcement-learning/trust-region-based-drl/ppo/ppo-rnn/ppo-rnn.md)
+      * [GAE广义优势估计Generalized Advantage Estimation](reinforcement-learning/deep-reinforcement-learning/trust-region-based-drl/gae/gae.md)
     * 随机策略+熵正则化（Entropy Regularization）策略探索增强技术（与随机策略强耦合）
       * [SAC: Soft Actor-Critic](https://www.paperexplained.cn/articles/paper/detail/811df72e210e20de99719539505da54762a11c6d/) SAC（Soft Actor-Critic）的熵最大化目标
 * 工程技巧
@@ -428,6 +429,8 @@
   * [清华：天授](machine-learning-training-framework/reinforcement-learning-training-framework/tianshou/tianshou.md)
   * [百度：PARL](machine-learning-training-framework/reinforcement-learning-training-framework/parl/parl.md) 用PaddlePaddle实现了所有算法，用Pytorch实现了部分算法
   * [Ray分布式计算框架](machine-learning-training-framework/reinforcement-learning-training-framework/ray/ray.md)
+    * [Ray介绍](machine-learning-training-framework/reinforcement-learning-training-framework/ray/ray-introduction/ray-introduction.md)
+    * [基于Ray的强化学习并行训练框架](machine-learning-training-framework/reinforcement-learning-training-framework/ray/rl-parallel-training/rl-parallel-training.md)
   * [RLlib分布式强化学习系统](machine-learning-training-framework/reinforcement-learning-training-framework/rllib/rllib.md)
 * [大模型训练框架](machine-learning-training-framework/large-model-trainning-framework/large-model-trainning-framework.md)
 * [超算集群](machine-learning-training-framework/supercomputing-cluster/supercomputing-cluster.md)

@@ -18,7 +18,7 @@
   * [Encoder模块汇总](#Encoder模块汇总)
 * [Decoder模块](#Decoder模块)
   * [Decoder的Mask-Multi-Head-Attention输入端](#Decoder的Mask-Multi-Head-Attention输入端)
-  * [Decoder的Encode-Decode注意力层](#Decoder的Encode-Decode注意力层)
+  * [Decoder的Encode-Decode注意力层（Cross-Attention）](#Decoder的Encode-Decode注意力层（Cross-Attention）)
   * [Decoder的输出](#Decoder的输出)
 * [Transformer动态流程图](#Transformer动态流程图)
 * [Transformer特点](#Transformer特点)
@@ -453,7 +453,9 @@ sequence mask的目的是防止Decoder “seeing the future”，就像防止考
 [1 1 1 0 0 0 0 0 0 0]
 ```
 
-## Decoder的Encode-Decode注意力层
+## Decoder的Encode-Decode注意力层（Cross-Attention）
+
+Cross-attention，也称为编码器-解码器注意力，是Transformer架构中的一个关键组件，特别用于在解码器中整合来自编码器的信息。这种机制允许解码器在生成每个输出时，利用整个输入序列的上下文信息，从而增强翻译或文本生成的准确性和相关性。以下是对Cross-attention机制的详细解释：
 
 ![transformer-process](pic/transformer-process.jpg)
 

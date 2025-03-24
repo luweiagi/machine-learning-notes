@@ -245,3 +245,9 @@ RL-algorithms，更新一些基础的RL代码，附带了各个算法的介绍
 
 [GitHub万星资源：强化学习算法实现，教程代码样样全，还有详细学习规划](https://mp.weixin.qq.com/s/lBFcTPaVDwucM1pEd-dwpg)
 
+
+
+# 全面讲解
+
+[强化学习调参经验大集成：TD3、PPO+GAE、SAC、离散动作噪](https://download.csdn.net/blog/column/10672446/131730358)
+

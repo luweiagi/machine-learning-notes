@@ -457,9 +457,9 @@
 * [TF-IDF词频-逆文档频率](natural-language-processing/tf-idf/tf-idf.md)
 * [word2vec](natural-language-processing/word2vec/word2vec.md)
 * [AttentionMechanism注意力机制](natural-language-processing/attention-mechanism/attention-mechanism.md)
-  * [Target Attention机制]
   * [Self Attention机制](natural-language-processing/attention-mechanism/self-attention/self-attention.md)
   * [Multi Head Self Attention机制](natural-language-processing/attention-mechanism/multi-head-self-attention/multi-head-self-attention.md)
+  * [Cross Attention机制](natural-language-processing/attention-mechanism/cross-attention/cross-attention.md)
 * [Seq2Seq模型和Attention机制](natural-language-processing/seq2seq-and-attention-mechanism/seq2seq-and-attention-mechanism.md)
 * [Self-Attention和Transformer](natural-language-processing/self-attention-and-transformer/self-attention-and-transformer.md)
   * [Transformer: Attention Is All You Need  NIPS2017](natural-language-processing/self-attention-and-transformer/attention-is-all-you-need/attention-is-all-you-need.md)

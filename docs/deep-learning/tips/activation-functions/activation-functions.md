@@ -273,11 +273,73 @@ $$
 
 ## ReLU
 
-### PreLU
+> 既然relu会导致部分信息丢失，为什么不换成prelu或者leakyrelu呢
+
+**1. 计算效率：ReLU 更简单、更高效**
+
+ReLU 计算非常简单，只需要：
+$$
+\text{ReLU}(x) = \max(0, x)
+$$
+而 LeakyReLU 和 PReLU 需要额外的参数：
+$$
+\text{LeakyReLU}(x) = \max(\alpha x, x), \quad \text{PReLU}(x) = \max(a x, x)
+$$
+其中：
+
+- **LeakyReLU** 需要一个固定的负斜率 α\alphaα（通常是 0.01）。
+- **PReLU** 需要一个可训练参数 aaa。
+
+在大规模模型（如 GPT-4、T5）中，每层都有数百万个神经元，额外的计算量会影响推理速度和训练效率。**ReLU 只需一个比较运算，而 PReLU 需要额外的乘法运算，计算上会略微昂贵**。
+
+对于 Google/DeepMind 这类追求计算效率的大型 Transformer 研究团队来说，**简单高效的 ReLU 是首选**。
+
+**2. ReLU 在高维空间中的信息筛选能力**
+
+Transformer 的 FFN 采用 `4 * embed_size` 的扩展，并且使用 ReLU 进行非线性变换。这个过程中，ReLU 的“信息筛选”作用可能反而是有利的：
+
+- 通过 ReLU 将部分神经元输出归零，模型会倾向于**学习最重要的特征**，而忽略次要信息（类似于 L1 正则化）。
+- Transformer 处理序列数据时，高维 FFN 层的作用类似于一个**特征筛选和变换器**，ReLU 可以去掉不重要的信息，从而提升模型泛化能力。
+
+**如果使用 LeakyReLU/PReLU，所有神经元都会输出非零值，可能会导致特征过度传播，增加噪声。**
+
+**3. 经验上 ReLU 效果更稳定**
+
+Transformer 论文（Vaswani et al., 2017）在实验中测试了不同的激活函数，最终 ReLU 取得了最佳效果。
+ 在后续的模型（如 BERT、GPT、T5、ViT）中，大家普遍继续沿用了 ReLU，说明它在实践中确实效果不错。
+
+LeakyReLU/PReLU 可能在某些情况下带来更好的梯度流动，但它们并没有显著提升 Transformer 的表现，因此没有被广泛采用。
+
+**4. Swish/GELU 替代了 ReLU**
+
+尽管标准 Transformer 采用 ReLU，但后续的研究发现 **GELU（高斯误差线性单元）** 效果更优：
+$$
+\text{GELU}(x) = x \cdot \Phi(x)
+$$
+其中$\Phi(x)$是标准正态分布的 CDF 函数。
+
+例如：
+
+- **BERT** 改用了 **GELU**，因为它在 NLP 任务上的表现更稳定。
+- **GPT-2/3** 依然使用 **ReLU**，主要是计算效率考虑。
+- **Vision Transformer (ViT)** 也使用了 **GELU**，在视觉任务上表现更好。
+
+如果 ReLU 真的会严重损失信息，Transformer 早就换成了 PReLU/LeakyReLU，但实际情况是，大家更倾向于换成 GELU，而不是 LeakyReLU/PReLU。
+
+**总结**
+
+1. **计算效率**：ReLU 计算更快，而 PReLU/LeakyReLU 需要额外计算。
+2. **信息筛选**：ReLU 的“信息裁剪”特性可能有助于泛化能力，而 LeakyReLU/PReLU 可能让无关信息残留。
+3. **经验表现**：实验表明，ReLU 在 Transformer 上效果已经很好，没有足够理由换成 LeakyReLU/PReLU。
+4. **更好的替代品**：GELU 在某些任务上比 ReLU 更优（如 BERT、ViT），但仍然不是 LeakyReLU/PReLU。
+
+**如果你的 Transformer 任务对激活函数敏感，可以尝试 GELU，而不是 LeakyReLU/PReLU。**
+
+## PReLU
 
 
 
-## elu
+## ELU
 
 elu论文：*[Fast and Accurate Deep Network Learning by Exponential Linear Units (ELUs) ICLR2016](https://arxiv.org/abs/1511.07289)*
 
@@ -290,6 +352,12 @@ elu论文：*[Fast and Accurate Deep Network Learning by Exponential Linear Unit
 * Lrelu和prelu虽然有负值存在，但是不能确保是一个噪声稳定的去激活状态。
 
 * Elu在负值时是一个指数函数，对于输入特征只定性不定量。
+
+
+
+## GELU
+
+
 
 # 不同激活函数的区别
 

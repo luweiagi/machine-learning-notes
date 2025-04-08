@@ -581,6 +581,8 @@ Encoder通过处理输入序列开启工作。Encoder顶端的输出之后会变
 
 ===
 
+[Transformer论文逐段精读【论文精读】] 李沐(https://www.bilibili.com/video/BV1pu411o7BE/)
+
 [B站李宏毅深度学习Transformer2019](https://www.bilibili.com/video/av73798762?p=92)
 
 [通俗易懂！使用Excel和TF实现Transformer](https://mp.weixin.qq.com/s/QRiNGxA-D9MLvv8GPnlhHg)

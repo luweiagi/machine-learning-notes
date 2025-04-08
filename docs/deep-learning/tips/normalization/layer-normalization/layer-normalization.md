@@ -79,6 +79,13 @@ class LayerNorm(nn.Module):
         return self.gamma * x_norm + self.beta
 ```
 
+看代码可知，对于某一条样本，
+
+* mean（单值）是该样本所有元素的平均值
+* var（单值）是该样本所有元素的方差
+* gamma（向量）是该样本每个元素都分配了一个值
+* beta（向量）是该样本每个元素都分配了一个值
+
 # 问题
 
 ## layer-norm中的gamma和beta是逐元素学习

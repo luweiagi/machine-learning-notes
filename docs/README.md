@@ -292,12 +292,10 @@
       * 随机策略梯度（Stochastic Policy Gradient）REINFORCE（蒙特卡洛策略梯度）
       * 确定性策略梯度（Deterministic Policy Gradient, DPG）
       * 自然策略梯度（Natural Policy Gradient）
-  * Actor-Critic 策略与价值结合
+  * Actor-Critic策略与价值结合
     * A3C
     * A2C
     * [确定性策略梯度DDPG: Continuous Control With Deep Reinforcement Learning ICLR2016](reinforcement-learning/reinforcement-learning/paper/ddpg/ddpg.md)
-    * 概念
-      * Advantage Advantage函数A(s,a) = Q(s,a) - V(s)，用于衡量某个动作相对于平均值的优势
   * 高级策略优化技术
     * 信赖域方法（Trust Region Methods）策略更新约束技术（与策略类型解耦）[基于信赖域的深度强化学习](reinforcement-learning/deep-reinforcement-learning/trust-region-based-drl/trust-region-based-drl.md)
       * TRPO（二阶优化与KL散度约束）

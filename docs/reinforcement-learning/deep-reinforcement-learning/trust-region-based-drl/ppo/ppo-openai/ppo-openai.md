@@ -304,6 +304,123 @@ deepmind的一篇论文：[DeepMind: Continuous-Discrete Reinforcement Learning 
 多头动作PPO：[henrycharlesworth/multi_action_head_PPO](https://github.com/henrycharlesworth/multi_action_head_PPO)
 
 
+
+
+
+# 损失函数
+
+## Actor的损失函数
+
+### 熵正则化
+
+熵正则化系数调参技巧
+
+- **训练初期**：增大熵系数（如 0.05），鼓励探索。
+- **训练后期**：减小系数（如 0.001），促进策略收敛。
+
+
+
+## Critic的损失函数
+
+在PPO（Proximal Policy Optimization）算法中，Critic（价值函数）的损失函数基于**价值函数估计**与**目标值**之间的误差构建。Critic的核心任务是学习状态价值函数 V(s)*V*(*s*)，用于评估当前策略下状态的好坏，从而指导Actor（策略）的更新。
+
+------
+
+### Critic损失函数的真实值的两种计算方式
+
+Critic的“真实值”通常指**折扣累积回报（Return）或广义优势估计（GAE, Generalized Advantage Estimation）**，具体取决于设计：
+
+1. **折扣累积回报（Return）**：
+
+   - 定义：从当前状态$s^t$开始，未来所有奖励的折扣和：
+     $$
+     R_t=\sum_{k=0}^{T-t}\gamma^kr_{t+k}
+     $$
+     其中$\gamma$是折扣因子（如0.99），$T$是回合长度。
+
+   - 用途：直接作为$V(s_t)$的目标值。
+
+2. **广义优势估计（GAE）**：
+
+   - 定义：结合优势函数$A(s_t,a_t)$和回报$R_t$，通过平滑多步TD误差得到：
+     $$
+     \begin{aligned}
+     A_t^{GAE(\lambda)} &= \delta_t + (\gamma \lambda) \delta_{t+1} + (\gamma \lambda)^2 \delta_{t+2} + \dots\\
+     &= \sum_{k=0}^{T-t}(\gamma\lambda)^k\delta_{t+k}
+     \end{aligned}
+     $$
+     其中，每个$\delta_t$的计算是单步的TD残差：
+     $$
+     \delta_t = r_t + \gamma V(s_{t+1}) - V(s_t)
+     $$
+     其中$\lambda$是GAE的超参数（如0.95）。
+
+   - 目标值：$V(s_t)$的目标值为$\hat{V}^t=A_t^{GAE}+V(s_t)$。
+
+   - 更建议使用GAE来作为Critic的真实值
+
+     - **理论依据**：GAE的优势$A_t^{GAE}$是多步TD误差的加权平均，能平衡偏差和方差。Critic的目标值应反映当前策略的真实价值，而$V(s_t)+A_t^{GAE}$正是对$R_t$的更好估计。
+     - **实践效果**：**PPO中通常使用GAE版本的目标值**，因它比纯蒙特卡洛（`discount(rewards, gamma)`）更稳定，比单步TD误差（$r_t+\gamma V(s_{t+1})$）更准确。
+
+### 推荐使用GAE-based方法
+
+在PPO中，**Critic目标值（$\hat{V}^t$）的计算方式**主要有两种主流方法，而实际应用中更推荐**GAE-based方法**。以下是详细分析和推荐理由：
+
+#### **(1) 理论优势**
+
+- **更低的方差**：相比MC，GAE通过多步TD混合显著降低方差，加速收敛。
+- **适应性**：调节 λ*λ* 可适应不同任务：
+  - 高随机环境（如稀疏奖励）：$\lambda\rightarrow 1$（接近MC）。
+  - 确定性环境（如机器人控制）：$\lambda\rightarrow 0$（接近单步TD）。
+
+#### **(2) 实践验证**
+
+- **PPO的标准实现**：
+
+  - OpenAI Baselines、Stable Baselines3等主流库默认使用GAE计算Critic目标值。
+  - 实验表明，GAE在连续控制（如MuJoCo任务）和离散动作空间（如Atari）中均表现稳定。
+
+- **与Actor更新的协同**：
+
+  GAE同时为Actor提供平滑的优势估计（$A_t^{GAE}$），避免策略梯度的高方差问题。
+
+#### **(3) 对比MC的局限性**
+
+- **MC的问题**：
+  - 需要完整轨迹，不适合在线学习或部分观测环境。
+  - 高方差可能导致Critic训练不稳定，尤其在长周期任务中。
+
+### Critic损失函数的计算
+
+Critic的损失函数通常采用**均方误差（MSE）**，衡量当前价值估计$V_{\theta}(s_t)$与目标值$\hat{V}_t的$差距：
+$$
+L_{critic}=\frac{1}{N}\sum_{t=1}^N\left(V_{\theta}(s_t)-\hat{V}_t\right)
+$$
+其中：
+
+- $N$是批量数据中的样本数。
+- $\hat{V}^t$可以是$R_t（$MC方法）或$A_t^{GAE}+V(s_t)$（GAE方法）。
+
+**关键点说明**
+
+1. **目标值的来源**：
+   - 通过实际交互数据（轨迹）计算$R_t$或$A_t^{GAE}$，这些值在每次迭代中被固定，作为监督学习的标签。
+   - 如果使用GAE，需先通过Critic的旧参数计算$V(s_t)$（类似Actor中的旧策略）。
+2. **与Actor的区别**：
+   - Critic的更新是典型的回归问题（最小化MSE），而Actor的更新基于策略梯度（最大化优势函数）。
+3. **PPO中的实践**：
+   - 通常Critic和Actor共享部分网络层（如特征提取层），但输出层分开训练。
+   - 目标值$\hat{V}^t$需使用旧Critic计算，以保证训练稳定性（类似于Actor中的重要性采样）。
+
+Critic的“真实值”是环境反馈的折扣回报或基于优势函数的修正值，通过最小化与当前估计的均方误差来更新Critic网络。这一过程为Actor提供了策略梯度中的基线（Baseline），显著降低方差并加速收敛。
+
+### 为什么这样改？
+
+- **理论依据**：GAE的优势$A_t^{GAE}$是多步TD误差的加权平均，能平衡偏差和方差。Critic的目标值应反映当前策略的真实价值，而$V(s_t)+A_t^{GAE}$正是对$R_t$的更好估计。
+- **实践效果**：PPO中通常使用GAE版本的目标值，因它比纯蒙特卡洛（`discount(rewards, gamma)`）更稳定，比单步TD误差（$r_t+\gamma V(s_{t+1})$）更准确。
+
+1
+
 # 参考资料
 
 

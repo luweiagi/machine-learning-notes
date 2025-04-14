@@ -8,13 +8,17 @@
       - [指数衰减step_scale](#指数衰减step_scale)
       - [逐渐放大周期（Tmult参数）](#逐渐放大周期（Tmult参数）)
       - [预热机制warm_up](#预热机制warm_up)
-- [余弦退火和余弦重启在pytorch中的实现](#余弦退火和余弦重启在pytorch中的实现)
-  - [余弦退火（Cosine Annealing）](#余弦退火（Cosine Annealing）)
-  - [余弦重启（Cosine Annealing with Restarts）](#余弦重启（Cosine Annealing with Restarts）)
+- [余弦退火和余弦重启在Pytorch中的实现](#余弦退火和余弦重启在Pytorch中的实现)
+  - [余弦退火的Pytorch实现](#余弦退火的Pytorch实现)
+  - [余弦重启的Pytorch实现](#余弦重启的Pytorch实现)
   - [两者的核心区别](#两者的核心区别)
   - [高级用法](#高级用法)
   - [可视化对比](#可视化对比)
   - [对比总结](#对比总结)
+
+余弦退火：Cosine Annealing
+
+余弦重启：Cosine Annealing with Restarts
 
 余弦退火很简单，这里只看余弦重启的论文《*SGDR: Stochastic Gradient Descent With Warm Restarts*》：
 
@@ -152,7 +156,7 @@ $T_0$参数表示函数第一次重启时的epoch；
 
 在PyTorch中，**余弦退火（Cosine Annealing）**和**余弦重启（Cosine Annealing with Restarts）**分别通过 `CosineAnnealingLR` 和 `CosineAnnealingWarmRestarts` 实现。以下是它们的核心区别、使用方法和代码示例：
 
-## 余弦退火（Cosine Annealing）
+## 余弦退火的Pytorch实现
 
 **功能**
 
@@ -189,7 +193,7 @@ for epoch in range(200):
 初始学习率 (0.1) → 余弦下降 → 最小学习率 (1e-5) → 保持最小值
 ```
 
-## 余弦重启（Cosine Annealing with Restarts）
+## 余弦重启的Pytorch实现
 
 **功能**
 

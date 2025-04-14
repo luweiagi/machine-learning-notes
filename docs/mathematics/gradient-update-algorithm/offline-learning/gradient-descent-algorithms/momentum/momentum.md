@@ -1,6 +1,6 @@
 # Momentum动量法
 
-* [返回上层目录](../offline-learning.md)
+* [返回上层目录](../gradient-descent-algorithms.md)
 * [结论](#结论)
 * [算法](#算法)
 * [动量算法直观效果解释](#动量算法直观效果解释)

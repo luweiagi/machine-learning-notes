@@ -50,3 +50,13 @@ OpenAI 于今天公布了详细的训练模型。可以说这个模型（在大�
 
 ![model2](pic/model2.jpg)
 
+
+
+
+
+[OpenAI Five Model Architecture](https://cdn.openai.com/research-covers/openai-five/network-architecture.pdf)
+
+
+
+
+

@@ -1,6 +1,6 @@
 # Nesterov牛顿动量法
 
-* [返回上层目录](../offline-learning.md)
+* [返回上层目录](../gradient-descent-algorithms.md)
 
 
 

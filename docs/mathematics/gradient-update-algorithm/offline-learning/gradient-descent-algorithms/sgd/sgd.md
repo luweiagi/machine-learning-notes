@@ -1,6 +1,6 @@
 # 随机梯度下降
 
-* [返回上层目录](../offline-learning.md)
+* [返回上层目录](../gradient-descent-algorithms.md)
 * [三类梯度下降算法概述](#三类梯度下降算法概述)
 * [批量梯度下降BGD](#批量梯度下降BGD)
 * [随机梯度下降SGD](#随机梯度下降SGD)

@@ -160,7 +160,7 @@ $$
 $$
 E_{x\sim p}\left[f(x)\right]\approx \frac{1}{N}\sum_{i=1}^Nf(x^i)
 $$
-但是我们只能从以概率分布$q$（即旧动作参数$\theta’$下的动作概率分布）来采样数据，这样就不能使用上式了，因为上式等号右边的分布是$q$，而不是$p$，结果不等于上式等号左边。所以需要做修正
+但是我们只能从以概率分布$q$（即旧动作参数$\theta'$下的动作概率分布）来采样数据，这样就不能使用上式了，因为上式等号右边的分布是$q$，而不是$p$，结果不等于上式等号左边。所以需要做修正
 $$
 \begin{aligned}
 E_{x\sim p}\left[f(x)\right]&=\int f(x)p(x)dx\\
@@ -185,8 +185,8 @@ $$
 \begin{aligned}
 \text{Var}_{x\sim p}\left[f(x)\right]&=\boxed{E_{x\sim p}\left[f(x)^2\right]-(E_{x\sim p}[f(x)])^2}\\
 \text{Var}_{x\sim q}\left[f(x)\frac{p(x)}{q(x)}\right]&=E_{x\sim q}\left[\left(f(x)\frac{p(x)}{q(x)}\right)^2\right]-\left(E_{x\sim q}\left[f(x)\frac{p(x)}{q(x)}\right]\right)^2\\
-&=\sum\left[q(x)\left(f(x)\frac{p(x)}{q(x)}\right)^2\right]-(E_{x\sim p}[f(x)])^2\\
-&=\sum\left[p(x)\left(f(x)^2\frac{p(x)}{q(x)}\right)\right]-(E_{x\sim p}[f(x)])^2\\
+&=\int\left[q(x)\left(f(x)\frac{p(x)}{q(x)}\right)^2\right]-(E_{x\sim p}[f(x)])^2\\
+&=\int\left[p(x)\left(f(x)^2\frac{p(x)}{q(x)}\right)\right]-(E_{x\sim p}[f(x)])^2\\
 &=\boxed{E_{x\sim p}\left[f(x)^2\frac{p(x)}{q(x)}\right]-(E_{x\sim p}[f(x)])^2}\\
 \end{aligned}
 $$
@@ -330,7 +330,7 @@ $$
 
 PPO连续动作的sigma，其实在不同版本的实现里一共有三种
 - fixed：固定 sigma，常用于一些特殊控制任务，如果对环境的 sigma 有足够的先验知识可以这样做
-- independent：即为一个可优化的网络参数，但是和state无关，是一个独立参数。这是一般 PPO 常用的情形
+- independent：即为一个可优化的网络参数，但是和state无关，是一个独立参数。这是一般 PPO常用的情形
 - state conditioned：由 state 输入通过一定的网络层生成，这种情况在 SAC 中常用，PPO中较少见。不过有 paper 在mujoco环境上做过对比实验，至少在这个控制环境上差别不大
 
 三种类型的代码对比可以参考我们这里的代码 https://github.com/opendilab/DI-engine/blob/main/ding/model/common/head.py#L965
@@ -343,7 +343,7 @@ PPO连续动作的sigma，其实在不同版本的实现里一共有三种
 
 > A diagonal Gaussian policy always has a neural network that maps from observations to mean actions,$\mu_{\theta}(s)$. There are two different ways that the covariance matrix is typically represented.
 >
-> **The first way:** There is a single vector of log standard deviations,$log \sigma$, which is **not** a function of state: the $log \sigma$ are standalone parameters. (You Should Know: our implementations of VPG, TRPO, and PPO do it this way.)
+> **The first way:** There is a single vector of log standard deviations,$log \sigma$, which is **not** a function of state: the $log \sigma$ are standalone parameters. (You Should Know: our implementations of VPG, TRPO, and PPOdo it this way.)
 >
 > **The second way:** There is a neural network that maps from states to log standard deviations,$log \sigma_{\theta}(s)$. It may optionally share some layers with the mean network.
 
@@ -459,13 +459,13 @@ mask部分一般有两类
 - 离散动作空间的 mask，用于去掉一些当前帧不可选的动作，对训练优化有一定加速作用。我们这次第二节课的作业题会涉及到。
 - 混合动作空间的 mask，用于表达不同 action 部分之间的关系，例如某些动作类型对应特定的动作参数，可以参考这里的讲解例子，尤其是最后的 mask 使用部分 https://opendilab.github.io/PPOxFamily/hybrid_zh.html
 
+# 知识点
 
+## 损失函数
 
-# 损失函数
+### Actor的损失函数
 
-## Actor的损失函数
-
-### adv-norm
+#### adv-norm
 
 adv norm需要考虑reward的数值范围，如果绝对值在0-100之内其实影响不大，如果绝对值大于这个范围，且reward波动的确实很明显（注意要和稀疏reward区分），那适合用adv norm
 
@@ -485,20 +485,18 @@ baseline这个地方只是说减去一项还是无偏估计，并没有说除上
 
 如果缩放的因子是整个训练期间都用一个固定值，那没问题，关键就是我们做adv norm是用动态统计量，这个就进入到很麻烦的领域了
 
-### 熵正则化
+#### 熵正则化
 
 熵正则化系数调参技巧
 
 - **训练初期**：增大熵系数（如 0.05），鼓励探索。
 - **训练后期**：减小系数（如 0.001），促进策略收敛。
 
-## Critic的损失函数
+### Critic的损失函数
 
 在PPO（Proximal Policy Optimization）算法中，Critic（价值函数）的损失函数基于**价值函数估计**与**目标值**之间的误差构建。Critic的核心任务是学习状态价值函数 V(s)*V*(*s*)，用于评估当前策略下状态的好坏，从而指导Actor（策略）的更新。
 
-------
-
-### Critic损失函数的真实值的两种计算方式
+#### Critic损失函数的真实值的两种计算方式
 
 Critic的“真实值”通常指**折扣累积回报（Return）或广义优势估计（GAE, Generalized Advantage Estimation）**，具体取决于设计：
 
@@ -534,18 +532,18 @@ Critic的“真实值”通常指**折扣累积回报（Return）或广义优势
      - **理论依据**：GAE的优势$A_t^{GAE}$是多步TD误差的加权平均，能平衡偏差和方差。Critic的目标值应反映当前策略的真实价值，而$V(s_t)+A_t^{GAE}$正是对$R_t$的更好估计。
      - **实践效果**：**PPO中通常使用GAE版本的目标值**，因它比纯蒙特卡洛（`discount(rewards, gamma)`）更稳定，比单步TD误差（$r_t+\gamma V(s_{t+1})$）更准确。
 
-### 推荐使用GAE-based方法
+**推荐使用GAE-based方法**
 
 在PPO中，**Critic目标值（$\hat{V}^t$）的计算方式**主要有两种主流方法，而实际应用中更推荐**GAE-based方法**。以下是详细分析和推荐理由：
 
-#### **(1) 理论优势**
+**(1) 理论优势**
 
 - **更低的方差**：相比MC，GAE通过多步TD混合显著降低方差，加速收敛。
 - **适应性**：调节 λ*λ* 可适应不同任务：
   - 高随机环境（如稀疏奖励）：$\lambda\rightarrow 1$（接近MC）。
   - 确定性环境（如机器人控制）：$\lambda\rightarrow 0$（接近单步TD）。
 
-#### **(2) 实践验证**
+**(2) 实践验证**
 
 - **PPO的标准实现**：
 
@@ -556,13 +554,13 @@ Critic的“真实值”通常指**折扣累积回报（Return）或广义优势
 
   GAE同时为Actor提供平滑的优势估计（$A_t^{GAE}$），避免策略梯度的高方差问题。
 
-#### **(3) 对比MC的局限性**
+**(3) 对比MC的局限性**
 
 - **MC的问题**：
   - 需要完整轨迹，不适合在线学习或部分观测环境。
   - 高方差可能导致Critic训练不稳定，尤其在长周期任务中。
 
-### Critic损失函数的计算
+#### Critic损失函数的计算
 
 Critic的损失函数通常采用**均方误差（MSE）**，衡量当前价值估计$V_{\theta}(s_t)$与目标值$\hat{V}_t的$差距：
 $$
@@ -586,12 +584,181 @@ $$
 
 Critic的“真实值”是环境反馈的折扣回报或基于优势函数的修正值，通过最小化与当前估计的均方误差来更新Critic网络。这一过程为Actor提供了策略梯度中的基线（Baseline），显著降低方差并加速收敛。
 
-### 为什么这样改？
+**为什么这样改？**
 
 - **理论依据**：GAE的优势$A_t^{GAE}$是多步TD误差的加权平均，能平衡偏差和方差。Critic的目标值应反映当前策略的真实价值，而$V(s_t)+A_t^{GAE}$正是对$R_t$的更好估计。
 - **实践效果**：PPO中通常使用GAE版本的目标值，因它比纯蒙特卡洛（`discount(rewards, gamma)`）更稳定，比单步TD误差（$r_t+\gamma V(s_{t+1})$）更准确。
 
-1
+## 学习率
+
+### actor和critic学习率设置
+
+在实际应用中，PPO的`actor`和`critic`通常会设置**不同的学习率**，原因是：
+
+- **Actor（策略网络）更新频率较高、要求较稳定，学习率通常设得小一些**；
+- **Critic（价值网络）用于估计状态价值，可以更快收敛，所以学习率设得稍大一些**。
+
+常见经验值如下：
+
+| 模块   | 学习率范围（经验值） |
+| ------ | -------------------- |
+| Actor  | `1e-4`到`3e-4`       |
+| Critic | `1e-3`到`1e-4`       |
+
+例如：
+
+- **OpenAI Baselines 默认设置**：
+  - `actor_lr = 2.5e-4`
+  - `critic_lr = 2.5e-4`（共享学习率）
+- **Stable Baselines3** 中 PPO：
+  - 默认是`lr = 3e-4`（共享）
+  - 但可以通过`optimizer_class=torch.optim.Adam`+`param_groups`分开设置
+- **Google Dopamine 或 RLlib 等工业库**：
+  - 常见设置：
+    - `actor_lr = 1e-4`
+    - `critic_lr = 5e-4`或`1e-3`
+
+### critic学习率和eps设置的关系
+
+已知：
+
+（1）critic学习不稳定，所以eps要调大，设置为1e-5，
+
+（2）critic状态值训练快，步子可以大一点，所以其学习率设置的比较大，即为1e-3，此时actor的学习率为3e-4。
+
+（3）如果观察到策略震荡，再考虑调小critic学习率
+
+问题：
+
+（1）第一点和第二点矛盾，因为如果critic学习不稳定，那么学习率不是应该挺小一些吗，步子应该小一些啊
+
+（2）第二点和第三点矛盾，就是critic的学习率你本来就设置的比较大，为什么还要调小呢？那为何不一开始就调小呢
+
+解答：
+
+（1）critic不稳定，为啥还让它“步子大一点”？
+
+这其实是强化学习工程里的一个**平衡原则**：
+
+> **critic需要尽快学得比 Actor 稳定一点，哪怕它有点“抖”，也比慢慢学要好。**
+
+- 在 PPO训练早期，**Actor 很依赖critic提供的 Advantage（V值）**；
+- 如果critic学得太慢，V 估计始终不准，Actor 得不到有效指导 → PPO更新容易震荡；
+- 所以我们通常给critic一个 **相对更快的起步**，比如学习率`1e-3`，而 Actor 是`3e-4`。
+
+这就是所谓的：
+
+> **“快点学起来，比慢慢抖着走更好”**
+
+当然，这种“快”必须**受控**，所以才会配合：
+
+- `eps=1e-5`来避免数值不稳定；
+- 加入梯度裁剪；
+- 加权 loss；
+- 有时候还会只训练critic若干步，再更新 actor。
+
+（2）那为啥还说“critic不稳定就调小 lr”？
+
+这不是矛盾，而是 **一种应急方案**，是 **动态调整手段**。
+
+初始策略：
+
+> **先尝试“激进点”让critic先快速收敛一点 → 引导 Actor 学习**
+
+如果失败了呢？
+
+- 如果你观察到：
+  - V 值剧烈震荡
+  - loss 爆炸
+  - 策略 collapse
+- 那说明：**你这个critic太“躁”了，真的不稳定**
+- 那就**减小它的学习率**，降到`5e-4`或`3e-4`，甚至更低
+
+这就是强化学习里一个常见的策略：
+
+> **“先大胆试，再看反馈调”**，因为过于保守有时反而学不动
+
+最后一句话总结：
+
+> **强化学习里，critic的学习率设置，走的是“快收敛优先，但稳不住就收敛慢”的动态策略，而不是绝对的“快就是对 or 慢就是对”。**
+
+这种“先快、再根据稳定性调节”的设计思路，在很多RL框架里都有体现。
+
+## 优化器
+
+### 分层优化器
+
+可以分不同的模型部分来优化：
+
+```python
+from torch.optim import Adam
+
+optimizer = Adam([
+    {
+        "params": model.shared.parameters(),
+        "lr": 6.5e-4,
+        "eps": 1e-5  # 比如共享层用默认值
+    },
+    {
+        "params": model.actor_head.parameters(),
+        "lr": 3e-4,
+        "eps": 1e-8  # actor更精细一点
+    },
+    {
+        "params": model.critic_head.parameters(),
+        "lr": 1e-3,
+        "eps": 1e-6  #critic稳定一点
+    }
+])
+```
+
+### adam优化器中eps的设定
+
+`eps`是为了数值稳定性（特别是在除以梯度平方的RMS时），一般在`1e-5`～`1e-8`之间选。
+
+`Adam`的默认是`eps=1e-8`，有些库（比如`Stable-Baselines3`）会用`1e-5`来加速critic的收敛。这是为什么呢？这个问题其实挺有意思的，涉及到 **Adam的内部机制** 和 **critic的数值稳定性需求**。下面我给你详细解释下：
+
+**（1）Adam中的`eps`是什么？**
+
+Adam优化器的更新公式大致如下：
+$$
+\theta_{t+1} = \theta_t - \frac{\alpha}{\sqrt{\hat{v}_t} + \epsilon} \cdot \hat{m}_t
+$$
+其中：
+
+- $\alphaα$：学习率（`lr`）
+- $\hat{m}_t$：一阶矩估计（动量）
+- $\hat{v}_t$：二阶矩估计（梯度的平方）
+- $\epsilon$：一个小的常数，用于防止除以 0（也就是这个`eps`）
+
+**（2）`eps`越大，会发生什么？**
+
+- **防止梯度爆炸或不稳定：**
+   如果$\hat{v}_t$太小（比如梯度本身波动很小），那么$\frac{1}{\sqrt{\hat{v}_t} + \epsilon}$会变得很大，导致更新过大，数值不稳定。
+- **`eps`越大→分母越大→步长（更新量）越小**
+   所以它**起到抑制更新幅度、平滑训练的作用**。
+
+**（3）为什么critic更适合`eps = 1e-5`？**
+
+1. **critic的值函数比较敏感：**
+   - 值函数在训练初期震荡特别大，容易导致梯度剧烈波动。
+   - 一个稍微大的`eps`（比如`1e-5`）可以让分母更稳定，减小更新幅度，**提升数值稳定性**。
+2. **提升early stage的收敛速度：**
+   - 实际上，`1e-5`往往能让critic在前几个epoch更快下降loss，尤其是在PPO这种TD学习场景中。
+3. **实证来源：**
+   - 比如`Stable-Baselines3`、`CleanRL`、`rl-games`等强化学习库，critic经常用`eps=1e-5`，而 actor 用默认的`1e-8`或略微调小的`1e-6`。
+   - **经验法则：critic更不稳定→给它更强的数值保护。**
+
+**（4）总结**
+
+| 模块   | 适合的 eps | 原因                                    |
+| ------ | ---------- | --------------------------------------- |
+| actor  | `1e-8`     | 追求精细更新，对数值要求没那么高        |
+| critic | `1e-5`     | TD训练不稳定，噪声大，`eps`大一点更稳定 |
+
+
+
+
 
 # 参考资料
 
@@ -663,9 +830,9 @@ PPO也使用了相同的思路，但是使用GAE实现
 
 * [如何理解看待 OpenAI 公布PPO算法？ 莫凡](https://www.zhihu.com/question/63067895/answer/214180615)
 
-我也实践了一下 Python 的简单 PPO 算法. 毕竟 OpenAI 开源的那个 [baselines](https://link.zhihu.com/?target=https%3A//github.com/openai/baselines) 太复杂了, 看半天源码也看不懂. 所以下定决心自己写一个比他们的简单好多倍的代码. 自己写的教程在这里: [结合了 OpenAI 和 DeepMind 的 PPO](https://link.zhihu.com/?target=https%3A//mofanpy.com/tutorials/machine-learning/reinforcement-learning/6-4-DPPO/)。额，前面这个地址打不开了，直接看这个：[Distributed Proximal Policy Optimization (DPPO)](https://mofanpy.com/tutorials/machine-learning/reinforcement-learning/DPPO)，既可以看代码，也可以看环境源码。特别推荐。
+我也实践了一下 Python的简单 PPO算法. 毕竟 OpenAI 开源的那个 [baselines](https://link.zhihu.com/?target=https%3A//github.com/openai/baselines) 太复杂了, 看半天源码也看不懂. 所以下定决心自己写一个比他们的简单好多倍的代码. 自己写的教程在这里: [结合了 OpenAI 和 DeepMind的 PPO](https://link.zhihu.com/?target=https%3A//mofanpy.com/tutorials/machine-learning/reinforcement-learning/6-4-DPPO/)。额，前面这个地址打不开了，直接看这个：[Distributed Proximal Policy Optimization (DPPO)](https://mofanpy.com/tutorials/machine-learning/reinforcement-learning/DPPO)，既可以看代码，也可以看环境源码。特别推荐。
 
-简述一下自己写代码的感想. OpenAI 的 PPO 感觉是个串行的（要等所有并行的 Actor 搞完才更新模型）, DeepMind 的 DPPO 是并行的（不用等全部 worker）, 但是代码实践起来比较困难, 需要推送不同 worker 的 [gradient](https://www.zhihu.com/search?q=gradient&search_source=Entity&hybrid_search_source=Entity&hybrid_search_extra={"sourceType"%3A"answer"%2C"sourceId"%3A214180615}). 我取了 OpenAI 和 DeepMind 两者的精华. 用 OpenAI 中性能最好的 Policy 更新策略 (clipped surrogate) + DeepMind [parallel training](https://www.zhihu.com/search?q=parallel+training&search_source=Entity&hybrid_search_source=Entity&hybrid_search_extra={"sourceType"%3A"answer"%2C"sourceId"%3A214180615}) (但不是推送 gradient, 只是推送 collected data). 让原本[单线程](https://www.zhihu.com/search?q=单线程&search_source=Entity&hybrid_search_source=Entity&hybrid_search_extra={"sourceType"%3A"answer"%2C"sourceId"%3A214180615})的 PPO 速度飞起来了.
+简述一下自己写代码的感想. OpenAI的 PPO感觉是个串行的（要等所有并行的 Actor 搞完才更新模型）, DeepMind的 DPPO是并行的（不用等全部 worker）, 但是代码实践起来比较困难, 需要推送不同 worker的 [gradient](https://www.zhihu.com/search?q=gradient&search_source=Entity&hybrid_search_source=Entity&hybrid_search_extra={"sourceType"%3A"answer"%2C"sourceId"%3A214180615}). 我取了 OpenAI 和 DeepMind 两者的精华. 用 OpenAI 中性能最好的 Policy 更新策略 (clipped surrogate) + DeepMind [parallel training](https://www.zhihu.com/search?q=parallel+training&search_source=Entity&hybrid_search_source=Entity&hybrid_search_extra={"sourceType"%3A"answer"%2C"sourceId"%3A214180615}) (但不是推送 gradient, 只是推送 collected data). 让原本[单线程](https://www.zhihu.com/search?q=单线程&search_source=Entity&hybrid_search_source=Entity&hybrid_search_extra={"sourceType"%3A"answer"%2C"sourceId"%3A214180615})的 PPO速度飞起来了.
 
 你确定你看过OpenAI PPO的原文，原文中算法就是有N个Actor并行训练的！
 
@@ -695,7 +862,7 @@ PPO2：不用计算KL，同样可以控制θ与θ'之间差距。
 
 * [李宏毅深度强化学习(国语)课程(2018) ppo](https://www.bilibili.com/video/BV1MW411w79n?p=2&vd_source=147fb813418c7610c21b6a5618c85cb7)
 
-  还有对应的课件：[李宏毅深度强化学习(国语)课程(2018) ppo 课件](https://speech.ee.ntu.edu.tw/~tlkagk/courses/MLDS_2018/Lecture/PPO%20(v3).pdf)。
+  还有对应的课件：[李宏毅深度强化学习(国语)课程(2018) PPO课件](https://speech.ee.ntu.edu.tw/~tlkagk/courses/MLDS_2018/Lecture/PPO%20(v3).pdf)。
 
 * [Proximal Policy Optimization(PPO)算法原理及实现！ 美团文哥的笔记](https://www.jianshu.com/p/9f113adc0c50)
 
@@ -719,6 +886,6 @@ PPO2：不用计算KL，同样可以控制θ与θ'之间差距。
 
 [4] batchPPO: Hafner, D. , Davidson, J. , & Vanhoucke, V. . (2017). Tensorflow agents: efficient batched reinforcement learning in tensorflow.
 
-[5] Implementation Matters in Deep Policy Gradients: a Case Study on PPO and TRPO.
+[5] Implementation Matters in Deep Policy Gradients: a Case Study on PPOand TRPO.
 
 关于用bootstrap法估计advantage和state value函数的内容，可参见“【CS285第6讲】Actor-critic”。

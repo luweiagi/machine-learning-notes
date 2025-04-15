@@ -5,6 +5,7 @@
 * [激活函数](activation-functions/activation-functions.md)
 * [深度学习中的正则化](normalization/normalization.md)
 * [反向传播](back-propagation/back-propagation.md)
+* [学习率](learning-rate/learning-rate.md)
 
 
 

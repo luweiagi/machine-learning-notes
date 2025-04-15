@@ -9,8 +9,8 @@
       - [逐渐放大周期（Tmult参数）](#逐渐放大周期（Tmult参数）)
       - [预热机制warm_up](#预热机制warm_up)
 - [余弦退火和余弦重启在Pytorch中的实现](#余弦退火和余弦重启在Pytorch中的实现)
-  - [余弦退火的Pytorch实现](#余弦退火的Pytorch实现)
-  - [余弦重启的Pytorch实现](#余弦重启的Pytorch实现)
+  - [余弦退火的Pytorch官方实现](#余弦退火的Pytorch官方实现)
+  - [余弦重启的Pytorch官方实现](#余弦重启的Pytorch官方实现)
   - [两者的核心区别](#两者的核心区别)
   - [高级用法](#高级用法)
   - [可视化对比](#可视化对比)
@@ -20,7 +20,7 @@
 
 余弦重启：Cosine Annealing with Restarts
 
-余弦退火很简单，这里只看余弦重启的论文《*SGDR: Stochastic Gradient Descent With Warm Restarts*》：
+余弦退火很简单，这里看余弦重启的论文《*SGDR: Stochastic Gradient Descent With Warm Restarts*》：
 
 ![sgdr-paper](pic/sgdr-paper.png)
 
@@ -77,7 +77,7 @@ $$
 $$
 T_i = T_0 \cdot T_{\text{mult}}^i
 $$
-设当前step为$t$，且位于第 $i$ 个周期中，周期起始位置为 $T_{\text{cur_start}}$，则当前step对应的学习率为：
+设当前step为$t$，且位于第 $i$ 个周期中，周期起始位置为$T_{\text{cur_start}}$，则当前step对应的学习率为：
 
 $$
 \eta_t = \eta_{\min} + \frac{1}{2} (\eta_{\max} - \eta_{\min}) \left(1 + \cos\left( \pi \cdot \frac{t - T_{\text{cur_start}}}{T_i} \right)\right)
@@ -103,6 +103,12 @@ $$
 
 ### 余弦重启算法的具体参数含义
 
+下图是叠加了余弦重启（周期放大），指数衰减，预热机制的最终效果：
+
+![full-function](pic/full-function.png)
+
+接下来将逐个解释上述的三个因素
+
 #### 指数衰减step_scale
 
 在实际的训练中，在一定次数的训练后，损失函数可能已经达到全局最优解附近，每 次重启后的学习率不必返回到一开始设定的全局最大值（否则会浪费大量时间在跳出最优解 和回到最优解上，也会造成难以收敛的情况）， 因此在每次重启后，设定的返回值要逐渐减 小， 因此设定step_scale参数， 可以使函数每次重启的时候乘上一个step_scale的权重， 实现每次重启后学习率的最大值逐渐减小的效果， 如下图所示：
@@ -111,21 +117,21 @@ $$
 
 #### 逐渐放大周期（Tmult参数）
 
-同样的，在设定重启所间隔的步数时，也考虑到了同样的问题。到了训练后期， 随着损失函数逐渐靠近全局最优解，在这时用测试集去测试正确率，总能在学习率较低的时候获得一个较高的正确率，但是在重启后测试，正确率会降低，这是因为重启后较大的学习率会导致损失函数冲出全局最优解而重新开始训练， 因此一开始设定的重启周期将不再适用 （本质上重启是为了越过局部最小值而设定的，当损失函数已经接近全局最优解时，重启已 经没有意义）， 需要引入新的参量$T_{mult}$， 新参量的引入实现了如下效果：
+同样的，在设定重启所间隔的步数时，也考虑到了同样的问题。到了训练后期， 随着损失函数逐渐靠近全局最优解，在这时用测试集去测试正确率，总能在学习率较低的时候获得一个较高的正确率，但是在重启后测试，正确率会降低，这是因为重启后较大的学习率会导致损失函数冲出全局最优解而重新开始训练， 因此一开始设定的重启周期将不再适用 （本质上重启是为了越过局部最小值而设定的，当损失函数已经接近全局最优解时，重启已 经没有意义）， 需要引入新的参量$T_{\text{mult}}$， 新参量的引入实现了如下效果：
 
 $T_0$参数表示函数第一次重启时的epoch；
 
-当$T_{mult}$没有被引入时（default= 1 ），那么学习率将在$T_0 , 2\times T_0 , 3\times T_0 , ...... , i\times T_0$处回到最大值。
+当$T_{\text{mult}}$没有被引入时（default= 1 ），那么学习率将在$T_0 , 2\times T_0 , 3\times T_0 , ...... , i\times T_0$处回到最大值。
 
 例如， 当设定$T_0=5$时， 学习率会在$5, 10, 15, \cdots, 5\times i$的位置重启；
 
-引入参量$T_{mult}$， 学习率将在$T_0 , ( 1+T_{mult})\times T_0 , ( 1+T_{mult}+T_{mult}^2)\times T_0 , \cdots , ( 1+T_{mult}+T_{mult}^2+\cdots+T_{mult}^i)\times T_0$ 处回到最大值；
+引入参量$T_{\text{mult}}$， 学习率将在$T_0 , ( 1+T_{\text{mult}})\times T_0 , ( 1+T_{\text{mult}}+T_{\text{mult}}^2)\times T_0 , \cdots , ( 1+T_{\text{mult}}+T_{\text{mult}}^2+\cdots+T_{\text{mult}}^i)\times T_0$ 处回到最大值；
 
-例如， 当设定$T_0=5$，$T_{mult}=2$时候， 学习率会在$5, 15, 35, \cdots$处重启。
+例如， 当设定$T_0=5$，$T_{\text{mult}}=2$时候， 学习率会在$5, 15, 35, \cdots$处重启。
 
 ![Tmult](pic/Tmult.png)
 
-上图展示了$T_{mult}$被引入后学习率的变化图像，每次重启所需要的epoch会逐渐变大， 这样到了训练后期， 学习率不会再有重启的过程， 而是一直保持下降的趋势直到训练结束， 可以有效的避免训练后期重启后损失函数冲出全局最优解的情况。
+上图展示了$T_{\text{mult}}$被引入后学习率的变化图像，每次重启所需要的epoch会逐渐变大， 这样到了训练后期， 学习率不会再有重启的过程， 而是一直保持下降的趋势直到训练结束， 可以有效的避免训练后期重启后损失函数冲出全局最优解的情况。
 
 #### 预热机制warm_up
 
@@ -149,14 +155,14 @@ $T_0$参数表示函数第一次重启时的epoch；
 3. **warm-up + cosine 是两个阶段、两个目标**
 
 - warm-up：让学习率从小到大，稳定进入训练状态；
-- cosine：训练过程中做 fine-tune，逐渐收敛；
+- cosine：训练过程中做fine-tune，逐渐收敛；
 - 所以更合理的方式是：**先 warm-up 再 cosine**，中间用 `piecewise`（分段调度）实现。
 
 # 余弦退火和余弦重启在pytorch中的实现
 
 在PyTorch中，**余弦退火（Cosine Annealing）**和**余弦重启（Cosine Annealing with Restarts）**分别通过 `CosineAnnealingLR` 和 `CosineAnnealingWarmRestarts` 实现。以下是它们的核心区别、使用方法和代码示例：
 
-## 余弦退火的Pytorch实现
+## 余弦退火的Pytorch官方实现
 
 **功能**
 
@@ -193,7 +199,7 @@ for epoch in range(200):
 初始学习率 (0.1) → 余弦下降 → 最小学习率 (1e-5) → 保持最小值
 ```
 
-## 余弦重启的Pytorch实现
+## 余弦重启的Pytorch官方实现
 
 **功能**
 
@@ -333,8 +339,4 @@ plt.show()
 “余弦退火和余弦重启的理念”一节参考了此博客。
 
 - [深度学习中神奇的lr schedule算法—余弦退火【第一届寻翊奖】尾羽奖](https://www.bilibili.com/opus/923404503954227221)
-
-该博客又参考了：Ilya Loshchilov , Frank Hutter,University of Freiburg , Freiburg , Germany.SGDR: Stochastic Gradient Descent With Warm Restarts
-
-===
 

@@ -25,11 +25,11 @@
 - **周期内指数衰减**：每个训练周期内可设置指数式衰减策略；
 - **Batch Size自适应缩放**：根据当前batch size动态缩放学习率，支持线性、平方根、混合等缩放方式；
 - **多参数组（param group）支持**：可为每组参数设定不同的初始学习率及调度策略；
-- **Lambda 自定义调度函数**：支持任意函数定义调度策略，灵活性极高；
+- **Lambda自定义调度函数**：支持任意函数定义调度策略，灵活性极高；
 - **训练中断恢复机制**：支持完整的学习率状态保存与恢复，便于断点续训；
 - **可视化工具**：内置学习率曲线绘图、保存与恢复机制，便于观察和调试训练过程；
 
-核心调度器通过一个统一的类 `LRScheduler` 实现，接口友好，便于集成到任意PyTorch训练流程中，并对不同训练需求提供强大且可控的支持。
+核心调度器通过一个统一的类`LRScheduler`实现，接口友好，便于集成到任意PyTorch训练流程中，并对不同训练需求提供强大且可控的支持。
 
 其对学习率的作用如下图所示：
 
@@ -41,19 +41,19 @@
 
 初始化参数说明：
 
-| 参数名             | 类型      | 默认值   | 说明                           |
-| ------------------ | --------- | -------- | ------------------------------ |
-| `optimizer`        | Optimizer | -        | PyTorch 优化器                 |
-| `warmup_steps`     | int       | 100      | warm-up 步数                   |
-| `warmup_scale_min` | float     | 0.05     | warm-up 起始比例               |
-| `warmup_type`      | str       | "linear" | 可选 `linear` 或 `cosine`      |
-| `T_0`              | int       | 200      | 第一个余弦重启周期长度         |
-| `T_mult`           | int       | 2        | 每次重启后周期长度乘数         |
-| `eta_scal_min`     | float     | 0.2      | 最低学习率缩放比例             |
-| `eta_scal_max`     | float     | 2.0      | 最大学习率缩放比例             |
-| `gamma`            | float     | 0.97     | 每次重启后的衰减因子           |
-| `base_batch_size`  | int       | 64       | 参考 batch size，用于缩放      |
-| `batch_size_mode`  | str       | "sqrt"   | 可选 `linear`、`sqrt`、`blend` |
+| 参数名             | 类型      | 默认值   | 说明                          |
+| ------------------ | --------- | -------- | ----------------------------- |
+| `optimizer`        | Optimizer | -        | PyTorch优化器                 |
+| `warmup_steps`     | int       | 100      | warm-up步数                   |
+| `warmup_scale_min` | float     | 0.05     | warm-up起始比例               |
+| `warmup_type`      | str       | "linear" | 可选`linear`或`cosine`        |
+| `T_0`              | int       | 200      | 第一个余弦重启周期长度        |
+| `T_mult`           | int       | 2        | 每次重启后周期长度乘数        |
+| `eta_scal_min`     | float     | 0.2      | 最低学习率缩放比例            |
+| `eta_scal_max`     | float     | 2.0      | 最大学习率缩放比例            |
+| `gamma`            | float     | 0.97     | 每次重启后的衰减因子          |
+| `base_batch_size`  | int       | 64       | 参考batch size，用于缩放      |
+| `batch_size_mode`  | str       | "sqrt"   | 可选`linear`、`sqrt`、`blend` |
 
 ```python
 """
@@ -91,7 +91,7 @@ class LRScheduler:
             # BatchSize缩放
             base_batch_size: int = 64,  # 参考学习率的基础batch size
             batch_size_mode: Literal["linear", "sqrt", "blend"] = "sqrt",
-            #
+            # 自定义lambda调度函数
             custom_lambda: Optional[Callable[[int], float]] = None  # 户可以传入一个函数，接受 global_step，返回一个用于缩放学习率的值。
     ):
         self.optimizer = optimizer

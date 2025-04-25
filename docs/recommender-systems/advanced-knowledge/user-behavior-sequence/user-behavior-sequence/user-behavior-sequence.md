@@ -4,6 +4,10 @@
 
 
 
+[精通推荐算法9：用户行为序列建模 -- 总体架构](https://www.zhihu.com/tardis/bd/art/689175765)
+
+
+
 [CTR预估模型有怎样的发展规律？](https://www.zhihu.com/question/363531892/answer/3593542217)
 
 该文章的行为序列部分是本部分的目录，写的很好。

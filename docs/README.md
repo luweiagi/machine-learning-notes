@@ -228,6 +228,7 @@
   * [反向传播](deep-learning/tips/back-propagation/back-propagation.md)
     * [神经网络的反向传播原理](deep-learning/tips/back-propagation/neural-network-back-propagation/neural-network-back-propagation.md)
     * [梯度爆炸与梯度消失](deep-learning/tips/back-propagation/gradient-explosion-and-vanishing/gradient-explosion-and-vanishing.md)
+    * [自定义梯度裁剪](deep-learning/tips/back-propagation/custom_gradient_clip/custom_gradient_clip.md)
     * [RNN的反向传播原理](deep-learning/tips/back-propagation/rnn-back-propagation/rnn-back-propagation.md)
     * [LSTM的反向传播原理](deep-learning/tips/back-propagation/lstm-back-propagation/lstm-back-propagation.md)
     * [TBPTT截断的基于时间的反向传播算法Truncated Backpropagation Through Time（LSTM使用的反向传播方式）](deep-learning/tips/back-propagation/truncated-bptt/truncated-bptt.md)
@@ -252,6 +253,9 @@
 * [BNN贝叶斯神经网络](deep-learning/beyesian-neural-network/beyesian-neural-network.md)
   * [贝叶斯神经网络](deep-learning/beyesian-neural-network/beyesian-neural-network/beyesian-neural-network.md)
   * [Weight Uncertainty in Neural Networks ICML2015](deep-learning/beyesian-neural-network/weight-uncertainty-in-neural-networks/Weight-Uncertainty-in-Neural-Networks.md)
+* [多任务学习](deep-learning/multi-task-learning/multi-task-learning.md)
+  - [共享base带来的梯度冲突](deep-learning/multi-task-learning/gradient-conflict-of-shared-base/gradient-conflict-of-shared-base.md)
+  - [PCGrad: Gradient Surgery for Multi-Task Learning arXiv2020](deep-learning/multi-task-learning/projecting-conflicting-gradients/PCGrad.md)
 * [GNN图神经网络](deep-learning/graph-neural-networks/graph-neural-networks.md)
   * [GNN图神经网络综述](deep-learning/graph-neural-networks/graph-neural-networks-review/graph-neural-networks-review.md)
   * [GCN图卷积网络](deep-learning/graph-neural-networks/graph-convolutional-networks/graph-convolutional-networks.md)
@@ -307,6 +311,10 @@
         * [Proximal Policy Optimization Algorithms arXiv2017 OpenAI](reinforcement-learning/deep-reinforcement-learning/trust-region-based-drl/ppo/ppo-openai/ppo-openai.md)
         * [PPO实现细节](reinforcement-learning/deep-reinforcement-learning/trust-region-based-drl/ppo/ppo-implementation-details/ppo-implementation-details.md)
         * [Recurrent Proximal Policy Optimization using Truncated BPTT](reinforcement-learning/deep-reinforcement-learning/trust-region-based-drl/ppo/ppo-rnn/ppo-rnn.md)
+        * [Value Norm](reinforcement-learning/deep-reinforcement-learning/trust-region-based-drl/ppo/value-norm/value-norm.md)
+          * [PopArt: Learning values across many orders of magnitude arXiv20216 DeepMind](reinforcement-learning/deep-reinforcement-learning/trust-region-based-drl/ppo/value-norm/popart/popart.md)
+        * [Value Clip](reinforcement-learning/deep-reinforcement-learning/trust-region-based-drl/ppo/value-clip/value-clip.md)
+          * [Value Clip](reinforcement-learning/deep-reinforcement-learning/trust-region-based-drl/ppo/value-clip/value-clip/value-clip.md)
       * [GAE广义优势估计Generalized Advantage Estimation](reinforcement-learning/deep-reinforcement-learning/trust-region-based-drl/gae/gae.md)
     * 随机策略+熵正则化（Entropy Regularization）策略探索增强技术（与随机策略强耦合）
       * [SAC: Soft Actor-Critic](https://www.paperexplained.cn/articles/paper/detail/811df72e210e20de99719539505da54762a11c6d/) SAC（Soft Actor-Critic）的熵最大化目标

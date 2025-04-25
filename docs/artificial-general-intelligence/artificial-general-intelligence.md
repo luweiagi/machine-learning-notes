@@ -21,3 +21,8 @@
 
 
 
+
+
+[OpenAI研究科学家：从Transformer的历史塑造AI的未来（演讲）](https://mp.weixin.qq.com/s/ap9Gd9yjRkkuWp8zfWxVfg)
+
+这是对Transformer的高级理解

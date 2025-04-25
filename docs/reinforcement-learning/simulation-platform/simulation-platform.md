@@ -17,3 +17,7 @@
 
 [使用Amazon SageMaker RL 和Unity训练强化学习智能体]()
 
+
+
+[强化学习 常用平台](https://www.cnblogs.com/xyz/p/10228987.html)
+

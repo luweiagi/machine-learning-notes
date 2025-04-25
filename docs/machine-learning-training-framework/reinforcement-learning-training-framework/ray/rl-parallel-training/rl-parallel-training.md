@@ -601,3 +601,14 @@ print("\n数据收集完毕！开始训练 PPO...")
 agent.update(buffer)  # 训练智能体
 ```
 
+
+
+
+
+# 参考资料
+
+===
+
+* [chaihahaha/dl-template/blob/main/rl_ray_ppo](https://github.com/chaihahaha/dl-template/blob/main/rl_ray_ppo.py)
+
+这是个基于ray的强化学习ppo算法实现

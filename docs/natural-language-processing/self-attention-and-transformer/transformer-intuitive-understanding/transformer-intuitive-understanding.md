@@ -240,3 +240,12 @@ Transformer 的核心是 **Self-Attention**，但它有 3 个关键缺陷，必�
 - **FFN的本质**：是一个“增强版”的 MLP，专门弥补 Self-Attention 的缺陷。
 
 简单说：**CNN的卷积已经够强了，而 Transformer 的自注意力不够强，必须加FFN才能和CNN打平！**
+
+# 参考资料
+
+===
+
+[OpenAI研究科学家：从Transformer的历史塑造AI的未来（演讲）](https://mp.weixin.qq.com/s/ap9Gd9yjRkkuWp8zfWxVfg)
+
+这是对Transformer的高级理解
+

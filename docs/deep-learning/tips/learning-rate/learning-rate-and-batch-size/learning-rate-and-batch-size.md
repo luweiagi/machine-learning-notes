@@ -111,3 +111,14 @@
 
 通过合理平衡学习率和 Batch Size，可以最大化训练效率和模型性能。
 
+
+
+# 参考资料
+
+===
+
+* [理解学习率和batch_size大小的关系](https://zhuanlan.zhihu.com/p/364865720)
+* [Batch Size理解、如何调整batch size和学习率之间的关系？](https://blog.csdn.net/weixin_43135178/article/details/114882276)
+
+* [【AI不惑境】学习率和batchsize如何影响模型的性能？](https://cloud.tencent.com/developer/article/1474432)
+

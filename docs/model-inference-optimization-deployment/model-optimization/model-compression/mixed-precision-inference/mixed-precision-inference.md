@@ -142,19 +142,21 @@ import torch
 import torch.nn as nn
 import time
 
+
 # 模拟一个简单的神经网络
 class SimpleModel(nn.Module):
     def __init__(self, input_dim, output_dim):
         super(SimpleModel, self).__init__()
         self.fc = nn.Linear(input_dim, output_dim)
-    
+
     def forward(self, x):
         return self.fc(x)
+
 
 # 配置
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 input_dim = 1024  # 假设输入特征维度
-output_dim = 10   # 假设分类数目
+output_dim = 10  # 假设分类数目
 
 # 实例化模型
 model = SimpleModel(input_dim, output_dim).to(device)
@@ -162,21 +164,31 @@ model = SimpleModel(input_dim, output_dim).to(device)
 # 随机生成一些输入数据
 inputs = torch.randn(64, input_dim).to(device)  # 假设批量大小为64
 
+infer_times = 100
+
 # 普通的float32推理
 start_time = time.time()
 with torch.no_grad():
-    outputs = model(inputs)  # 正常推理
+    for _ in range(infer_times):
+        outputs = model(inputs)  # 正常推理
 end_time = time.time()
-print(f"普通推理（float32）的时间：{end_time - start_time:.4f}秒")
+print(f"普通推理（float32）的时间：{(end_time - start_time) / infer_times:.4f}秒")
 
 # 开启混合精度推理
 with torch.autocast(device_type='cuda', dtype=torch.float16):  # 如果没有cuda，可以试试 float32
     start_time = time.time()
     with torch.no_grad():
-        outputs = model(inputs)  # 混合精度推理
+        for _ in range(infer_times):
+            outputs = model(inputs)  # 混合精度推理
     end_time = time.time()
-print(f"混合精度推理（float16）的时间：{end_time - start_time:.4f}秒")
+print(f"混合精度推理（float16）的时间：{(end_time - start_time) / infer_times:.4f}秒")
 ```
+
+测试结果：
+
+> 普通推理（float32）的时间：0.0430秒
+>
+> 混合精度推理（float16）的时间：0.0003秒
 
 解释：
 

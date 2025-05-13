@@ -1,6 +1,6 @@
-# Value Clip
+# Value Norm
 
-- [返回上层目录](../value-clip.md)
+- [返回上层目录](../value-norm.md)
 
 
 

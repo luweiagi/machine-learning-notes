@@ -1,6 +1,6 @@
 # DDPG
 
-- [返回上层目录](../paper.md)
+- [返回上层目录](../actor-critic.md)
 
 
 

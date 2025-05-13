@@ -300,24 +300,26 @@
       * 随机策略梯度（Stochastic Policy Gradient）REINFORCE（蒙特卡洛策略梯度）
       * 确定性策略梯度（Deterministic Policy Gradient, DPG）
       * 自然策略梯度（Natural Policy Gradient）
-  * Actor-Critic策略与价值结合
+  * [Actor-Critic策略与价值结合](reinforcement-learning/deep-reinforcement-learning/actor-critic/actor-critic.md) 
     * A3C
     * A2C
-    * [确定性策略梯度DDPG: Continuous Control With Deep Reinforcement Learning ICLR2016](reinforcement-learning/reinforcement-learning/paper/ddpg/ddpg.md)
-  * 高级策略优化技术
-    * 信赖域方法（Trust Region Methods）策略更新约束技术（与策略类型解耦）[基于信赖域的深度强化学习](reinforcement-learning/deep-reinforcement-learning/trust-region-based-drl/trust-region-based-drl.md)
+    * [确定性策略梯度DDPG: Continuous Control With Deep Reinforcement Learning ICLR2016](reinforcement-learning/deep-reinforcement-learning/actor-critic/ddpg/ddpg.md)
+  * [高级策略优化技术](reinforcement-learning/deep-reinforcement-learning/advanced-policy-optimization/advanced-policy-optimization.md)
+    * [基于信赖域的深度强化学习](reinforcement-learning/deep-reinforcement-learning/advanced-policy-optimization-techniques/trust-region-based-drl/trust-region-based-drl.md) 信赖域方法（Trust Region Methods）策略更新约束技术（与策略类型解耦）
       * TRPO（二阶优化与KL散度约束）
-      * [PPO近端策略优化: Proximal Policy Optimization](reinforcement-learning/deep-reinforcement-learning/trust-region-based-drl/ppo/proximal-policy-optimization.md) （Clipping/Penalty简化实现）
-        * [Proximal Policy Optimization Algorithms arXiv2017 OpenAI](reinforcement-learning/deep-reinforcement-learning/trust-region-based-drl/ppo/ppo-openai/ppo-openai.md)
-        * [PPO实现细节](reinforcement-learning/deep-reinforcement-learning/trust-region-based-drl/ppo/ppo-implementation-details/ppo-implementation-details.md)
-        * [Recurrent Proximal Policy Optimization using Truncated BPTT](reinforcement-learning/deep-reinforcement-learning/trust-region-based-drl/ppo/ppo-rnn/ppo-rnn.md)
-        * [Value Norm](reinforcement-learning/deep-reinforcement-learning/trust-region-based-drl/ppo/value-norm/value-norm.md)
-          * [PopArt: Learning values across many orders of magnitude arXiv20216 DeepMind](reinforcement-learning/deep-reinforcement-learning/trust-region-based-drl/ppo/value-norm/popart/popart.md)
-        * [Value Clip](reinforcement-learning/deep-reinforcement-learning/trust-region-based-drl/ppo/value-clip/value-clip.md)
-          * [Value Clip](reinforcement-learning/deep-reinforcement-learning/trust-region-based-drl/ppo/value-clip/value-clip/value-clip.md)
-      * [GAE广义优势估计Generalized Advantage Estimation](reinforcement-learning/deep-reinforcement-learning/trust-region-based-drl/gae/gae.md)
-    * 随机策略+熵正则化（Entropy Regularization）策略探索增强技术（与随机策略强耦合）
+      * [PPO近端策略优化: Proximal Policy Optimization](reinforcement-learning/deep-reinforcement-learning/advanced-policy-optimization/trust-region-based-drl/ppo/proximal-policy-optimization.md) （Clipping/Penalty简化实现）
+        * [Proximal Policy Optimization Algorithms arXiv2017 OpenAI](reinforcement-learning/deep-reinforcement-learning/advanced-policy-optimization/trust-region-based-drl/ppo/ppo-openai/ppo-openai.md)
+        * [PPO实现细节](reinforcement-learning/deep-reinforcement-learning/advanced-policy-optimization/trust-region-based-drl/ppo/ppo-implementation-details/ppo-implementation-details.md)
+        * [Recurrent Proximal Policy Optimization using Truncated BPTT](reinforcement-learning/deep-reinforcement-learning/advanced-policy-optimization/trust-region-based-drl/ppo/ppo-rnn/ppo-rnn.md)
+        * [Value Norm](reinforcement-learning/deep-reinforcement-learning/advanced-policy-optimization/trust-region-based-drl/ppo/value-norm/value-norm.md)
+          * [Value Norm](reinforcement-learning/deep-reinforcement-learning/advanced-policy-optimization/trust-region-based-drl/ppo/value-norm/value-norm/value-norm.md)
+          * [PopArt: Learning values across many orders of magnitude arXiv20216 DeepMind](reinforcement-learning/deep-reinforcement-learning/advanced-policy-optimization/trust-region-based-drl/ppo/value-norm/popart/popart.md)
+        * [Value Clip](reinforcement-learning/deep-reinforcement-learning/advanced-policy-optimization/trust-region-based-drl/ppo/value-clip/value-clip.md)
+          * [Value Clip](reinforcement-learning/deep-reinforcement-learning/advanced-policy-optimization/trust-region-based-drl/ppo/value-clip/value-clip/value-clip.md)
+      * [GAE广义优势估计Generalized Advantage Estimation](reinforcement-learning/deep-reinforcement-learning/advanced-policy-optimization/trust-region-based-drl/gae/gae.md)
+    * [随机策略+熵正则化（Entropy Regularization）策略探索增强技术](reinforcement-learning/deep-reinforcement-learning/advanced-policy-optimization/entropy-regularization/entropy-regularization.md) （与随机策略强耦合）
       * [SAC: Soft Actor-Critic](https://www.paperexplained.cn/articles/paper/detail/811df72e210e20de99719539505da54762a11c6d/) SAC（Soft Actor-Critic）的熵最大化目标
+      * [Entropy Loss](reinforcement-learning/deep-reinforcement-learning/advanced-policy-optimization/entropy-regularization/entropy-loss/entropy-loss.md)
 * 工程技巧
   * 分布式训练与加速
     * A3C（异步多线程）
@@ -335,10 +337,12 @@
   * [稀疏奖励Sparse Reward](reinforcement-learning/advanced-theme/sparse-reward/sparse-reward.md)
     * [对抗智能体奖励设计](reinforcement-learning/advanced-theme/sparse-reward/adversarial-agent-reward-design/adversarial-agent-reward-design.md)
   * [混合动作空间Hybrid Action Space](reinforcement-learning/advanced-theme/hybrid-action-space/hybrid-action-space.md)
+  * [SelfPlay自我博弈](reinforcement-learning/advanced-theme/self-play/self-play.md)
   * [MCTS+RL](reinforcement-learning/advanced-theme/mcts-rl/mcts-rl.md)
     * [MCTS蒙特卡洛树搜索](reinforcement-learning/advanced-theme/mcts-rl/monte-carlo-tree-search/monte-carlo-tree-search.md)
     * [MCTS+RL通用框架](reinforcement-learning/advanced-theme/mcts-rl/mcts-rl-general-framework/mcts-rl-general-framework.md)
     * 适用于离散连续动作空间的MCTS+RL框架
+  * [策略蒸馏Policy Distillation](reinforcement-learning/advanced-theme/policy-distillation/policy-distillation.md)
   * [模仿学习](reinforcement-learning/advanced-theme/imatation-learning/imatation-learning.md)
     * [模仿学习介绍](reinforcement-learning/advanced-theme/imatation-learning/imatation-learning-introduction/imatation-learning-introduction.md)
     * [BC行为克隆Behavior Cloning](reinforcement-learning/advanced-theme/imatation-learning/behavior-cloning/behavior-cloning.md)

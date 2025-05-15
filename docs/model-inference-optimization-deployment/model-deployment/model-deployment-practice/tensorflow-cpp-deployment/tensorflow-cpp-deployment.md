@@ -1,6 +1,6 @@
 # 基于C/C++部署TensorFlow模型
 
-* [返回上层目录](../model-deployment.md)
+* [返回上层目录](../model-deployment-practice.md)
 * [TensorFlow官方C库介绍](#TensorFlow官方C库介绍)
   * [获取库文件](#获取库文件)
   * [编译](#编译)

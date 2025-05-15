@@ -451,6 +451,7 @@
   * [RLlib分布式强化学习系统](machine-learning-training-framework/reinforcement-learning-training-framework/rllib/rllib.md)
 * [大模型训练框架](machine-learning-training-framework/large-model-trainning-framework/large-model-trainning-framework.md)
 * [超算集群](machine-learning-training-framework/supercomputing-cluster/supercomputing-cluster.md)
+  * [华为MindCluster集群调度](machine-learning-training-framework/supercomputing-cluster/huawei-mindcluster/huawei-mindcluster.md)
   * [微软: 用于训练ChatGPT的超算](machine-learning-training-framework/supercomputing-cluster/microsoft-supercomputing-cluster-for-chatgpt/microsoft-supercomputing-cluster-for-chatgpt.md)
 
 # [计算机视觉](computer-vision/computer-vision.md)
@@ -663,13 +664,16 @@
 * [模型部署](model-inference-optimization-deployment/model-deployment/model-deployment.md)
   * [AI编译器](model-inference-optimization-deployment/model-deployment/ai-compiler/ai-compiler.md)
   * [具体模型部署实践](model-inference-optimization-deployment/model-deployment/model-deployment-practice/model-deployment-practice.md)
-    * [TensorRT](model-inference-optimization-deployment/model-inference-optimization-deployment/tensor-rt/tensor-rt.md)
-    * [基于C/C++部署TensorFlow模型](model-inference-optimization-deployment/model-inference-optimization-deployment/tensorflow-cpp-deployment/tensorflow-cpp-deployment.md)
-    * ONNX
+    * [TensorRT](model-inference-optimization-deployment/model-deployment/model-deployment-practice/tensor-rt/tensor-rt.md)
+    * [基于C/C++部署TensorFlow模型](model-inference-optimization-deployment/model-deployment/model-deployment-practice/tensorflow-cpp-deployment/tensorflow-cpp-deployment.md)
+    * [ONNX](model-inference-optimization-deployment/model-deployment/model-deployment-practice/onnx/onnx.md)
+    * [JIT](model-inference-optimization-deployment/model-deployment/model-deployment-practice/jit/jit.md)
+    * [netron模型可视化工具](model-inference-optimization-deployment/model-deployment/model-deployment-practice/netron/netron.md)
 * [硬件平台支持](model-inference-optimization-deployment/hardware-platform/hardware-platform.md)
   * [Nvidia Jetson平台](model-inference-optimization-deployment/hardware-platform/nvidia-jetson/nvidia-jetson.md)
     * [基于NanoLLM开发平台运行大模型](model-inference-optimization-deployment/hardware-platform/nvidia-jetson/nano-llm-infer/nano-llm-infer.md)
     * [TensorRT-LLM大语言模型推理](model-inference-optimization-deployment/hardware-platform/nvidia-jetson/tensor-rt-llm-infer/tensor-rt-llm-infer.md)
+  * [华为昇腾NPU](model-inference-optimization-deployment/hardware-platform/huawei-npu/huawei-npu.md)
 
 # [自动驾驶](autopilot/autopilot.md)
 * [传感器](autopilot/sensor/sensor.md)

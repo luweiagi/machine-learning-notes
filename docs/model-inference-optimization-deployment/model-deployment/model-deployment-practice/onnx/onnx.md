@@ -1,6 +1,10 @@
 # ONNX
 
 - [返回上层目录](../model-deployment-practice.md)
+- [模型导出为ONNX格式](#模型导出为ONNX格式)
+- [模型推理](#模型推理)
+  - [Python端推理](#Python端推理)
+  - [C++端CPU推理](#C++端CPU推理)
 
 
 
@@ -51,7 +55,7 @@ for output in model.graph.output:
 
 # 模型推理
 
-## python端推理
+## Python端推理
 
 ```python
 ort_session = ort.InferenceSession("model.onnx")

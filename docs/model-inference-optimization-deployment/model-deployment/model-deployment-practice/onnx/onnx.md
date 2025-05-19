@@ -12,11 +12,11 @@
 
 写一个包装模型类，把 `act()` 变成 `forward()`
 
-```
-class ActorCriticWrapper(nn.Module):
-    def __init__(self, actor_critic_model):
+```python
+class ModelWrapper(nn.Module):
+    def __init__(self, model):
         super().__init__()
-        self.model = actor_critic_model
+        self.model = model
 
     def forward(self, x):
         return self.model.act(x)  # 注意这里是调用 act 而不是 forward
@@ -25,9 +25,9 @@ class ActorCriticWrapper(nn.Module):
 然后这样导出：
 
 ```python
-model = ActorCritic()
+model = Module()
 model.eval()
-wrapped_model = ActorCriticWrapper(model)
+wrapped_model = ModelWrapper(model)
 
 dummy_input = torch.randn(1, 5)
 torch.onnx.export(model, dummy_input, "model.onnx",

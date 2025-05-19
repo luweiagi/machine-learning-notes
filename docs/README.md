@@ -125,6 +125,7 @@
       * [string字符串类](coding/programing-language/c-c++/tips/string/string.md)
       * [volatile关键字](coding/programing-language/c-c++/tips/volatile/volatile.md)
       * [float的精度和取值范围](coding/programing-language/c-c++/tips/float/float.md)
+      * [Class(std::nullptr_t) noexcept](coding/programing-language/c-c++/tips/class_init_nullptr/class_init_nullptr.md)
   * [Python](coding/programing-language/python/python.md)
     * [Python简介](coding/programing-language/python/introduction/introduction.md)
     * [Python语法](coding/programing-language/python/grammar/grammar.md)

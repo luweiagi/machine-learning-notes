@@ -1,6 +1,9 @@
 # [=>点此阅读<=](https://luweiagi.github.io/machine-learning-notes/)
 
+注意：不要继续往下看，请点击上面一行的`=>点此阅读<=`，因为下面的是文本源码，里面的数学公式是没有渲染的，不适合人类阅读。
+
 # 目录
+
 [机器学习算法地图](http://www.tensorinfinity.com/paper_18.html)
 ![machine-learning-map](pic/machine-learning-map.png)
 

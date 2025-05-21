@@ -107,6 +107,10 @@ lib/            # 静态库或动态库
 bin/            # 工具
 ```
 
+如果是在windows下，可能最新的release版本里不包含win-x64的版本，需要在没那么最新的版本里找，比如：
+
+[ONNX Runtime v1.20.1](https://github.com/microsoft/onnxruntime/releases/tag/v1.20.1) 中的 `onnxruntime-win-x64-1.20.1.zip`
+
 ### 项目目录结构
 
 ```shell

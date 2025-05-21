@@ -110,6 +110,7 @@
       * [Shell](coding/cs-courses/operating-system/linux/shell/shell.md)
         * [输入输出重定向](coding/cs-courses/operating-system/linux/shell/input_output_redirection/input_output_redirection.md)
       * [Vim编辑器](coding/cs-courses/operating-system/linux/vim/vim.md)
+      * [WSL虚拟机](coding/cs-courses/operating-system/linux/wsl/wsl.md)
     * [Docker](coding/cs-courses/operating-system/docker/docker.md)
     * [实时操作系统](coding/cs-courses/operating-system/rtos/rtos.md)
       * [freeRTOS](coding/cs-courses/operating-system/rtos/freertos/freertos.md)

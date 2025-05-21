@@ -4,4 +4,5 @@
 * [Linux常用命令](linux-command/linux-command.md)
 * [shell编程](shell/shell.md)
 * [vim](vim/vim.md)
+* [WSL虚拟机](wsl/wsl.md)
 

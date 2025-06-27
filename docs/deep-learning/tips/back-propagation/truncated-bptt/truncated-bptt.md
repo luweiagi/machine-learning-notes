@@ -1,6 +1,15 @@
 # TBPTT截断的基于时间的反向传播算法
 
 * [返回上层目录](../back-propagation.md)
+* [Truncated-BPTT介绍](#Truncated-BPTT介绍)
+  * [什么是TBPTT](#什么是TBPTT)
+  * [强化学习中使用TBPTT的意义](#强化学习中使用TBPTT的意义)
+  * [TBPTT的原理](#TBPTT的原理)
+* [结合代码解读TBPTT](#结合代码解读TBPTT)
+* [问题](#问题)
+  * [TBPTT的原理性问题](#TBPTT的原理性问题)
+  * [BPTT(1, 1)解析](#BPTT(1, 1)解析)
+  * [TBPTT的训练](#TBPTT的训练)
 
 TBPTT的全称是**Truncated Backpropagation Through Time**
 
@@ -61,8 +70,6 @@ RNN的反向传播算法BPTT（Back-Propagation Through Time）：
 BPTT只在子序列的内部去做反向传播，只关心内部的计算。在实际的计算中，很少有人用full BPTT，一般是使用Truncated BPTT。已经提出TBPTT的实际限制为约200至400倍步。
 
 TBPTT的思想是在时间步长T之后停止计算梯度总和，这将导致真实梯度的近似值，并在实践中产生相当好的结果。此版本的BPTT称为截断时间反向传播（称为TBPTT）。由于此方法，模型开始关注短期影响而不是长期影响，因此模型变得有偏差。
-
-
 
 # 结合代码解读TBPTT
 
@@ -139,7 +146,7 @@ logits, values, _ = model(obs, lstm_state)
 
 # 问题
 
-## TBPTT的具体原理性问题
+## TBPTT的原理性问题
 
 ### 每次截断后开始训练下一次时，hidden state应该是上一次最后的hidden state吧？
 
@@ -460,21 +467,11 @@ for t, l in enumerate(step_losses):
 
 你会发现，每一步其实都计算了loss，只是PyTorch自动把它们batch处理了。
 
-是否需要我给你画一张图，来可视化说明一个完整TBPTT训练段是如何forward → backward的？
-
-
-
-
-
 # 参考资料
 
 * [时间序列的反向传播算法（BPTT）](https://thnum.blog.csdn.net/article/details/106033310)
 
-‘”Truncated-BPTT介绍“一节参考此CNDN博客。
-
-
-
-
+‘”Truncated-BPTT介绍“一节参考此CSDN博客。
 
 ===
 

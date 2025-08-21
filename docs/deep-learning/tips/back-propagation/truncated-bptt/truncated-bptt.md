@@ -142,8 +142,6 @@ logits, values, _ = model(obs, lstm_state)
 ...
 ```
 
-
-
 # 问题
 
 ## TBPTT的原理性问题

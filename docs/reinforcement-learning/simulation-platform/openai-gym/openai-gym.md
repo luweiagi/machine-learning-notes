@@ -120,7 +120,75 @@ print("随机选择的连续动作:", random_action)
 #  [ 0.2806511  -0.28801662  1.667343   -0.38314575]]
 ```
 
+## 离散连续混合动作空间
+
+因为在**复杂环境**中：
+
+- 动作往往不是一个单一的离散决策
+- 你可能需要：
+  - 选择动作类型（Discrete）
+  - 为每种动作类型提供参数（Box）
+  - 多维度组合、条件动作、多模态输出……
+
+这时候动作空间的结构一般是 `gym.spaces.Tuple` 或 `gym.spaces.Dict`，必须**显式处理各个子空间**。
+
+```python
+from gym.spaces import Tuple, Discrete, Box
+
+self.action_space = Tuple((
+    Discrete(3),                 # 动作类型：加速、减速、拐弯
+    Box(low=-1, high=1, shape=(4,))  # 动作参数（加速度、减速度，拐弯角度等）
+))
+```
+
+你就不能再用 `env.action_space.n` 了，而是：
+
+```python
+discrete_part = env.action_space[0]
+param_part = env.action_space[1]
+
+n_discrete_actions = discrete_part.n  # ✅ 输出 2
+param_shape = param_part.shape  # ✅ 输出 (3,)
+```
+
+`env.action_space.n` 是强化学习新手入门时的“甜蜜糖果”，但一旦环境复杂了，就得自己动手处理每个动作子空间了。
+
+
+
+如果是 `Dict` 类型：
+
+```python
+from gym.spaces import Dict
+
+self.action_space = Dict({
+    "action_type": Discrete(3),
+    "params": Box(low=-1.0, high=1.0, shape=(2,))
+})
+
+env.action_space["action_type"].n  # ✅ 输出 3
+env.action_space["params"].shape  # ✅ 输出 (2,)
+```
+
+
+
 # 基于GYM的环境
+
+## 常见环境
+
+### 常见使用场景：
+
+| 场景                         | 是否使用 `env.action_space.n` | 说明                              |
+| ---------------------------- | ----------------------------- | --------------------------------- |
+| `CartPole-v1`（左右移动）    | ✅ 是                          | 动作是 `Discrete(2)`              |
+| `MountainCar-v0`             | ✅ 是                          | 动作是 `Discrete(3)`              |
+| `Atari` 游戏环境             | ✅ 是                          | 动作是 `Discrete(n)`，n取决于游戏 |
+| 自定义简单环境               | ✅ 是                          | 纯离散动作可直接用 `.n`           |
+| **复杂策略（混合动作空间）** | ❌ 否                          | 动作结构复杂，不适用 `.n`         |
+| 多智能体、参数化策略         | ❌ 否                          | 动作空间可能是 `Dict`, `Tuple` 等 |
+
+
+
+## 非官方自带环境
 
 ## gym-hybrid
 

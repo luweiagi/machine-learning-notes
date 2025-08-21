@@ -1,7 +1,7 @@
 # 多智能体强化学习
 
 - [返回上层目录](../advanced-theme.md)
-- [MAPPO](mappo/mappo.md)
+- [MAPPO: The Surprising Effectiveness of PPO in Cooperative Multi-Agent Games arXiv2021 清华大学](mappo/mappo.md)
 - [多智能体强化学习论文](paper/paper.md)
 
 ===

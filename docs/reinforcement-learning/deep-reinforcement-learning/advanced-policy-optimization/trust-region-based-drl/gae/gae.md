@@ -1149,3 +1149,12 @@ $$
 * [GAE——泛化优势估计](https://zhuanlan.zhihu.com/p/356447099)
 * [六、GAE广义优势估计](https://zhuanlan.zhihu.com/p/549145459)
 * [【Typical RL 13】GAE](https://zhuanlan.zhihu.com/p/402198744)
+
+
+
+# 附录
+
+## 关于计算gae时的next_nonterminal的选择方式
+
+GAE计算差异分析：https://chatgpt.com/c/688370ab-7f7c-800f-aca9-5866868f6f2f
+

@@ -359,6 +359,14 @@ elu论文：*[Fast and Accurate Deep Network Learning by Exponential Linear Unit
 
 
 
+
+
+## silu
+
+
+
+
+
 # 不同激活函数的区别
 
 卷积网络的激活函数sigmoid和relu有什么区别？

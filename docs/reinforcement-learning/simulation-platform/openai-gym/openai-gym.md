@@ -213,3 +213,12 @@ GitHub地址：[thomashirtz/gym-hybrid](https://github.com/thomashirtz/gym-hybri
 [如何创建gym环境](https://blog.csdn.net/stanleyrain/article/details/127880978)
 
 这就比较复杂了
+
+[Gym库中关于Spaces库的使用方法](https://zhuanlan.zhihu.com/p/482821112)
+
+[【编写环境一】遇到常见python函数处理方式2.1 OpenAI Gym Discrete和Box spaces同时存在，代码该怎么写](https://blog.51cto.com/u_15485092/5037030)
+
+[gym中所有可以用的模拟环境](https://www.cnblogs.com/xyz/p/14665111.html)
+
+[Gym中的box，discrete，multi_discrete](https://zhuanlan.zhihu.com/p/343260661)
+

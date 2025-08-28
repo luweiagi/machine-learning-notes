@@ -68,6 +68,8 @@ print(results)  # 获取多个环境的并行结果
 
 ## 直接使用Ray-RLlib
 
+参考[ray.rllib入门实践-1： 快速跑通](https://blog.csdn.net/Strive_For_Future/article/details/145340589)
+
 **核心思路**：Ray RLlib是Ray提供的强化学习库，内部已经实现了PPO算法，并支持自动并行化环境管理。你只需要定义一个自定义的环境适配器，让RLlib调用你的C++环境即可。
 
 **适用场景**：
@@ -612,3 +614,5 @@ agent.update(buffer)  # 训练智能体
 * [chaihahaha/dl-template/blob/main/rl_ray_ppo](https://github.com/chaihahaha/dl-template/blob/main/rl_ray_ppo.py)
 
 这是个基于ray的强化学习ppo算法实现
+
+* [机器学习框架Ray -- 3.2 RayRLlib训练BipedalWalker](https://blog.csdn.net/wenquantongxin/article/details/130461821)

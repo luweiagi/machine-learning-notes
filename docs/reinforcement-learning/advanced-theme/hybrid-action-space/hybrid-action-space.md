@@ -4,7 +4,13 @@
 
 
 
+[混合动作空间｜揭秘创造人工智能的黑魔法](https://www.zhihu.com/column/c_1505587066188111873)
+
 [混合动作空间｜揭秘创造人工智能的黑魔法（1）](https://zhuanlan.zhihu.com/p/462037789)
+
+[混合动作空间｜揭秘创造人工智能的黑魔法（4）](https://zhuanlan.zhihu.com/p/478728586) H_PPO
+
+[混合动作空间 | 揭秘创造人工智能的黑魔法（5）](https://zhuanlan.zhihu.com/p/596495689) 隐空间
 
 # 混合动作空间
 

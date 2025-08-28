@@ -20,3 +20,7 @@
 
 [变分自动编码器 -VAE介绍](https://mp.weixin.qq.com/s/I_-U8WOCLRjtJiBd2MzIFQ)
 
+
+
+视频：[揭秘变分自编码器(VAE)背后的数学原理+代码实现](https://www.bilibili.com/video/BV15J4m1H76H/)
+

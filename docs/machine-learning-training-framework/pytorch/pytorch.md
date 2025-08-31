@@ -1,6 +1,7 @@
 # PyTorch
 
 * [返回上层目录](../machine-learning-training-framework.md)
+* [测试是否支持pytorch](pytroch-surport-test/pytroch-surport-test.md)
 * [PyTorch基础](basis/basis.md)
 * [保存加载模型文件](save_load_model/save_load_model.md)
 * [推理inference](inference/inference.md)

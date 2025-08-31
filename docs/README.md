@@ -443,11 +443,13 @@
     * [TensorFlow中ckpt转pb文件（模型持久化）](machine-learning-training-framework/tensorflow/tools/ckpt-to-pb/ckpt-to-pb.md)
     * [得到模型参数值](machine-learning-training-framework/tensorflow/tools/get-weight/get-weight.md)
 * [PyTorch](machine-learning-training-framework/pytorch/pytorch.md)
+  * [测试是否支持pytorch](machine-learning-training-framework/pytorch/pytroch-surport-test/pytroch-surport-test.md)
   * [PyTorch基础](machine-learning-training-framework/pytorch/basis/basis.md)
   * 计算图与动态图机制 https://blog.csdn.net/qq_37388085/article/details/102559532 来自目录https://blog.csdn.net/qq_37388085/category_9417143.html
   * [保存加载模型文件](machine-learning-training-framework/pytorch/save_load_model/save_load_model.md)
   * [推理inference](machine-learning-training-framework/pytorch/inference/inference.md)
   * [模型结构参数及显示](machine-learning-training-framework/pytorch/model-structure-parameters/model-structure-parameters.md)
+
 * [强化学习训练框架](machine-learning-training-framework/reinforcement-learning-training-framework/reinforcement-learning-training-framework.md)
   * [强化学习开源框架整理](machine-learning-training-framework/reinforcement-learning-training-framework/rl-framework-introduction/rl-framework-introduction.md)
   * [清华：天授](machine-learning-training-framework/reinforcement-learning-training-framework/tianshou/tianshou.md)

@@ -424,6 +424,7 @@
   * [MistGPU](machine-learning-training-framework/cloud-server-platform/MistGPU/MistGPU.md)
 * [本地IDE远程连接服务器](machine-learning-training-framework/IDE-remote-link-server/IDE-remote-link-server.md)
   * [Pycharm远程连接服务器](machine-learning-training-framework/IDE-remote-link-server/pycharm-remote-link-server/pycharm-remote-link-server.md)
+  * [Cursor远程连接服务器](machine-learning-training-framework/IDE-remote-link-server/cursor-remote-link-server/cursor-remote-link-server.md)
   * [远程共享文件夹](machine-learning-training-framework/IDE-remote-link-server/remote-shared-folder/remote-shared-folder.md)
 * [训练工具](machine-learning-training-framework/training-tool/training-tool.md)
   * [TensorBoard](machine-learning-training-framework/training-tool/tensorboard/tensorboard.md)

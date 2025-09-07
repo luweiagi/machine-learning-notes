@@ -4,6 +4,7 @@
 * [OpenAI: Gym](openai-gym/openai-gym.md)
 * [OpenAI: MuJoCo](openAI-mujoco/openAI-mujoco.md)
 * [OpenDILab: GoBigger多智能体仿真平台](OpenDILab-GoBigger/OpenDILab-GoBigger.md)
+* [AirCombat](aircombat/aircombat.md)
 
 
 

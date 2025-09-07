@@ -386,6 +386,7 @@
     简言之：行为树是适合解决复杂AI的解决方案。
     对于Unity用户，Unity商店现在已经有一个比较完善的行为树设计(Behavior Designer)插件可供购买使用。
   * [多智能体仿真环境Simple Tag] https://pettingzoo.farama.org/environments/mpe/simple_tag/
+  * [AirCombat](reinforcement-learning/simulation-platform/aircombat/aircombat.md)
 * [场景应用](reinforcement-learning/scenarios-application/scenarios-application.md)
   * [游戏AI](reinforcement-learning/scenarios-application/game/game.md)
     * [星际争霸StarCraft](reinforcement-learning/scenarios-application/game/starcraft/starcraft.md)

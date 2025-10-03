@@ -254,6 +254,7 @@
     * [TensorFlow的LSTM源码分析](deep-learning/recurrent-neural-network/long-short-term-memory-networks/lstm-in-tensorflow/lstm-in-tensorflow.md)
     * [Pytorch的LSTM源码分析](deep-learning/recurrent-neural-network/long-short-term-memory-networks/lstm-in-pytorch/lstm-in-pytorch.md)
   * [GRU门控循环单元](deep-learning/recurrent-neural-network/gated-recurrent-unit/gated-recurrent-unit.md)
+  * [深入理解RNN](deep-learning/recurrent-neural-network/deep_understanding_of_rnn/deep_understanding_of_rnn.md)
 * [LNN液态神经网络Liquid Neural Network](deep-learning/liquid-neural-network/liquid-neural-network.md)
 * [BNN贝叶斯神经网络](deep-learning/beyesian-neural-network/beyesian-neural-network.md)
   * [贝叶斯神经网络](deep-learning/beyesian-neural-network/beyesian-neural-network/beyesian-neural-network.md)

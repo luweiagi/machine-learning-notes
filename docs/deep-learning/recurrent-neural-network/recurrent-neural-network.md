@@ -4,4 +4,5 @@
 - [RNN循环神经网络](recurrent-neural-network/recurrent-neural-network.md)
 - [LSTM长短期记忆网络](long-short-term-memory-networks/long-short-term-memory-networks.md)
 - [GRU门控循环单元](gated-recurrent-unit/gated-recurrent-unit.md)
+- [深入理解RNN](deep_understanding_of_rnn/deep_understanding_of_rnn.md)
 

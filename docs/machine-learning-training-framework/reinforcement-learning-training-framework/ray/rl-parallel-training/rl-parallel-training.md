@@ -130,7 +130,187 @@ for _ in range(10):
 - 如果你希望完全掌控PPO算法，建议 **自己基于Ray实现多环境并行**（第一种方式）。
 - 如果你愿意用RLlib自带的PPO，并希望快速上手，建议 **直接使用Ray RLlib**（第二种方式）。
 
-# Ray知识点介绍
+# 知识点
+
+## Ray提供的dashboard
+
+- 启动 Ray 时加：
+
+```
+ray.init(include_dashboard=True)
+```
+
+- 打开浏览器访问：`http://127.0.0.1:8265`
+- 可以看到每个 worker 的 CPU / 内存使用情况，以及对象存储占用
+
+这个端口号不是随便选的，也不是你自己设置的，而是 **Ray 内部默认分配的 dashboard 端口**。
+
+具体说明：
+
+1. **默认端口**
+
+   - Ray dashboard 默认监听 **8265**（从 Ray 2.x 开始就是这个默认值）。
+   - 如果 8265 被占用，Ray 会自动尝试 **下一个空闲端口**（8266、8267……）。
+
+2. **可自定义**
+
+   - 可以在 `ray.init()` 或者启动 head node 时指定端口：
+
+   ```
+   ray.init(include_dashboard=True, dashboard_port=12345)
+   ```
+
+---
+
+**问题：**
+
+我打开了http://127.0.0.1:8265/#/overview，但是具体怎么看呢
+
+---
+
+**回答：**
+
+好的，我给你详细说明一下 Ray Dashboard 的各个部分，以及在训练强化学习任务时，可以重点关注哪些信息。
+
+1️⃣ 概览页（Overview）
+
+打开 `http://127.0.0.1:8265/#/overview` 后，看到的通常是 **Overview** 页，主要展示集群状态：
+
+- **Cluster resources**
+  - CPU: 可用/总量
+  - GPU: 可用/总量
+  - Memory / Object Store Memory
+- **Workers**
+  - 当前正在运行的 Ray Worker 数量
+  - 每个 worker 的状态：`idle` / `running` / `failed`
+- **Tasks**
+  - 每个任务的数量（Pending、Running、Failed）
+- **Dashboard port**
+  - 显示 dashboard URL（你已经访问的是 8265）
+
+> ⚠️ 注意：如果你在 WSL 或 CPU-only 环境，GPU 会显示 0。
+
+2️⃣ 资源监控（Resources / Nodes）
+
+点击 **Nodes** 页面，你能看到：
+
+- 每个节点（Node）的 CPU / GPU / 内存使用情况
+- 每个进程对应的 **PID、内存占用、CPU占用**
+- 是否是 head node（主节点）还是 worker node（工作节点）
+
+对于你的问题：
+
+> 我如何知道每个 worker 的内存占用？
+
+在 **Nodes → Workers** 或 **Processes** 列里，每个 worker 都会显示它的 **内存使用量**，可以看到单个 worker 占用多少 MB 或 GB。
+
+3️⃣ Tasks / Actors
+
+点击 **Tasks** 或 **Actors**：
+
+- **Tasks**：显示正在运行的 Ray 任务
+- **Actors**：显示你创建的 **RolloutWorker / TrainWorker** 等 actor
+  - 状态（running / dead）
+  - 所占资源（CPU / GPU）
+  - 重启次数（如果 crash，会显示 restart count）
+
+4️⃣ 监控训练指标
+
+如果你在 Ray 上结合 **RLlib** 或自己写的 PPO trainer，你可以：
+
+- 在训练脚本里打印日志或 metrics
+- 将训练指标发送到 dashboard（需要 `ray.init(include_dashboard=True, logging_level="info")`）
+- 在 **Metrics** 页面查看：
+  - loss、reward
+  - step count
+  - rollout 时延
+
+------
+
+💡 **总结你的用途**：
+
+- CPU / GPU / Memory 占用 → Nodes 页面
+- Worker 状态 → Actors 页面
+- 任务队列和等待状态 → Tasks 页面
+- 训练指标 → Metrics / log（需要你在代码里 expose）
+
+---
+
+**问题：**
+
+可是我打开以后，首页里每个模块都写着：
+
+```
+Set up Prometheus and Grafana for better Ray Dashboard experience Time-series charts are hidden because either Prometheus or Grafana server is not detected. Follow these instructions to set them up and refresh this page.
+```
+
+---
+
+**回答：**
+
+啊，这就解释为什么你看不到实时图表了。Ray Dashboard 默认可以显示**实时资源使用的图表**（CPU/GPU/Memory/任务数随时间变化），但是它依赖 **Prometheus + Grafana** 来收集和可视化时序数据。
+
+1️⃣ 为什么会显示这个提示
+
+- Ray 自带 Dashboard，但**时间序列图表（折线图）**需要 Prometheus/Grafana。
+- 没有 Prometheus/Grafana 时：
+  - Dashboard 还能显示资源总量、节点列表、Worker 状态等静态信息
+  - 但是折线图（CPU/GPU占用随时间变化、任务数随时间变化）就会显示“Set up Prometheus and Grafana…”
+
+2️⃣ 解决方案
+
+方案 A：不装 Prometheus/Grafana
+
+- 如果你只关心：
+  - 每个节点的 CPU/GPU/Memory 使用情况
+  - Worker 状态
+  - Tasks / Actors 状态
+- **可以直接忽略这个提示**，Dashboard 还是有用的。
+
+方案 B：装 Prometheus + Grafana
+
+- 按 Ray 官方文档：https://docs.ray.io/en/latest/ray-core/monitoring.html
+
+- 大概流程：
+
+  1. 安装 Prometheus：
+
+     ```
+     sudo apt install prometheus
+     ```
+
+  2. 配置 Prometheus 抓取 Ray metrics
+
+     ```
+     scrape_configs:
+       - job_name: 'ray'
+         static_configs:
+           - targets: ['localhost:8888']  # Ray metrics endpoint
+     ```
+
+  3. 安装 Grafana：
+
+     ```
+     sudo apt install grafana
+     ```
+
+  4. 在 Grafana 中添加 Prometheus 数据源
+
+  5. 打开 Ray Dashboard，会显示折线图
+
+> ⚠️ 对于 WSL，这种方案可能比较麻烦，因为要配置系统服务和端口映射。
+>  如果只是调试 RL 训练，方案 A 完全够用。
+
+总结：
+
+- **静态信息**（Worker、节点资源、任务状态）默认可用 ✅
+- **实时折线图**（CPU/GPU/Memory 随时间变化）需要 Prometheus + Grafana ⛔
+
+
+
+
+
+# 问题
 
 ## Ray是怎么知道 worker.step.remote()已经完成的
 

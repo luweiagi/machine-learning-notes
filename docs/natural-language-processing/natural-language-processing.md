@@ -8,7 +8,7 @@
 * [word2vec](word2vec/word2vec.md)
 * [AttentionMechanism注意力机制](attention-mechanism/attention-mechanism.md)
 * [Seq2Seq模型和Attention机制](seq2seq-and-attention-mechanism/seq2seq-and-attention-mechanism.md)
-* [Self-Attention和Transformer](self-attention-and-transformer/self-attention-and-transformer.md)
+* [Transformer](transformer/transformer.md)
 
 ===
 

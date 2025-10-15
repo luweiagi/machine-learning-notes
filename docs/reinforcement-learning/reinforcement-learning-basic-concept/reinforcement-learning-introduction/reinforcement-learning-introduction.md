@@ -447,30 +447,6 @@ $$
 
 这两个过程构成了强化学习的基本思路
 
-# 项目实践
-
-## TicTacToe三子棋对抗游戏
-
-TicTacToe 是一个简单的对抗游戏，棋盘大小为3×3，谁先将棋盘连成线（横、竖、斜），谁就获得胜利。 (× 先手) 这里要求大家实现以下功能：
-
- (a) 用数值的方式表示状态、动作、奖励（+1/0/-1 区分胜/平/负）
-
-(b) 环境类，环境能够根据智能体的动作给出反馈。即实现成员函数step(a)->s,r
-
-(c) 智能体类，并包含一个随机策略，即从剩下的空位中随机采样一个位置下。函数形式 policy(s)->a
-
-(d) 通过仿真的形式，大量对弈，统计在都执行随机策略的情况下，先手和后手胜利的概率。
-
-注：主要希望大家从代码层面体会环境和智能体之间的关系，用编程函数的形式去实现数学函数 R, P, π。
-
-参考：[三子棋简单实现](https://blog.csdn.net/adorable_/article/details/78387055)
-
-https://github.com/zkan/tictactoe/blob/master/tictactoe_rl.py
-
-https://github.com/gabrieledcjr/TicTacToe
-
-https://github.com/gabrieledcjr/TicTacToe/blob/master/tictactoeRL.py
-
 # 进一步思考
 
 在使用强化学习方法解决问题的时候，最关键的一点就是能够定义强化学习问题。良好的强化学习定义是解决问题的先决条件。 选择你认为可以建模成强化学习的两个场景，并回答下面的问题 

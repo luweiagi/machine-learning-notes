@@ -4,7 +4,7 @@
 
 ![transformer-movie](pic/transformer-movie.jpeg)
 
-* [返回上层目录](../self-attention-and-transformer.md)
+* [返回上层目录](../transformer.md)
 * [模型的思想](#模型的思想)
   * [RNN的缺陷](#RNN的缺陷)
   * [Transformer为何优于RNN](#Transformer为何优于RNN)

@@ -1,6 +1,6 @@
 # Transformer模型TF2官网demo代码解读
 
-- [返回上层目录](../self-attention-and-transformer.md)
+- [返回上层目录](../transformer.md)
 
 
 

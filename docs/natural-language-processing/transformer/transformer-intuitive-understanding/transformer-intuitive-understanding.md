@@ -1,6 +1,24 @@
 # Transformer直觉理解
 
-* [返回上层目录](../self-attention-and-transformer.md)
+* [返回上层目录](../transformer.md)
+
+
+
+通过qkv建模全局相似性，最后发现相似性也不重要，重要的就是一个全局[感受野](https://zhida.zhihu.com/search?content_id=632595377&content_type=Answer&match_order=1&q=感受野&zhida_source=entity)，后来发现全局也不必要，window感受野就行，再后来发现[大卷积核](https://zhida.zhihu.com/search?content_id=632595377&content_type=Answer&match_order=1&q=大卷积核&zhida_source=entity)似乎效果相近，也不知道当初整那么复杂有什么意义
+
+来自知乎[如何最简单、通俗地理解Transformer？](https://www.zhihu.com/question/445556653/answer/3313840126)
+
+ 回复：
+
+* 这么复杂的意义就是这种结构就是做得到参数量越大性能越高。你说的大卷积核等效，但是你在卷积神经网络堆参数量，性能到后面就上不去了。论据就是transformer一出来之后 几乎所有任务都能高3个点以上
+* 这东西可以往高了盖楼啊，这很重要。
+* CNN≈attention？
+  * 不对，原文里有提到inductive bias的问题，其实就是cnn这种建模发生可能还是关注局部特征联系，而忽略了transformer架构中的全局特征联系。对于这方面的建模是不是对当前任务有提升，还是得看任务的性质，比如图像这种不敏感的，那就还好。如果是自然语言序列的话就比较敏感。
+  * CNN的设计scale不上去。只是借鉴了CNN的全感受窗口，另外把CNN的共享去掉才能实现scale-up。
+  * 能不能理解为：Transformer就是感受野全局化的CNN？只不过CNN的权重是共享的，而Transformer的权重是注意力机制算出来。
+    请问大佬，可以这么理解吗？
+
+
 
 
 

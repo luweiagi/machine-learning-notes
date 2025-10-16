@@ -545,8 +545,8 @@
     * [Agents Thinking Fast and Slow: A Talker-Reasoner Architecture ArXiv202410](multimodal-large-model/industry-application/google-deepmind/talker-reasoner-architecture/talker-reasoner-architecture.md)
     * [Large Language Models can Learn Rules Arxiv202412](multimodal-large-model/industry-application/google-deepmind/llms_can_learn_rules/llms_can_learn_rules.md) 消除幻觉，让 LLMs 学会规则库和多步推理，代码开源
   * MiscroSoft
-    - Copilot MiscroSoft和OpenAI联合打造的AI编程工具，基于OpenAI的大模型Codex，基于GPT-3框架进行训练
-    - Kosmos-1 20230227发布，第二种才是真正的多模态LLM，才是GPT-4的魅力，他的原理目前OpenAI没有公布细节，但是大家可以参考微软在2月27日发布的Kosmos-1的论文（想一想，为什么偏偏是OpenAI的深度合作伙伴发了这篇论文）。
+    * Copilot MiscroSoft和OpenAI联合打造的AI编程工具，基于OpenAI的大模型Codex，基于GPT-3框架进行训练
+    * Kosmos-1 20230227发布，第二种才是真正的多模态LLM，才是GPT-4的魅力，他的原理目前OpenAI没有公布细节，但是大家可以参考微软在2月27日发布的Kosmos-1的论文（想一想，为什么偏偏是OpenAI的深度合作伙伴发了这篇论文）。
   * [DeepSeek幻方量化对冲基金](multimodal-large-model/industry-application/deepseek/deepseek.md)
     * [DeepSeek V3 202412](multimodal-large-model/industry-application/deepseek/deepseek-v3/deepseek-v3.md) 一家中国量化基金公司年底发布了最强开源LLM：DeepSeek V3
   * 智谱AI
@@ -725,6 +725,9 @@
 * [制导](autopilot/guidance/guidance.md)
 * [控制](autopilot/control/control.md)
   * [传统控制](autopilot/control/traditional-control/traditional-control.md)
+    * [对自动控制的直觉理解](autopilot/control/traditional-control/intuitive-understanding-of-control/intuitive-understanding-of-control.md)
+      * [常微分方程与拉普拉斯变换](autopilot/control/traditional-control/intuitive-understanding-of-control/ode-and-laplace-transforms/ode-and-laplace-transforms.md)
+      * [自动控制的本质理解](autopilot/control/traditional-control/intuitive-understanding-of-control/understanding-essence-of-control/understanding-essence-of-control.md)
     * [PID控制](autopilot/control/traditional-control/pid-control/pid-control.md)
       * [Sqrt Controller开方控制器](autopilot/control/traditional-control/pid-control/sqrt-controller/sqrt-controller.md)
     * [MPC控制](autopilot/control/traditional-control/mpc-control/mpc-control.md)

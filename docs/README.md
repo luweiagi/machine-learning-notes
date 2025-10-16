@@ -279,6 +279,9 @@
 * [Few-shot Learning小样本学习](deep-learning/few-shot-learning/few-shot-learning.md)
 
 # [强化学习](reinforcement-learning/reinforcement-learning.md)
+
+* [强化学习路线图](reinforcement-learning/rl-road-map/rl-road-map.md)
+
 * [强化学习学习路径](reinforcement-learning/rl-learning-path/rl-learning-path.md)
 * [强化学习基础概念](reinforcement-learning/reinforcement-learning-basic-concept/reinforcement-learning-basic-concept.md)
   * [强化学习概论](reinforcement-learning/reinforcement-learning-basic-concept/reinforcement-learning-introduction/reinforcement-learning-introduction.md)
@@ -581,6 +584,8 @@
     * [SORA文字生成视频 202402](world-model/industry-application/openai/sora/sora.md)
   * [DeepMind](world-model/industry-application/deepmind/deepmind.md)
     * [Genie2 202412](world-model/industry-application/deepmind/genie2/genie2.md)
+  * [Meta](world-model/industry-application/meta/meta.md)
+    * [CWM: Code World Models 20250924](world-model/industry-application/meta/cwm/cwm.md)
   * [World Labs李飞飞创立](world-model/industry-application/world-labs/world-labs.md)
     * [Large World Model大世界模型 202412]
 

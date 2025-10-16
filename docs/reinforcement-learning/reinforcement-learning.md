@@ -1,6 +1,7 @@
 # 强化学习
 
 * [返回上层目录](../README.md)
+* [强化学习路线图](rl-road-map/rl-road-map.md)
 * [强化学习学习路径](rl-learning-path/rl-learning-path.md)
 * [强化学习基础概念](reinforcement-learning-basic-concept/reinforcement-learning-basic-concept.md)
 * [强化学习算法](reinforcement-learning-algorithm/reinforcement-learning-algorithm.md)

@@ -10,6 +10,10 @@
 
 # 问题
 
+## Python项目Ctrl+鼠标左键不跳转函数
+
+安装Pydance或者Pyright。经过测试，优先Pyright。
+
 ## cursor无法进行代码补全
 
 Python Language Server 服务器的设置，很重要

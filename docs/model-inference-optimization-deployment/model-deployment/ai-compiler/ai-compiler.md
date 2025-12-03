@@ -1,6 +1,7 @@
 # AI编译器
 
 * [返回上层目录](../model-deployment.md)
+* [GPGPU算子开发](gpgpu-kernel-development/gpgpu-kernel-development.md)
 
 
 

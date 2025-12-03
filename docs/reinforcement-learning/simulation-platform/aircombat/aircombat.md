@@ -134,6 +134,10 @@ plt.show()
 
 github: [xcwoid/BVRGym](https://github.com/xcwoid/BVRGym/tree/main)
 
+该github对应的论文：[BVR Gym: A Reinforcement Learning Environment for Beyond-Visual-Range Air Combat](https://arxiv.org/pdf/2403.17533)。
+
+chatgpt对此的分析：https://chatgpt.com/c/68c397dd-1b40-8323-8eec-d59001239b94
+
 This library is heavily based on JSBSim software (https://github.com/JSBSim-Team/jsbsim). This library's primary purpose is to allow users to explore Beyond Visual Range (BVR) tactics using Reinforcement learning.
 
 > Environment

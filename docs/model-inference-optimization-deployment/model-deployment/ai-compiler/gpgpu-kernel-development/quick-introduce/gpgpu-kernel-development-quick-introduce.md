@@ -232,7 +232,7 @@ out = my_cuda_extension.my_op(x)
 
 只要你告诉我：
 
-❶ 领导让你开发的算子是什么（如 softmax / layernorm / conv / matmul）
+❶ 你要开发的算子是什么（如 softmax / layernorm / conv / matmul）
  ❷ 你目标平台是什么（CUDA / HIP / Triton / TensorRT plugin）
  ❸ 你现在的编程水平（比如 C++ 还行，CUDA 完全不会）
 

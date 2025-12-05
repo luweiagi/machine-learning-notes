@@ -112,6 +112,10 @@ Windows 7 默认不包含 OpenSSH 服务，需手动安装OpenSSH
    powershell.exe -ExecutionPolicy Bypass -File install-sshd.ps1
    ```
 
+注意：如果是win11系统，参考这个安装OpenSSH服务：
+
+[windows11 openssh服务开启；第三方ping不通局域网windows电脑；ssh连接内部ubuntu系统_win11 打开openssh](https://blog.csdn.net/m0_60635176/article/details/137417472)
+
 ## 步骤 2：配置 SSH 服务
 
 1. **修改配置文件**：

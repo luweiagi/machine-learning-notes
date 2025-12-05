@@ -76,6 +76,8 @@
 * [计算机科目](coding/cs-courses/cs-courses.md)
   * [计算机科目概述](coding/cs-courses/cs-courses-introduction/cs-courses-introduction.md)
   * [计算机组成原理](coding/cs-courses/computer-organization/computer-organization.md)
+    *  [I/O与总线](coding/cs-courses/computer-organization/io-and-bus/io-and-bus.md)
+      * [DMA控制器](coding/cs-courses/computer-organization/io-and-bus/dma/dma.md)
     * [嵌入式系统](coding/cs-courses/computer-organization/embedded-system/embedded-system.md)
   * [数据结构与算法](coding/cs-courses/data-structures-and-algorithms/data-structures-and-algorithms.md)
     * [数据结构与算法概述](coding/cs-courses/data-structures-and-algorithms/data-structures-and-algorithms-introduction/data-structures-and-algorithms-introduction.md)

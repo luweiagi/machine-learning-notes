@@ -1531,10 +1531,10 @@ myrelu.so
 
 ```shell
 running build_ext
-g++ -pthread -B /home/lw/miniconda3/envs/torch/compiler_compat -fno-strict-overflow -Wsign-compare -DNDEBUG -O2 -Wall -fPIC -O2 -isystem /home/lw/miniconda3/envs/torch/include -fPIC -O2 -isystem /home/lw/miniconda3/envs/torch/include -fPIC -I/home/lw/miniconda3/envs/torch/lib/python3.12/site-packages/torch/include -I/home/lw/miniconda3/envs/torch/lib/python3.12/site-packages/torch/include/torch/csrc/api/include -I/home/lw/miniconda3/envs/torch/include/python3.12 -c relu.cpp -o build/temp.linux-x86_64-cpython-312/relu.o -DTORCH_API_INCLUDE_EXTENSION_H -DPYBIND11_COMPILER_TYPE=\"_gcc\" -DPYBIND11_STDLIB=\"_libstdcpp\" -DPYBIND11_BUILD_ABI=\"_cxxabi1018\" -DTORCH_EXTENSION_NAME=myrelu -std=c++17
-/usr/bin/nvcc -I/home/lw/miniconda3/envs/torch/lib/python3.12/site-packages/torch/include -I/home/lw/miniconda3/envs/torch/lib/python3.12/site-packages/torch/include/torch/csrc/api/include -I/home/lw/miniconda3/envs/torch/include/python3.12 -c relu_kernel.cu -o build/temp.linux-x86_64-cpython-312/relu_kernel.o -D__CUDA_NO_HALF_OPERATORS__ -D__CUDA_NO_HALF_CONVERSIONS__ -D__CUDA_NO_BFLOAT16_CONVERSIONS__ -D__CUDA_NO_HALF2_OPERATORS__ --expt-relaxed-constexpr --compiler-options '-fPIC' -DTORCH_API_INCLUDE_EXTENSION_H -DPYBIND11_COMPILER_TYPE=\"_gcc\" -DPYBIND11_STDLIB=\"_libstdcpp\" -DPYBIND11_BUILD_ABI=\"_cxxabi1018\" -DTORCH_EXTENSION_NAME=myrelu -gencode=arch=compute_90,code=compute_90 -gencode=arch=compute_90,code=sm_90 -std=c++17
+g++ -pthread -B /home/user/miniconda3/envs/torch/compiler_compat -fno-strict-overflow -Wsign-compare -DNDEBUG -O2 -Wall -fPIC -O2 -isystem /home/user/miniconda3/envs/torch/include -fPIC -O2 -isystem /home/user/miniconda3/envs/torch/include -fPIC -I/home/user/miniconda3/envs/torch/lib/python3.12/site-packages/torch/include -I/home/user/miniconda3/envs/torch/lib/python3.12/site-packages/torch/include/torch/csrc/api/include -I/home/user/miniconda3/envs/torch/include/python3.12 -c relu.cpp -o build/temp.linux-x86_64-cpython-312/relu.o -DTORCH_API_INCLUDE_EXTENSION_H -DPYBIND11_COMPILER_TYPE=\"_gcc\" -DPYBIND11_STDLIB=\"_libstdcpp\" -DPYBIND11_BUILD_ABI=\"_cxxabi1018\" -DTORCH_EXTENSION_NAME=myrelu -std=c++17
+/usr/bin/nvcc -I/home/user/miniconda3/envs/torch/lib/python3.12/site-packages/torch/include -I/home/user/miniconda3/envs/torch/lib/python3.12/site-packages/torch/include/torch/csrc/api/include -I/home/user/miniconda3/envs/torch/include/python3.12 -c relu_kernel.cu -o build/temp.linux-x86_64-cpython-312/relu_kernel.o -D__CUDA_NO_HALF_OPERATORS__ -D__CUDA_NO_HALF_CONVERSIONS__ -D__CUDA_NO_BFLOAT16_CONVERSIONS__ -D__CUDA_NO_HALF2_OPERATORS__ --expt-relaxed-constexpr --compiler-options '-fPIC' -DTORCH_API_INCLUDE_EXTENSION_H -DPYBIND11_COMPILER_TYPE=\"_gcc\" -DPYBIND11_STDLIB=\"_libstdcpp\" -DPYBIND11_BUILD_ABI=\"_cxxabi1018\" -DTORCH_EXTENSION_NAME=myrelu -gencode=arch=compute_90,code=compute_90 -gencode=arch=compute_90,code=sm_90 -std=c++17
 creating build/lib.linux-x86_64-cpython-312
-g++ -pthread -B /home/lw/miniconda3/envs/torch/compiler_compat -fno-strict-overflow -Wsign-compare -DNDEBUG -O2 -Wall -fPIC -O2 -isystem /home/lw/miniconda3/envs/torch/include -fPIC -O2 -isystem /home/lw/miniconda3/envs/torch/include -pthread -B /home/lw/miniconda3/envs/torch/compiler_compat -shared -Wl,-rpath,/home/lw/miniconda3/envs/torch/lib -Wl,-rpath-link,/home/lw/miniconda3/envs/torch/lib -L/home/lw/miniconda3/envs/torch/lib -Wl,-rpath,/home/lw/miniconda3/envs/torch/lib -Wl,-rpath-link,/home/lw/miniconda3/envs/torch/lib -L/home/lw/miniconda3/envs/torch/lib build/temp.linux-x86_64-cpython-312/relu.o build/temp.linux-x86_64-cpython-312/relu_kernel.o -L/home/lw/miniconda3/envs/torch/lib/python3.12/site-packages/torch/lib -L/usr/lib64 -lc10 -ltorch -ltorch_cpu -ltorch_python -lcudart -lc10_cuda -ltorch_cuda -o build/lib.linux-x86_64-cpython-312/myrelu.cpython-312-x86_64-linux-gnu.so
+g++ -pthread -B /home/user/miniconda3/envs/torch/compiler_compat -fno-strict-overflow -Wsign-compare -DNDEBUG -O2 -Wall -fPIC -O2 -isystem /home/user/miniconda3/envs/torch/include -fPIC -O2 -isystem /home/user/miniconda3/envs/torch/include -pthread -B /home/user/miniconda3/envs/torch/compiler_compat -shared -Wl,-rpath,/home/user/miniconda3/envs/torch/lib -Wl,-rpath-link,/home/user/miniconda3/envs/torch/lib -L/home/user/miniconda3/envs/torch/lib -Wl,-rpath,/home/user/miniconda3/envs/torch/lib -Wl,-rpath-link,/home/user/miniconda3/envs/torch/lib -L/home/user/miniconda3/envs/torch/lib build/temp.linux-x86_64-cpython-312/relu.o build/temp.linux-x86_64-cpython-312/relu_kernel.o -L/home/user/miniconda3/envs/torch/lib/python3.12/site-packages/torch/lib -L/usr/lib64 -lc10 -ltorch -ltorch_cpu -ltorch_python -lcudart -lc10_cuda -ltorch_cuda -o build/lib.linux-x86_64-cpython-312/myrelu.cpython-312-x86_64-linux-gnu.so
 copying build/lib.linux-x86_64-cpython-312/myrelu.cpython-312-x86_64-linux-gnu.so -> 
 ```
 
@@ -1583,10 +1583,10 @@ W1203 11:33:31.845000 185696 site-packages/torch/utils/cpp_extension.py:507] The
 W1203 11:33:31.846000 185696 site-packages/torch/utils/cpp_extension.py:517] There are no g++ version bounds defined for CUDA version 12.0
 building 'myrelu' extension
 creating build/temp.linux-x86_64-cpython-312
-g++ -pthread -B /home/lw/miniconda3/envs/torch/compiler_compat -fno-strict-overflow -Wsign-compare -DNDEBUG -O2 -Wall -fPIC -O2 -isystem /home/lw/miniconda3/envs/torch/include -fPIC -O2 -isystem /home/lw/miniconda3/envs/torch/include -fPIC -I/home/lw/miniconda3/envs/torch/lib/python3.12/site-packages/torch/include -I/home/lw/miniconda3/envs/torch/lib/python3.12/site-packages/torch/include/torch/csrc/api/include -I/home/lw/miniconda3/envs/torch/include/python3.12 -c relu.cpp -o build/temp.linux-x86_64-cpython-312/relu.o -DTORCH_API_INCLUDE_EXTENSION_H -DPYBIND11_COMPILER_TYPE=\"_gcc\" -DPYBIND11_STDLIB=\"_libstdcpp\" -DPYBIND11_BUILD_ABI=\"_cxxabi1018\" -DTORCH_EXTENSION_NAME=myrelu -std=c++17
+g++ -pthread -B /home/user/miniconda3/envs/torch/compiler_compat -fno-strict-overflow -Wsign-compare -DNDEBUG -O2 -Wall -fPIC -O2 -isystem /home/user/miniconda3/envs/torch/include -fPIC -O2 -isystem /home/user/miniconda3/envs/torch/include -fPIC -I/home/user/miniconda3/envs/torch/lib/python3.12/site-packages/torch/include -I/home/user/miniconda3/envs/torch/lib/python3.12/site-packages/torch/include/torch/csrc/api/include -I/home/user/miniconda3/envs/torch/include/python3.12 -c relu.cpp -o build/temp.linux-x86_64-cpython-312/relu.o -DTORCH_API_INCLUDE_EXTENSION_H -DPYBIND11_COMPILER_TYPE=\"_gcc\" -DPYBIND11_STDLIB=\"_libstdcpp\" -DPYBIND11_BUILD_ABI=\"_cxxabi1018\" -DTORCH_EXTENSION_NAME=myrelu -std=c++17
 W1203 11:33:59.016000 185696 site-packages/torch/utils/cpp_extension.py:2425] TORCH_CUDA_ARCH_LIST is not set, all archs for visible cards are included for compilation. 
 W1203 11:33:59.016000 185696 site-packages/torch/utils/cpp_extension.py:2425] If this is not desired, please set os.environ['TORCH_CUDA_ARCH_LIST'] to specific architectures.
-/usr/bin/nvcc -I/home/lw/miniconda3/envs/torch/lib/python3.12/site-packages/torch/include -I/home/lw/miniconda3/envs/torch/lib/python3.12/site-packages/torch/include/torch/csrc/api/include -I/home/lw/miniconda3/envs/torch/include/python3.12 -c relu_kernel.cu -o build/temp.linux-x86_64-cpython-312/relu_kernel.o -D__CUDA_NO_HALF_OPERATORS__ -D__CUDA_NO_HALF_CONVERSIONS__ -D__CUDA_NO_BFLOAT16_CONVERSIONS__ -D__CUDA_NO_HALF2_OPERATORS__ --expt-relaxed-constexpr --compiler-options '-fPIC' -DTORCH_API_INCLUDE_EXTENSION_H -DPYBIND11_COMPILER_TYPE=\"_gcc\" -DPYBIND11_STDLIB=\"_libstdcpp\" -DPYBIND11_BUILD_ABI=\"_cxxabi1018\" -DTORCH_EXTENSION_NAME=myrelu -gencode=arch=compute_120,code=compute_120 -gencode=arch=compute_120,code=sm_120 -std=c++17
+/usr/bin/nvcc -I/home/user/miniconda3/envs/torch/lib/python3.12/site-packages/torch/include -I/home/user/miniconda3/envs/torch/lib/python3.12/site-packages/torch/include/torch/csrc/api/include -I/home/user/miniconda3/envs/torch/include/python3.12 -c relu_kernel.cu -o build/temp.linux-x86_64-cpython-312/relu_kernel.o -D__CUDA_NO_HALF_OPERATORS__ -D__CUDA_NO_HALF_CONVERSIONS__ -D__CUDA_NO_BFLOAT16_CONVERSIONS__ -D__CUDA_NO_HALF2_OPERATORS__ --expt-relaxed-constexpr --compiler-options '-fPIC' -DTORCH_API_INCLUDE_EXTENSION_H -DPYBIND11_COMPILER_TYPE=\"_gcc\" -DPYBIND11_STDLIB=\"_libstdcpp\" -DPYBIND11_BUILD_ABI=\"_cxxabi1018\" -DTORCH_EXTENSION_NAME=myrelu -gencode=arch=compute_120,code=compute_120 -gencode=arch=compute_120,code=sm_120 -std=c++17
 nvcc fatal   : Unsupported gpu architecture 'compute_120'
 error: command '/usr/bin/nvcc' failed with exit code 1
 ```
@@ -2427,12 +2427,12 @@ CMake Warning (dev) at CMakeLists.txt:7 (find_package):
 
 This warning is for project developers.  Use -Wno-dev to suppress it.
 
--- ONNX Runtime Python package path: /home/lw/miniconda3/envs/torch/lib/python3.12/site-packages/onnxruntime
--- ONNX Runtime include dir: /home/lw/miniconda3/envs/torch/lib/python3.12/site-packages/onnxruntime/include
--- ONNX Runtime lib dir: /home/lw/miniconda3/envs/torch/lib/python3.12/site-packages/onnxruntime/capi
+-- ONNX Runtime Python package path: /home/user/miniconda3/envs/torch/lib/python3.12/site-packages/onnxruntime
+-- ONNX Runtime include dir: /home/user/miniconda3/envs/torch/lib/python3.12/site-packages/onnxruntime/include
+-- ONNX Runtime lib dir: /home/user/miniconda3/envs/torch/lib/python3.12/site-packages/onnxruntime/capi
 CMake Error at CMakeLists.txt:36 (message):
   onnxruntime_cxx_api.h not found in
-  /home/lw/miniconda3/envs/torch/lib/python3.12/site-packages/onnxruntime/include.
+  /home/user/miniconda3/envs/torch/lib/python3.12/site-packages/onnxruntime/include.
 
 
   Please download a prebuilt ONNX Runtime (with headers), e.g.
@@ -2448,12 +2448,12 @@ CMake Warning (dev) at CMakeLists.txt:7 (find_package):
 
 This warning is for project developers.  Use -Wno-dev to suppress it.
 
--- ONNX Runtime Python package path: /home/lw/miniconda3/envs/torch/lib/python3.12/site-packages/onnxruntime
--- ONNX Runtime include dir: /home/lw/miniconda3/envs/torch/lib/python3.12/site-packages/onnxruntime/include
--- ONNX Runtime lib dir: /home/lw/miniconda3/envs/torch/lib/python3.12/site-packages/onnxruntime/capi
+-- ONNX Runtime Python package path: /home/user/miniconda3/envs/torch/lib/python3.12/site-packages/onnxruntime
+-- ONNX Runtime include dir: /home/user/miniconda3/envs/torch/lib/python3.12/site-packages/onnxruntime/include
+-- ONNX Runtime lib dir: /home/user/miniconda3/envs/torch/lib/python3.12/site-packages/onnxruntime/capi
 CMake Error at CMakeLists.txt:36 (message):
   onnxruntime_cxx_api.h not found in
-  /home/lw/miniconda3/envs/torch/lib/python3.12/site-packages/onnxruntime/include.
+  /home/user/miniconda3/envs/torch/lib/python3.12/site-packages/onnxruntime/include.
 
 
   Please download a prebuilt ONNX Runtime (with headers), e.g.
@@ -2473,18 +2473,18 @@ make: *** [Makefile:233: cmake_check_build_system] Error 1
 
 ```shell
 # 1) 下载并解压 ORT GPU 发行包（含 headers+libs）
-mkdir -p /home/lw/.local/onnxruntime-1.23.2
-curl -L -o /home/lw/.local/onnxruntime-1.23.2.tgz \
+mkdir -p /home/user/.local/onnxruntime-1.23.2
+curl -L -o /home/user/.local/onnxruntime-1.23.2.tgz \
   https://github.com/microsoft/onnxruntime/releases/download/v1.23.2/onnxruntime-linux-x64-gpu-1.23.2.tgz
-tar -xzf /home/lw/.local/onnxruntime-1.23.2.tgz \
-  -C /home/lw/.local/onnxruntime-1.23.2 --strip-components=1
+tar -xzf /home/user/.local/onnxruntime-1.23.2.tgz \
+  -C /home/user/.local/onnxruntime-1.23.2 --strip-components=1
 
 # 2) 确认头文件存在
-ls /home/lw/.local/onnxruntime-1.23.2/include/onnxruntime_cxx_api.h
+ls /home/user/.local/onnxruntime-1.23.2/include/onnxruntime_cxx_api.h
 
 # 3) 设置 ORT_ROOT 并构建
-export ORT_ROOT=/home/lw/.local/onnxruntime-1.23.2
-cd /home/lw/cuda_relu_full_demo/ort_customop
+export ORT_ROOT=/home/user/.local/onnxruntime-1.23.2
+cd /home/user/cuda_relu_full_demo/ort_customop
 ./build.sh
 ```
 
@@ -2504,12 +2504,12 @@ ONNX nodes:
 
 2025-12-03 18:27:23.637840434 [W:onnxruntime:Default, onnxruntime_pybind_state.cc:1013 CreateExecutionProviderFactoryInstance] Failed to create CUDAExecutionProvider. Require cuDNN 9.* and CUDA 12.*. Please install all dependencies as mentioned in the GPU requirements page (https://onnxruntime.ai/docs/execution-providers/CUDA-ExecutionProvider.html#requirements), make sure they're in the PATH, and that your GPU is supported.
 Traceback (most recent call last):
-  File "/home/lw/cuda_relu_full_demo/run_onnxruntime.py", line 16, in <module>
+  File "/home/user/cuda_relu_full_demo/run_onnxruntime.py", line 16, in <module>
     session = ort.InferenceSession("myrelu.onnx", so, providers=providers)
               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/lw/miniconda3/envs/torch/lib/python3.12/site-packages/onnxruntime/capi/onnxruntime_inference_collection.py", line 485, in __init__
+  File "/home/user/miniconda3/envs/torch/lib/python3.12/site-packages/onnxruntime/capi/onnxruntime_inference_collection.py", line 485, in __init__
     self._create_inference_session(providers, provider_options, disabled_optimizers)
-  File "/home/lw/miniconda3/envs/torch/lib/python3.12/site-packages/onnxruntime/capi/onnxruntime_inference_collection.py", line 584, in _create_inference_session
+  File "/home/user/miniconda3/envs/torch/lib/python3.12/site-packages/onnxruntime/capi/onnxruntime_inference_collection.py", line 584, in _create_inference_session
     sess.initialize_session(providers, provider_options, disabled_optimizers)
 onnxruntime.capi.onnxruntime_pybind11_state.NotImplemented: [ONNXRuntimeError] : 9 : NOT_IMPLEMENTED : Could not find an implementation for CustomRelu(1) node with name ''
 (torch) lw@LAPTOP-0NOPJT33:~/cuda_relu_full_demo$ 

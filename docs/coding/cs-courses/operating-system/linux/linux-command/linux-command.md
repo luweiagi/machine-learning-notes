@@ -995,6 +995,59 @@ du 命令用于查看当前目录的总大小：
 
 * [Linux 查看磁盘空间](https://www.runoob.com/w3cnote/linux-view-disk-space.html)
 
+
+
+## ncdu指定路径下磁盘占用情况
+
+`ncdu` 是一个在Linux系统下使用终端界面来分析磁盘使用情况的命令行工具。它可以快速扫描目录，并统计该目录下的文件和文件夹的磁盘使用情况，以可读性强且交互友好的方式呈现给用户。
+
+安装：
+
+```shell
+sudo apt install ncdu
+```
+
+查看当前目录磁盘使用，直接
+
+```shell
+ncdu
+```
+
+退出：直接按Q键退出
+
+还可以后面加上文件路径查看对应的路径下的文件大小
+
+```shell
+ncdu /home
+```
+
+界面：
+
+```shell
+ncdu 1.19 ~ Use the arrow keys to navigate, press ? for help
+--- /home/user ---------------------------------------------
+   14.3 GiB [#######################] /miniconda3
+   13.5 GiB [#####################  ] /.cache
+    1.3 GiB [##                     ] /.vscode-server
+  750.9 MiB [#                      ] /.local
+  534.1 MiB [                       ] /.cursor-server
+    4.6 MiB [                       ] /.config
+  200.0 KiB [                       ] /.cursor
+   92.0 KiB [                       ] /.java
+   40.0 KiB [                       ]  .bash_history
+   36.0 KiB [                       ] /.conda
+   28.0 KiB [                       ]  .viminfo
+   12.0 KiB [                       ] /.nuget
+    8.0 KiB [                       ]  .bashrc
+    8.0 KiB [                       ] /.vim
+```
+
+
+
+
+
+
+
 ## ln软链接
 
 它的功能是为某一个文件在另外一个位置建立一个同步的链接。
@@ -1409,6 +1462,12 @@ crontab的运行记录在/var/log/cron-201xxxxx中，直接vim打开这个文件
 ## ll /proc/pid查看pid信息
 
 通过`top`命令查看当前占用cpu资源的任务，然后找到该任务的pid，用`ll /proc/pid`进行查看，就可以找到该任务的信息，就能知道是谁在运行，是哪个程序运行的。
+
+
+
+## htop系统监控
+
+查看多核cpu占用率，内存占用率，任务运行情况
 
 
 

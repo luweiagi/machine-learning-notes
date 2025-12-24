@@ -148,7 +148,7 @@ V = self.value(x)
 
 这三个向量的维度均为 (batch_size, seq_len, embed_size)。
 
-这里的query，key，value分别是个神经网络，如果只有一4层的话，那也就只是$y = W\cdot x + b$。
+这里的query，key，value分别是个神经网络，如果只有一层的话，那也就只是$y = W\cdot x + b$。
 
 此时我们为了方便调试和计算，假设query，key，value的$W$和$b$都是一样的，即
 $$
@@ -223,7 +223,6 @@ Q &=
 0.4796 & 0.0029 & -0.4205 & -0.1166 \\
 0.4796 & 0.0029 & -0.4205 & -0.1166 \\
 0.4796 & 0.0029 & -0.4205 & -0.1166 \\
-0.4796 & 0.0029 & -0.4205 & -0.1166 \\
 \end{bmatrix}
 \\
 \begin{bmatrix}
@@ -240,7 +239,6 @@ Q &=
 \end{bmatrix}^T
 +
 \begin{bmatrix}
-0.4796 & 0.0029 & -0.4205 & -0.1166 \\
 0.4796 & 0.0029 & -0.4205 & -0.1166 \\
 0.4796 & 0.0029 & -0.4205 & -0.1166 \\
 0.4796 & 0.0029 & -0.4205 & -0.1166 \\
@@ -310,7 +308,7 @@ attention_weights = F.softmax(scores, dim=-1)  # (batch_size, seq_len, seq_len)
 
 公式：
 $$
-\text{Scores} = \frac{Q \cdot K^T}{\sqrt{\text{embed_size}}}
+\text{Scores} = \frac{Q \cdot K^T}{\sqrt{\text{embed\_size}}}
 $$
 
 - $Q$和$K$的矩阵乘法：
@@ -492,9 +490,9 @@ print(softmax_score)
 output = torch.matmul(attention_weights, V)  # (batch_size, seq_len, embed_size)
 ```
 
-计算加权输出：$\text{Output} = \text{Attention_Weights} \cdot V$。
+计算加权输出：$\text{Output} = \text{Attention\_Weights} \cdot V$。
 
-test: 计算加权输出：$\text{Output} = \text{Attention_Weights} \cdot V$
+test: 计算加权输出：$\text{Output} = \text{Attention\_Weights} \cdot V$
 
 - 权重矩阵 (batch_size,seq_len,seq_len)
 - $V$: (batch_size,seq_len,embed_size)

@@ -349,6 +349,7 @@
     * [对抗智能体奖励设计](reinforcement-learning/advanced-theme/sparse-reward/adversarial-agent-reward-design/adversarial-agent-reward-design.md)
   * [混合动作空间Hybrid Action Space](reinforcement-learning/advanced-theme/hybrid-action-space/hybrid-action-space.md)
   * [SelfPlay自我博弈](reinforcement-learning/advanced-theme/self-play/self-play.md)
+  * [课程式训练](reinforcement-learning/advanced-theme/curriculum-schedule/curriculum-schedule.md)
   * [MCTS+RL](reinforcement-learning/advanced-theme/mcts-rl/mcts-rl.md)
     * [MCTS蒙特卡洛树搜索](reinforcement-learning/advanced-theme/mcts-rl/monte-carlo-tree-search/monte-carlo-tree-search.md)
     * [MCTS+RL通用框架](reinforcement-learning/advanced-theme/mcts-rl/mcts-rl-general-framework/mcts-rl-general-framework.md)

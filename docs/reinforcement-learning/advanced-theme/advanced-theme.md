@@ -6,6 +6,7 @@
 * [稀疏奖励Sparse Reward](sparse-reward/sparse-reward.md)
 * [混合动作空间Hybrid Action Space](hybrid-action-space/hybrid-action-space.md)
 * [SelfPlay自我博弈](self-play/self-play.md)
+* [课程式训练](curriculum-schedule/curriculum-schedule.md)
 * [MCTS+RL](mcts-rl/mcts-rl.md)
 * [策略蒸馏Policy Distillation](policy-distillation/policy-distillation.md)
 * [模仿学习](imatation-learning/imatation-learning.md)

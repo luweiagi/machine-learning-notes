@@ -95,3 +95,7 @@ https://github.com/marlbenchmark/on-policy/blob/main/onpolicy/scripts/train/trai
 [多智能体强化学习之MAPPO理论解读](https://blog.csdn.net/onlyyyyyyee/article/details/118640097)
 
 [听说你的多智能体强化学习算法不work？你用对MAPPO了吗](https://baijiahao.baidu.com/s?id=1693377816234538595)
+
+## 大模型
+
+[](https://chatgpt.com/c/686ff5f8-63ec-800f-9964-e6478f8f4db2)

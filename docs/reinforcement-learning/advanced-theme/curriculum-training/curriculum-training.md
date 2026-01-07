@@ -190,8 +190,6 @@ AlphaStar 和 OpenAI Five 在训练初期都是**从最小、最简单的博弈�
 - **奖励设计**：一开始奖励非常稀疏（击杀、掉血），再慢慢加上 shaping（技能命中、位置控制等）。
 - **自对弈（self-play）**：不断升级难度，让 agent 在 curriculum 里自适应。
 
----
-
 ## 八、核心规律总结
 
 1. 不直接从完整多人场景开始  
@@ -201,8 +199,6 @@ AlphaStar 和 OpenAI Five 在训练初期都是**从最小、最简单的博弈�
 3. 课程式训练 + 自对弈是关键  
    - Curriculum 降低训练难度  
    - Self-play 提供多样化对手
-
----
 
 ## 九、空战 MARL 实践建议
 
@@ -216,6 +212,8 @@ AlphaStar 和 OpenAI Five 在训练初期都是**从最小、最简单的博弈�
 # 参考资料
 
 ChatGPT：
+
+* [迁移对话总结](https://chatgpt.com/c/694b802c-0478-8324-95ec-b72e1ac2a284)
 
 * [课程式学习与MARL](https://chatgpt.com/c/694b659b-005c-8324-b614-099997d5de3e)
 

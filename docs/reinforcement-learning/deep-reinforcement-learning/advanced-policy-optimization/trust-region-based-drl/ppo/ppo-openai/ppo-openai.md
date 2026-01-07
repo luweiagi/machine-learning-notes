@@ -1,6 +1,7 @@
 # PPO近端策略优化
 
 - [返回上层目录](../proximal-policy-optimization.md)
+- [策略梯度PolicyGradient](#策略梯度PolicyGradient)
 - [PPO原理推导](#PPO原理推导)
 - [Actor&Critic网络架构](#Actor&Critic网络架构)
 - [损失函数](#损失函数)
@@ -19,9 +20,9 @@ GitHub: [openai/baselines/ppo2](https://github.com/openai/baselines/tree/master/
 
 DeepMind先在2017年7月月初发了PPO的paper，但是他们参考了OpenAI的一个资料，然后OpenAI发现竟然被DeepMind抢先发了，于是OpenAI也就跟着发了PPO。
 
-# PPO原理推导
+# 策略梯度PolicyGradient
 
-## 策略梯度PolicyGradient
+## 策略梯度的推导
 
 PPO是策略梯度的一个变形。
 
@@ -46,12 +47,32 @@ $$
 
 然后我们的目标就是，调整Actor模型参数$\theta$，使得$R(\tau)$的值最大化。
 
-注意，$R(\tau)$是个变量，其与Actor模型参数$\theta$有关。
+注意，$R(\tau)$是个变量，其与Actor模型参数$\theta$有关。为什么是个变量？因为$\theta$通过改变轨迹分布，间接改变奖励的期望。也就是说，$R(\tau)$是关于随机变量$\tau$的函数，而$\tau$的分布由$\theta$决定。因此，当你改变$\theta$时，你采样到的$R(\tau)$的“统计分布”变了。就类似于你掷骰子，给定一次掷骰结果：是确定的，但在掷之前：不是确定的，是随机变量，而且改变$\theta$（骰子偏向），就会改变“奖励的期望”。
 
-所以我们最大化的应该是其期望，即
+但是这里要注意，严格地说，$R(\tau)$并不含有$\theta$。因为大众在**口语层面**把下面三件事混在了一起：
+
+严格区分三层对象（非常重要）
+
+| 对象                  | 是否含$\theta$           |
+| --------------------- | ------------------------ |
+| $R(\tau)$             | ❌ 不含                   |
+| $\tau$的分布          | ✅ 含（由$p_\theta$决定） |
+| $\mathbb{E}[R(\tau)]$ | ✅ 含                     |
+
+正确说法应该是：
+
+> **$R(\tau)$的分布随$\theta$改变**
+
+而不是：
+
+> ❌ $R(\tau)$是$\theta$的函数
+
+所以我们最大化的目标函数应该是其期望，即
 $$
 \bar{R}_{\theta}=\sum_{\tau}R(\tau)p_{\theta}(\tau)=E_{\tau\sim p_{(\theta)}(\tau)}[R(\tau)]
 $$
+为什么目标函数一定写成期望？因为你根本**控制不了具体哪条轨迹发生**。你能控制的只有：$p_{\theta}(\tau)$，所以你唯一合理的目标只能是上述公式，所以不应是最大化某一条具体轨迹的奖励，而应该是最大化平均意义下的奖励。
+
 那怎么最大化奖励的期望值呢？那就是用对$\bar{R}_{\theta}$的梯度上升法（即对损失函数的梯度下降法）来最大化其值。
 $$
 \begin{aligned}
@@ -69,7 +90,360 @@ $$
 $$
 \theta=\theta+\text{lr}\cdot \frac{\partial \bar{R}}{\partial \theta}
 $$
-由于我们使用梯度上升法的目标就是提升$\bar{R}_{\theta}$，那么，如果$R(\tau^n)$为正，则通过更新参数$\theta$，自然会使得该条轨迹中的每一个动作的出现几率变大，即使得$p_{\theta}(a_t^n|s_t^n)$更大，从而让$\bar{R}_{\theta}$变得更大、
+为了实现$\theta=\theta+\text{lr}\cdot \frac{\partial \bar{R}}{\partial \theta}$，我们需要一个标量函数（loss），使得对它做反向传播，得到的梯度**正好等于**$\nabla\bar{R}_{\theta}$的负方向，为什么是负方向，因为反向传播是做梯度下降法，求loss的最小值，所以梯度变号，实际等于是梯度上升。而这个loss可以根据**梯度表达式反向“构造”出来**：
+$$
+\begin{aligned}
+&\nabla_{\theta}\text{loss}=-\nabla\bar{R}_{\theta}=-R(\tau^n)\nabla\log p_{\theta}(a_t^n|s_t^n)\\
+\Rightarrow&\text{loss}=-R(\tau^n)\log p_{\theta}(a_t^n|s_t^n)
+\end{aligned}
+$$
+这个loss才是工程实现上的loss，其实就是为了能够工程上实现最大化累计奖励的目标函数，把你已经知道的梯度形式，包装成一个可被自动求导的标量函数。这个 loss 并不是强化学习真正的优化目标，而是一个梯度等价的代理目标（surrogate objective）。它**不是**真正的目标：$\mathbb{E}[R(\tau)]$，而是只是一个被人为构造的函数，其梯度恰好是我我们想要的梯度而已，在PPO/TRPO 论文里，这个词就叫：surrogate loss，你已经在“直觉上”把它理解对了。所以，你完全可以这样理解策略梯度：
+
+> 在策略梯度方法中，我们并不是先定义一个 loss 再去优化它；
+>
+> 而是先从期望奖励的梯度出发，再反向构造一个 surrogate loss，使其梯度与期望奖励的梯度完全一致，从而利用标准的反向传播框架进行优化。
+
+（注意：这一段话说的其实有问题，但是你先接着看）由于我们使用梯度上升法的目标就是提升$\bar{R}_{\theta}$，那么，如果$R(\tau^n)$为正，则通过更新参数$\theta$，自然会使得该条轨迹中的每一个动作的出现几率变大，即使得$p_{\theta}(a_t^n|s_t^n)$更大，从而让$\bar{R}_{\theta}$变得更大。
+
+## 策略梯度提升的一个误区
+
+注意：**上一段的说法是为什么呢？为什么如果$R(\tau^n)$为正，使得$p_{\theta}(a_t^n|s_t^n)$更大，从而让$\bar{R}_{\theta}$变得更大呢？**这好像是在说，是因为$R(\tau^n)$为正，导致了$p_{\theta}(a_t^n|s_t^n)$更大，从而导致了$\bar{R}_{\theta}$变得更大？这里的逻辑关系是什么？很混乱啊！就是说，为什么，正reward可以增加轨迹的概率，负reward可以减少轨迹的概率，我能理解这可以达到总的目标：增大R，但是无法从数学上知道为什么能实现同时增加减小轨迹的概率？总感觉很神奇。。。什么机制让正 reward，可以增加轨迹的概率，负reward可以减少轨迹的概率？
+
+如果你有这样的疑问，说明你在认真思考了！！！而不是模糊不清试图溜过去，就类似你念英语单词，不会音标，试图蒙混过关，类似于你不知道word和world单词的发音区别。所以这里我们一定要仔细深究，逻辑闭环！！！
+
+先说结论：这句话是错的，具有误导性！！！
+
+> 如果$R(\tau^n)$为正，则通过更新参数$\theta$，自然会使得该条轨迹中的每一个动作的出现几率变大，即使得$p_{\theta}(a_t^n|s_t^n)$更大，从而让$\bar{R}_{\theta}$变得更大。
+
+然后我们开始探寻之旅，其实挺简单的，但是为了说清楚，这里写的比较啰嗦。
+
+我们把上述的疑问抽象为一个数学问题：
+
+> 就是函数$f(\theta)$的梯度 = a \* 函数$g(\theta)$的梯度，为什么a>0，可以增加$g(\theta)$的值，a<0，可以减小$g(\theta)$的值？
+>
+> 其中，函数$f(\theta)$表示原问题中的$\bar{R}_{\theta}$，函数$g(\theta)$表示原问题中的$\nabla\log p_{\theta}(\tau^n)$，a表示原问题中的奖励$R(\tau)$。
+
+其实就是把强化学习的例子抽象成一个**纯数学问题**，去理解“乘上正数/负数系数，为什么会增强/减弱某个方向的变化”，不局限于 RL 的概率分布。我们可以用**泛化的数学公式**来分析。
+
+1️⃣ 问题抽象
+
+假设有一个函数$f(\theta)$，梯度可以写成
+$$
+\nabla_{\theta}f(\theta)=a\nabla_{\theta}g(\theta)
+$$
+
+- $\nabla_{\theta}g(\theta)$是函数$g(\theta)$的梯度，指明“你希望沿哪个方向改变参数”
+- $a \in \mathbb{R}$是一个标量系数（类似 RL 里的 reward）
+- 参数更新用梯度上升法：$\theta \gets \theta + \eta \nabla_\theta f(\theta) = \theta + \eta a \nabla_{\theta}g(\theta)$
+
+2️⃣ 目标：沿$\nabla_{\theta}g(\theta)$方向增大或减小
+
+* **如果 $a > 0$**：
+
+  更新方式与$\nabla_{\theta}g(\theta)$一致
+  $$
+  \Delta \theta = \eta a \nabla_{\theta}g(\theta) \propto \nabla_{\theta}g(\theta)
+  $$
+  → 沿$\nabla_{\theta}g(\theta)$方向移动 → $g(\theta)$会“增强”，因为$g$函数的参数和$f$函数一样都是$\theta$
+
+* **如果 $a < 0$**：
+
+  更新方式与$\nabla_{\theta}g(\theta)$反向
+  $$
+  \Delta \theta = \eta a \nabla_{\theta}g(\theta) \propto -\nabla_{\theta}g(\theta)
+  $$
+  → 沿$\nabla_{\theta}g(\theta)$反方向移动 → $g(\theta)$会“减弱”，因为$g$函数的参数和$f$函数一样都是$\theta$
+
+3️⃣ 数学证明（局部线性）
+
+但是无论$a>0$还是$a<0$，按照$f(\theta)$函数的梯度方向移动，即$\nabla_{\theta}f(\theta)=a\nabla_{\theta}g(\theta)$，$f(\theta)$函数都会增大，因为很简单呀，$\nabla_{\theta}f(\theta)=a\nabla_{\theta}g(\theta)$是$f(\theta)$的梯度呀。证明如下：
+
+做一阶泰勒展开：
+$$
+f(\theta+\eta a \nabla_{\theta}g(\theta))\approx f(\theta)+\eta a \nabla_{\theta}g(\theta)^T\nabla_{\theta}f(\theta)
+$$
+把$\nabla_{\theta}f(\theta)=a\nabla_{\theta}g(\theta)$代入，
+$$
+\begin{aligned}
+f(\theta+\eta a \nabla_{\theta}g(\theta))&\approx f(\theta)+\eta a \nabla_{\theta}g(\theta)^T\left(a\nabla_{\theta}g(\theta)\right)\\
+&=f(\theta)+\eta a^2\lVert \nabla_{\theta}g(\theta) \rVert^2\\
+&\geq f(\theta)
+\end{aligned}
+$$
+注意：$a^2 \ge 0$，所以一阶增量总是正数 → **$f$局部增加**
+
+**方向上**：虽然$f$增大，但系数$a$的正负决定你沿$\nabla_{\theta}g(\theta)$还是沿$-\nabla_{\theta}g(\theta)$方向更新 → $\nabla_{\theta}g(\theta)$指向的$g$函数增强/减弱。
+
+4️⃣ 直观总结
+
+- **$\nabla_{\theta}g(\theta)$指明方向**：你希望改变的量
+- **$a$的正负**：决定沿着这个方向加强还是抑制$g(\theta)$函数
+- **更新后的变化**：局部函数值$f(\theta)$函数总是增加（梯度上升保证）
+- 这就是 RL 中“正 reward →增强轨迹概率，负 reward →抑制轨迹概率”的数学本质
+
+这下你懂了吗？所以回到强化学习的策略梯度更新这里，我们可以这么理解：
+
+> 我这下懂了，就是$f(\theta)$函数和$g(\theta)$函数 都是关于θ的函数，即他们共享参数$\theta$。 $a$乘以$g(\theta)$函数的梯度就是f函数的梯度，所以，不论$a$是大于0还是小于0，按照$a$乘以$g(\theta)$函数的梯度（即$f(\theta)$函数的梯度）来更新$\theta$，$f(\theta)$函数总是增大的。但是对于$g(\theta)$函数，当$a$大于0时，参数$\theta$更新的方向（$a$乘以$g(\theta)$函数的梯度）是和$g(\theta)$函数的梯度一致的，那就会让$g(\theta)$函数变大，但是（这里是绝对核心重点），当$a$小于0时，参数$\theta$更新的方向（$a$乘以$g(\theta)$函数的梯度）是和$g(\theta)$函数的梯度刚好相反的，那么此时虽然$f(\theta)$函数继续增大，但是$g(\theta)$函数是会减小的。 
+>
+> 就是说，一旦你意识到：
+>
+> - $f(\theta)$和$g(\theta)$都是$\theta$的函数
+> - 更新的是参数$\theta$，而不是数值
+> - 同一个$\theta$更新，同时影响$f(\theta)$和$g(\theta)$
+>
+> 那么整个逻辑是**铁板一块、毫无魔法**的。
+>
+> 梯度上升保证的是：你沿着$\nabla_{\theta}f(\theta)$更新，$f(\theta)$一定上升；
+>
+> 但梯度中各个因子（如 reward）决定的是：参数$\theta$在“其它函数空间”里，是强化还是抑制那个函数。
+
+## 策略梯度最核心机制的完整解释
+
+下面正式总结一下：为什么「正 reward 会增加轨迹概率，负 reward 会降低轨迹概率」
+
+下面这段话，**是对策略梯度最核心机制的完整解释**。
+
+### 我们真正要优化的目标是什么？
+
+策略梯度的真实目标函数是 **期望回报**：
+$$
+\bar{R}_\theta = \mathbb{E}_{\tau \sim p_\theta(\tau)}[R(\tau)] = \sum_\tau R(\tau)\, p_\theta(\tau)
+$$
+这是一个 **关于参数$\theta$** 的函数。
+
+我们通过梯度上升更新参数：
+$$
+\theta \leftarrow \theta + \eta \nabla \bar{R}_\theta
+$$
+只要我们沿着$\nabla \bar{R}_\theta$更新，**$\bar{R}_\theta$​ 一定会上升**——这是梯度的定义，是毫无疑问的，你不要怀疑这个了。
+
+### 期望回报的梯度长什么样？
+
+通过 log-derivative trick，可以得到：
+$$
+\nabla \bar{R}_\theta = \mathbb{E}_{\tau \sim p_\theta(\tau)} \big[ R(\tau)\, \nabla \log p_\theta(\tau) \big]
+$$
+用 Monte Carlo 近似，对一条采样轨迹$\tau^n$：
+$$
+\hat{g} = R(\tau^n)\, \nabla \log p_\theta(\tau^n)
+$$
+这 **就是我们实际用于更新参数的梯度方向**。
+
+### 一个关键但常被忽略的事实
+
+在上式中，有两个量：
+
+- $R(\tau^n)$：一个**标量**
+- $\log p_\theta(\tau^n)$：一个**关于同一参数$\theta$的函数**
+
+**注意：**
+
+- $\bar{R}_\theta$是关于 $\theta$ 的函数
+- $\log p_\theta(\tau)$也是关于 **同一个 $\theta$** 的函数
+
+它们**共享参数$\theta$**。
+
+### 梯度更新对两个函数的影响是不同的
+
+我们用下面的更新：
+$$
+\theta \leftarrow \theta + \eta\, R(\tau^n)\, \nabla \log p_\theta(\tau^n)
+$$
+1、**对$\bar{R}_\theta$来说**
+
+- 这是它的（无偏）梯度估计
+- 无论$R(\tau^n)$是正是负
+- **沿这个方向更新，$\bar{R}_\theta$一定会上升**
+
+这一点 **和 reward 的正负无关**。
+
+2、**对$\log p_\theta(\tau^n)$来说（关键）**
+
+参数更新方向是：
+$$
+\Delta \theta = \eta\, R(\tau^n)\, \nabla \log p_\theta(\tau^n)
+$$
+情况 A：$R(\tau^n) > 0$
+$$
+\Delta \theta \parallel \nabla \log p_\theta(\tau^n)
+$$
+
+- 参数沿着 **log 概率的上升方向** 移动
+- ⇒ $\log p_\theta(\tau^n)$增大
+- ⇒ $p_\theta(\tau^n)$增大
+
+**这条“好轨迹”在未来更容易被采样到**
+
+情况 B：$R(\tau^n) < 0$
+$$
+\Delta \theta \parallel -\nabla \log p_\theta(\tau^n)
+$$
+
+- 参数沿着 **log 概率的下降方向** 移动
+- ⇒ $\log p_\theta(\tau^n)$减小
+- ⇒ $p_\theta(\tau^n)$减小
+
+**这条“坏轨迹”在未来被刻意压低概率**
+
+### 结论（那句话的严谨版本）
+
+> 当$R(\tau^n)$为正时，
+>
+> 参数更新方向与$\nabla \log p_\theta(\tau^n)$一致，从而提高该轨迹在当前策略下的概率；
+>
+> 当$R(\tau^n)$为负时，
+>
+> 参数更新方向与$\nabla \log p_\theta(\tau^n)$相反，从而降低该轨迹在当前策略下的概率。
+>
+> 无论哪种情况，这种“奖励加权的概率重分配”，**都会使期望回报$\bar{R}_\theta$上升。**
+
+一句话记忆版（非常重要）
+
+> **reward 的正负并不决定“是否学”，**
+>
+> **而是决定：**
+>
+> **——这条轨迹的概率，是被强化，还是被惩罚。**
+
+### 对那句话的修正
+
+它这里说的话，不准确，它的描述好像会让人觉得，是因为让$p_{\theta}(a_t^n|s_t^n)$更大了，从而导致$\bar{R}_{\theta}$变得更大。 但是，根据刚才的公式理解，我认为是梯度更新直接导致$\bar{R}_{\theta}$变得更大，同时，如果R为正，$p_{\theta}(a_t^n|s_t^n)$也会更大。仅此而已。
+
+结论先给出（不绕）
+
+> **你的理解是对的，教材那句话在“因果关系的表述上是不准确的，甚至是误导性的”。**
+
+更准确地说：
+
+- **不是**
+   “因为$p_\theta(a_t^n|s_t^n)$变大了，所以$\bar R_\theta$变大了”
+- **而是**
+   “因为我们沿着$\nabla \bar R_\theta$更新了参数，所以$\bar R_\theta$变大了；
+   同时，在$R(\tau^n)>0$的情况下，这个更新方向恰好也会提高该轨迹（及其动作）的概率。”
+
+这是**两个并行后果**，不是前因后果。
+
+一、先用最干净的数学把“因果关系”定死
+
+我们做的更新是：
+$$
+\theta \leftarrow \theta + \eta \nabla \bar R_\theta
+$$
+而：
+$$
+\nabla \bar R_\theta = \mathbb{E}[R(\tau)\nabla \log p_\theta(\tau)]
+$$
+**结论 1（铁律）**
+
+> 只要沿着$\nabla \bar R_\theta$更新，$\bar R_\theta$一定上升。
+
+这一步**不需要**：
+
+- $p_\theta(\tau)$单调增加
+- 单条轨迹概率增加
+- 任何“直觉解释”
+
+这是梯度上升的定义。
+
+二、轨迹概率变化是“副作用”，不是“原因”
+
+看单条样本更新：
+$$
+\Delta \theta = \eta R(\tau^n)\nabla \log p_\theta(\tau^n)
+$$
+当$R(\tau^n)>0$时：
+
+- 参数更新方向 **与** $\nabla \log p_\theta(\tau^n)$ 一致
+- ⇒ $\log p_\theta(\tau^n)$增大
+- ⇒ $p_\theta(\tau^n)$增大
+- ⇒ 轨迹中各 step 的 $p_\theta(a_t^n|s_t^n)$ 被同步强化
+
+**但注意：**
+
+> 这一步 **不是为了** 让 $\bar R_\theta$ 变大
+>
+> 而是 **因为** 这样做，正好是 $\nabla \bar R_\theta$​ 的方向
+
+三、教材那句话的“问题点”在哪里？
+
+教材原话（简化）是：
+
+> 如果 $R(\tau^n)$ 为正，更新参数会使轨迹概率变大，从而让 $\bar R_\theta$ 变大。
+
+这句话的问题在于：
+
+❌ 错误的因果暗示
+
+它**暗示了**：
+$$
+p_\theta(\tau^n)\uparrow \;\Rightarrow\; \bar R_\theta\uparrow
+$$
+而这是**不成立的**。
+
+事实上：
+
+- 提高一条轨迹的概率
+- 完全可能 **降低** 期望回报（如果这条轨迹只是偶然高回报、但整体是坏的）
+
+四、你给出的“修正版理解”是完全正确的
+
+你说的是：
+
+> 梯度更新 **直接** 导致 $\bar R_\theta$ 变大；
+>
+> 同时，如果 $R>0$，那么该轨迹对应的动作概率也会变大。
+>
+> 仅此而已。
+
+这是**唯一严谨、且不误导人的表述**。
+
+用因果箭头画出来是：
+
+```
+        梯度上升 ∇\bar R_θ
+                  │
+        ┌─────────┴─────────┐
+        │                   │
+  \bar R_θ ↑        若 R(τ)>0，则
+                    log p_θ(τ) ↑
+                    p_θ(τ) ↑
+```
+
+**不是**：
+
+```
+p_θ(τ) ↑  →  \bar R_θ ↑   ❌
+```
+
+五、如果让我改写教材那句话（标准答案）
+
+我会这样写：
+
+> 由于我们沿着 $\nabla \bar R_\theta$ 进行梯度上升，
+>
+> 参数更新保证了期望回报 $\bar R_\theta$ 的提升。
+>
+> 同时，在单条轨迹回报 $R(\tau^n)>0$ 的情况下，
+>
+> 该更新方向与 $\nabla \log p_\theta(\tau^n)$ 一致，
+>
+> 从而提高了该轨迹（及其动作）在当前策略下的概率。
+
+**没有因果倒置，没有直觉跳跃。**
+
+六、非常重要的一句话（送给你）
+
+> **Policy Gradient 中，“概率重分配”是实现机制，**
+>
+> **但“目标上升”是数学保证。**
+>
+> **两者不能互相当因果。**
+
+你现在能明确指出教材在这里“说得不严谨”，说明你已经**站在“审稿人视角”看算法了**。
+
+这一关，算你彻底过了。
+
+## 策略提升的实际做法
 
 具体的做法如下图所示。
 
@@ -101,7 +475,7 @@ $$
 
 如上图所示，左图中第二个动作对应的奖励就不应该是全局奖励3，而应该是从其之后的奖励的累积，即$0+(-2)=-2$。右图中第二个动作对应的奖励就不应该是全局奖励-7，而应该是从其之后的奖励的累积，即$0+(-2)=-2$。这样会在有限的和环境互动的次数中，学习地更快。
 
-随意，对奖励期望的关于$\theta$的梯度的公式可以改为：
+所以，对奖励期望的关于$\theta$的梯度的公式可以改为：
 $$
 \begin{aligned}
 \frac{\partial \bar{R}}{\partial \theta}&=
@@ -126,6 +500,123 @@ $$
 = E_{(s_t,a_t)\sim \pi_{\theta}}\left[A^{\theta}(s_t,a_t)\nabla\log p_{\theta}(a_t^n|s_t^n)\right]\\
 \text{where} \quad \text{Adv}=\sum_{t'=t}^{T_n}\gamma^{t'-t}r_{t'}^n-V(s_t)
 $$
+
+## Policy Gradient 的“终章理解”
+
+> 目标：让你以后看到任何 PPO / TRPO / A2C / IMPALA 的推导，
+>  **都能一眼判断：它到底在改 PG 的哪一层结构。**
+
+一、PG 的唯一真实目标（不能再少了）
+
+**Policy Gradient 只有一个目标函数：**
+$$
+\boxed{ J(\theta) = \mathbb{E}_{\tau \sim p_\theta(\tau)}[R(\tau)] }
+$$
+没有 loss，没有 log，没有 advantage，
+ 这些全是 **工程实现层的工具**。
+
+二、PG 的唯一合法梯度（没有第二个）
+$$
+\boxed{ \nabla J(\theta) = \mathbb{E}_{\tau \sim p_\theta(\tau)} \big[ R(\tau)\, \nabla \log p_\theta(\tau) \big] }
+$$
+**任何 PG 变体，只能改三样东西：**
+
+1. 用什么估计这个期望
+2. 用什么替代 $R(\tau)$
+3. 如何限制更新幅度
+
+**除此之外，全是幻觉。**
+
+三、log 出现的唯一原因（你已经彻底懂了）
+
+不是因为：
+
+- “log 稳定”
+- “log 好算”
+- “信息论”
+
+而是因为：
+$$
+\nabla p_\theta(\tau) = p_\theta(\tau)\nabla \log p_\theta(\tau)
+$$
+**log 不是目标，是求导工具。**
+
+四、reward 在梯度里的“唯一职责”
+
+在$R(\tau)\nabla \log p_\theta(\tau)$中：
+
+- $\nabla \log p_\theta(\tau)$：**方向**（哪个轨迹更像当前策略）
+- $R(\tau)$：**方向的“正负与强度”**
+
+你已经自己得出了终极结论：
+
+> reward **不决定是否上升**，因为不管是正还是负，都会上升
+>
+> reward 决定的是：**这条轨迹是被强化还是被抑制。**
+
+这是 PG 的核心机制，没有之一。
+
+五、为什么“正 reward → 提高概率”不是魔法
+
+用你已经接受的抽象形式：
+
+$\nabla J(\theta) = a \nabla g(\theta)$
+
+- 沿 $\nabla J$ 更新 ⇒ $J$ 上升（永真）
+- $a>0$ ⇒ 参数更新方向 = $\nabla g$ ⇒ $g$ 上升
+- $a<0$ ⇒ 参数更新方向 = $-\nabla g$ ⇒ $g$ 下降
+
+在 PG 中：
+
+- $J = \bar R_\theta$
+- $g = \log p_\theta(\tau)$
+- $a = R(\tau)$
+
+**没有任何额外假设。**
+
+六、baseline / advantage 不是“技巧”，是数学等价变形
+
+baseline 不改变期望梯度：
+$$
+\mathbb{E}[b \nabla \log p_\theta(\tau)] = 0
+$$
+所以：
+$$
+R(\tau)\nabla \log p_\theta(\tau) \;\equiv\; (R(\tau)-b)\nabla \log p_\theta(\tau)
+$$
+**唯一作用：降低方差。**
+
+七、到这里为止，你已经“封顶”的东西
+
+你现在已经完全掌握：
+
+- PG 的目标函数是什么
+- 梯度从哪里来
+- log 的数学来源
+- reward 的真实角色
+- loss 的“伪目标”本质
+- 单样本 vs 期望
+- 参数共享导致的耦合效应
+
+**这就是 Policy Gradient 的全部内容。**
+
+进入 PPO 前，你必须具备的“最后一个视角”
+
+接下来进入 PPO，你只需要带着一句话：
+
+> **PPO 不是在“发明新目标”，而是在限制 PG 的更新方式。**
+
+PPO 不会再碰：
+
+- reward 的含义
+- log 的来源
+- 梯度结构
+
+它只会问一个问题：
+
+> **“我怎么保证这一步 PG，不会把策略推得太远？”**
+
+# PPO原理推导
 
 ## On-policy变为Off-policy
 
@@ -250,6 +741,8 @@ $$
 
 ## 添加约束
 
+TODO：为什么 PPO 的 clip 本质上是“二阶 trust region 的廉价替代”？
+
  在介绍PPO算法之前，先介绍其改进来源：TRPO算法的目标函数和约束。
 $$
 J^{\theta'}_{\text{TRPO}}(\theta)= E_{(s_t,a_t)\sim \pi_{\theta'}}\left[\frac{p_{\theta}(a_t|s_t)}{p_{\theta'}(a_t|s_t)}A^{\theta'}(s_t,a_t)\right]\\
@@ -259,7 +752,7 @@ TRPO的损失函数不太好求解，因为还存在约束。
 
 注意，上式中的$KL(\theta,\theta')$并不是参数$\theta$本身的KL散度距离，而是两个Actor的输出值的概率分布的KL散度距离。
 
-
+---
 
 **PPO算法是对TRPO算法的简化。PPO算法有两个版本**：PPO1和PPO2，而PPO2比较常用。
 
@@ -293,7 +786,7 @@ TRPO的损失函数不太好求解，因为还存在约束。
 
     - PPO2算法
       $$
-      J_{\text{PPO}}^{\theta^k}(\theta)\approx \sum_{(s_t,a_t)}\min\left(\frac{p_{\theta}(a_t|s_t)}{p_{\theta^k}(a_t|s_t)}A^{\theta^k}(s_t,a_t),\ clip\left(\frac{p_{\theta}(a_t|s_t)}{p_{\theta^k}(a_t|s_t)},1-\epsilon,1+\epsilon\right)A^{\theta^k}(s_t,a_t)\right)
+      J_{\text{PPO}}^{\theta^k}(\theta)\approx \sum_{(s_t,a_t)}\min\left[\frac{p_{\theta}(a_t|s_t)}{p_{\theta^k}(a_t|s_t)}A^{\theta^k}(s_t,a_t),\ clip\left(\frac{p_{\theta}(a_t|s_t)}{p_{\theta^k}(a_t|s_t)},1-\epsilon,1+\epsilon\right)A^{\theta^k}(s_t,a_t)\right]
       $$
 
 PPO1算法是把TRPO的约束加入到了损失函数里，做了一个软约束。
@@ -312,11 +805,88 @@ $$
 
 那是如何做到不要让两个的概率差距太大的呢？
 
-当$A>0$时，是想增加$p_{\theta}$的几率的，但是当其与旧的$p_{\theta}$的比值超过$1+\epsilon$时，就丢弃掉这个样本。当比值小于$1+\epsilon$时，不设下限，全部都接受，来提升$p_{\theta}(a_t|s_t)$出现的概率。
+当$A>0$时，是想增加$p_{\theta}$的几率的，但是当其与旧的$p_{\theta}$的比值超过$1+\epsilon$时，就丢弃掉这个样本。当比值小于$1+\epsilon$时，不设下限（因为min操作会取前面的更小值），全部都接受，来提升$p_{\theta}(a_t|s_t)$出现的概率。
 
 当$A<0$时，是想减小$p_{\theta}$的几率的，但是当其与旧的$p_{\theta}$的比值小于$1-\epsilon$时，就丢弃掉这个样本。当比值大于$1-\epsilon$时，不设上限，全部都接受，来减小$p_{\theta}(a_t|s_t)$出现的概率。
 
+对这里的进一步认知：
 
+> 针对A>0：
+>
+> 超过 1+ϵ → 防止某个动作被过度强化。
+>
+> 此时当该动作的概率过小，那就别截断它，因为它概率太小，需要被强化，强化的原因是A>0，梯度可以强
+>
+> 针对A<0：
+>
+> 概率 低于 1−ϵ → 防止某个动作被过度抑制。
+>
+> 此时当该动作的概率过大，那就别截断它，因为它概率太大，需要削弱，削弱的原因是A<0，梯度可以削弱概率
+
+完全可以这么理解，而且你的表述非常精准。我们可以把它稍微整理一下：
+
+1️⃣ 当 $A>0$（优势为正，想增强动作）
+
+- **上限 $1+\epsilon$**：如果 ratio $r_t = p_\theta/p_{\theta^k}$ 超过 $1+\epsilon$，就裁剪梯度，防止这个动作被强化得太过。
+- **下限（ratio 很小）**：如果 ratio 很小，比如动作概率非常低，那**不要裁剪**，允许梯度自由增加概率，因为这是正优势，我们希望强化它。
+
+> 总结：**上限是裁剪，防止过度强化；下限不裁剪，允许自然强化。**
+
+2️⃣ 当 $A<0$（优势为负，想减弱动作）
+
+- **下限 $1-\epsilon$**：如果 ratio $r_t$ 低于 $1-\epsilon$，裁剪梯度，防止动作被抑制得太过。
+- **上限（ratio 很大）**：如果 ratio 很大，动作概率很高，那**不要裁剪**，允许梯度自由降低概率，因为这是负优势，我们希望削弱它。
+
+> 总结：**下限是裁剪，防止过度抑制；上限不裁剪，允许自然削弱。**
+
+🔑 核心理解
+
+- **裁剪只在“过度更新”时生效**（防止梯度过大导致策略不稳定）
+- **边界内自由更新**，让优势符号直接决定动作强化或削弱
+- 这就是为什么教材里说“比值小于 $1+\epsilon$ 或大于 $1-\epsilon$ 时不设限制，全部接受”
+
+> 但是这违背了重要性采样中的概率p和q不能差距太大啊。。所以这里的决策应该是综合了p和q不能相差太大，同时考虑实际情况，适当加强好的动作低概率时增大概率，适当加强坏的动作高概率时减小概率。是这两点的综合吗？
+
+完全对，你抓住核心了。这就是 PPO 的精妙之处：**它在保持重要性采样理论安全性的同时，还允许策略根据优势信号做合理的强化或削弱**。我们可以拆开来看：
+
+1️⃣ 重要性采样约束（p/q 不能差距太大）
+
+- 在原始 TRPO 中，有严格的 KL 约束：策略更新后，新的策略 $\pi_\theta$ 和旧策略 $\pi_{\theta^k}$ 的分布不能偏离太多，否则 importance sampling 会出现高方差。
+- 这里 PPO 的 clip 上下限 $(1+\epsilon, 1-\epsilon)$ 就是**一种软化的 KL 约束**，保证 $\frac{p_\theta}{p_{\theta^k}}$ 不会偏离太远，避免某些动作被强化或抑制得过度，从而破坏采样的无偏性。
+
+2️⃣ 优势信号的强化/削弱（$A>0$ / $A<0$）
+
+- 当动作优势为正（$A>0$）时，低概率动作应该增加概率；当动作优势为负（$A<0$）时，高概率动作应该减少概率。
+- **边界内不裁剪**：让梯度自由地根据优势信号调整概率，这是策略改进的关键。
+- **超过边界裁剪**：防止概率变化过大，保证策略更新稳定，防止 high-variance 或训练崩溃。
+
+🔑 综合理解
+
+所以 PPO clip 策略就是在做两件事的平衡：
+
+1. **控制概率比值**（p/q）不过大过小，保证重要性采样稳定。
+2. **利用优势信号调整动作概率**，让正优势动作概率增加，负优势动作概率减少。
+
+> 这就是你说的“综合了 p/q 不相差太大，同时考虑实际情况，适当加强好的动作低概率时增大概率，适当加强坏的动作高概率时减小概率”。PPO 的整个设计哲学就在这里。
+
+换句话说：
+
+**A > 0（正优势）**：
+
+- 我们希望增加动作的概率 pθ(a∣s)p_\theta(a|s)pθ(a∣s)。
+- 只要比值 r<1+ϵr < 1+\epsilonr<1+ϵ，梯度自由上升，让低概率的好动作得到强化。
+- 如果 r>1+ϵr > 1+\epsilonr>1+ϵ，clip 限制，防止动作被过度强化（防止重要性采样偏差太大）。
+
+**A < 0（负优势）**：
+
+- 我们希望降低动作的概率 pθ(a∣s)p_\theta(a|s)pθ(a∣s)。
+- 只要比值 r>1−ϵr > 1-\epsilonr>1−ϵ，梯度自由下降，让高概率的坏动作被削弱。
+- 如果 r<1−ϵr < 1-\epsilonr<1−ϵ，clip 限制，防止动作被过度抑制。
+
+**关键逻辑**：
+
+- 上界和下界是为了 **安全更新**（不让 p/q 偏离太多）。
+- 线性区域是为了 **根据优势信号自由调整动作概率**（增大正 A 动作，减小负 A 动作）。
 
 # Actor&Critic网络架构
 
@@ -448,6 +1018,22 @@ if __name__ == '__main__':
 p.s.这个动作a输给env.step(a)时肯定是要做限幅的，这个没啥说的。
 
 训练时，不要clip，clip只放在环境里面做。否则你计算时的log prob很容易过大或过小。训练时就用最原始的从概率分布里采样出来的action
+
+## Critic网络设计
+
+
+
+这是最新的讨论：
+
+https://chatgpt.com/c/695dd529-5564-8327-8d25-60688797c6aa
+
+这是之前的讨论，因为发了一张图片，所以就不在这里讨论了，迁移到上面的讨论里了
+
+https://chatgpt.com/c/695dd01d-a1ac-8329-ab96-54bcde3fd63c
+
+这是最开始的讨论，仅在最后面有一些：
+
+https://chatgpt.com/c/694cf28f-51d4-8322-851c-33f0200fec0f
 
 # 掩码（mask）是做什么用的
 
@@ -1281,3 +1867,11 @@ PPO2：不用计算KL，同样可以控制θ与θ'之间差距。
 [5] Implementation Matters in Deep Policy Gradients: a Case Study on PPOand TRPO.
 
 关于用bootstrap法估计advantage和state value函数的内容，可参见“【CS285第6讲】Actor-critic”。
+
+## 大模型
+
+具体的详细推导看这里：
+
+这是最新的讨论，中间有事就停止讨论了：https://chatgpt.com/c/694cf28f-51d4-8322-851c-33f0200fec0f，注意最后一部分是奖励讨论，你得往前一些看。
+
+https://chat.deepseek.com/a/chat/s/7e0e3349-998f-427b-9d09-b3f18c800e6a

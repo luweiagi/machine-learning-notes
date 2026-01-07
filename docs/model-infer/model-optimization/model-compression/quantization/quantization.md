@@ -45,10 +45,17 @@
 
 
 
-===
 
 
+# 参考资料
 
 [七、量化原理](https://zhuanlan.zhihu.com/p/637609643)
 
 [Understanding INT4 Quantization for Transformer Models: Latency Speedup, Composability, and Failure Cases](https://arxiv.org/abs/2301.12017)
+
+## 大模型
+
+* [量化和反量化](https://chatgpt.com/c/69396693-e570-8333-9e69-1eb752c4a677)
+
+
+

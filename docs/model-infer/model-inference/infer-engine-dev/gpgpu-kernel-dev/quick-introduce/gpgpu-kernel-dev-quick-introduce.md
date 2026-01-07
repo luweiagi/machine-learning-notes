@@ -1,6 +1,6 @@
 # GPGPU算子开发快速入门
 
-* [返回上层目录](../gpgpu-kernel-development.md)
+* [返回上层目录](../gpgpu-kernel-dev.md)
 * [快速入门](#快速入门)
   * [开发GPGPU算子的最快路径](#开发GPGPU算子的最快路径)
   * [CUDA背景知识](#CUDA背景知识)
@@ -314,7 +314,8 @@ __global__ void relu_kernel(const float* x, float* y, int n) {
 🧱 1. 你必须先知道：什么是 GPU 并行？
 
 CPU（1–8 核） ≈ 适合串行、逻辑复杂的计算
- GPU（几千核心） ≈ 适合 **大量完全一样的计算任务并行执行**
+
+GPU（几千核心） ≈ 适合 **大量完全一样的计算任务并行执行**
 
 比如 ReLU：
 $$
@@ -1405,6 +1406,20 @@ relu_kernel.cu ✅
 - 使用 `__restrict__` 提示编译器优化，使用 `float val = x[idx]; y[idx] = val > 0 ? val : 0.f;` 性能更好
 - 线程索引 `idx = blockIdx.x * blockDim.x + threadIdx.x`，边界判断 `if(idx<n)` 完整正确
 
+`relu_kernel<<<blocks, threads>>>(x, y, n);`这行代码：
+
+> `<<<blocks, threads>>>` 提交的是一次“带执行配置的并行计算请求”；CUDA runtime 根据该配置，在合适的时间为 kernel 分配实际 GPU 资源并执行。
+
+> **向 CUDA runtime 提交一次 kernel launch 请求，
+>  其中包含：**
+>
+> 1. 要执行的 kernel 函数（`relu_kernel`）
+> 2. 期望的逻辑并行配置（`blocks`, `threads`）
+> 3. kernel 参数（`x, y, n`）
+
+> **由 CUDA runtime 和 GPU driver 在之后的某个时间点，
+>  根据硬件资源情况，调度并分配实际的 GPU 资源执行该 kernel。**
+
 ### relu.cpp（C++前端+PyTorch绑定）
 
 relu.cpp
@@ -1450,6 +1465,52 @@ relu.cpp ✅
 - 返回新 tensor
 - 用 `PYBIND11_MODULE` 暴露到 Python
 - 这一套就是 PyTorch CUDA Extension 的标准写法
+
+关于：
+
+```c++
+// 绑定到 Python
+PYBIND11_MODULE(TORCH_EXTENSION_NAME, m) {
+    m.def("relu", &relu_forward, "ReLU CUDA kernel");
+}
+```
+
+每一次 import myrelu（在一个新的 Python 进程中），都会调用一次 pybind11 的注册代码。
+
+`pybind11` 的注册发生在模块初始化阶段。
+
+```shell
+import myrelu
+↓
+加载 myrelu.so
+↓
+调用 PyInit_myrelu()
+↓
+执行 PYBIND11_MODULE(...) 里的代码
+↓
+m.def(...)
+```
+
+`PYBIND11_MODULE` 到底干了什么？
+
+你可以把它**等价地理解成**：
+
+```
+extern "C" PyObject* PyInit_myrelu() {
+    PyObject* m = PyModule_Create(...);
+
+    // 注册函数
+    PyModule_AddFunction(m, "relu", relu_forward);
+
+    return m;
+}
+```
+
+`m.def(...)` 本质上就是：
+
+- 创建一个 Python callable 对象
+- 绑定到 C++ 函数指针
+- 塞进 module 的 `__dict__`
 
 ### setup.py（用PyTorch的cpp_extension编译）
 
@@ -2265,11 +2326,28 @@ y = myrelu.relu(x)
 1. `import myrelu`
     → Python 加载 `myrelu.so`
     → pybind11 初始化模块，绑定 `relu_forward` 到 Python `myrelu.relu`
+    
+    ```shell
+    # 每一次 import myrelu（在一个新的 Python 进程中），都会调用一次 pybind11 的注册代码。
+    # pybind11 的注册发生在模块初始化阶段。
+    import myrelu
+    ↓
+    加载 myrelu.so
+    ↓
+    调用 PyInit_myrelu()
+    ↓
+    执行 PYBIND11_MODULE(...) 里的代码
+    ↓
+    m.def(...)
+    ```
+    
 2. `myrelu.relu(x)`
     → 调用 `relu_forward(x)`（C++ host 函数）
     → 调用 `relu_cuda_launcher`
     → 启动 GPU kernel `relu_kernel<<<>>>`
+    
 3. GPU kernel 在 GPU 上并行计算
+
 4. 返回结果到 Python Tensor
 
 3️⃣ 🔑 核心理解
@@ -2407,117 +2485,4 @@ correct: True
 7. **Tensor Core 版 GEMM（CUTLASS）**
 
 这条路线走一遍，你就是真正的“GPU kernel 工程师”。
-
-
-
-
-
-
-
-./build.sh
-
-报错：
-
-```shell
-(torch) lw@LAPTOP-0NOPJT33:~/cuda_relu_full_demo/ort_customop$ ./build.sh 
-CMake Warning (dev) at CMakeLists.txt:7 (find_package):
-  Policy CMP0146 is not set: The FindCUDA module is removed.  Run "cmake
-  --help-policy CMP0146" for policy details.  Use the cmake_policy command to
-  set the policy and suppress this warning.
-
-This warning is for project developers.  Use -Wno-dev to suppress it.
-
--- ONNX Runtime Python package path: /home/user/miniconda3/envs/torch/lib/python3.12/site-packages/onnxruntime
--- ONNX Runtime include dir: /home/user/miniconda3/envs/torch/lib/python3.12/site-packages/onnxruntime/include
--- ONNX Runtime lib dir: /home/user/miniconda3/envs/torch/lib/python3.12/site-packages/onnxruntime/capi
-CMake Error at CMakeLists.txt:36 (message):
-  onnxruntime_cxx_api.h not found in
-  /home/user/miniconda3/envs/torch/lib/python3.12/site-packages/onnxruntime/include.
-
-
-  Please download a prebuilt ONNX Runtime (with headers), e.g.
-  onnxruntime-linux-x64-gpu-<version>, and re-run CMake with
-  -DORT_ROOT=/path/to/onnxruntime.
-
-
--- Configuring incomplete, errors occurred!
-CMake Warning (dev) at CMakeLists.txt:7 (find_package):
-  Policy CMP0146 is not set: The FindCUDA module is removed.  Run "cmake
-  --help-policy CMP0146" for policy details.  Use the cmake_policy command to
-  set the policy and suppress this warning.
-
-This warning is for project developers.  Use -Wno-dev to suppress it.
-
--- ONNX Runtime Python package path: /home/user/miniconda3/envs/torch/lib/python3.12/site-packages/onnxruntime
--- ONNX Runtime include dir: /home/user/miniconda3/envs/torch/lib/python3.12/site-packages/onnxruntime/include
--- ONNX Runtime lib dir: /home/user/miniconda3/envs/torch/lib/python3.12/site-packages/onnxruntime/capi
-CMake Error at CMakeLists.txt:36 (message):
-  onnxruntime_cxx_api.h not found in
-  /home/user/miniconda3/envs/torch/lib/python3.12/site-packages/onnxruntime/include.
-
-
-  Please download a prebuilt ONNX Runtime (with headers), e.g.
-  onnxruntime-linux-x64-gpu-<version>, and re-run CMake with
-  -DORT_ROOT=/path/to/onnxruntime.
-
-
--- Configuring incomplete, errors occurred!
-make: *** [Makefile:233: cmake_check_build_system] Error 1
-```
-
-问题分析：
-
-你还在用 pip 安装的 onnxruntime 路径构建，pip 里没有 C/C++ 头文件，必须先下载带 include/ 和 lib/ 的官方发布包，然后把 ORT_ROOT 指到它。
-
-按这几步来（版本按你环境的 1.23.2）：
-
-```shell
-# 1) 下载并解压 ORT GPU 发行包（含 headers+libs）
-mkdir -p /home/user/.local/onnxruntime-1.23.2
-curl -L -o /home/user/.local/onnxruntime-1.23.2.tgz \
-  https://github.com/microsoft/onnxruntime/releases/download/v1.23.2/onnxruntime-linux-x64-gpu-1.23.2.tgz
-tar -xzf /home/user/.local/onnxruntime-1.23.2.tgz \
-  -C /home/user/.local/onnxruntime-1.23.2 --strip-components=1
-
-# 2) 确认头文件存在
-ls /home/user/.local/onnxruntime-1.23.2/include/onnxruntime_cxx_api.h
-
-# 3) 设置 ORT_ROOT 并构建
-export ORT_ROOT=/home/user/.local/onnxruntime-1.23.2
-cd /home/user/cuda_relu_full_demo/ort_customop
-./build.sh
-```
-
-
-
-
-
-
-
-```shell
-(torch) lw@LAPTOP-0NOPJT33:~/cuda_relu_full_demo$ python run_onnxruntime.py 
-ONNX nodes:
-  op_type=CustomRelu, domain=custom_domain
-[custom_relu] RegisterCustomOps called
-[custom_relu] RegisterCustomOps success
-2025-12-03 18:27:23.637752233 [E:onnxruntime:Default, provider_bridge_ort.cc:2251 TryGetProviderInfo_CUDA] /onnxruntime_src/onnxruntime/core/session/provider_bridge_ort.cc:1844 onnxruntime::Provider& onnxruntime::ProviderLibrary::Get() [ONNXRuntimeError] : 1 : FAIL : Failed to load library libonnxruntime_providers_cuda.so with error: libcudnn.so.9: cannot open shared object file: No such file or directory
-
-2025-12-03 18:27:23.637840434 [W:onnxruntime:Default, onnxruntime_pybind_state.cc:1013 CreateExecutionProviderFactoryInstance] Failed to create CUDAExecutionProvider. Require cuDNN 9.* and CUDA 12.*. Please install all dependencies as mentioned in the GPU requirements page (https://onnxruntime.ai/docs/execution-providers/CUDA-ExecutionProvider.html#requirements), make sure they're in the PATH, and that your GPU is supported.
-Traceback (most recent call last):
-  File "/home/user/cuda_relu_full_demo/run_onnxruntime.py", line 16, in <module>
-    session = ort.InferenceSession("myrelu.onnx", so, providers=providers)
-              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/user/miniconda3/envs/torch/lib/python3.12/site-packages/onnxruntime/capi/onnxruntime_inference_collection.py", line 485, in __init__
-    self._create_inference_session(providers, provider_options, disabled_optimizers)
-  File "/home/user/miniconda3/envs/torch/lib/python3.12/site-packages/onnxruntime/capi/onnxruntime_inference_collection.py", line 584, in _create_inference_session
-    sess.initialize_session(providers, provider_options, disabled_optimizers)
-onnxruntime.capi.onnxruntime_pybind11_state.NotImplemented: [ONNXRuntimeError] : 9 : NOT_IMPLEMENTED : Could not find an implementation for CustomRelu(1) node with name ''
-(torch) lw@LAPTOP-0NOPJT33:~/cuda_relu_full_demo$ 
-```
-
-如果出现了这个报错，那就是没有安装cudnn，安装一下。
-
-```shell
-conda install -y -c conda-forge cudnn=9.* cuda-cudart=12.*
-```
 

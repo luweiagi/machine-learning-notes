@@ -8,10 +8,15 @@
 # ratio = pi_new / pi_old
 # log_ratio = log(pi_new) - log(pi_old)
 
-# Approx KL (http://joschu.net/blog/kl-approx.html)
-# kl = (old_log_probs - new_log_probs) # 原始公式
-# 这里用更精确的无偏估计: (ratio - 1) - log(ratio)
-approx_kl = (ratio - 1 - log_ratio).mean()
+# 计算统计指标
+with torch.no_grad():
+    #  Approx KL 监控
+    # 原因：PPO 非常依赖 Trust Region（置信域）。如果你的 Policy 更新步幅太大（KL 散度过高），模型会“崩塌”（Performance Collapse）。
+    # 后果：你现在无法知道模型更新是否过激。如果训练突然变差，你不知道是因为学习率太大，还是 Clip 系数不合理。
+    # Approx KL (http://joschu.net/blog/kl-approx.html)
+    # kl = (old_log_probs - new_log_probs) # 原始公式
+    # 这里用更精确的无偏估计: (ratio - 1) - log(ratio)
+    approx_kl = (ratio - 1 - log_ratio).mean()
 ```
 
 初看非常令人困惑：

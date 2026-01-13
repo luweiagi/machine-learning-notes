@@ -329,7 +329,7 @@
           * [PopArt: Learning values across many orders of magnitude arXiv20216 DeepMind](reinforcement-learning/deep-reinforcement-learning/advanced-policy-optimization/trust-region-based-drl/ppo/value-norm/popart/popart.md)
         * [Value Clip](reinforcement-learning/deep-reinforcement-learning/advanced-policy-optimization/trust-region-based-drl/ppo/value-clip/value-clip.md)
           * [Value Clip](reinforcement-learning/deep-reinforcement-learning/advanced-policy-optimization/trust-region-based-drl/ppo/value-clip/value-clip/value-clip.md)
-        * [深入理解 PPO 中的指标监控 Approx KL 计算公式](reinforcement-learning/deep-reinforcement-learning/advanced-policy-optimization/trust-region-based-drl/ppo/schulman_s_kl_approx/schulman_s_kl_approx.md)
+        * [深入理解 PPO 中的指标监控 Approx KL 计算公式](reinforcement-learning/deep-reinforcement-learning/advanced-policy-optimization/trust-region-based-drl/ppo/kl_approx/kl_approx.md)
       * [GAE广义优势估计Generalized Advantage Estimation](reinforcement-learning/deep-reinforcement-learning/advanced-policy-optimization/trust-region-based-drl/gae/gae.md)
     * [随机策略+熵正则化（Entropy Regularization）策略探索增强技术](reinforcement-learning/deep-reinforcement-learning/advanced-policy-optimization/entropy-regularization/entropy-regularization.md) （与随机策略强耦合）
       * [SAC: Soft Actor-Critic](https://www.paperexplained.cn/articles/paper/detail/811df72e210e20de99719539505da54762a11c6d/) SAC（Soft Actor-Critic）的熵最大化目标

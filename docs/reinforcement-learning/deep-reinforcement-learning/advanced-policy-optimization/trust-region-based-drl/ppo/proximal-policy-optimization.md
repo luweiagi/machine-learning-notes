@@ -6,6 +6,6 @@
 - [Recurrent Proximal Policy Optimization using Truncated BPTT](ppo-rnn/ppo-rnn.md)
 - [Value Norm](value-norm/value-norm.md)
 - [Value Clip](value-clip/value-clip.md)
-
+- [深入理解 PPO 中的指标监控 Approx KL 计算公式](schulman_s_kl_approx/schulman_s_kl_approx.md)
 
 

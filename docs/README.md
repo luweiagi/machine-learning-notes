@@ -314,6 +314,7 @@
       * 确定性策略梯度（Deterministic Policy Gradient, DPG）
       * 自然策略梯度（Natural Policy Gradient）
   * [Actor-Critic策略与价值结合](reinforcement-learning/deep-reinforcement-learning/actor-critic/actor-critic.md) 
+    * [Actor-Critic架构理解](reinforcement-learning/deep-reinforcement-learning/actor-critic/understanding-actor-critic-arch/understanding-actor-critic-arch.md) 
     * A3C
     * A2C
     * [确定性策略梯度DDPG: Continuous Control With Deep Reinforcement Learning ICLR2016](reinforcement-learning/deep-reinforcement-learning/actor-critic/ddpg/ddpg.md)

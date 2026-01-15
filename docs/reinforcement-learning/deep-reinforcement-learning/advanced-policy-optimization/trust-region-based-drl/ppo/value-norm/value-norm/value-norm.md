@@ -6,7 +6,7 @@
 - [数学推导与实现细节](#数学推导与实现细节)
 - [代码实现](#代码实现)
 - [为什么Critic输出的是NormalizedValue](#为什么Critic输出的是NormalizedValue)
-- [为什么我们的方案优于“Loss Scaling”？](#为什么我们的方案优于“Loss Scaling”？)
+- [为什么我们的方案优于“LossScaling”？](#为什么我们的方案优于“LossScaling”？)
 - [灵魂拷问：极端情况会翻车吗？](#灵魂拷问：极端情况会翻车吗？)
 - [进阶对比：ValueNorm-vs-PopArt——谁是最终BOSS？](#进阶对比：ValueNorm-vs-PopArt——谁是最终BOSS？)
 - [全文总结](#全文总结)
@@ -245,19 +245,19 @@ if value_normalizer is not None:
 
 - 没有 Value Norm 时：
 
-- Target = 真实回报 (比如 1000)。
+  - Target = 真实回报 (比如 1000)。
 
-- Loss = $(V(s) - 1000)^2$。
+  - Loss = $(V(s) - 1000)^2$。
 
-- Critic 必须输出 1000 才能最小化 Loss。所以它学会输出 Real Value。
+  - Critic 必须输出 1000 才能最小化 Loss。所以它学会输出 Real Value。
 
 - 有 Value Norm 时 (我们在 learner.py 里做的修改)：
 
-- 我们把真实回报 (1000) 进行了归一化：$Target_{norm} = \frac{1000 - \mu}{\sigma} \approx 1.5$。
+  - 我们把真实回报 (1000) 进行了归一化：$Target_{norm} = \frac{1000 - \mu}{\sigma} \approx 1.5$。
 
-- Loss = $(V(s) - 1.5)^2$。
+  - Loss = $(V(s) - 1.5)^2$。
 
-- Critic 必须输出 1.5 才能最小化 Loss。
+  - Critic 必须输出 1.5 才能最小化 Loss。
 
 虽然 Critic 网络本身结构没变，但因为我们喂给它的标签（标准答案）全是归一化后的数据（均值0，方差1），所以它被迫学会了输出归一化后的预测值。
 
@@ -291,7 +291,7 @@ $$
 * Rollout 采样时：Critic 输出的自然就是 Norm Value。
 * GAE 计算时：把 Critic 输出的 Norm Value 还原成 Real Value，以便和 Real Reward 进行物理运算。
 
-# 为什么我们的方案优于“Loss Scaling”？
+# 为什么我们的方案优于“LossScaling”？
 
 有些早期的实现方案（我们称之为“半吊子方案”）是这样的：
 

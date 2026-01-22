@@ -1,7 +1,6 @@
 # Ollama本地大模型部署与调用指南
 
 * [返回上层目录](../model-deployment-practice.md)
-
 * [使用前准备工作](#使用前准备工作)
 * [Ollama的交互模式](#Ollama的交互模式)
 * [Ollama本地调用服务和API远程调用服务的本质区别](#Ollama本地调用服务和API远程调用服务的本质区别)

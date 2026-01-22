@@ -5,7 +5,7 @@
 * [PyTorch基础](basis/basis.md)
 * [保存加载模型文件](save_load_model/save_load_model.md)
 * [推理inference](inference/inference.md)
-* [模型结构参数及显示](model-structure-parameters/model-structure-parameters.md)
+* [模型参数与状态管理](model-param-and-state-manage/model-param-and-state-manage.md)
 
 
 

@@ -463,7 +463,7 @@
   * 计算图与动态图机制 https://blog.csdn.net/qq_37388085/article/details/102559532 来自目录https://blog.csdn.net/qq_37388085/category_9417143.html
   * [保存加载模型文件](machine-learning-training-framework/pytorch/save_load_model/save_load_model.md)
   * [推理inference](machine-learning-training-framework/pytorch/inference/inference.md)
-  * [模型结构参数及显示](machine-learning-training-framework/pytorch/model-structure-parameters/model-structure-parameters.md)
+  * [模型参数与状态管理](machine-learning-training-framework/pytorch/model-param-and-state-manage/model-param-and-state-manage.md)
 * [强化学习训练框架](machine-learning-training-framework/reinforcement-learning-training-framework/reinforcement-learning-training-framework.md)
   * [强化学习开源框架整理](machine-learning-training-framework/reinforcement-learning-training-framework/rl-framework-introduction/rl-framework-introduction.md)
   * [天授 清华](machine-learning-training-framework/reinforcement-learning-training-framework/tianshou/tianshou.md)
@@ -701,6 +701,7 @@
     * [ONNX](model-infer/model-deployment/model-deployment-practice/onnx/onnx.md)
     * [JIT](model-infer/model-deployment/model-deployment-practice/jit/jit.md)
     * [netron模型可视化工具](model-infer/model-deployment/model-deployment-practice/netron/netron.md)
+    * [Ollama本地大模型部署与调用指南](model-infer/model-deployment/model-deployment-practice/ollama/ollama.md)
 * [硬件平台支持](model-infer/hardware-platform/hardware-platform.md)
   * [Nvidia Jetson平台](model-infer/hardware-platform/nvidia-jetson/nvidia-jetson.md)
     * [基于NanoLLM开发平台运行大模型](model-infer/hardware-platform/nvidia-jetson/nano-llm-infer/nano-llm-infer.md)

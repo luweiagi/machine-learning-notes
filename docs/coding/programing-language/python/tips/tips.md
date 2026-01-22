@@ -437,7 +437,100 @@ print ([id(ele) for ele in wilber])
 
 
 
+# --init--.py
 
+> 所以就是说，只要有__init__.py的包，都建议引用包，不要引用内部路径？如果包是一层层的，那就一层层的引用？比如，本来是`from algos.ppp.learner import Learner`，那现在就是，`from algos import learner`?
+
+这是一个非常敏锐的问题！
+
+答案是：并不是“越上层越好”，而是要找到“逻辑边界（Logical Boundary）”。
+
+简单来说：引用应该停留在“有意义的子模块”这一层，而不是无脑推到最顶层。
+
+### 1. 你的例子分析
+
+你问：本来是 `from algos.ppo.learner import Learner`，那现在是不是 `from algos import Learner`？
+
+回答：通常不会这么做。
+
+❌ 不推荐： `from algos import Learner`
+
+- 原因：`algos` 是一个“大集合”，里面可能包含 PPO, DQN, SAC 等几十种算法。如果你在 `algos/__init__.py` 里把所有算法都导入了，那么当你只想用 PPO 时，Python 会被迫把 DQN, SAC 的代码（以及它们依赖的庞大库）全都加载进来。这叫 "Namespace Pollution"（命名空间污染） 和 "Unnecessary Loading"（不必要的加载）。
+
+✅ 大厂标准： `from algos.ppo import Learner`
+
+- 原因：ppo 是一个独立的、完整的业务单元。即使 ppo 文件夹内部把代码拆成了 `learner.py`, `trainer.py`, `buffer.py`，对外使用者只关心“我要用 PPO”。
+
+### 2. 黄金法则：如何判断“逻辑边界”？
+
+你可以把文件夹想象成“抽屉”。
+
+- Case A：工具箱（Utils）
+
+  - utils 里的东西通常很杂（Math, OS, String），但它们都很小且通用。
+
+  - 做法：在 utils/__init__.py 里全暴露出来。
+
+  - 引用：from utils import ValueNorm (OK)
+
+- Case B：独立组件（PPO, Model）
+
+  - ppo 是一个复杂的机器。
+
+  - 做法：在 ppo/__init__.py 里只暴露核心类（Trainer, Learner）。
+
+  - 引用：from algos.ppo import PPOTrainer (完美)
+
+- Case C：组件集合（Algos, Envs）
+
+  - algos 只是一个分类目录。
+
+  - 做法：通常 algos/__init__.py 是空的，或者只暴露列表。
+
+  - 引用：不要试图从 algos 直接引具体类。
+
+### 3. 代码演示
+
+假设你的目录结构是这样：
+
+```shell
+src/
+    utils/          <-- 这是一个“工具包”
+        normalization.py
+        checkpoint.py
+        __init__.py
+    algos/          <-- 这是一个“分类目录”（不要在这里聚合）
+        ppo/        <-- 这是一个“独立产品/模块”
+            learner.py
+            trainer.py
+            __init__.py
+        dqn/
+            ...
+```
+
+推荐的引用方式：
+
+```shell
+# ✅ 引用工具：直接从工具包拿
+from src.utils import ValueNorm, save_checkpoint
+
+# ✅ 引用业务模块：精确到模块名 (ppo)，但不需要精确到文件名 (learner.py)
+from src.algos.ppo import PPOTrainer, PPOLearner
+
+# ❌ 引用太深 (暴露了实现细节，如果文件名改了就挂了)
+from src.algos.ppo.learner import PPOLearner
+
+# ❌ 引用太浅 (容易导致循环引用，且加载太慢)
+from src.algos import PPOLearner 
+```
+
+### 总结
+
+- Utils：封装到 utils 层。
+
+- 业务模块（PPO/DQN）：封装到 ppo / dqn 层。
+
+- 不用为了“短”而强行提到最顶层。清晰和解耦更重要。
 
 # 参考资料
 

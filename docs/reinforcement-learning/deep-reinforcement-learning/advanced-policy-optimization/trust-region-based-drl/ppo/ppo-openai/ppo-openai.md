@@ -485,6 +485,14 @@ $$
 \end{aligned}
 $$
 然后更进一步，将来自未来的奖励做一个折扣$\gamma$，因为越往后的奖励和当前步的行为的关系越小。
+
+这里为什么突然会引入一个折扣呢？数学正确性呢？看这里
+
+https://chatgpt.com/c/69678e19-9ce0-8321-a977-e9eb8b57a4a2
+
+https://chatgpt.com/c/69678e19-9ce0-8321-a977-e9eb8b57a4a2
+
+https://chatgpt.com/c/69678e19-9ce0-8321-a977-e9eb8b57a4a2
 $$
 = \frac{1}{N}\sum_{n=1}^N\sum_{t=1}^{T_n}\left(\sum_{t'=t}^{T_n}\gamma^{t'-t}r_{t'}^n-b\right)\nabla\log p_{\theta}(a_t^n|s_t^n)
 $$

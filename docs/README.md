@@ -523,6 +523,9 @@
 * [Emergence涌现现象](multimodal-large-model/emergence/emergence.md)
 * [自己运行大语言模型](multimodal-large-model/run-llm-diy/run-llm-diy.md)
 * [自己训练大语言模型](multimodal-large-model/train-llm-diy/train-llm-diy.md)
+* [LLM based Multi Agent](multimodal-large-model/llm-based-multi-agent/llm-based-multi-agent.md)
+  * [斯坦福AI小镇](multimodal-large-model/llm-based-multi-agent/stanford-AI-town/stanford-AI-town.md)
+
 * [业界应用](multimodal-large-model/industry-application/industry-application.md)
   * [OpenAI](multimodal-large-model/industry-application/openai/openai.md)
     * 可能大家对于绘画了解的比较多的是midjourney与stable diffusion，实际上这两个产品的基本技术都来源于DALL-E系列，那里的OpenAI还是Open的，它的论文还有足够的内容让我们理解，它里边有什么。于是大家根据它的2021年的DALL-E及CLIP这两个论文，搞出来midjourney，而stable diffusion也是在这个基础上的一个开源方案。
@@ -701,6 +704,7 @@
     * [ONNX](model-infer/model-deployment/model-deployment-practice/onnx/onnx.md)
     * [JIT](model-infer/model-deployment/model-deployment-practice/jit/jit.md)
     * [netron模型可视化工具](model-infer/model-deployment/model-deployment-practice/netron/netron.md)
+    * [大模型API-Key调用](model-infer/model-deployment/model-deployment-practice/openai-api/openai-api.md)
     * [Ollama本地大模型部署与调用指南](model-infer/model-deployment/model-deployment-practice/ollama/ollama.md)
 * [硬件平台支持](model-infer/hardware-platform/hardware-platform.md)
   * [Nvidia Jetson平台](model-infer/hardware-platform/nvidia-jetson/nvidia-jetson.md)

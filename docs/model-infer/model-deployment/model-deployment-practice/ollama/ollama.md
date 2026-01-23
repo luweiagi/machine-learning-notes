@@ -3,6 +3,8 @@
 * [返回上层目录](../model-deployment-practice.md)
 * [使用前准备工作](#使用前准备工作)
 * [Ollama的交互模式](#Ollama的交互模式)
+* [Ollama在linux下的服务配置](#Ollama在linux下的服务配置)
+* [Ollama推理服务机制与工程边界](#Ollama推理服务机制与工程边界)
 * [Ollama本地调用服务和API远程调用服务的本质区别](#Ollama本地调用服务和API远程调用服务的本质区别)
 * [OpenAI-API已成为大模型服务接口标准](#OpenAI-API已成为大模型服务接口标准)
 
@@ -1358,6 +1360,548 @@ print(response.choices[0].message.content)
 - 把 Ollama 接进 **你已有的 Agent / RL / Planner 架构**
 - 或给你一个 **“Ollama + embedding + 向量库”的完整最小工程结构**
 
+# Ollama在linux下的服务配置
+
+看使用场景和运维需求，我给你整理一下 **Linux 下 Ollama 用户的两种主要方式**，并分析利弊：
+
+## 1️⃣ 临时 `export` 环境变量 + 手动启动
+
+**流程：**
+
+```shell
+# 监听地址，默认 127.0.0.1:11434，可改 0.0.0.0:11434 允许外网访问
+export OLLAMA_HOST="0.0.0.0"
+# 跨域 / API来源
+export OLLAMA_ORIGINS="*"
+# 并发能力，runner的数量
+export OLLAMA_NUM_PARALLEL=2
+# 同时加载模型数量
+export OLLAMA_MAX_LOADED_MODELS=2
+# 模型驻留时间，按需加载到内存，超时会卸载（OLLAMA_KEEP_ALIVE）
+export OLLAMA_KEEP_ALIVE="2h"
+# 自定义模型下载和寻找路径
+# export OLLAMA_MODELS="/data/ollama_models"
+# 启动服务
+ollama serve
+```
+
+- **特点：**
+  - 只在当前 shell 会话生效
+  - 关闭终端或重启服务器后，需要重新设置
+  - 启动服务时可以随时修改参数，非常灵活
+  - 适合 **开发、测试、临时调试**，尤其是尝试不同模型、并发数时
+- **优点：**
+  - 灵活、快速，不改系统文件
+  - 易于在不同用户/项目间切换设置
+  - 不需要 sudo 权限
+- **缺点：**
+  - 重启机器或服务后失效，需要重新 export
+  - 对于长期开机提供 API 服务不稳定（易忘记启动）
+
+## 2️⃣ 修改 systemd 服务配置（override 或直接修改 service）
+
+1、前提
+
+- Ollama 官方 FAQ / 中文社区推荐在 Linux 下使用 systemd 来管理长期运行的服务。
+- 核心目标：
+  1. 服务开机自启
+  2. 设置环境变量（并发数、多模型、驻留时间等）
+  3. 保持稳定运行
+- systemd 有两种配置方式：
+  - **直接修改主 service 文件** `/etc/systemd/system/ollama.service`
+  - **使用 override.conf** 在 `/etc/systemd/system/ollama.service.d/override.conf` 添加增量配置（官方推荐，因为不改原文件，升级不会被覆盖）
+
+2、正确的统一做法（推荐 override.conf）
+
+步骤
+
+* 创建或编辑 override 配置：
+
+```
+sudo systemctl edit ollama.service
+```
+
+然后在打开的编辑器里写：
+
+```
+[Service]
+# 设置环境变量
+Environment="OLLAMA_HOST=0.0.0.0:11434"
+Environment="OLLAMA_ORIGINS=*"
+Environment="OLLAMA_NUM_PARALLEL=4"
+Environment="OLLAMA_MAX_LOADED_MODELS=4"
+Environment="OLLAMA_KEEP_ALIVE=2h"
+# Environment="OLLAMA_MODELS=/data/ollama_models"
+# 如果需要覆盖 ExecStart
+# ExecStart=
+# ExecStart=/usr/local/bin/ollama serve
+```
+
+> **注意**：
+>
+> - 如果你只是加环境变量，**不需要覆盖 ExecStart**。只加环境变量即可。
+> - 只有当想修改启动命令本身（比如路径或参数）时才需要 `ExecStart=` 覆盖原有值。
+
+修改完后，按`Ctrl+O`报错，按`Enter`键确认，按`Ctrl+X`退出。
+
+* 重新加载 systemd 配置：
+
+```
+sudo systemctl daemon-reload
+```
+
+* 重启 Ollama 服务：
+
+```
+sudo systemctl restart ollama.service
+```
+
+* 开机自启（可选）：
+
+```
+sudo systemctl enable ollama.service
+```
+
+3、为什么你看到两种写法不一样
+
+| 写法                                         | 特点                                   | 是否推荐                     |
+| -------------------------------------------- | -------------------------------------- | ---------------------------- |
+| 写入 `[Service]` 环境变量 + 不覆盖 ExecStart | 简单，保留原来的启动命令，只加环境变量 | ✅ 官方/社区推荐              |
+| 写入 `[Service]` 环境变量 + 覆盖 ExecStart   | 可以改启动命令，例如改路径或参数       | ⚠️ 仅在需要修改启动命令时使用 |
+
+> 所以两种写法都是“正确”的，只是用途不同：
+>
+> - **加环境变量 → 推荐方式**
+> - **改启动命令 → 覆盖 ExecStart**
+
+4、统一总结
+
+- **Linux 下推荐做法**：
+  - 使用 `override.conf` 或 `systemctl edit` 添加环境变量
+  - 不改原 `ExecStart` 就够了
+  - `daemon-reload + restart` 生效
+  - `enable` 保证开机自启
+- **不推荐**：直接修改主 service 文件（升级后可能被覆盖）
+- **ExecStart 覆盖** 仅在确实需要修改启动命令时使用
+
+**特点：**
+
+- 开机自启动
+- 配置固定，不会随 shell 会话消失
+- 适合 **生产、长期提供 API 的服务器**
+
+**优点：**
+
+- 长期稳定运行，无需手动启动
+- 对团队或服务部署标准化
+- 可以配合 `systemctl restart/reload` 管理
+
+**缺点：**
+
+- 配置不灵活，每次修改需要编辑 override 并 reload systemd
+- 临时测试新的模型或参数需要额外修改服务或改回 export
+
+## 总结
+
+| 使用方式                     | 场景                   | 优缺点                                  |
+| ---------------------------- | ---------------------- | --------------------------------------- |
+| 临时 `export + ollama serve` | 开发、调试、单用户测试 | 灵活、快速，但不稳定、每次需重新 export |
+| systemd 服务配置             | 生产、长期 API 服务    | 稳定、开机自启、团队共享，但修改不灵活  |
+
+**一般用户选择：**
+
+- **开发者/个人实验**：临时 export + serve
+- **生产/团队 API 服务**：systemd service + override.conf
+
+# Ollama推理服务机制与工程边界
+
+## Ollama 推理服务概览
+
+Ollama 是一个面向开发者的**本地大模型推理工具**，其核心目标是降低使用门槛，而非提供生产级、高并发的推理能力。它通过统一的模型管理和简化的 API，让用户可以在本机快速运行和测试大语言模型。
+
+从系统形态上看，Ollama = **本地推理服务进程 + 按需加载的模型实例**。
+
+## 服务生命周期：启动、常驻与关闭
+
+### 服务是否开机自启
+
+- **默认不开机自启**。
+- Ollama 的后台服务通常在以下情况被启动：
+  - 执行 `ollama run <model>`
+  - 通过 HTTP API（如 `POST /api/chat`）发起请求
+- 如果服务尚未运行，**第一次调用会自动触发服务启动**。
+
+结论：是否提前启动服务并不影响使用逻辑，只会影响**第一次请求的延迟**。
+
+### 服务启动后是否会自动关闭
+
+- **不会因为空闲而自动退出**。
+- 只要：
+  - 系统不关机
+  - 用户未手动停止
+  - 未被系统强制回收
+
+服务进程会一直常驻。
+
+> 服务进程是常驻的，但模型不是。
+
+### 检测模型服务是否在启动
+
+这个不常用，因为没必要，因为就算没有启动，你一旦调用服务，服务就会启动。
+
+## 模型加载与卸载机制
+
+### 服务启动是否加载模型
+
+- **不会**。
+- 启动 Ollama 服务仅表示：
+  - 监听端口（默认 11434）
+  - 等待推理请求
+
+模型权重只有在**首次请求某个具体模型**时才会被加载。
+
+### 模型是否会一直驻留在内存/显存
+
+- 模型加载后会驻留一段时间
+- 在以下情况下，模型可能被卸载：
+  - 长时间无请求
+  - 系统内存 / 显存压力增大
+
+- 卸载是**内部策略**，并非精确定时或可配置行为
+
+结论：
+
+- **服务进程：常驻**
+- **模型实例：按需加载，空闲可回收**
+
+## CPU与GPU推理支持
+
+### 是否支持 GPU 推理
+
+- **支持**。
+- 常见支持场景：
+  - NVIDIA GPU（CUDA）
+  - Apple Silicon（Metal）
+
+### 设备选择策略
+
+- Ollama 会**自动检测可用 GPU**
+- 若 GPU 可用且兼容：
+  - **默认使用 GPU 推理**
+- 否则：
+  - 回退到 CPU 推理
+
+> 用户无需、也无法在 API 或 CLI 中显式指定使用 CPU 或 GPU。
+
+### 如何确认是否在使用 GPU
+
+- 推理过程中查看 `nvidia-smi`
+- 观察显存占用和进程信息
+
+## 并发能力分析
+
+### Ollama 是否支持并发
+
+结论：
+
+> **Ollama 能接收并发请求，但不是为并发推理设计的。**
+
+### 网络层并发（支持）
+
+- Ollama 是 HTTP 服务
+- 可以同时接收多个请求
+- 不会在连接层直接拒绝并发请求
+
+也就是说：
+
+```
+Client A ──┐
+           ├──> Ollama HTTP Server
+Client B ──┘
+```
+
+### 推理层并发（非常有限）
+
+- 实际推理时：
+  - GPU / CPU 基本只处理一个推理任务
+- 其他请求：
+  - 排队等待
+  - 串行执行
+
+可以理解为：
+
+```
+[ Request 1 ] ---> 推理中
+[ Request 2 ] ---> 等待
+[ Request 3 ] ---> 等待
+```
+
+不存在：
+
+- 请求调度器
+- 动态 batch
+- KV cache 共享
+- token 级并发调度
+
+### 并发下的典型表现
+
+- 并发请求数增加：
+  - 总吞吐不线性增长
+  - 单请求延迟显著上升
+- GPU 利用率提升有限
+
+> 能并发接收请求 ≠ 能并发推理。
+
+## Serve与Runner的关系
+
+####  Ollama的服务/进程机制
+
+你可以在 Linux 上用以下命令确认 Ollama 服务是怎么启动的：
+
+```shell
+# 查看哪个进程在监听 11434 端口
+sudo lsof -i :11434
+
+# 或者用 netstat / ss
+ss -ltnp | grep 11434
+
+# 查看进程路径
+ps -ef | grep ollama
+```
+
+- 如果路径是 Desktop App 的安装目录 → 是 Desktop 自动启动的。
+- 如果路径是 CLI 的 `ollama serve` → 说明有人配置了 systemd 或你手动启动过。
+
+**Linux CLI 默认不开机启动**
+
+**你的开机就能运行** → 很可能是 Desktop 版后台启动或 systemd 自动启动。
+
+Python SDK / HTTP 请求 **不会自动启动服务**，它只是向已存在的服务发请求。
+
+```shell
+ps -ef | grep ollama
+# ollama       192       1  0 08:56 ?        00:00:00 /usr/local/bin/ollama serve
+# ollama      1240     192 12 09:30 ?        00:00:06 /usr/local/bin/ollama runner --ollama-engine --model ... --port 41513
+```
+
+分析
+
+1. **PID 192: `/usr/local/bin/ollama serve`**
+
+- 父进程 PID 是 1，说明它是 **init/systemd 启动的守护进程**。
+- 说明这个 Ollama 服务确实是在开机时被启动的，而不是你手动执行的。
+
+1. **PID 1240: `/usr/local/bin/ollama runner ...`**
+
+- 父进程是 PID 192，也就是上面的 `ollama serve`。
+- 这是实际加载模型并处理请求的 **推理进程**。
+- `--port 41513` 是内部端口，用于服务与 runner 通信。
+
+1. **说明**
+
+- Python SDK 发 HTTP 请求时，访问的是 `localhost:11434`，也就是 `ollama serve` 的端口。
+- 它不会自动启动 `ollama serve`；服务是开机就启动的，所以请求可以直接命中服务。
+
+> 可是我的推理服务刚才就调用了一次，代码运行了一次就结束了，为啥还能看到PID 1240呢？
+
+哦，这就清楚了，你看到的 `1240` 其实就是 **runner 进程并不是一次性执行 Python 请求就退出的**，而是 `ollama serve` 启动的 **常驻推理进程**。解释如下：
+
+Ollama 的服务/进程机制
+
+1、**`ollama serve`（PID 192）**
+
+- 这是守护进程，常驻系统，负责监听 HTTP 请求（默认端口 11434）。
+- 它本身不会做模型推理，只管理 **runner**。
+
+2、**ollama runner`（PID 1240）**
+
+- 当 `ollama serve` 启动时，它会 **启动一个或多个 runner 进程**，用来真正加载模型并处理推理请求。
+- runner **是长期存在的**，不会随着单次 Python 请求结束而退出。
+- runner 会一直保留模型在内存里，以便 **快速响应下一次请求**。
+
+3、**Python 调用行为**
+
+- 你 Python 发送请求时，只是把请求发给 `ollama serve`。
+- `ollama serve` 将请求转给已经存在的 runner 处理。
+- 请求处理完毕后，runner **不会退出**，因此你仍然能看到 PID 1240。
+
+总结
+
+- **单次请求不会杀掉 runner** → 推理服务保持常驻。
+- **多次请求都用同一 runner** → 避免重复加载模型，提高响应速度。
+- 如果你想关闭服务，需要手动 `kill` 或停止 `ollama serve`，否则 runner 会一直存在。
+
+Ollama 推理服务由 **Serve** 和 **Runner** 两个主要进程组成，它们的职责和关系如下：
+
+```
+Ollama Serve（守护进程）
+─────────────────────────────
+角色：
+1. 管理 runner 的生命周期（启动、监控、重启等）
+2. 负责 HTTP/REST 接口的请求收发（接收请求 → 转发给 runner → 返回结果）
+3. 并不是做模型推理的“干活者”，只是协调者
+
+Ollama Runner（推理进程）
+─────────────────────────────
+角色：
+1. 被 serve 管理，是否启动由 serve 决定
+2. 执行实际模型推理（加载模型、保持模型在内存、处理请求）
+3. 常驻进程，保持模型在内存以加速后续推理请求
+```
+
+可以把它理解为 **Serve 是管理层 + 通信层**，**Runner 是执行层**。
+
+#### Serve的角色
+
+- **管理 Runner**：负责启动、调度、回收 Runner，保证有足够的计算资源处理请求。
+- **收发信息**：监听客户端请求（HTTP 或 OpenAI 兼容 API），将请求转发给空闲的 Runner，返回结果给客户端。
+- **并发控制**：通过配置控制同时运行的 Runner 数量，从而支持一定程度的并发推理。
+
+#### Runner的角色
+
+- **执行模型推理**：加载指定模型，在 Serve 的调度下完成具体计算任务。
+- **被 Serve 管理**：是否启动、何时回收、处理哪个请求都由 Serve 控制，用户通常不直接操作 Runner。
+
+#### Serve与Runner的关系概述
+
+- Serve 是“大脑”，Runner 是“工人”。
+- Serve 根据请求负载管理 Runner 的数量和状态。
+- Runner 只做具体推理，不处理请求分发或并发管理。
+- 当 Serve 配置多个 Runner 时，可以同时处理多个请求，实现并发能力；单个 Runner 时并发受限。
+
+Ollama 的 **服务与进程关系 + 请求流程**，尽量直观展示常驻服务、runner、Python 调用之间的关系：
+
+```
+┌─────────────────────────────────────────────┐
+│                 Linux 系统                  │
+│                                             │
+│  ┌───────────────┐       ┌───────────────┐  │
+│  │  ollama serve │──────▶│  HTTP 监听端口 │  │
+│  │   (守护进程)    │       │   11434      │  │
+│  └───────┬───────┘       └────────┬──────┘  │
+│          │                        │         │
+│          │ 启动 runner             │         │
+│          ▼                        │         │
+│  ┌───────────────┐                │         │
+│  │ ollama runner │◀───────────────┘         │
+│  │ (模型加载 &   │ 处理请求并返回结果            │
+│  │  推理处理)   │                             │
+│  └───────┬───────┘                           │
+│          │                                   │
+│          │ 保持常驻                           │
+│          ▼                                   │
+│  ┌───────────────┐                           │
+│  │ Python/CLI/API│                           │
+│  │ 调用请求模型    │──────────────────────────▶│
+│  └───────────────┘                           │
+│          │                                   │
+│          │ 等待响应                           │
+│          ▼                                   │
+│      输出结果                                 │
+└─────────────────────────────────────────────┘
+```
+
+**serve 守护进程**
+
+- 常驻系统，负责 HTTP 请求路由。
+- 只管理 runner，不直接做推理。
+
+**runner**
+
+- 常驻进程，负责加载模型、执行推理。
+- 不会随单次请求退出，保持模型在内存中以加速后续请求。
+
+**请求流程**
+
+- Python/CLI/API 发送请求到 `serve` → `serve` 转发给 runner → runner 推理并返回结果 → serve 返回给调用方。
+
+**优势**
+
+- 多次请求复用同一 runner → 避免重复加载模型。
+- 可以并发处理多条请求（每个请求可分配不同线程/runner 池）。
+
+#### 如何启动多个runner
+
+在 Ollama 里，**多个 Runner 并不是手动每次去启动一个新进程**那么简单，它的并发管理是 **Serve 控制 Runner 的启动和分配**，你手动很少直接启动 Runner。具体来说：
+
+#### Serve启动Runner的机制
+
+- 当你执行 `ollama serve` 后，Serve 会：
+  1. 根据配置或默认设置决定要启动多少 Runner（通常是 1 个）。
+  2. 当有请求到达时，如果空闲 Runner 不够，它可以按需启动新的 Runner（取决于 Ollama 版本和内部策略）。
+  3. Serve 会管理这些 Runner 的生命周期：启动、分配请求、回收空闲 Runner。
+
+#### 手动控制Runner数量
+
+Ollama CLI 本身不提供“直接命令启动 N 个 Runner”的公开接口。想要多 Runner 通常有两种方法：
+
+1. **调整 Serve 配置（推荐）**
+
+   - 在 Ollama 的配置文件里（通常在 `~/.ollama/config.json` 或类似路径），设置：
+
+     ```
+     {
+       "runner_pool_size": 3
+     }
+     ```
+
+     这样 Serve 启动时就会预先启动 3 个 Runner。
+
+   - 优点：Serve 管理自动分配请求，模型内存复用更高效。
+
+2. **手动启动多个 Runner（不常用）**
+
+   - 可以直接用 `ollama runner --ollama-engine --model <model_path> --port <port>` 启动，但：
+     - Serve 默认只会和自己管理的 Runner 通信，其他手动启动的 Runner 可能不能被 Serve 调度。
+     - 实际用途不大，一般用于调试或特殊测试。
+
+#### 总结
+
+- **正常并发使用**：只需通过 Serve 接收请求，Serve 根据请求自动启动/调度 Runner。
+- **配置并发上限**：修改 Serve 配置里的 `runner_pool_size` 或类似参数。
+- **手动启动 Runner**：可行但不推荐，可能无法完全接入 Serve 调度。
+
+## Ollama 的工程定位
+
+Ollama 的设计取舍可以概括为：
+
+- **优先易用性**
+- **牺牲性能可控性与并发能力**
+
+适合场景：
+
+- 本地开发
+- 单人使用
+- Agent 调试
+- 低并发、无 SLA 要求的应用
+
+不适合场景：
+
+- 多用户在线服务
+- 高并发推理
+- 对 P95 / P99 延迟有要求
+- 需要精细控制 GPU / 显存
+
+## 与专业推理框架的边界
+
+当出现以下需求时，应考虑迁移到专业推理框架（如 vLLM、TensorRT-LLM）：
+
+- 明确的并发需求
+- 稳定的延迟指标
+- 高 GPU 利用率
+- 多卡或集群部署
+
+> Ollama 是本地推理的“入口工具”，而不是生产级推理系统的终点。
+
+## 小结
+
+- Ollama 服务：按需启动，常驻运行
+- 模型加载：首次请求加载，空闲可卸载
+- 设备选择：自动优先 GPU，无需显式配置
+- 并发能力：HTTP 层支持，推理层弱并发
+
+理解这些边界，有助于在正确的阶段使用 Ollama，并在需要时平滑升级到更专业的推理架构。
+
 # Ollama本地调用服务和API远程调用服务的本质区别
 
 > openai api远程调用和ollama这种本地的模型服务的本质核心区别是不是：
@@ -1695,8 +2239,6 @@ LLM Client 抽象层
 - `from openai import OpenAI` 更像是“HTTP 客户端”，而不是“只属于 OpenAI”
 
 # 参考资料
-
-
 
 
 

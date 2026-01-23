@@ -8,6 +8,6 @@
 * [Emergence涌现现象](emergence/emergence.md)
 * [自己运行大语言模型](run-llm-diy/run-llm-diy.md)
 * [自己训练大语言模型](train-llm-diy/train-llm-diy.md)
+* [LLM based Multi Agent](llm-based-multi-agent/llm-based-multi-agent.md)
 * [业界应用](industry-application/industry-application.md)
-
 

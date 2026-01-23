@@ -524,7 +524,7 @@
 * [自己运行大语言模型](multimodal-large-model/run-llm-diy/run-llm-diy.md)
 * [自己训练大语言模型](multimodal-large-model/train-llm-diy/train-llm-diy.md)
 * [LLM based Multi Agent](multimodal-large-model/llm-based-multi-agent/llm-based-multi-agent.md)
-  * [斯坦福AI小镇](multimodal-large-model/llm-based-multi-agent/stanford-AI-town/stanford-AI-town.md)
+  * [Stanford Generative Agents斯坦福小镇技术全景解读：LLM驱动的认知体与社会行为涌现](multimodal-large-model/llm-based-multi-agent/stanford-generative-agents/stanford-generative-agents.md)
 
 * [业界应用](multimodal-large-model/industry-application/industry-application.md)
   * [OpenAI](multimodal-large-model/industry-application/openai/openai.md)

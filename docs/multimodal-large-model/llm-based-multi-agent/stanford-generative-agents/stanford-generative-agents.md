@@ -5,8 +5,8 @@
 * [ 返回上层目录](../llm-based-multi-agent.md)
 * [项目介绍](#项目介绍)
 * [斯坦福小镇系统架构详解](#斯坦福小镇系统架构详解)
-* [Memory机制的工程实现细节](#Memory 机制的工程实现细节)
-* [斯坦福小镇（Generative Agents）的意义与价值](#斯坦福小镇（Generative Agents）的意义与价值)
+* [Memory机制的工程实现细节](#Memory机制的工程实现细节)
+* [斯坦福小镇（Generative-Agents）的意义与价值](#斯坦福小镇（Generative-Agents）的意义与价值)
 * [原版Demo运行方法](#原版Demo运行方法)
 * [第三方汉化版Demo运行](#第三方汉化版Demo运行)
 
@@ -1749,7 +1749,7 @@ Recent Memories → LLM → Summary / Insight
 - 社会行为生成系统
 - 认知建模实验平台
 
-## memory的作用和更新丢弃机制很像lstm的hidden-state
+## Memory的作用和更新丢弃机制很像LSTM的Hidden-State
 
 完全可以这么理解，而且这是一个非常有意思的类比：
 
@@ -1789,7 +1789,7 @@ Memory ↔ LSTM Hidden State
 >
 > 不同的是它可以存储文本事件，做检索，生成 summary，并构造 LLM Prompt，而不仅仅是压缩向量。
 
-# 斯坦福小镇（Generative Agents）的意义与价值
+# 斯坦福小镇（Generative-Agents）的意义与价值
 
 从**学术价值、工程价值、方法论启发、以及它不解决什么问题**四个层面来回答。
 

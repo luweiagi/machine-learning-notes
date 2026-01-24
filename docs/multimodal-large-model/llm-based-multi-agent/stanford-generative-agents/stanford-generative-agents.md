@@ -2550,6 +2550,13 @@ github：https://github.com/x-glacier/GenerativeAgentsCN
 如果是云平台，无法下载等，那就直接换源。
 
 ```shell
+# 
+conda create -n cn python=3.12
+# 
+conda activate cn
+# 
+pip install --upgrade pip -i https://pypi.tuna.tsinghua.edu.cn/simple --trusted-host pypi.tuna.tsinghua.edu.cn
+# 
 pip install -r requirements.txt -i https://pypi.tuna.tsinghua.edu.cn/simple
 ```
 

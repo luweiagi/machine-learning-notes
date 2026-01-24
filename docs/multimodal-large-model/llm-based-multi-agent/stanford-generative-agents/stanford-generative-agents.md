@@ -2545,6 +2545,14 @@ github：https://github.com/x-glacier/GenerativeAgentsCN
 
 ### 注意事项
 
+### pip换源
+
+如果是云平台，无法下载等，那就直接换源。
+
+```shell
+pip install -r requirements.txt -i https://pypi.tuna.tsinghua.edu.cn/simple
+```
+
 #### 换成api接入大模型
 
 在`generative_agents/data/config.json`中，把

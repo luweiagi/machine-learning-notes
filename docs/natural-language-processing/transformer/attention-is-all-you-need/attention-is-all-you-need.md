@@ -2,7 +2,7 @@
 
 ​          ——Self-Attention机制和Transformer详解
 
-![transformer-movie](pic/transformer-movie.jpeg)
+![transformer-movie](C:\Users\lw\Desktop\attention-is-all-you-need\pic\transformer-movie.jpeg)
 
 * [返回上层目录](../transformer.md)
 * [模型的思想](#模型的思想)
@@ -26,7 +26,7 @@
 
 
 
-![paper](pic/paper.jpg)
+![paper](C:\Users\lw\Desktop\attention-is-all-you-need\pic\paper.jpg)
 
 pdf: [*Attention Is All You Need*](https://papers.nips.cc/paper/7181-attention-is-all-you-need.pdf)
 
@@ -42,11 +42,11 @@ pdf: [*Attention Is All You Need*](https://papers.nips.cc/paper/7181-attention-i
 
 在没有Transformer以前，大家做神经机器翻译用的最多的是基于RNN的Encoder-Decoder模型：
 
-![encoder-decoder](pic/encoder-decoder.jpg)
+![encoder-decoder](C:\Users\lw\Desktop\attention-is-all-you-need\pic\encoder-decoder.jpg)
 
 Encoder-Decoder模型当然很成功，在2018年以前用它是用的很多的。而且也有很强的能力。但是RNN天生有缺陷，只要是RNN，就会有梯度消失问题，核心原因是有递归的方式，作用在同一个权值矩阵上，使得如果这个矩阵满足条件的话，其最大的特征值要是小于1的话，那就一定会出现梯度消失问题。后来的LSTM和GRU也仅仅能缓解这个问题
 
-![rnn-vanishing-gradient](pic/rnn-vanishing-gradient.png)
+![rnn-vanishing-gradient](C:\Users\lw\Desktop\attention-is-all-you-need\pic\rnn-vanishing-gradient.png)
 
 ## Transformer为何优于RNN
 
@@ -70,7 +70,7 @@ Transformer模型在论文《[Attention Is All You Need](https://papers.nips.cc/
 
 Transformer模型总体的样子如下图所示：总体来说，还是和Encoder-Decoder模型有些相似，左边是Encoder部分，右边是Decoder部分。
 
-![transformer-model-architecture](pic/transformer-model-architecture.jpg)
+![transformer-model-architecture](C:\Users\lw\Desktop\attention-is-all-you-need\pic\transformer-model-architecture.jpg)
 
 **Encoder**：输入是单词的Embedding，再加上位置编码，然后进入一个统一的结构，这个结构可以循环很多次（N次），也就是说有很多层（N层）。每一层又可以分成Attention层和全连接层，在每一层中，再额外加了一些处理，比如Skip Connection，做跳跃连接，然后还加了Normalization层。其实它本身的模型还是很简单的。
 
@@ -80,7 +80,7 @@ Transformer模型总体的样子如下图所示：总体来说，还是和Encode
 
 再换用另一种简单的方式来解释Transformer的网络结构。
 
-![transformer-encoder-decoder](pic/transformer-encoder-decoder.jpg)
+![transformer-encoder-decoder](C:\Users\lw\Desktop\attention-is-all-you-need\pic\transformer-encoder-decoder.jpg)
 
 需要注意的是上图的Decoder的第一个输入，就是output的前缀信息。
 
@@ -90,21 +90,31 @@ Transformer模型总体的样子如下图所示：总体来说，还是和Encode
 
 我们把上图的网络简化一下，理论上Encoder和Decoder只有一个模块，那也算是Transformer。
 
-![transformer-encoder-decoder-simplify](pic/transformer-encoder-decoder-simplify.jpg)
+![transformer-encoder-decoder-simplify](C:\Users\lw\Desktop\attention-is-all-you-need\pic\transformer-encoder-decoder-simplify.jpg)
 
 那我们就来看下最简单的模型，它是怎样工作的。重点是看Encoder和Decoder里面的Attention机制是怎么运作的。
 
-![encoder-introduction](pic/encoder-introduction.jpg)
+![encoder-introduction](C:\Users\lw\Desktop\attention-is-all-you-need\pic\encoder-introduction.jpg)
 
 这个绿色的框（Encoder #1）就是Encoder里的一个独立模块。下面绿色的输入的是两个单词的embedding。这个模块想要做的事情就是想**把$x_1$转换为另外一个向量$r_1$**，这两个向量的维度是一样的。然后就一层层往上传。
 
-转化的过程分成几个步骤，第一个步骤就是Self-Attention，第二个步骤就是普通的全连接神经网络。但是注意，**Self-Attention框里是所有的输入向量共同参与了这个过程，也就是说，$x_1$和$x_2$通过某种信息交换和杂糅，得到了中间变量$z_1$和$z_2$**。而全连接神经网络是割裂开的，$z_1$和$z_2$各自独立通过全连接神经网络，得到了$r_1$和$r_2$。
+转化的过程分成几个步骤，第一个步骤就是Self-Attention，第二个步骤就是普通的全连接神经网络。
 
-$x_1$和$x_2$互相不知道对方的信息，但因为在第一个步骤Self-Attention中发生了信息交换，所以**$r_1$和$r_2$各自都有从$x_1$和$x_2$得来的信息了**。
+**关键理解：Self-Attention中的信息交换机制**
+
+在Self-Attention中，**所有的输入向量共同参与了这个过程**，但需要明确的是：**信息交换并不是在输入阶段就发生的，而是发生在注意力计算阶段**。
+
+具体来说：
+
+- **输入阶段**：$x_1$和$x_2$是独立的输入向量，它们之间还没有信息交互
+- **Self-Attention计算阶段**：通过注意力机制（query-key匹配和value加权求和），$x_1$和$x_2$发生了信息交换，得到了中间变量$z_1$和$z_2$
+- **输出阶段**：$z_1$和$z_2$各自独立通过全连接神经网络，得到了$r_1$和$r_2$
+
+因此，虽然$r_1$和$r_2$是通过各自独立的全连接层得到的，但**因为Self-Attention阶段发生了信息交换，所以$r_1$和$r_2$各自都包含了从$x_1$和$x_2$得来的信息**。这就是Self-Attention的核心作用：让序列中的每个位置都能"看到"并整合其他位置的信息。
 
 如果我们用**直觉的方式来理解Self-Attention**，假设左边的句子就是输入$x_1,x_2,...,x_{14}$，然后通过Self-Attention映射为$z_1,z_2,...,z_{14}$，**为什么叫Self-Attention呢，就是一个句子内的单词，互相看其他单词对自己的影响力有多大**。比如单词`it`，它和句子内其他单词最相关的是哪个，如果颜色的深浅来表示影响力的强弱，那显然我们看到对`it`影响力最强的就是`The`和`Animal`这两个单词了。所以**Self-Attention就是说，句子内各单词的注意力，应该关注在该句子内其他单词中的哪些单词上**。
 
-![self-attention-intuiation](pic/self-attention-intuiation.jpg)
+![self-attention-intuiation](C:\Users\lw\Desktop\attention-is-all-you-need\pic\self-attention-intuiation.jpg)
 
 具体注意力的不同强弱是怎么计算出来的呢？下面就讲解Self-Attention。
 
@@ -120,7 +130,7 @@ $x_1$和$x_2$互相不知道对方的信息，但因为在第一个步骤Self-At
 
 下图就是Self-Attention的计算机制。已知输入的单词embedding，即$x_1$和$x_2$，想转换成$z_1$和$z_2$。
 
-![self-attention](pic/self-attention.jpg)
+![self-attention](C:\Users\lw\Desktop\attention-is-all-you-need\pic\self-attention.jpg)
 
 转换方式如下：
 
@@ -132,7 +142,9 @@ $$
 &v_1=x_1 W^V\quad v_2=x_2 W^V\\
 \end{aligned}
 $$
-可以注意到，**上述过程中，不同的$x_i$分享了同一个$W^Q$、$W^K$、$W^v$，通过这个操作，$x_1$和$x_2$已经发生了某种程度上的信息交换**。也就是说，单词和单词之间，通过共享权值，已经相互发生了信息的交换（*这是为什么呢？这只不过是对不同的embedding做了同样的处理啊，怎么就交换信息了呢？*）。
+可以注意到，**上述过程中，不同的$x_i$分享了同一个$W^Q$、$W^K$、$W^v$**。这里需要澄清一个重要的误解：**仅仅计算QKV这一步，并没有发生信息交换**。每个token（$x_1$和$x_2$）是独立进行线性变换的，虽然共享了权重矩阵，但这只是让所有token使用相同的变换规则，此时它们之间仍然是独立的，没有信息交互。
+
+**真正的信息交换发生在下一步的Self-Attention计算中**。具体来说：
 
 然后，有了$q_1$、$k_1$、$v_1$和$q_2$、$k_2$、$v_2$，怎么才能得到$z_1$和$z_2$呢？计算过程是这样子的：我们用$v_1$和$v_2$两个向量的线性组合，来得到$z_1$和$z_2$，即
 $$
@@ -150,6 +162,14 @@ $$
 $$
 注意，这里的所有向量，比如$q,k,v$，都是行向量，计算机中对于向量一般认为是行向量（类似数组），不是数学上的列向量。
 
+**这里才是信息交换真正发生的地方！** 具体来说：
+
+1. **注意力分数计算阶段**：$q_1$ 与 $k_1, k_2$ 做点积，比较 $x_1$ 与所有位置（包括 $x_2$）的相关性。这相当于 $x_1$ "询问"所有位置（包括 $x_2$）与自己的相关程度。
+
+2. **加权求和阶段**：$z_1 = \theta_{11}v_1 + \theta_{12}v_2$，这里 $z_1$ 是 $v_1$ 和 $v_2$ 的加权组合。由于 $\theta_{12}$ 通常不为0（除非 $x_1$ 与 $x_2$ 完全不相关），所以 $z_1$ **包含了来自 $x_2$ 的信息**（通过 $v_2$）。同理，$z_2$ 也包含了来自 $x_1$ 的信息。
+
+因此，**信息交换是通过注意力机制实现的**：每个位置的输出是所有位置的value向量的加权和，权重由query和key的相似度决定。这就是为什么叫"Self-Attention"——每个位置都在关注（attend to）序列中的所有位置，包括自己。
+
 通过上述的整个流程，就可以把输入的$x_1$和$x_2$转换成了$z_1$和$z_2$。这就是Self-Attention机制。有了$z_1$和$z_2$，再通过全连接层，就能输出该Encoder层的输出$r_1$和$r_2$。
 
 讲到这里，你肯定很困惑为什么要有$q$、$k$、$v$向量，因为这个思路来自于比较早的信息检索领域，$q$就是query，$k$就是key，$v$就是value，(k,v)就是键值对、也就是用query关键词去找到最相关的检索结果。
@@ -165,7 +185,7 @@ k-v : 4G - Nokia
 
 为了得到query，key，value，一个$x$就得做3次乘法，那n个$x$就得做$3n$次乘法。为了比较高效的实现矩阵乘法，要进行类似matlab中的向量化操作，因为因为GPU中矩阵运算的复杂度是$O(1)$不是$O(N^2)$。如果我们能把上面的操作变为矩阵操作，那我们就能很好的利用GPU做并行计算。具体的矩阵操作如下图所示。
 
-![self-attention-gpu](PIC/self-attention-gpu.jpg)
+![self-attention-gpu](C:\Users\lw\Desktop\attention-is-all-you-need\PIC\self-attention-gpu.jpg)
 
 用公式表示即为
 $$
@@ -187,21 +207,21 @@ $$
 
 如果用不同的$W^Q$、$W^K$、$W^V$，就能得到不同的$Q$、$K$、$V$。multi-headed Attention就是指用了很多个不同的$W^Q$、$W^K$、$W^V$。
 
-![multi-head-attention](pic/multi-head-attention.jpg)
+![multi-head-attention](C:\Users\lw\Desktop\attention-is-all-you-need\pic\multi-head-attention.jpg)
 
 那这样的好处是什么呢？可以让Attention有更丰富的层次。有多个$Q$、$K$、$V$的话，可以分别从多个不同角度来看待Attention。这样的话，输入$x$，对于不同的multi-headed Attention，就会产生不同的$z$。
 
-![multi-head-attention-2](pic/multi-head-attention-2.jpg)
+![multi-head-attention-2](C:\Users\lw\Desktop\attention-is-all-you-need\pic\multi-head-attention-2.jpg)
 
 那现在一个$x$就有了多个版本的$z$，那该怎么结合为一个$z$呢？
 
 那就将多个版本的$x$拼接称为一个长向量，然后用一个全连接网络，即乘以一个矩阵，就能得到一个短的$x$向量。
 
-![multi-headed-attention-3](pic/multi-headed-attention-3.jpg)
+![multi-headed-attention-3](C:\Users\lw\Desktop\attention-is-all-you-need\pic\multi-headed-attention-3.jpg)
 
 把multi-headed输出的不同的$z$，组合成最终想要的输出的$z$，这就是multi-headed Attention要做的一个额外的步骤。
 
-![multi-headed-attention-4.jpg](pic/multi-headed-attention-4.jpg)
+![multi-headed-attention-4.jpg](C:\Users\lw\Desktop\attention-is-all-you-need\pic\multi-headed-attention-4.jpg)
 
 multi-headed Attention用公式表示就是
 $$
@@ -214,19 +234,117 @@ $$
 
 下图是有八个Attention，先看右图，这八个Attention用八种不同的颜色表示，从蓝色到灰色。然后我们可以看到一个单词，在这八个Attention上对句子里每个单词的权重，颜色越深，代表权重越大。我们只挑出橙色和绿色（即第二个和第三个色块），看它们分别是怎样的注意力。然后把橙色和绿色的色块拉长就得到了左边这个图。
 
-![multi-headed-attention-5](pic/multi-headed-attention-5.jpg)
+![multi-headed-attention-5](C:\Users\lw\Desktop\attention-is-all-you-need\pic\multi-headed-attention-5.jpg)
 
 我们现在看左边，先看橙色部分，单词`it`连接的权重最重的是`animal`，这是从某一个侧面来看，那从另一个侧面来看，看绿色部分，`it`最关注的是`tired`。橙色的注意力主要表明`it`是个什么东西，从东西的角度说明它是一种动物，而不是苹果或者香蕉。如果我们从状态这个层面来看，`it`这个动物现在是在怎么样的一个状态，它的状态是`tired`，而不是兴奋。所以**不同的Self-Attention Head是不同方面的理解**。
 
 ## 词向量Embedding输入
 
-Encoder输入的是单词$x$的embedding，通常有两种选择：
+### Embedding Table（词嵌入表）的作用
 
-1. 使用Pre-trained的**embeddings并固化**，这种情况下实际就是一个Lookup Table。
+无论是Encoder还是Decoder，最底层的输入都是**单词（token）**，需要先转换为**embedding向量**才能输入到模型中。这个过程通过**Embedding Table**（也叫Lookup Table或Embedding Layer）实现。
 
-2. 对其进行随机初始化（当然也可以选择Pre-trained的结果），但**设为Trainable**。这样在training过程中不断地对embeddings进行改进。 即End2End训练方式。
+**Embedding Table的结构：**
 
-Transformer选择后者。
+- Shape: `(vocab_size, d_model)`
+- 例如：如果vocabulary有10000个词，`d_model = 512`，则Embedding Table是`(10000, 512)`的矩阵
+- 每一行对应vocabulary中一个词的embedding向量
+- **这是一个可学习的参数矩阵**，在训练过程中会不断更新
+
+### 从Token到Embedding的完整流程
+
+**步骤1：Token到索引的映射**
+
+- 输入是token（单词），需要先映射到vocabulary中的索引
+- 例如：`"I"` → 索引`42`，`"am"` → 索引`156`，等等
+- 这个映射通常由tokenizer完成（如BPE、WordPiece等）
+
+**步骤2：Embedding Table查找（Lookup）**
+
+- 通过索引从Embedding Table中查找对应的embedding向量
+- 这是一个**离散的索引查找操作**，不是连续的可微操作
+- 但Embedding Table本身是可学习的，所以梯度可以通过embedding向量回传到Embedding Table
+
+**步骤3：加上位置编码**
+
+- 查找到的embedding加上位置编码（Positional Encoding）
+- 最终输入 = Word Embedding + Positional Encoding
+
+### 具体例子
+
+假设：
+
+- Vocabulary size: 10000
+- `d_model`: 512
+- 输入序列: `["</s>", "I", "am"]`
+
+**完整流程：**
+
+```
+输入token: ["</s>", "I", "am"]
+↓
+Token到索引: [0, 42, 156]
+↓
+Embedding Table查找: 
+  - E[0] → [512维向量]  (</s>的embedding)
+  - E[42] → [512维向量]  (I的embedding)
+  - E[156] → [512维向量]  (am的embedding)
+↓
+加上位置编码:
+  - E[0] + PE(0) → 位置0的最终embedding
+  - E[42] + PE(1) → 位置1的最终embedding
+  - E[156] + PE(2) → 位置2的最终embedding
+↓
+输入到Encoder/Decoder的第一个block
+```
+
+### 数学表示
+
+假设：
+
+- Embedding Table: $E \in \mathbb{R}^{|V| \times d_{model}}$（|V|是vocabulary size）
+- 输入序列的索引: $[idx_0, idx_1, ..., idx_{n-1}]$
+- 位置编码: $PE \in \mathbb{R}^{n \times d_{model}}$
+
+那么输入到Encoder/Decoder的embedding是：
+$$H_0 = E[idx] + PE$$
+
+其中$E[idx]$表示通过索引从Embedding Table中查找对应的行。
+
+### Encoder和Decoder的Embedding Table
+
+**通常有两种做法：**
+
+1. **共享Embedding Table**（更常见）：
+   - Encoder和Decoder使用**同一个**Embedding Table
+   - 优点：参数更少，模型更紧凑
+   - 在Transformer原始论文中通常采用这种方式
+
+2. **独立Embedding Table**：
+   - Encoder和Decoder使用**不同的**Embedding Table
+   - 优点：可以为输入和输出学习不同的表示空间
+   - 在某些变体中会采用这种方式
+
+### Embedding Table的初始化
+
+Encoder和Decoder的embedding初始化通常有两种选择：
+
+1. **使用Pre-trained的embeddings并固化**：
+   - 这种情况下Embedding Table是固定的，不参与训练
+   - 实际就是一个固定的Lookup Table
+
+2. **随机初始化（或使用Pre-trained结果作为初始化），但设为Trainable**：
+   - Embedding Table是可学习的参数
+   - 在training过程中不断地对embeddings进行改进
+   - 即End2End训练方式
+
+**Transformer选择后者**，即Embedding Table是可学习的参数，会在训练过程中不断更新。
+
+### 关键理解
+
+1. **Embedding Table是可学习的参数**：虽然lookup操作本身是离散的，但Embedding Table是连续的可学习参数，梯度可以回传
+2. **Decoder也需要位置编码**：Decoder的输入也需要加上位置编码，原因与Encoder相同——没有RNN或CNN来捕获序列顺序，需要显式的位置信息
+3. **位置编码是独立的**：Encoder和Decoder使用相同的位置编码函数（相同的sin/cos公式），但位置索引是独立的（Encoder的位置0对应输入序列的第一个词，Decoder的位置0对应输出序列的第一个词）
 
 ## 位置编码
 
@@ -234,7 +352,7 @@ Transformer选择后者。
 
 为什么要知道单词之间的相对位置呢？因为Transformer模型没有用RNN也没有卷积，所以为了让模型能利用序列的顺序，必须输入序列中词的位置。所以我们在Encoder模块和Decoder模块的底部添加了位置编码，这些位置编码和输入的$x$向量的维度相同，所以可以直接相加，从而将位置信息注入。
 
-![positional-encoding](pic/positional-encoding.jpg)
+![positional-encoding](C:\Users\lw\Desktop\attention-is-all-you-need\pic\positional-encoding.jpg)
 
 想要知道单词之间的距离，就得知道单词的坐标。有很多不同衡量距离的方式，
 
@@ -245,31 +363,54 @@ PE_{(pos,2i)}&=sin(\frac{pos}{10000^{2i/d_{model}}})\\
 PE_{(pos,2i+1)}&=cos(\frac{pos}{10000^{2i/d_{model}}})
 \end{aligned}
 $$
-其中，$pos$是单词的位置索引，设句子长度为$L$，那么$pos = 0, 1, ..., L−1$。$i$是向量的某一维度，假设词向量维度$d_{model} = 512$，那么$i = 0 , 1 , . . . , 255$。
+其中，$pos$是单词的位置索引，设句子长度为$L$，那么$pos = 0, 1, ..., L−1$。$i$是用于生成位置编码的索引，**注意这里的关键**：由于公式中使用了$2i$和$2i+1$，每个$i$值会生成**两个维度**的位置编码值（一个sin，一个cos）。
+
+假设词向量维度$d_{model} = 512$，那么：
+
+- $i$的取值范围是$i = 0, 1, ..., 255$（共256个值）
+- 当$i=0$时，生成维度$0$（sin）和维度$1$（cos）
+- 当$i=1$时，生成维度$2$（sin）和维度$3$（cos）
+- ...
+- 当$i=255$时，生成维度$510$（sin）和维度$511$（cos）
+- 总共生成$256 \times 2 = 512$个维度，正好等于$d_{model}$
+
+**为什么$i$最大是255而不是511？** 因为每个$i$对应2个维度，所以$i$的最大值应该是$\lfloor \frac{d_{model}}{2} \rfloor - 1 = \lfloor \frac{512}{2} \rfloor - 1 = 255$。如果$i$取到511，就会生成$512 \times 2 = 1024$个维度，超出了$d_{model} = 512$的范围。
 
 下面举例说明该公式的用法。
 
-![positional-encoding-2](pic/positional-encoding-2.jpg)
+![positional-encoding-2](C:\Users\lw\Desktop\attention-is-all-you-need\pic\positional-encoding-2.jpg)
 
-举例来说，假设$$d_{model} =5$$，那么在一个样本中：
+举例来说，假设$d_{model} = 5$，那么在一个样本中：
 
-第一个单词的位置编码为：
+由于$d_{model} = 5$是奇数，$i$的取值范围是$i = 0, 1, 2$（因为$\lfloor \frac{5}{2} \rfloor = 2$）：
+
+- $i=0$：生成维度$0$（sin）和维度$1$（cos）
+- $i=1$：生成维度$2$（sin）和维度$3$（cos）
+- $i=2$：生成维度$4$（sin），注意这里$2i+1=5$超出了维度范围，所以只有sin，没有cos
+
+**第一个单词（$pos=0$）的位置编码为：**
 $$
-\left[ sin(\frac{0}{10000^{\frac{2\times 0}{5}}})\quad cos(\frac{0}{10000^{\frac{2\times 0}{5}}})\quad sin(\frac{0}{10000^{\frac{2\times 1}{5}}})\quad cos(\frac{0}{10000^{\frac{2\times 1}{5}}})\quad sin(\frac{0}{10000^{\frac{2\times 2}{5}}})\right]
+\left[ sin(\frac{0}{10000^{0}})\quad cos(\frac{0}{10000^{0}})\quad sin(\frac{0}{10000^{\frac{2}{5}}})\quad cos(\frac{0}{10000^{\frac{2}{5}}})\quad sin(\frac{0}{10000^{\frac{4}{5}}})\right]
 $$
-第二个单词的位置编码为：
+
+**第二个单词（$pos=1$）的位置编码为：**
 $$
-\left[ sin(\frac{1}{10000^{\frac{2\times 0}{5}}})\quad cos(\frac{1}{10000^{\frac{2\times 0}{5}}})\quad sin(\frac{1}{10000^{\frac{2\times 1}{5}}})\quad cos(\frac{1}{10000^{\frac{2\times 1}{5}}})\quad sin(\frac{1}{10000^{\frac{2\times 2}{5}}})\right]
+\left[ sin(\frac{1}{10000^{0}})\quad cos(\frac{1}{10000^{0}})\quad sin(\frac{1}{10000^{\frac{2}{5}}})\quad cos(\frac{1}{10000^{\frac{2}{5}}})\quad sin(\frac{1}{10000^{\frac{4}{5}}})\right]
 $$
+
+**注意区别**：第一个位置编码中所有的分子都是$0$（因为$pos=0$），第二个位置编码中所有的分子都是$1$（因为$pos=1$）。这就是为什么不同位置会有不同的位置编码。
+
+**注意**：当$d_{model}$是奇数时，最后一个维度只有sin值，没有对应的cos值。在实际应用中，$d_{model}$通常设置为偶数（如512、768等），这样可以保证每个$i$都能生成完整的sin-cos对。
+
 为什么这样做呢？用图形的方式可以直觉上理解。下图为一个长度为50，维度是128的句子的Positional Encoding（每一行为一个Encoding向量）。下图中一行就是一个单词的Positional Encoding。
 
-![positional-encoding-3](pic/positional-encoding-3.jpg)
+![positional-encoding-3](C:\Users\lw\Desktop\attention-is-all-you-need\pic\positional-encoding-3.jpg)
 
 上图可以看出，**不同位置的Positional Encoding是独特的**。但是计算Positional Encoding的方式不是唯一的，甚至Positional Encoding也可以是train出来的，**并不是必须用作者说的sin cos**。只要能相互计算距离就可以。但是训练出来的不鲁棒，选择正弦曲线版本是因为它可以使模型外推到比训练过程中遇到的序列更长的序列长度。
 
 Positional Encoding的**物理意义**是：把50个Positional Encoding两两互相做点击，看相关性。**其特点是Encoding向量的点积值对称，随着距离增大而减小**。
 
-![positional-encoding-4](pic/positional-encoding-4.jpg)
+![positional-encoding-4](C:\Users\lw\Desktop\attention-is-all-you-need\pic\positional-encoding-4.jpg)
 
 关于位置编码的更多解释和理解，请看
 
@@ -292,7 +433,7 @@ skip connection最早是在计算机视觉的ResNet里面提到的，是微软�
 
 跳跃层不是必须的，但在Transformer中，作者建议这样做，在Selft-Attention的前后和每一个Feed Forwar前后都用了跳跃层，如下图中的虚线所示。
 
-![skip-connection-and-layer-normalization](pic/skip-connection-and-layer-normalization.jpg)
+![skip-connection-and-layer-normalization](C:\Users\lw\Desktop\attention-is-all-you-need\pic\skip-connection-and-layer-normalization.jpg)
 
 如上图所示，同时，还用了Normalize，用的是一种新的[Layer Normalize](https://arxiv.org/pdf/1607.06450.pdf)，不是常用的Batch Normalize。是一种正则化的策略，避免网络过拟合。
 
@@ -303,13 +444,13 @@ $$
 &h^t=f\left[\frac{g}{\sigma^t}\odot \left(a^t-\mu^t\right)+b\right]
 \end{aligned}
 $$
-![layer-normalize](pic/layer-normalize.jpg)
+![layer-normalize](C:\Users\lw\Desktop\attention-is-all-you-need\pic\layer-normalize.jpg)
 
 Layer Normalize和Batch Normalize唯一的区别就是不考虑其他数据，只考虑自己，这样就避免了不同batch size的影响。
 
 下图给出一个对不同样本做Layer Normalization的实例以及和Batch Normalization的对比。
 
-![layer-normalize-2](pic/layer-normalize-2.jpg)
+![layer-normalize-2](C:\Users\lw\Desktop\attention-is-all-you-need\pic\layer-normalize-2.jpg)
 
 Layer Normalization的方法可以和Batch Normalization对比着进行理解，因为Batch Normalization不是Transformer中的结构，这里不做详解，详细清楚的解释请看这里：[NLP中 batch normalization与 layer normalization](https://zhuanlan.zhihu.com/p/74516930)。下面简单解释一下：
 
@@ -321,11 +462,130 @@ BN、LN可以看作横向和纵向的区别。其作用为：
 
 * 这类归一化技术，**目的就是让每一层的分布稳定下来**，让后面的层可以在前面层的基础上安心学习知识。
 
+### Layer Normalization 的深入理解
+
+#### Layer Normalization 的完整流程
+
+Layer Normalization 包含两个关键步骤：
+
+**步骤1：归一化（Normalization）**
+$$\text{normalized} = \frac{a^t - \mu^t}{\sigma^t}$$
+
+这一步将每个embedding归一化到均值为0、方差为1的分布。**这确实改变了原始值**。
+
+**步骤2：可学习的缩放和偏移（Scale & Shift）**
+$$h^t = g \odot \text{normalized} + b$$
+
+这里有两个可学习参数：
+
+- $g$ (gamma/scale)：缩放参数
+- $b$ (beta/shift)：偏移参数
+
+#### 为什么归一化改变了值还能正确训练？
+
+这是一个常见的疑问：既然归一化改变了embedding的值，为什么模型还能正确训练？
+
+**关键理解：模型学习的是相对关系，不是绝对值**
+
+在深度学习中，embedding的"本意"不是具体的数值，而是：
+
+- **不同token之间的相对关系**（相似度、距离）
+- **在向量空间中的相对位置**
+- **语义相似性**
+
+虽然归一化改变了绝对值，但**保持了相对关系**：
+
+- 如果两个向量相似，归一化后仍然相似
+- 如果两个向量不同，归一化后仍然不同
+- **向量之间的角度关系（余弦相似度）保持不变**
+
+**可学习参数的作用：**
+
+$g$ 和 $b$ 的作用不是"恢复"原始值，而是：
+
+- 学习到合适的数值范围
+- 根据任务需求调整分布
+- 让模型在稳定的分布上学习
+
+虽然归一化后的值不会完全恢复到原始值，但模型会在新的表示空间中学习任务所需的关系，这通常比原始数值空间更适合训练。
+
+#### Layer Normalization 对相对大小和角度的影响
+
+**重要观察：Layer Normalization 会改变相对大小，但保持角度关系**
+
+具体来说：
+
+**相对大小关系会改变：**
+
+- 假设 $x_1 = [100, 200, 50]$，$x_2 = [10, 20, 5]$
+- 原始相对大小：$x_1$ 大约是 $x_2$ 的10倍
+- 归一化后：两者都被映射到均值为0、方差为1的分布
+- **原始的相对大小关系确实被改变了**
+
+**相对角度关系保持不变：**
+
+- 余弦相似度：$\cos(\theta) = \frac{x_1 \cdot x_2}{|x_1||x_2|}$
+- 归一化后：$\cos(\theta_{norm}) = \frac{x_{1,norm} \cdot x_{2,norm}}{|x_{1,norm}||x_{2,norm}|} = \cos(\theta)$
+- 因为归一化是线性变换（减去均值，除以标准差），**不改变向量之间的角度关系**
+
+#### 为什么改变相对大小还能工作？
+
+**关键原因：模型主要依赖方向（角度），而不是大小（模长）**
+
+在Transformer中，特别是在Self-Attention机制中：
+
+- 注意力分数：$\text{softmax}(\frac{QK^T}{\sqrt{d_k}})$
+- 这里主要依赖的是 $Q$ 和 $K$ 之间的**角度关系**（相似度）
+- 归一化后，角度关系保持不变，所以注意力机制仍然有效
+
+**统一分布带来的好处远大于相对大小改变的成本：**
+
+**问题场景（没有归一化）：**
+
+```
+不同embedding的数值范围差异巨大：
+x1 = [100, 200, 50]   (大数值)
+x2 = [10, 20, 5]      (小数值)
+x3 = [1000, 2000, 500] (超大数值)
+
+→ 梯度不稳定，训练困难
+```
+
+**归一化后：**
+
+```
+所有embedding都在相似的数值范围：
+x1_norm ≈ [0.5, 1.2, -0.8]  (均值为0，方差为1)
+x2_norm ≈ [0.3, 1.1, -0.9]  (均值为0，方差为1)
+x3_norm ≈ [0.4, 1.3, -0.7]  (均值为0，方差为1)
+
+→ 数值范围统一，梯度稳定，训练更容易
+```
+
+**关于"后续层能否学习相对大小关系"的澄清：**
+
+Layer Normalization确实消除了原始的数值大小信息，后续层无法恢复原始的数值大小关系。但这是可以接受的，因为：
+
+1. **模型不需要恢复原始大小关系**：模型在新的表示空间中学习任务所需的关系
+2. **如果任务需要大小关系**：模型会通过可学习参数在新的表示空间中建立这种关系（可能与原始的不同，但只要能完成任务就行）
+3. **模型主要依赖方向关系**：在深度学习中，特别是注意力机制中，模型主要学习的是方向关系，而不是大小关系
+
+#### Layer Normalization 的核心价值
+
+Layer Normalization 的核心价值在于：
+
+1. **数值稳定性**：避免梯度爆炸/消失，让训练更稳定
+2. **训练效率**：统一的分布让模型更快收敛
+3. **泛化能力**：更稳定的分布有助于模型泛化
+4. **保持语义信息**：虽然改变了数值大小，但保持了相对关系和角度信息
+
+**总结**：Layer Normalization 改变了数值大小关系，但保持了方向关系和语义信息。这种改变是有益的，因为它带来了训练稳定性和效率的提升，而这些好处远大于相对大小改变的成本。模型会在新的表示空间中学习任务所需的关系，这通常比原始数值空间更适合训练。
+
 ## Encoder模块汇总
 
 Encoder模块各部分及相关流程如下所示。
 
-![encoder-part](pic/encoder-part.jpg)
+![encoder-part](C:\Users\lw\Desktop\attention-is-all-you-need\pic\encoder-part.jpg)
 
 # Decoder模块
 
@@ -336,6 +596,47 @@ Encoder模块各部分及相关流程如下所示。
 2. SubLayer-2是一个Encoder-Decoder Multi-head Attention。
 
 3. LinearLayer和SoftmaxLayer作用于SubLayer-3的输出后面，来预测对应的word的probabilities 。
+
+### Decoder的输入转换（Token → Embedding）
+
+**重要理解：Decoder的输入也需要经过Embedding Table和位置编码的转换**
+
+Decoder最底层的输入是**单词（token）**，需要经过与Encoder相同的转换过程：
+
+1. **Token → 索引**：通过tokenizer将token映射到vocabulary索引
+2. **Embedding Table查找**：通过索引从Embedding Table中查找对应的embedding向量
+3. **加上位置编码**：embedding向量加上位置编码（Positional Encoding）
+4. **输入到Decoder的第一个block**
+
+**关键点：**
+
+- Decoder的输入**也需要加上位置编码**，原因与Encoder相同——没有RNN或CNN来捕获序列顺序，需要显式的位置信息
+- Encoder和Decoder通常**共享同一个Embedding Table**（权重共享），但也可以使用独立的Embedding Table
+- 位置编码函数相同，但位置索引是独立的（Encoder的位置0对应输入序列的第一个词，Decoder的位置0对应输出序列的第一个词）
+
+**具体流程示例（训练时）：**
+
+```
+输入token序列: ["</s>", "I", "am", "a", "student"]
+↓
+Token到索引: [0, 42, 156, 3, 789]
+↓
+Embedding Table查找: 
+  - E[0] → [512维向量]  (</s>的embedding)
+  - E[42] → [512维向量]  (I的embedding)
+  - E[156] → [512维向量]  (am的embedding)
+  - E[3] → [512维向量]  (a的embedding)
+  - E[789] → [512维向量]  (student的embedding)
+↓
+加上位置编码:
+  - E[0] + PE(0) → 位置0的最终embedding
+  - E[42] + PE(1) → 位置1的最终embedding
+  - E[156] + PE(2) → 位置2的最终embedding
+  - E[3] + PE(3) → 位置3的最终embedding
+  - E[789] + PE(4) → 位置4的最终embedding
+↓
+输入到Decoder的第一个block（Masked Self-Attention）
+```
 
 ## Decoder的Mask-Multi-Head-Attention输入端
 
@@ -385,20 +686,32 @@ Encoder模块各部分及相关流程如下所示。
 
 第一步，预测第一个字母`I`：
 
-![transformer-process-1](pic/transformer-process-1.gif)
+![transformer-process-1](C:\Users\lw\Desktop\attention-is-all-you-need\pic\transformer-process-1.gif)
 
 其余步骤，预测其余字母`am a student`：
 
-![transformer-process-2](pic/transformer-process-2.gif)
+![transformer-process-2](C:\Users\lw\Desktop\attention-is-all-you-need\pic\transformer-process-2.gif)
 
-Transformer Decoder的输入：
+**Transformer Decoder的输入（需要区分训练阶段和推理阶段）：**
 
-- 初始输入：**前一时刻Decoder输入**??+前一时刻Decoder的预测结果 + Positional Encoding
+**训练阶段：**
+
+- 初始输入：训练集的标签$Y$（整体右移一位，前面加上起始符`</s>`）+ Positional Encoding
 - 中间输入：Encoder Embedding
+- 特点：可以并行处理整个序列，因为已经有了完整的标签序列
+
+**推理阶段（预测时）：**
+
+- 初始输入：起始符`</s>` + 之前所有时刻的预测结果 + Positional Encoding
+- 中间输入：Encoder Embedding  
+- 特点：逐步生成，每次只能看到之前生成的token
+
+**注意**：训练时使用"Teacher Forcing"策略，即使用真实的标签序列作为输入，而不是使用模型自己的预测结果。这样可以并行训练，提高效率。推理时则必须使用模型自己的预测结果，逐步生成。
 
 **什么是Mask**
 
 mask表示掩码，它对某些值进行掩盖，使其在参数更新时不产生效果。Transformer模型里面涉及两种mask，分别是 padding mask和sequence mask。
+
 其中，**padding mask**在所有的scaled dot-product attention里面都需要用到，而**sequence mask**只有在Decoder的Self-Attention里面用到。
 
 **Padding Mask**
@@ -412,6 +725,7 @@ mask表示掩码，它对某些值进行掩盖，使其在参数更新时不产�
 **Sequence mask**
 
 文章前面也提到，sequence mask是为了使得Decoder不能看见未来的信息。也就是对于一个序列，在time_step为t的时刻，我们的解码输出应该只能依赖于t时刻之前的输出，而不能依赖t之后的输出。因此我们需要想一个办法，把t之后的信息给隐藏起来。
+
 那么具体怎么做呢？也很简单：产生一个上三角矩阵，上三角的值全为0。把这个矩阵作用在每一个序列上，就可以达到我们的目的。
 
 sequence mask的目的是防止Decoder “seeing the future”，就像防止考生偷看考试答案一样。这里mask是一个下三角矩阵，对角线以及对角线左下都是1，其余都是0。下面是个10维度的下三角矩阵：
@@ -457,11 +771,11 @@ sequence mask的目的是防止Decoder “seeing the future”，就像防止考
 
 Cross-attention，也称为编码器-解码器注意力，是Transformer架构中的一个关键组件，特别用于在解码器中整合来自编码器的信息。这种机制允许解码器在生成每个输出时，利用整个输入序列的上下文信息，从而增强翻译或文本生成的准确性和相关性。以下是对Cross-attention机制的详细解释：
 
-![transformer-process](pic/transformer-process.jpg)
+![transformer-process](C:\Users\lw\Desktop\attention-is-all-you-need\pic\transformer-process.jpg)
 
 Attention的预测流程和和普通的Encoder-Decoder的模式是一样的，只是用Self-Attention替换了RNN。
 
-在这一层（Decoder中的第二个注意力层），输入不仅有前一层的输出$x$，还有来自Encoder的输出$m$（不然Encoder辛辛苦苦做的输出就没用了），然后把Encoder产生的向量$m$作为Decoder的key和value，Decoder的$x$作为query，然后进行Self-Attention。相当于是，Encoder告诉我key和value是什么，我现[]在要做的就是产生query。即有
+在这一层（Decoder中的第二个注意力层），输入不仅有前一层的输出$x$，还有来自Encoder的输出$m$（不然Encoder辛辛苦苦做的输出就没用了），然后把Encoder产生的向量$m$作为Decoder的key和value，Decoder的$x$作为query，然后进行Self-Attention。相当于是，Encoder告诉我key和value是什么，我现在要做的就是产生query。即有
 $$
 \begin{aligned}
 q&=xW^Q\\
@@ -469,33 +783,240 @@ k&=mW^K\\
 v&=mW^V
 \end{aligned}
 $$
+
 ## Decoder的输出
 
-![encoder-decoder-2.jpg](pic/encoder-decoder-2.jpg)
+![encoder-decoder-2.jpg](C:\Users\lw\Desktop\attention-is-all-you-need\pic\encoder-decoder-2.jpg)
 
 从上图可以看出，Decoder和Encoder唯一的区别就是多了一个Encode-Decode注意力层，然后最后一层接了个linear+softmax层，损失函数就是交叉熵损失。
 
-Decoder的最后一个部分是过一个linear layer将decoder的输出扩展到与vocabulary size一样的维度上。经过softmax 后，选择概率最高的一个word作为预测结果。假设我们有一个已经训练好的网络，**在做预测时，步骤如下：**
+![encoder-output](C:\Users\lw\Desktop\attention-is-all-you-need\pic\encoder-output.jpg)
 
-1. 给Decoder输入Encoder对整个句子embedding的结果和一个特殊的开始符号`</s>`。Decoder 将产生预测，在我们的例子中应该是 ”I”。
+### Decoder输出与Linear层的连接机制
 
-2. 给Decoder输入Encoder的embedding结果和`</s> I`，在这一步Decoder应该产生预测 `am`。
+这是一个关键但容易被忽略的细节：**Decoder最后一个block的输出如何与Linear层连接？**
 
-3. 给Decoder输入Encoder的embedding结果和`</s> I am`，在这一步Decoder应该产生预测`a`。
+#### 关键理解：不需要Pooling，每个位置独立处理
 
-4. 给Decoder输入Encoder的embedding结果和`</s> I am a`，在这一步Decoder应该产生预测`student`。
+**Decoder最后一个block的输出格式：**
 
-5. 给Decoder输入Encoder的embedding结果和`</s> I am a student`, Decoder应该生成句子结尾的标记，Decoder 应该输出`</eos>`。
+- Shape: `(batch_size, seq_len, d_model)`
+- 每个位置都有一个 `d_model` 维的embedding
+- 例如：如果有5个位置，就有5个独立的embedding
 
-6. 然后Decoder生成了`</eos>`，翻译完成。
+**Linear层的作用：**
 
-![encoder-output](pic/encoder-output.jpg)
+- 输入: `(batch_size, seq_len, d_model)`
+- 输出: `(batch_size, seq_len, vocab_size)`
+- **Linear层是对每个位置的embedding分别进行线性变换**
+
+**具体流程示例：**
+
+假设序列长度为5，`d_model = 512`，`vocab_size = 10000`：
+
+1. **Decoder最后一个block输出：**
+
+   ```
+   位置0的embedding: [512维向量]
+   位置1的embedding: [512维向量]
+   位置2的embedding: [512维向量]
+   位置3的embedding: [512维向量]
+   位置4的embedding: [512维向量]
+   ```
+
+2. **Linear层处理（对每个位置分别处理）：**
+
+   ```
+   Linear层权重: W (shape: [512, 10000])  # 所有位置共享同一个权重矩阵
+   
+   位置0: embedding[0] @ W → [10000维向量] (vocabulary上的概率分布)
+   位置1: embedding[1] @ W → [10000维向量] (vocabulary上的概率分布)
+   位置2: embedding[2] @ W → [10000维向量] (vocabulary上的概率分布)
+   位置3: embedding[3] @ W → [10000维向量] (vocabulary上的概率分布)
+   位置4: embedding[4] @ W → [10000维向量] (vocabulary上的概率分布)
+   ```
+
+3. **Softmax（对每个位置分别处理）：**
+
+   ```
+   位置0: softmax([10000维]) → 位置0预测哪个词
+   位置1: softmax([10000维]) → 位置1预测哪个词
+   位置2: softmax([10000维]) → 位置2预测哪个词
+   位置3: softmax([10000维]) → 位置3预测哪个词
+   位置4: softmax([10000维]) → 位置4预测哪个词
+   ```
+
+**数学表示：**
+
+假设Decoder最后一个block的输出是 $H \in \mathbb{R}^{batch\_size \times n \times d_{model}}$（batch_size个样本，每个样本n个位置，每个位置$d_{model}$维），Linear层的权重是 $W \in \mathbb{R}^{d_{model} \times |V|}$（|V|是vocabulary size），那么：
+
+$$O = H \times W \in \mathbb{R}^{batch\_size \times n \times |V|}$$
+
+其中，对于每个样本，$O$的每一行对应一个位置的vocabulary概率分布。为了简化表示，通常省略batch维度，写作 $H \in \mathbb{R}^{n \times d_{model}}$，$O \in \mathbb{R}^{n \times |V|}$。
+
+**为什么不需要Pooling？**
+
+1. **每个位置需要独立的预测**：位置0预测第一个词，位置1预测第二个词，等等
+2. **序列到序列的任务特性**：输入序列的每个位置对应输出序列的一个位置
+3. **并行训练的需求**：所有位置可以同时计算损失，提高训练效率
+
+### 训练时的并行处理机制
+
+**训练阶段（Teacher Forcing）：**
+
+在训练时，Decoder接收完整的标签序列（shifted right），所有位置可以并行处理：
+
+```
+输入序列: [</s>, I, am, a, student]  (5个位置，同时输入)
+↓
+Decoder处理: 所有5个位置并行处理（通过mask保证位置i只能看到位置0到i）
+↓
+Decoder输出: [embedding0, embedding1, embedding2, embedding3, embedding4]
+↓
+Linear层: 所有5个位置并行映射到vocabulary
+↓
+预测: [pred0, pred1, pred2, pred3, pred4]
+↓
+损失计算: 所有5个位置的损失同时计算
+Loss = Loss0 + Loss1 + Loss2 + Loss3 + Loss4
+```
+
+**训练时的标签对应关系（Shifted Right的结果）：**
+
+由于训练时使用了"Shifted Right"策略（将标签序列整体右移一位，前面加上起始符），所以：
+
+- 位置0的输入是`</s>`（起始符），标签是`I`（位置0应该预测下一个词，即位置1的词）
+- 位置1的输入是`I`，标签是`am`（位置1应该预测下一个词，即位置2的词）
+- 位置2的输入是`am`，标签是`a`（位置2应该预测下一个词，即位置3的词）
+- 位置3的输入是`a`，标签是`student`（位置3应该预测下一个词，即位置4的词）
+- 位置4的输入是`student`，标签是`</eos>`（位置4应该预测结束符）
+
+**关键理解**：每个位置的输入是当前时刻的token，标签是下一个时刻的token。这样设计使得模型学习"给定当前序列，预测下一个词"的任务。
+
+### 训练时的梯度回传机制
+
+**关键点：Mask决定了梯度回传的路径**
+
+虽然所有位置并行处理，但梯度回传的路径由Mask决定：
+
+**Decoder的Self-Attention中的Mask限制：**
+
+```
+位置0: 只能看到 [位置0]
+位置1: 只能看到 [位置0, 位置1]
+位置2: 只能看到 [位置0, 位置1, 位置2]
+位置3: 只能看到 [位置0, 位置1, 位置2, 位置3]
+位置4: 只能看到 [位置0, 位置1, 位置2, 位置3, 位置4]
+```
+
+**梯度回传路径（所有位置的梯度同时回传，但受mask限制）：**
+
+- **位置0的梯度**：只回传到位置0的embedding路径
+- **位置1的梯度**：回传到位置0和1的embedding路径（因为位置1在Self-Attention中attend到了位置0和1）
+- **位置2的梯度**：回传到位置0、1、2的embedding路径
+- **位置3的梯度**：回传到位置0、1、2、3的embedding路径
+- **位置4的梯度**：回传到位置0、1、2、3、4的embedding路径
+
+**关键理解：**
+
+- 所有位置的梯度**同时回传**（并行，不是顺序的）
+- 但每个位置的梯度只能影响它能看到的位置（由mask决定）
+- 位置i的梯度会影响位置0到i的所有embedding
+
+**与LSTM的TBPTT的区别：**
+
+- **LSTM的TBPTT**：时间步顺序处理，梯度从后往前回传，受截断限制，无法真正并行
+- **Transformer的训练**：所有位置并行处理，所有损失同时计算，所有梯度同时回传，但通过mask限制每个位置只能影响它能看到的位置
+
+### 推理时的逐步生成
+
+假设我们有一个已经训练好的网络，**在做预测时，步骤如下：**
+
+虽然Decoder内部可以并行处理，但在推理时我们每次只关注最后一个位置的输出：
+
+**Time Step 1：**
+
+- 输入：`</s>`（1个位置）
+- Decoder输出：1个embedding（位置0）
+- Linear层：位置0的embedding → vocabulary概率分布
+- 取argmax：预测`I`
+
+**Time Step 2：**
+
+- 输入：`</s> I`（2个位置）
+- Decoder输出：2个embedding（位置0和1）
+- Linear层：位置1的embedding → vocabulary概率分布（**注意：只关注最后一个位置**）
+- 取argmax：预测`am`
+
+**Time Step 3：**
+
+- 输入：`</s> I am`（3个位置）
+- Decoder输出：3个embedding
+- Linear层：位置2的embedding → vocabulary概率分布
+- 取argmax：预测`a`
+
+**Time Step 4：**
+
+- 输入：`</s> I am a`（4个位置）
+- Decoder输出：4个embedding
+- Linear层：位置3的embedding → vocabulary概率分布
+- 取argmax：预测`student`
+
+**Time Step 5：**
+
+- 输入：`</s> I am a student`（5个位置）
+- Decoder输出：5个embedding
+- Linear层：位置4的embedding → vocabulary概率分布
+- 取argmax：预测`</eos>`
+
+**Time Step 6：**
+
+- 检测到`</eos>`，翻译完成
+
+**关键点：**
+
+- 虽然Decoder内部可以并行处理所有已输入的位置，但在推理时我们**只关注最后一个位置的输出**
+- 每次生成一个新词后，将其添加到输入序列，继续下一步
+- 这是一个自回归（autoregressive）的过程
+
+### 总结：Decoder输出机制的关键要点
+
+1. **Decoder输出格式**：Decoder最后一个block输出n个embedding（每个位置一个），shape为`(batch_size, seq_len, d_model)`
+
+2. **Linear层连接**：
+   - **不需要pooling**：每个位置都有独立的embedding和预测
+   - **Linear层是共享的**：所有位置使用同一个Linear层（权重共享）
+   - **每个位置独立预测**：位置i的embedding → Linear层 → 位置i的vocabulary概率分布
+
+3. **训练时的并行处理**：
+   - 所有位置同时输入、同时处理、同时计算损失
+   - 通过mask保证位置i只能看到位置0到i
+   - 所有位置的梯度同时回传，但每个位置的梯度只能影响它能看到的位置
+
+4. **推理时的逐步生成**：
+   - 每次只关注最后一个位置的输出
+   - 生成新词后添加到输入序列，继续下一步
+   - 这是一个自回归过程
+
+5. **与LSTM的区别**：
+   - LSTM：顺序处理，无法真正并行，梯度回传受时间限制
+   - Transformer：并行处理，梯度同时回传，通过mask限制信息流
+
+## 训练小技巧
 
 这里有两个训练小技巧，第一个是label平滑，第二个就是学习率要有个worm up过程，然后再下降。
 
-1、Label Smoothing（regularization）
+### Label Smoothing（标签平滑，regularization）
 
-由传统的
+#### 什么是Label Smoothing？
+
+Label Smoothing是一种正则化技术，通过"软化"标签来防止模型过度自信，提高泛化能力。
+
+#### 传统方式 vs Label Smoothing
+
+**传统方式（One-Hot编码）：**
+
+在分类任务中，传统做法是使用one-hot编码，即：
 $$
 \begin{aligned}
 P_i=\left\{\begin{matrix}
@@ -504,7 +1025,12 @@ P_i=\left\{\begin{matrix}
 \end{matrix}\right.
 \end{aligned}
 $$
-变为
+
+**含义：** 正确类别的概率必须是1，其他所有类别的概率必须是0。这要求模型对正确答案100%确定。
+
+**Label Smoothing方式：**
+
+Label Smoothing将标签"软化"，不再要求100%确定：
 $$
 \begin{aligned}
 P_i=\left\{\begin{matrix}
@@ -513,7 +1039,120 @@ P_i=\left\{\begin{matrix}
 \end{matrix}\right.
 \end{aligned}
 $$
-注：$K$表示多分类的类别总数，$\epsilon$是一个较小的超参数。
+
+其中：
+
+- $K$表示多分类的类别总数（在Transformer中，通常是vocabulary size）
+- $\epsilon$是一个较小的超参数（通常取0.1或0.2）
+
+**含义：** 正确类别的概率是$(1-\epsilon)$，其他每个类别的概率是$\frac{\epsilon}{K-1}$。
+
+#### 具体例子
+
+假设vocabulary有10000个词，正确答案是"cat"（索引42），$\epsilon = 0.1$：
+
+**传统方式：**
+
+```
+标签: [0, 0, ..., 1, ..., 0]  ← 只有位置42是1，其他9999个位置都是0
+      ↑         ↑
+      位置0    位置42（正确类别）
+```
+
+**Label Smoothing后：**
+
+```
+标签: [0.00001, 0.00001, ..., 0.9, ..., 0.00001]
+      ↑         ↑         ↑      ↑
+      位置0     位置1    位置42  位置9999
+      
+正确类别(位置42): 0.9 (即 1 - 0.1)
+其他9999个类别: 每个都是 0.1 / 9999 ≈ 0.00001
+```
+
+#### 为什么要使用Label Smoothing？
+
+##### 问题1：防止过度自信
+
+传统方式要求模型对正确答案100%确定，这可能导致：
+
+- **模型过度自信**：模型可能对训练数据过度拟合
+- **泛化能力差**：在测试数据上表现不佳
+- **鲁棒性差**：对噪声和标注错误敏感
+
+##### 问题2：标签可能不完美
+
+在实际应用中：
+
+- 标注可能有错误
+- 某些样本可能同时属于多个类别（边界模糊）
+- 完全确定可能不合理
+
+#### Label Smoothing的好处
+
+1. **防止过度自信**：不要求模型100%确定，允许一定的"不确定性"
+2. **提高泛化能力**：让模型更稳健，在测试数据上表现更好
+3. **正则化效果**：相当于一种正则化技术，防止过拟合
+4. **提高鲁棒性**：对标注错误和噪声更容忍
+
+#### 数学理解
+
+**损失函数的变化：**
+
+传统方式（交叉熵损失）：
+
+$$
+L = -\log(P_{correct})
+$$
+如果模型预测正确类别的概率是0.99，损失是：
+
+$$
+L = -\log(0.99) \approx 0.01
+$$
+Label Smoothing后的损失函数：
+
+$$
+$$L = -(1-\epsilon)\log(P_{correct}) - \frac{\epsilon}{K-1}\sum_{i \neq correct}\log(P_i)
+$$
+即使模型预测正确类别概率是0.99，由于标签是$(1-\epsilon)$（如0.9），损失会更大，这鼓励模型不要过度自信。
+
+#### 直观理解
+
+想象考试评分：
+
+**传统方式：**
+
+- 答对：100分
+- 答错：0分
+- 结果：学生可能过度追求100分，容易过拟合，对细微错误过于敏感
+
+**Label Smoothing：**
+
+- 答对：90分（$(1-\epsilon)$）
+- 答错：每个错误选项给一点分（$\frac{\epsilon}{K-1}$）
+- 结果：学生不会过度追求完美，更稳健，对错误更容忍
+
+#### 参数选择
+
+- **$\epsilon$通常取0.1或0.2**：这是经验值，在大多数任务中效果较好
+- **太小（如0.01）**：效果不明显，几乎等同于传统方式
+- **太大（如0.5）**：可能影响学习，正确类别概率太低
+
+在Transformer原始论文中，通常使用$\epsilon = 0.1$。
+
+#### 实际效果
+
+使用Label Smoothing后：
+
+- **训练损失可能稍高**：因为标签被"软化"，模型不需要追求100%确定
+- **验证/测试性能通常更好**：泛化能力提升，过拟合减少
+- **模型更稳健**：对噪声和标注错误更容忍
+
+#### 总结
+
+Label Smoothing通过将硬标签（0或1）"软化"为软标签（接近0或1的小数），防止模型过度自信，提高泛化能力。这是一种简单但有效的正则化技术，在Transformer等现代深度学习模型中广泛使用。
+
+### 学习率先上升再下降
 
 2、[Noam Learning Rate Schedule](https://arxiv.org/abs/1706.03762)
 
@@ -521,17 +1160,17 @@ $$
 $$
 lr=d^{-0.5}_{\text{model}}\cdot min(step\_num^{-0.5},\ step\_num \cdot warmup\_steps^{-1.5})
 $$
-![lr-worm-up](pic/lr-worm-up.jpg)
+![lr-worm-up](C:\Users\lw\Desktop\attention-is-all-you-need\pic\lr-worm-up.jpg)
 
 # Transformer动态流程图
 
 Encoder通过处理输入序列开启工作。Encoder顶端的输出之后会变转化为一个包含向量$K$（键向量）和$V$（值向量）的注意力向量集 ，**这是并行化操作**。这些向量将被每个Decoder用于自身的“Encoder-Decoder注意力层”，而这些层可以帮助Decoder关注输入序列哪些位置合适：
 
-![transformer-process-1](pic/transformer-process-1.gif)
+![transformer-process-1](C:\Users\lw\Desktop\attention-is-all-you-need\pic\transformer-process-1.gif)
 
 在完成Encoder阶段后，则开始Decoder阶段。Decoder阶段的每个步骤都会输出一个输出序列（在这个例子里，是英语翻译的句子）的元素。接下来的步骤重复了这个过程，直到到达一个特殊的终止符号，它表示Transformer的解码器已经完成了它的输出。每个步骤的输出在下一个时间步被提供给底端Decoder，并且就像Encoder之前做的那样，这些Decoder会输出它们的Decoder结果 。
 
-![transformer-process-2](pic/transformer-process-2.gif)
+![transformer-process-2](C:\Users\lw\Desktop\attention-is-all-you-need\pic\transformer-process-2.gif)
 
 # Transformer特点
 

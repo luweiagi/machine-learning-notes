@@ -8,6 +8,7 @@
 * [netron模型可视化工具](netron/netron.md)
 * [大模型API-Key调用](openai-api/openai-api.md)
 * [Ollama本地大模型部署与调用指南](ollama/ollama.md)
+* [vLLM](vllm/vllm.md)
 
 
 

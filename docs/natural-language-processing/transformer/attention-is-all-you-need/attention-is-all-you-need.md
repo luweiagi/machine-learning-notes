@@ -2,7 +2,7 @@
 
 ​          ——Self-Attention机制和Transformer详解
 
-![transformer-movie](C:\Users\lw\Desktop\attention-is-all-you-need\pic\transformer-movie.jpeg)
+![transformer-movie](pic\transformer-movie.jpeg)
 
 * [返回上层目录](../transformer.md)
 * [模型的思想](#模型的思想)
@@ -26,7 +26,7 @@
 
 
 
-![paper](C:\Users\lw\Desktop\attention-is-all-you-need\pic\paper.jpg)
+![paper](pic\paper.jpg)
 
 pdf: [*Attention Is All You Need*](https://papers.nips.cc/paper/7181-attention-is-all-you-need.pdf)
 
@@ -42,11 +42,11 @@ pdf: [*Attention Is All You Need*](https://papers.nips.cc/paper/7181-attention-i
 
 在没有Transformer以前，大家做神经机器翻译用的最多的是基于RNN的Encoder-Decoder模型：
 
-![encoder-decoder](C:\Users\lw\Desktop\attention-is-all-you-need\pic\encoder-decoder.jpg)
+![encoder-decoder](pic\encoder-decoder.jpg)
 
 Encoder-Decoder模型当然很成功，在2018年以前用它是用的很多的。而且也有很强的能力。但是RNN天生有缺陷，只要是RNN，就会有梯度消失问题，核心原因是有递归的方式，作用在同一个权值矩阵上，使得如果这个矩阵满足条件的话，其最大的特征值要是小于1的话，那就一定会出现梯度消失问题。后来的LSTM和GRU也仅仅能缓解这个问题
 
-![rnn-vanishing-gradient](C:\Users\lw\Desktop\attention-is-all-you-need\pic\rnn-vanishing-gradient.png)
+![rnn-vanishing-gradient](pic\rnn-vanishing-gradient.png)
 
 ## Transformer为何优于RNN
 
@@ -70,7 +70,7 @@ Transformer模型在论文《[Attention Is All You Need](https://papers.nips.cc/
 
 Transformer模型总体的样子如下图所示：总体来说，还是和Encoder-Decoder模型有些相似，左边是Encoder部分，右边是Decoder部分。
 
-![transformer-model-architecture](C:\Users\lw\Desktop\attention-is-all-you-need\pic\transformer-model-architecture.jpg)
+![transformer-model-architecture](pic\transformer-model-architecture.jpg)
 
 **Encoder**：输入是单词的Embedding，再加上位置编码，然后进入一个统一的结构，这个结构可以循环很多次（N次），也就是说有很多层（N层）。每一层又可以分成Attention层和全连接层，在每一层中，再额外加了一些处理，比如Skip Connection，做跳跃连接，然后还加了Normalization层。其实它本身的模型还是很简单的。
 
@@ -80,7 +80,7 @@ Transformer模型总体的样子如下图所示：总体来说，还是和Encode
 
 再换用另一种简单的方式来解释Transformer的网络结构。
 
-![transformer-encoder-decoder](C:\Users\lw\Desktop\attention-is-all-you-need\pic\transformer-encoder-decoder.jpg)
+![transformer-encoder-decoder](pic\transformer-encoder-decoder.jpg)
 
 需要注意的是上图的Decoder的第一个输入，就是output的前缀信息。
 
@@ -90,11 +90,11 @@ Transformer模型总体的样子如下图所示：总体来说，还是和Encode
 
 我们把上图的网络简化一下，理论上Encoder和Decoder只有一个模块，那也算是Transformer。
 
-![transformer-encoder-decoder-simplify](C:\Users\lw\Desktop\attention-is-all-you-need\pic\transformer-encoder-decoder-simplify.jpg)
+![transformer-encoder-decoder-simplify](pic\transformer-encoder-decoder-simplify.jpg)
 
 那我们就来看下最简单的模型，它是怎样工作的。重点是看Encoder和Decoder里面的Attention机制是怎么运作的。
 
-![encoder-introduction](C:\Users\lw\Desktop\attention-is-all-you-need\pic\encoder-introduction.jpg)
+![encoder-introduction](pic\encoder-introduction.jpg)
 
 这个绿色的框（Encoder #1）就是Encoder里的一个独立模块。下面绿色的输入的是两个单词的embedding。这个模块想要做的事情就是想**把$x_1$转换为另外一个向量$r_1$**，这两个向量的维度是一样的。然后就一层层往上传。
 
@@ -114,7 +114,7 @@ Transformer模型总体的样子如下图所示：总体来说，还是和Encode
 
 如果我们用**直觉的方式来理解Self-Attention**，假设左边的句子就是输入$x_1,x_2,...,x_{14}$，然后通过Self-Attention映射为$z_1,z_2,...,z_{14}$，**为什么叫Self-Attention呢，就是一个句子内的单词，互相看其他单词对自己的影响力有多大**。比如单词`it`，它和句子内其他单词最相关的是哪个，如果颜色的深浅来表示影响力的强弱，那显然我们看到对`it`影响力最强的就是`The`和`Animal`这两个单词了。所以**Self-Attention就是说，句子内各单词的注意力，应该关注在该句子内其他单词中的哪些单词上**。
 
-![self-attention-intuiation](C:\Users\lw\Desktop\attention-is-all-you-need\pic\self-attention-intuiation.jpg)
+![self-attention-intuiation](pic\self-attention-intuiation.jpg)
 
 具体注意力的不同强弱是怎么计算出来的呢？下面就讲解Self-Attention。
 
@@ -130,7 +130,7 @@ Transformer模型总体的样子如下图所示：总体来说，还是和Encode
 
 下图就是Self-Attention的计算机制。已知输入的单词embedding，即$x_1$和$x_2$，想转换成$z_1$和$z_2$。
 
-![self-attention](C:\Users\lw\Desktop\attention-is-all-you-need\pic\self-attention.jpg)
+![self-attention](pic\self-attention.jpg)
 
 转换方式如下：
 
@@ -185,7 +185,7 @@ k-v : 4G - Nokia
 
 为了得到query，key，value，一个$x$就得做3次乘法，那n个$x$就得做$3n$次乘法。为了比较高效的实现矩阵乘法，要进行类似matlab中的向量化操作，因为因为GPU中矩阵运算的复杂度是$O(1)$不是$O(N^2)$。如果我们能把上面的操作变为矩阵操作，那我们就能很好的利用GPU做并行计算。具体的矩阵操作如下图所示。
 
-![self-attention-gpu](C:\Users\lw\Desktop\attention-is-all-you-need\PIC\self-attention-gpu.jpg)
+![self-attention-gpu](PIC\self-attention-gpu.jpg)
 
 用公式表示即为
 $$
@@ -207,21 +207,21 @@ $$
 
 如果用不同的$W^Q$、$W^K$、$W^V$，就能得到不同的$Q$、$K$、$V$。multi-headed Attention就是指用了很多个不同的$W^Q$、$W^K$、$W^V$。
 
-![multi-head-attention](C:\Users\lw\Desktop\attention-is-all-you-need\pic\multi-head-attention.jpg)
+![multi-head-attention](pic\multi-head-attention.jpg)
 
 那这样的好处是什么呢？可以让Attention有更丰富的层次。有多个$Q$、$K$、$V$的话，可以分别从多个不同角度来看待Attention。这样的话，输入$x$，对于不同的multi-headed Attention，就会产生不同的$z$。
 
-![multi-head-attention-2](C:\Users\lw\Desktop\attention-is-all-you-need\pic\multi-head-attention-2.jpg)
+![multi-head-attention-2](pic\multi-head-attention-2.jpg)
 
 那现在一个$x$就有了多个版本的$z$，那该怎么结合为一个$z$呢？
 
 那就将多个版本的$x$拼接称为一个长向量，然后用一个全连接网络，即乘以一个矩阵，就能得到一个短的$x$向量。
 
-![multi-headed-attention-3](C:\Users\lw\Desktop\attention-is-all-you-need\pic\multi-headed-attention-3.jpg)
+![multi-headed-attention-3](pic\multi-headed-attention-3.jpg)
 
 把multi-headed输出的不同的$z$，组合成最终想要的输出的$z$，这就是multi-headed Attention要做的一个额外的步骤。
 
-![multi-headed-attention-4.jpg](C:\Users\lw\Desktop\attention-is-all-you-need\pic\multi-headed-attention-4.jpg)
+![multi-headed-attention-4.jpg](pic\multi-headed-attention-4.jpg)
 
 multi-headed Attention用公式表示就是
 $$
@@ -234,7 +234,7 @@ $$
 
 下图是有八个Attention，先看右图，这八个Attention用八种不同的颜色表示，从蓝色到灰色。然后我们可以看到一个单词，在这八个Attention上对句子里每个单词的权重，颜色越深，代表权重越大。我们只挑出橙色和绿色（即第二个和第三个色块），看它们分别是怎样的注意力。然后把橙色和绿色的色块拉长就得到了左边这个图。
 
-![multi-headed-attention-5](C:\Users\lw\Desktop\attention-is-all-you-need\pic\multi-headed-attention-5.jpg)
+![multi-headed-attention-5](pic\multi-headed-attention-5.jpg)
 
 我们现在看左边，先看橙色部分，单词`it`连接的权重最重的是`animal`，这是从某一个侧面来看，那从另一个侧面来看，看绿色部分，`it`最关注的是`tired`。橙色的注意力主要表明`it`是个什么东西，从东西的角度说明它是一种动物，而不是苹果或者香蕉。如果我们从状态这个层面来看，`it`这个动物现在是在怎么样的一个状态，它的状态是`tired`，而不是兴奋。所以**不同的Self-Attention Head是不同方面的理解**。
 
@@ -352,7 +352,7 @@ Encoder和Decoder的embedding初始化通常有两种选择：
 
 为什么要知道单词之间的相对位置呢？因为Transformer模型没有用RNN也没有卷积，所以为了让模型能利用序列的顺序，必须输入序列中词的位置。所以我们在Encoder模块和Decoder模块的底部添加了位置编码，这些位置编码和输入的$x$向量的维度相同，所以可以直接相加，从而将位置信息注入。
 
-![positional-encoding](C:\Users\lw\Desktop\attention-is-all-you-need\pic\positional-encoding.jpg)
+![positional-encoding](pic\positional-encoding.jpg)
 
 想要知道单词之间的距离，就得知道单词的坐标。有很多不同衡量距离的方式，
 
@@ -378,7 +378,7 @@ $$
 
 下面举例说明该公式的用法。
 
-![positional-encoding-2](C:\Users\lw\Desktop\attention-is-all-you-need\pic\positional-encoding-2.jpg)
+![positional-encoding-2](pic\positional-encoding-2.jpg)
 
 举例来说，假设$d_{model} = 5$，那么在一个样本中：
 
@@ -404,13 +404,13 @@ $$
 
 为什么这样做呢？用图形的方式可以直觉上理解。下图为一个长度为50，维度是128的句子的Positional Encoding（每一行为一个Encoding向量）。下图中一行就是一个单词的Positional Encoding。
 
-![positional-encoding-3](C:\Users\lw\Desktop\attention-is-all-you-need\pic\positional-encoding-3.jpg)
+![positional-encoding-3](pic\positional-encoding-3.jpg)
 
 上图可以看出，**不同位置的Positional Encoding是独特的**。但是计算Positional Encoding的方式不是唯一的，甚至Positional Encoding也可以是train出来的，**并不是必须用作者说的sin cos**。只要能相互计算距离就可以。但是训练出来的不鲁棒，选择正弦曲线版本是因为它可以使模型外推到比训练过程中遇到的序列更长的序列长度。
 
 Positional Encoding的**物理意义**是：把50个Positional Encoding两两互相做点击，看相关性。**其特点是Encoding向量的点积值对称，随着距离增大而减小**。
 
-![positional-encoding-4](C:\Users\lw\Desktop\attention-is-all-you-need\pic\positional-encoding-4.jpg)
+![positional-encoding-4](pic\positional-encoding-4.jpg)
 
 关于位置编码的更多解释和理解，请看
 
@@ -433,7 +433,7 @@ skip connection最早是在计算机视觉的ResNet里面提到的，是微软�
 
 跳跃层不是必须的，但在Transformer中，作者建议这样做，在Selft-Attention的前后和每一个Feed Forwar前后都用了跳跃层，如下图中的虚线所示。
 
-![skip-connection-and-layer-normalization](C:\Users\lw\Desktop\attention-is-all-you-need\pic\skip-connection-and-layer-normalization.jpg)
+![skip-connection-and-layer-normalization](pic\skip-connection-and-layer-normalization.jpg)
 
 如上图所示，同时，还用了Normalize，用的是一种新的[Layer Normalize](https://arxiv.org/pdf/1607.06450.pdf)，不是常用的Batch Normalize。是一种正则化的策略，避免网络过拟合。
 
@@ -444,13 +444,13 @@ $$
 &h^t=f\left[\frac{g}{\sigma^t}\odot \left(a^t-\mu^t\right)+b\right]
 \end{aligned}
 $$
-![layer-normalize](C:\Users\lw\Desktop\attention-is-all-you-need\pic\layer-normalize.jpg)
+![layer-normalize](pic\layer-normalize.jpg)
 
 Layer Normalize和Batch Normalize唯一的区别就是不考虑其他数据，只考虑自己，这样就避免了不同batch size的影响。
 
 下图给出一个对不同样本做Layer Normalization的实例以及和Batch Normalization的对比。
 
-![layer-normalize-2](C:\Users\lw\Desktop\attention-is-all-you-need\pic\layer-normalize-2.jpg)
+![layer-normalize-2](pic\layer-normalize-2.jpg)
 
 Layer Normalization的方法可以和Batch Normalization对比着进行理解，因为Batch Normalization不是Transformer中的结构，这里不做详解，详细清楚的解释请看这里：[NLP中 batch normalization与 layer normalization](https://zhuanlan.zhihu.com/p/74516930)。下面简单解释一下：
 
@@ -585,7 +585,7 @@ Layer Normalization 的核心价值在于：
 
 Encoder模块各部分及相关流程如下所示。
 
-![encoder-part](C:\Users\lw\Desktop\attention-is-all-you-need\pic\encoder-part.jpg)
+![encoder-part](pic\encoder-part.jpg)
 
 # Decoder模块
 
@@ -686,11 +686,11 @@ Embedding Table查找:
 
 第一步，预测第一个字母`I`：
 
-![transformer-process-1](C:\Users\lw\Desktop\attention-is-all-you-need\pic\transformer-process-1.gif)
+![transformer-process-1](pic\transformer-process-1.gif)
 
 其余步骤，预测其余字母`am a student`：
 
-![transformer-process-2](C:\Users\lw\Desktop\attention-is-all-you-need\pic\transformer-process-2.gif)
+![transformer-process-2](pic\transformer-process-2.gif)
 
 **Transformer Decoder的输入（需要区分训练阶段和推理阶段）：**
 
@@ -771,7 +771,7 @@ sequence mask的目的是防止Decoder “seeing the future”，就像防止考
 
 Cross-attention，也称为编码器-解码器注意力，是Transformer架构中的一个关键组件，特别用于在解码器中整合来自编码器的信息。这种机制允许解码器在生成每个输出时，利用整个输入序列的上下文信息，从而增强翻译或文本生成的准确性和相关性。以下是对Cross-attention机制的详细解释：
 
-![transformer-process](C:\Users\lw\Desktop\attention-is-all-you-need\pic\transformer-process.jpg)
+![transformer-process](pic\transformer-process.jpg)
 
 Attention的预测流程和和普通的Encoder-Decoder的模式是一样的，只是用Self-Attention替换了RNN。
 
@@ -786,11 +786,11 @@ $$
 
 ## Decoder的输出
 
-![encoder-decoder-2.jpg](C:\Users\lw\Desktop\attention-is-all-you-need\pic\encoder-decoder-2.jpg)
+![encoder-decoder-2.jpg](pic\encoder-decoder-2.jpg)
 
 从上图可以看出，Decoder和Encoder唯一的区别就是多了一个Encode-Decode注意力层，然后最后一层接了个linear+softmax层，损失函数就是交叉熵损失。
 
-![encoder-output](C:\Users\lw\Desktop\attention-is-all-you-need\pic\encoder-output.jpg)
+![encoder-output](pic\encoder-output.jpg)
 
 ### Decoder输出与Linear层的连接机制
 
@@ -1160,17 +1160,17 @@ Label Smoothing通过将硬标签（0或1）"软化"为软标签（接近0或1�
 $$
 lr=d^{-0.5}_{\text{model}}\cdot min(step\_num^{-0.5},\ step\_num \cdot warmup\_steps^{-1.5})
 $$
-![lr-worm-up](C:\Users\lw\Desktop\attention-is-all-you-need\pic\lr-worm-up.jpg)
+![lr-worm-up](pic\lr-worm-up.jpg)
 
 # Transformer动态流程图
 
 Encoder通过处理输入序列开启工作。Encoder顶端的输出之后会变转化为一个包含向量$K$（键向量）和$V$（值向量）的注意力向量集 ，**这是并行化操作**。这些向量将被每个Decoder用于自身的“Encoder-Decoder注意力层”，而这些层可以帮助Decoder关注输入序列哪些位置合适：
 
-![transformer-process-1](C:\Users\lw\Desktop\attention-is-all-you-need\pic\transformer-process-1.gif)
+![transformer-process-1](pic\transformer-process-1.gif)
 
 在完成Encoder阶段后，则开始Decoder阶段。Decoder阶段的每个步骤都会输出一个输出序列（在这个例子里，是英语翻译的句子）的元素。接下来的步骤重复了这个过程，直到到达一个特殊的终止符号，它表示Transformer的解码器已经完成了它的输出。每个步骤的输出在下一个时间步被提供给底端Decoder，并且就像Encoder之前做的那样，这些Decoder会输出它们的Decoder结果 。
 
-![transformer-process-2](C:\Users\lw\Desktop\attention-is-all-you-need\pic\transformer-process-2.gif)
+![transformer-process-2](pic\transformer-process-2.gif)
 
 # Transformer特点
 

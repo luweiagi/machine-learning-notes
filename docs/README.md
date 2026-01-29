@@ -281,7 +281,6 @@
 * [Few-shot Learning小样本学习](deep-learning/few-shot-learning/few-shot-learning.md)
 
 # [强化学习](reinforcement-learning/reinforcement-learning.md)
-
 * [强化学习路线图](reinforcement-learning/rl-road-map/rl-road-map.md)
 * [强化学习学习路径](reinforcement-learning/rl-learning-path/rl-learning-path.md)
 * [强化学习基础概念](reinforcement-learning/reinforcement-learning-basic-concept/reinforcement-learning-basic-concept.md)
@@ -526,7 +525,6 @@
 * [自己训练大语言模型](multimodal-large-model/train-llm-diy/train-llm-diy.md)
 * [LLM based Multi Agent](multimodal-large-model/llm-based-multi-agent/llm-based-multi-agent.md)
   * [Stanford Generative Agents斯坦福小镇技术全景解读：LLM驱动的认知体与社会行为涌现](multimodal-large-model/llm-based-multi-agent/stanford-generative-agents/stanford-generative-agents.md)
-
 * [业界应用](multimodal-large-model/industry-application/industry-application.md)
   * [OpenAI](multimodal-large-model/industry-application/openai/openai.md)
     * 可能大家对于绘画了解的比较多的是midjourney与stable diffusion，实际上这两个产品的基本技术都来源于DALL-E系列，那里的OpenAI还是Open的，它的论文还有足够的内容让我们理解，它里边有什么。于是大家根据它的2021年的DALL-E及CLIP这两个论文，搞出来midjourney，而stable diffusion也是在这个基础上的一个开源方案。

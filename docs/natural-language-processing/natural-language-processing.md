@@ -9,6 +9,8 @@
 * [AttentionMechanism注意力机制](attention-mechanism/attention-mechanism.md)
 * [Seq2Seq模型和Attention机制](seq2seq-and-attention-mechanism/seq2seq-and-attention-mechanism.md)
 * [Transformer](transformer/transformer.md)
+* [BERT](bert/bert.md)
+* [Decoder-only架构](decoder-only-arch/decoder-only-arch.md)
 
 ===
 

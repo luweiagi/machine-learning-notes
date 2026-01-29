@@ -511,6 +511,7 @@
   * [Transformer直觉理解](natural-language-processing/transformer/transformer-intuitive-understanding/transformer-intuitive-understanding.md)
   * [Transformer的细节问题](natural-language-processing/transformer/transformer-details/transformer-details.md)
 * [BERT](natural-language-processing/bert/bert.md)
+* [Decoder-only架构](natural-language-processing/decoder-only-arch/decoder-only-arch.md)
 
 # [多模态大模型](multimodal-large-model/multimodal-large-model.md)
 * [Foundation Models基础模型](multimodal-large-model/foundation-models/foundation-models.md)

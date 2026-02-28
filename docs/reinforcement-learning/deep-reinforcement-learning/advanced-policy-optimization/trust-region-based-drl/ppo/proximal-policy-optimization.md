@@ -4,6 +4,7 @@
 - [Proximal Policy Optimization Algorithms arXiv2017 OpenAI](ppo-openai/ppo-openai.md)
 - [PPO实现细节](ppo-implementation-details/ppo-implementation-details.md)
 - [Recurrent Proximal Policy Optimization using Truncated BPTT](ppo-rnn/ppo-rnn.md)
+- [γ 与 λ 的选择：折扣因子与 GAE 参数实践指南](gamma-and-lambda/gamma-and-lambda.md)
 - [Value Norm](value-norm/value-norm.md)
 - [Value Clip](value-clip/value-clip.md)
 - [深入理解 PPO 中的指标监控 Approx KL 计算公式](kl_approx/kl_approx.md)

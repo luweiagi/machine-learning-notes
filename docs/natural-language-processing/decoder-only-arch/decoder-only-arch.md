@@ -118,7 +118,7 @@
  输出：[h1, h2, h3]  (3 个 hidden states)
 
 阶段 2：Decoder 生成输出
-Decoder 输入：[\</s\>]  (起始符)
+Decoder 输入：[</s>]  (起始符)
      │
      ▼
   Decoder
@@ -142,7 +142,7 @@ Decoder 输入：[\</s\>, "sunny"]
 
 **关键点**：
 - Encoder 和 Decoder **分离处理**：Encoder 只处理输入，Decoder 只处理输出
-- Decoder 的输入以起始符 `\</s\>` 开始，然后逐步添加已生成的 token
+- Decoder 的输入以起始符 `</s>` 开始，然后逐步添加已生成的 token
 - Decoder 通过 **Cross-Attention** 访问 Encoder 的输出
 - Decoder 的 Masked Self-Attention 只能看**已生成的部分**（包括起始符和已生成的 token）
 
@@ -151,44 +151,44 @@ Decoder 输入：[\</s\>, "sunny"]
 ```text
 阶段 1：Prefill（第一次处理输入）
 输入："The weather is"
-加上起始符：[\</s\>, "The", "weather", "is"]
+加上起始符：[</s>, "The", "weather", "is"]
      │
      ▼
   Decoder
   (Self-Attention，看所有输入 token，包括起始符)
      │
      ▼
-  KV Cache: [K_\</s\>, V_\</s\>, K_The, V_The, K_weather, V_weather, K_is, V_is]
+  KV Cache: [K_</s>, V_</s>, K_The, V_The, K_weather, V_weather, K_is, V_is]
   输出：第一个 token 的概率分布
 
 阶段 2：Decode（生成 "sunny"）
-当前序列：[\</s\>, "The", "weather", "is"]
+当前序列：[</s>, "The", "weather", "is"]
      │
      ▼
   Decoder
   (Self-Attention)
   - Q: 当前要生成的 token 的 query
-  - K, V: 从 KV Cache 读取（包括起始符和所有输入："\</s\>", "The", "weather", "is"）
+  - K, V: 从 KV Cache 读取（包括起始符和所有输入："</s>", "The", "weather", "is"）
      │
      ▼
   生成："sunny"
   KV Cache 追加：[K_sunny, V_sunny]
 
 阶段 3：Decode（生成 "today"）
-当前序列：[\</s\>, "The", "weather", "is", "sunny"]
+当前序列：[</s>, "The", "weather", "is", "sunny"]
      │
      ▼
   Decoder
   (Self-Attention)
   - Q: 当前要生成的 token 的 query
-  - K, V: 从 KV Cache 读取（包括所有历史："\</s\>", "The", "weather", "is", "sunny"）
+  - K, V: 从 KV Cache 读取（包括所有历史："</s>", "The", "weather", "is", "sunny"）
      │
      ▼
   生成："today"
 ```
 
 **关键点**：
-- **输入和输出在同一个序列里**：`[\</s\>, "The", "weather", "is"]` + `["sunny", "today"]` = 一个完整序列（起始符在最前面）
+- **输入和输出在同一个序列里**：`[</s>, "The", "weather", "is"]` + `["sunny", "today"]` = 一个完整序列（起始符在最前面）
 - Decoder 的 Self-Attention 可以**直接看到所有历史**（包括起始符、输入和已生成的部分）
 - **不需要 Cross-Attention**：因为输入和输出在同一个序列里，Self-Attention 就够了
 
@@ -281,7 +281,8 @@ Decoder 输入：[\</s\>, "sunny"]
 
 ## 关键理解
 
-> **Decoder-only 不是"简化版"的 Encoder-Decoder，而是一种更适合"连续序列生成"任务的架构选择。**  
+> **Decoder-only 不是"简化版"的 Encoder-Decoder，而是一种更适合"连续序列生成"任务的架构选择。**
+>
 > 它通过让 Decoder 的 Self-Attention 直接访问所有历史（包括输入），避免了 Encoder-Decoder 架构中"输入输出分离"带来的复杂性和效率损失。
 
 **下一章我们将深入 Decoder-only 的核心机制：为什么只需要 Self-Attention 就够了？**
@@ -386,10 +387,11 @@ Cross-Attention：
 
 **训练时的场景**：
 
-- 输入：完整的序列（加上起始符）`[\</s\>, "The", "weather", "is", "sunny", "today"]`
+- 输入：完整的序列（加上起始符）`[</s>, "The", "weather", "is", "sunny", "today"]`
 - 任务：预测每个位置的下一个 token
 
 **如果不 Mask**：
+
 - 位置 0 预测 `"The"` 时，可能会"偷看"到位置 1 的 `"The"`（标签）
 - 位置 1 预测 `"weather"` 时，可能会"偷看"到位置 2 的 `"weather"`（标签）
 - 这样模型就"作弊"了，无法真正学会生成
@@ -440,7 +442,7 @@ Cross-Attention：
 │ Decoder（并行处理所有位置）                         │
 │                                                  │
 │ 位置 0: 看 [位置 0]           → 预测 "The"         │
-│         （位置 0 是起始符 \</s\>）                   │
+│         （位置 0 是起始符 </s>）                   │
 │ 位置 1: 看 [位置 0, 1]        → 预测 "weather"     │
 │ 位置 2: 看 [位置 0, 1, 2]     → 预测 "is"          │
 │ 位置 3: 看 [位置 0, 1, 2, 3] → 预测 "sunny"        │
@@ -804,7 +806,7 @@ Decoder 并行处理所有位置：
 ```text
 H ∈ ℝ^{B × N × d_model}
 - 对于每个样本，每个位置都有一个 d_model 维的向量 h_i
-  - 位置 0: h_0（对应 \</s\>）
+  - 位置 0: h_0（对应 </s>）
   - 位置 1: h_1（对应 "The"）
   - ...
   - 位置 N-1: h_{N-1}（对应 "today"）
@@ -1029,7 +1031,7 @@ Prefill 阶段：
 ┌──────────────────────────────────────┐
 │ Decoder（一次性处理所有输入 token）      │
 │                                      │
-│ 输入：["\</s\>", "The", "weather", "is"]│
+│ 输入：["</s>", "The", "weather", "is"]│
 │                                      │
 │ Self-Attention：                     │
 │ - Q, K, V: 都来自这 4 个 token         │
@@ -1046,7 +1048,7 @@ Prefill 阶段：
 │ - 在 Decoder-only 中，每个位置预测的是   │
 │   "下一个 token"                      │
 │ - 位置 3 ("is") 的输出表示"给定历史      │
-│   [\</s\>, The, weather, is]，下一个    │
+│   [</s>, The, weather, is]，下一个    │
 │   token 是什么"                       │
 │ - 所以用最后一个 token 的输出作为        │
 │   第一个生成 token 的概率分布           │
@@ -1990,8 +1992,8 @@ Decode 步骤 2（生成第二个输出 token "today"）：
 │        Attention(Q_N(sunny), K_N_all, V_N_all) → h_N(sunny)│
 │    - 对旧 token（prompt 中的 4 个）来说：                      │
 │      它们在 Prefill 阶段已经在每一层算过 Q/K/V，                │
-│      之后在 Decode 阶段只从 KV Cache 读取 K/V，              │
-│      不再为它们重算 Q/K/V。                                 │
+│      之后在 Decode 阶段只从 KV Cache 读取 K/V，                │
+│      不再为它们重算 Q/K/V。                                   │
 └──────────────┬─────────────────────────────────────────────┘
                │
 ┌──────────────▼──────────────────────┐

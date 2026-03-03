@@ -708,6 +708,7 @@
     * [大模型API-Key调用](model-infer/model-deployment/model-deployment-practice/openai-api/openai-api.md)
     * [Ollama本地大模型部署与调用指南](model-infer/model-deployment/model-deployment-practice/ollama/ollama.md)
     * [vLLM](model-infer/model-deployment/model-deployment-practice/vllm/vllm.md)
+  * [单机多卡与多机多卡：从 PCIe 到 RDMA 的大模型训练与推理全景解析](model-infer/model-deployment/multi-gpu-infer/multi-gpu-infer.md)
 * [硬件平台支持](model-infer/hardware-platform/hardware-platform.md)
   * [Nvidia Jetson平台](model-infer/hardware-platform/nvidia-jetson/nvidia-jetson.md)
     * [基于NanoLLM开发平台运行大模型](model-infer/hardware-platform/nvidia-jetson/nano-llm-infer/nano-llm-infer.md)

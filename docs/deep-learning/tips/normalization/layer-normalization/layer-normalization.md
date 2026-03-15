@@ -2,7 +2,16 @@
 
 - [返回上层目录](../tips.md)
 - [BN与LN主要区别](#BN与LN主要区别)
-- [LayerNorm代码实现](#LayerNorm代码实现)
+- [LayerNorm的数学定义](#LayerNorm的数学定义)
+- [LayerNorm代码实现与直观理解](#LayerNorm代码实现与直观理解)
+  - [LayerNorm代码实现](#LayerNorm代码实现)
+  - [LayerNorm的计算过程](#LayerNorm的计算过程)
+  - [mean和var](#mean和var)
+  - [gamma和beta](#gamma和beta)
+  - [用一句话概括](#用一句话概括)
+  - [直观理解](#直观理解)
+  - [计算流程图](#计算流程图)
+
 - [问题](#问题)
   - [LayerNorm实际是怎么工作的](#LayerNorm实际是怎么工作的)
   - [LayerNorm代码实现中的γ和β是逐元素学习](#LayerNorm代码实现中的γ和β是逐元素学习)
@@ -46,57 +55,227 @@ LN：固定一句话，则切片是（seq_len, 100）维。
 
 但是，BN取出一条 **（1，64）**的向量（**绿色剪头方向**）并进行缩放，LN则是取出一条**（1， 100）**维（**红色箭头**）进行缩放。
 
-# LayerNorm代码实现
+# LayerNorm的数学定义
 
-LayerNorm代码实现实例如下：
+LayerNorm 对 **最后一个维度（feature维）** 做归一化。
 
-TensorFlow：
+假设输入：
+$$
+x \in \mathbb{R}^{B \times N \times D}
+$$
+其中：
 
-```python
-class LayerNormalization(tf.keras.layers.Layer):
-    def __init__(self, epsilon=1e-8, **kwargs):
-        super(LayerNormalization, self).__init__(**kwargs)
-        self.epsilon = epsilon
-    def build(self, input_shape):
-        self.gamma = self.add_weight(name='gamma',
-                                     shape=input_shape[-1:],
-                                     initializer=tf.ones_initializer(),
-                                     trainable=True)
-        self.beta = self.add_weight(name='beta',
-                                    shape=input_shape[-1:],
-                                    initializer=tf.zeros_initializer(),
-                                    trainable=True)
-        super(LayerNormalization, self).build(input_shape)
-    def call(self, x): # x shape=[batch_size, seq_len, d_model]
-        mean = tf.keras.backend.mean(x, axis=-1, keepdims=True)
-        std = tf.keras.backend.std(x, axis=-1, keepdims=True)
-        return self.gamma * (x - mean) / (std + self.epsilon) + self.beta
+- $B$ = batch
+- $N$ = token / object 数
+- $D$ = embedding dimension
+
+LayerNorm 在 **每一个 token 的 D 维向量上做 normalization**：
+$$
+y_i = \gamma \frac{x_i - \mu}{\sqrt{\sigma^2 + \epsilon}} + \beta
+$$
+其中
+$$
+\begin{aligned}
+\mu &= \frac{1}{D}\sum_{i=1}^{D}x_i\\
+\sigma^2 &= \frac{1}{D}\sum_{i=1}^{D}(x_i-\mu)^2
+\end{aligned}
+$$
+其中，
+
+* $\mu$和$\sigma^2$是实时对每一个toekn的$D$维的embedding的统计结果，是单个数值标量，每一个embedding统计的$\mu$和$\sigma^2$都不一样。
+* $\gamma$和$\beta$是可学习参数，一定要注意是$D$维的，即单个$D$维的embedding的每一个元素都有一个单独的$\gamma$和$\beta$。但是这两个参数是所有token共享的，即当前样本里$x \in \mathbb{R}^{B \times N \times D}$中的$B\times N$个的token的$D$维embedding都共享这两个参数。
+
+如果你看懂了上一段内容，那你就会理解一个很多人忽略但非常重要的点
+
+LayerNorm **不是对整个 batch 做 normalization**。
+
+而是：
 
 ```
+每个 token 独立做
+```
 
-Pytorch：
+例如：
+
+```
+x = [B, N, D]
+```
+
+实际计算是：
+
+```python
+for b in B:
+  for n in N:
+      normalize(x[b,n,:])
+```
+
+所以：
+
+```
+不同 token 的均值不同
+```
+
+**LayerNorm 会抹掉特征平均值信息。**
+
+Transformer 设计者认为：
+
+```
+绝对尺度不重要
+相对结构更重要
+```
+
+给你一个 RL / Attention 的直觉
+
+假设一个 embedding：
+
+```
+[10, 11, 9, 10]
+```
+
+另一个：
+
+```
+[100, 101, 99, 100]
+```
+
+结构完全一样：
+
+```
++1 -1 0
+```
+
+LayerNorm 会把它们变成几乎一样的表示。
+
+Transformer 认为：
+
+```
+pattern > magnitude
+```
+
+
+
+# LayerNorm代码实现与直观理解
+
+## LayerNorm代码实现
 
 ```python
 class LayerNorm(nn.Module):
-    def __init__(self, embed_size):
-        super(LayerNorm, self).__init__()
-        self.gamma = nn.Parameter(torch.ones(embed_size))  # [embed_size]
-        self.beta = nn.Parameter(torch.zeros(embed_size))  # [embed_size]
+
+    def __init__(self, embed_size, eps=1e-5):
+        super().__init__()
+        self.gamma = nn.Parameter(torch.ones(embed_size))
+        self.beta = nn.Parameter(torch.zeros(embed_size))
+        self.eps = eps
 
     def forward(self, x):
-        # Layer Normalization 操作
+
         mean = x.mean(dim=-1, keepdim=True)
-        var = x.var(dim=-1, keepdim=True)
-        x_norm = (x - mean) / (var + 1e-6).sqrt()
+        var = x.var(dim=-1, keepdim=True, unbiased=False)
+
+        x_norm = (x - mean) / torch.sqrt(var + self.eps)
+
         return self.gamma * x_norm + self.beta
 ```
 
-看代码可知，对于某一条样本，
+## LayerNorm的计算过程
 
-* mean（单值）是该样本所有元素的平均值
-* var（单值）是该样本所有元素的方差
-* gamma（向量）是该样本每个元素都分配了一个值
-* beta（向量）是该样本每个元素都分配了一个值
+你给的代码：
+
+```python
+mean = x.mean(dim=-1, keepdim=True)
+var = x.var(dim=-1, keepdim=True)
+x_norm = (x - mean) / (var + 1e-6).sqrt()
+out = self.gamma * x_norm + self.beta
+```
+
+对于某一条样本`x`，
+
+假设：`x.shape = [B, N, D]`，其中
+
+* B = batch size
+* N = 序列长度 / token 数
+* D = embedding 维度
+
+### mean和var
+
+* `mean = x.mean(dim=-1, keepdim=True)`
+  * 对 **最后一个维度 D** 求平均
+  * 输出 shape = `[B, N, 1]`
+  * 对每条样本（或每个 token）都是一个 **标量平均值**
+
+* `var = x.var(dim=-1, keepdim=True)`
+  * 同理，对最后一个维度 D 求方差
+  * 输出 shape = `[B, N, 1]`
+  * 对每条样本（或每个 token）都是一个 **标量方差**
+
+* 所以对于一个样本的一个 token，mean 和 var 是 **单值**，整个 embedding 里只有一个均值和一个方差。
+
+### gamma和beta
+
+* `gamma` 和 `beta` 是参数向量，shape = `[D]`
+
+* 在计算时 PyTorch 会 **广播**：
+
+  ```python
+  x_norm.shape = [B, N, D]
+  gamma.shape = [D]
+  beta.shape  = [D]
+  ```
+
+* 作用：`out[b, n, d] = gamma[d] * x_norm[b, n, d] + beta[d]`
+
+* 也就是说 **每个维度 D 都有自己可学习的缩放/偏移**
+
+* 对 batch 和 token 是共享的，但对 embedding 的每个元素都不一样
+
+### 用一句话概括
+
+- `mean` 和 `var`：每条样本/每个 token 的 **标量**，用于标准化
+- `gamma` 和 `beta`：每个维度的 **向量参数**，控制缩放和平移
+- 结果：标准化是 “每条样本沿 D 维减均值除方差”，再按维度缩放和偏移
+
+### 直观理解
+
+假设：
+
+```python
+x[b, n] = [x1, x2, x3, x4]
+```
+
+- mean = (x1+x2+x3+x4)/4 → 单值
+- var = 方差 → 单值
+- 标准化：
+
+```python
+x_norm = [(x1-mean)/sqrt(var), ..., (x4-mean)/sqrt(var)]
+```
+
+- gamma = [g1, g2, g3, g4]
+- beta  = [b1, b2, b3, b4]
+
+最终输出：
+
+```python
+out = [g1*x_norm1+b1, g2*x_norm2+b2, g3*x_norm3+b3, g4*x_norm4+b4]
+```
+
+### 计算流程图
+
+```
+Input x = [x1, x2, x3, x4]
+        |
+        v
+Compute mean/var (scalar)
+        |
+        v
+x_norm = (x - mean)/sqrt(var)
+        |
+        v
+out = gamma * x_norm + beta   (element-wise)
+        |
+        v
+Output = [out1, out2, out3, out4]
+```
 
 # 问题
 

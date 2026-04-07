@@ -159,6 +159,7 @@
     * [MapReduce](coding/big-data/hadoop/map-reduce.md)
   * [Hive](coding/big-data/hive/hive.md)
   * [Spark](coding/big-data/spark/spark.md)
+* [Git](coding/git/git.md)
 
 # [机器学习](machine-learning/machine-learning.md)
 * [机器学习概论](machine-learning/machine-learning-introduction/machine-learning-introduction.md)
@@ -508,6 +509,12 @@
 * [Transformer](natural-language-processing/transformer/transformer.md)
   * [Transformer前传](natural-language-processing/transformer/transformer-prequel/transformer-prequel.md)
   * [Transformer: Attention Is All You Need  NIPS2017](natural-language-processing/transformer/attention-is-all-you-need/attention-is-all-you-need.md)
+  * Transformer深入理解
+    * Transformer架构
+    * Transformer中的LayerNorm
+    * Transformer中的位置编码
+  * Transformer源码
+    * TensorFlow源码解读
   * [Transformer模型tensorflow2.0官网demo代码解读](natural-language-processing/transformer/transformer-tf2-demo-code-explain/transformer-tf2-demo-code-explain.md)
   * [Transformer直觉理解](natural-language-processing/transformer/transformer-intuitive-understanding/transformer-intuitive-understanding.md)
   * [Transformer的细节问题](natural-language-processing/transformer/transformer-details/transformer-details.md)
@@ -515,6 +522,27 @@
 * [Decoder-only架构](natural-language-processing/decoder-only-arch/decoder-only-arch.md)
 
 # [多模态大模型](multimodal-large-model/multimodal-large-model.md)
+
+* 预训练
+  * Scaling Law
+    * 涌现
+
+  * 大模型架构优化
+    * Attention
+      * Flash Attention
+      * GQA
+      * MLA
+
+    * MoE
+      * auxiliary-loss-free by DeepSeek-V3
+
+    * Residual Connect
+      * Attention Residuals by Kimi 20260316
+* 后训练
+  * SFT
+  * RL
+* 微调
+  * LoRA
 * [Foundation Models基础模型](multimodal-large-model/foundation-models/foundation-models.md)
   * [On the Opportunities and Risks of Foundation Models Stanford2021李飞飞](multimodal-large-model/foundation-models/foundation-models-LeiFeiFei/On-the-Opportunities-and-Risks-of-Foundation-Models.md)
   * [Can Foundation Models Perform Zero Shot For Robot PMLR2022](multimodal-large-model/foundation-models/Can-Foundation-Models-Perform-Zero-Shot-For-Robot/Can-Foundation-Models-Perform-Zero-Shot-For-Robot.md)
@@ -558,7 +586,6 @@
     * LaMDA-2 I/O大会202205
     * T5
     * [Bard聊天机器人 202302](multimodal-large-model/industry-application/google-deepmind/bard/Bard.md) 对标OpenAI的ChatGPT
-    * ReAct是来自谷歌论文《Synergizing Reasoning and Acting in Language Models》中的一个方法，它是2022年12月发表的。这是一种reason+Act（ReAct）的方式，让大模型的行动和推理一起协同，提高大模型解决问题的能力。也就是让模型在访问外部知识的情况下和自己的模型能力结合。其实这就是Bing中的ChatGPT的运行方式！这个简单的方法可以让模型有更强的能力。而它的实现其实只需要简单的几行代码即可。因此，在前面的低成本+浏览器运行的基础上，加上ReAct改造，几乎可以得到一个与ChatGPT类似或者甚至更好的对话模型！
     * [Agents Thinking Fast and Slow: A Talker-Reasoner Architecture ArXiv202410](multimodal-large-model/industry-application/google-deepmind/talker-reasoner-architecture/talker-reasoner-architecture.md)
     * [Large Language Models can Learn Rules Arxiv202412](multimodal-large-model/industry-application/google-deepmind/llms_can_learn_rules/llms_can_learn_rules.md) 消除幻觉，让 LLMs 学会规则库和多步推理，代码开源
   * MiscroSoft
@@ -592,7 +619,20 @@
   * Salesforce Research
     * [BLIP-2图生文] 能力堪比ChatGPT
 
+# AI Agent
+
+* ReAct
+
+  ReAct是来自谷歌论文《Synergizing Reasoning and Acting in Language Models》中的一个方法，它是2022年12月发表的。这是一种reason+Act（ReAct）的方式，让大模型的行动和推理一起协同，提高大模型解决问题的能力。也就是让模型在访问外部知识的情况下和自己的模型能力结合。其实这就是Bing中的ChatGPT的运行方式！这个简单的方法可以让模型有更强的能力。而它的实现其实只需要简单的几行代码即可。因此，在前面的低成本+浏览器运行的基础上，加上ReAct改造，几乎可以得到一个与ChatGPT类似或者甚至更好的对话模型！
+  
+* Multi Agent
+
+  * 斯坦福小镇
+
+* Agent RL
+
 # [世界模型](world-model/world-model.md)
+
 * [业界应用](world-model/industry-application/industry-application.md)
   * [OpenAI](world-model/industry-application/openai/openai.md)
     * [SORA文字生成视频 202402](world-model/industry-application/openai/sora/sora.md)

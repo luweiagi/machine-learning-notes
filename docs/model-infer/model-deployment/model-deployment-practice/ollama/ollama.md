@@ -61,6 +61,34 @@ chmod +x install.sh
 
 只是被压缩成了一行。
 
+要是重新更新升级Olloma（注意不是首次安装），你嫌命令行下载慢，可手动下载：
+
+登录[https://github.com/ollama/ollama/releases](https://github.com/ollama/ollama/releases)，然后找到最新版（第一个），然后点击`ollama-linux-amd64.tar.zst`（linux版本）下载最新版。
+
+解压安装：
+
+```shell
+# 方法一：使用 tar 配合 --zstd 参数（推荐）
+sudo tar --zstd -xvf ollama-linux-amd64.tar.zst -C /usr
+
+# 方法二：先解压 zst，再解包 tar
+zstd -d ollama-linux-amd64.tar.zst
+sudo tar -xvf ollama-linux-amd64.tar -C /usr
+```
+
+然后
+
+```shell
+# 重启 ollama 服务加载新版本
+sudo systemctl restart ollama
+
+# 确认服务状态正常
+sudo systemctl status ollama
+
+# 验证 ollama 版本已更新
+ollama --version
+```
+
 ## 安装Ollama完成检查
 
 1️⃣ `ollama` 已正确安装
@@ -142,6 +170,20 @@ ollama pull qwen3-embedding:0.6b-q8_0
 5. 注册到本地 Ollama 模型索引
 
 完成后即可 **本地离线使用**
+
+## 下载你想要的模型
+
+点击这里：[https://ollama.com/search](https://ollama.com/search)，直接搜。
+
+比如你想找qwen3.5，你就直接在搜索框里搜，找到你想要的那一款的名字，然后直接
+
+```shell
+ollama run qwen3.5:9b
+# 或者
+ollama pull qwen3.5:9b
+```
+
+就好了。
 
 ## 模型介绍
 

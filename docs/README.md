@@ -538,11 +538,15 @@
 
     * Residual Connect
       * Attention Residuals by Kimi 20260316
-* 后训练
-  * SFT
-  * RL
 * 微调
   * LoRA
+* 对齐与强化学习
+  * RLHF
+  * SFT
+  * Reward Modeling
+  * Multi-Agent LLM Training
+  * RL
+
 * [Foundation Models基础模型](multimodal-large-model/foundation-models/foundation-models.md)
   * [On the Opportunities and Risks of Foundation Models Stanford2021李飞飞](multimodal-large-model/foundation-models/foundation-models-LeiFeiFei/On-the-Opportunities-and-Risks-of-Foundation-Models.md)
   * [Can Foundation Models Perform Zero Shot For Robot PMLR2022](multimodal-large-model/foundation-models/Can-Foundation-Models-Perform-Zero-Shot-For-Robot/Can-Foundation-Models-Perform-Zero-Shot-For-Robot.md)
@@ -551,6 +555,9 @@
 * [LoRA大语言模型的低秩适应](multimodal-large-model/lora/lora.md)
 * [Prompt Learning](multimodal-large-model/prompt-learning/prompt-learning.md)
 * [Emergence涌现现象](multimodal-large-model/emergence/emergence.md)
+* [AI聊天客户端](multimodal-large-model/ai-chat-client/ai-chat-client.md)
+  * [Chatbox](multimodal-large-model/ai-chat-client/chatbox/chatbox.md)
+
 * [自己运行大语言模型](multimodal-large-model/run-llm-diy/run-llm-diy.md)
 * [自己训练大语言模型](multimodal-large-model/train-llm-diy/train-llm-diy.md)
 * [LLM based Multi Agent](multimodal-large-model/llm-based-multi-agent/llm-based-multi-agent.md)
@@ -580,14 +587,15 @@
     * 202302 [LLaMa](multimodal-large-model/industry-application/meta/LLaMa/LLaMa.md) **对标OpenAI的ChatGPT，开源**
   * Stability.ai
     * Stable Diffusion开源
-  * [Google/DeepMind](multimodal-large-model/industry-application/google-deepmind/google-deepmind.md)
+  * [Google](multimodal-large-model/industry-application/google/google.md)
     * LaMDA I/O大会202105
     * PaLM 202204 5400亿参数
     * LaMDA-2 I/O大会202205
     * T5
-    * [Bard聊天机器人 202302](multimodal-large-model/industry-application/google-deepmind/bard/Bard.md) 对标OpenAI的ChatGPT
-    * [Agents Thinking Fast and Slow: A Talker-Reasoner Architecture ArXiv202410](multimodal-large-model/industry-application/google-deepmind/talker-reasoner-architecture/talker-reasoner-architecture.md)
-    * [Large Language Models can Learn Rules Arxiv202412](multimodal-large-model/industry-application/google-deepmind/llms_can_learn_rules/llms_can_learn_rules.md) 消除幻觉，让 LLMs 学会规则库和多步推理，代码开源
+    * [Bard聊天机器人 202302](multimodal-large-model/industry-application/google/bard/Bard.md) 对标OpenAI的ChatGPT
+    * [Agents Thinking Fast and Slow: A Talker-Reasoner Architecture ArXiv202410](multimodal-large-model/industry-application/google/talker-reasoner-architecture/talker-reasoner-architecture.md)
+    * [Large Language Models can Learn Rules Arxiv202412](multimodal-large-model/industry-application/google/llms_can_learn_rules/llms_can_learn_rules.md) 消除幻觉，让 LLMs 学会规则库和多步推理，代码开源
+    * [Gemma系列开源模型](multimodal-large-model/industry-application/google/gemma/gemma.md)
   * MiscroSoft
     * Copilot MiscroSoft和OpenAI联合打造的AI编程工具，基于OpenAI的大模型Codex，基于GPT-3框架进行训练
     * Kosmos-1 20230227发布，第二种才是真正的多模态LLM，才是GPT-4的魅力，他的原理目前OpenAI没有公布细节，但是大家可以参考微软在2月27日发布的Kosmos-1的论文（想一想，为什么偏偏是OpenAI的深度合作伙伴发了这篇论文）。
@@ -597,8 +605,9 @@
     * ChatGLM 近日，由清华技术成果转化的公司智谱AI开源了GLM系列模型的新成员——**中英双语对话模型ChatGLM-6B**，支持在单张消费级显卡上进行推理使用。这是继此前开源GLM-130B千亿基座模型之后，智谱AI再次推出大模型方向的研究成果。与此同时，基于千亿基座模型的ChatGLM也同期推出，初具问答和对话功能 [ChatGLM：千亿基座的对话模型启动内测，单卡版模型已全面开源](https://mp.weixin.qq.com/s/08s-BlV5N3jytlSsd5hZ0g)
   * Together
     * OpenChatKit ChatGPT的开源平替来了，源代码、模型权重和训练数据集全部公开。由前OpenAI研究员共同打造。[如何看待 Together 推出的开源聊天大模型 OpenChatKit？能否替代 ChatGPT？](https://www.zhihu.com/question/589094770/answer/2934277284)，[ChatGPT开源平替来了，开箱即用！前OpenAI团队打造](https://mp.weixin.qq.com/s/EQk9i6Bu_BMsc6AEYCFI3A)
-  * [阿里达摩院](multimodal-large-model/industry-application/alibaba/alibaba.md)
+  * [阿里](multimodal-large-model/industry-application/alibaba/alibaba.md)
     * [中文GPT3](multimodal-large-model/industry-application/alibaba/gpt3-chinese/gpt3-chinese.md) 对标GPT-3的开源项目
+    * [Qwen系列开源模型](multimodal-large-model/industry-application/alibaba/qwen/qwen.md)
   * 元语智能
     * [PromptCLUE1.0 202210]
     * [PromptCLUE1.5 202211]
@@ -619,17 +628,58 @@
   * Salesforce Research
     * [BLIP-2图生文] 能力堪比ChatGPT
 
-# AI Agent
+# [AI Agent](ai-agent/ai-agent.md)
 
-* ReAct
+* [Agent范式：认知/推理结构](ai-agent/agent-paradigms/agent-paradigms.md)--定义“智能体如何思考”，聚焦认知和推理结构
+  * [ReAct](ai-agent/agent-paradigms/react/react.md)
+    * [ReAct: Synergizing Reasoning and Acting in Language Models arXiv202212 Google](ai-agent/agent-paradigms/react/react-paper/react-paper.md)
+    * [ReAct代码实现](ai-agent/agent-paradigms/react/react-code/react-code.md)
+  * Plan-and-Execute 计划 + 执行的推理链
+  * Reflexion 自我反思/修正机制
+  * Tool Use
+    * 工具选择策略（API / 模型 / DB）
+    * 调用顺序与条件判断
+    * 失败处理 / fallback
+    * 示例：ReAct + Calculator / Browser / SQL / RAG
+* [Agent运行时（Runtime）](runtime)---- 定义“怎么把Agent跑起来”（执行引擎）
 
-  ReAct是来自谷歌论文《Synergizing Reasoning and Acting in Language Models》中的一个方法，它是2022年12月发表的。这是一种reason+Act（ReAct）的方式，让大模型的行动和推理一起协同，提高大模型解决问题的能力。也就是让模型在访问外部知识的情况下和自己的模型能力结合。其实这就是Bing中的ChatGPT的运行方式！这个简单的方法可以让模型有更强的能力。而它的实现其实只需要简单的几行代码即可。因此，在前面的低成本+浏览器运行的基础上，加上ReAct改造，几乎可以得到一个与ChatGPT类似或者甚至更好的对话模型！
+  * Agent Loop Executor 执行循环
+
+  * Tool Scheduler 工具调度
+
+  * Memory Manager 记忆管理
+
+    * RAG
+
+  * 常用 Runtime 框架
+
+    * LangChain：单 Agent + pipeline 强
+
+    * AutoGen：多 Agent + 对话驱动 loop
+
+    * LlamaIndex：Memory / RAG 特化 runtime
+
+    * OpenAI Assistants API：官方托管 runtime
+* [Agent系统：完整运行系统](ai-agent/agent-system/agent-system.md)--已经是“一个完整智能体”（end-to-end）,即直接可运行的系统
+
+  * [OpenClaw](ai-agent/agent-system/open-claw/open-claw.md)
+  * AutoGPT
+  * Devin
+* [Agent工程：基础设施](engineering)-- 让系统可用 / 可测 / 可扩展
   
-* Multi Agent
+  * Harness Engineering
+  * Evaluation / Benchmark
+  * Logging / Tracing
+  * Deployment / Serving
+* [Multi Agent 系统]()
+  * 概念与原理
+  * 协作与竞争模式
+  * 通信与协调机制
+  * 系统示例
+    * 斯坦福小镇（Stanford Town）
 
-  * 斯坦福小镇
 
-* Agent RL
+目录编排：https://chatgpt.com/c/69d7cdf2-9c44-8321-8d66-b6e5de783b49
 
 # [世界模型](world-model/world-model.md)
 

@@ -1,6 +1,6 @@
 # Large Language Models can Learn Rules
 
-* [返回上层目录](../google-deepmind.md)
+* [返回上层目录](../google.md)
 
 
 

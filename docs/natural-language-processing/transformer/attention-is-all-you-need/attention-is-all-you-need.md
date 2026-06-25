@@ -1018,7 +1018,7 @@ Encoder模块各部分及相关流程如下所示。
 
 3. LinearLayer和SoftmaxLayer作用于SubLayer-3的输出后面，来预测对应的word的probabilities 。
 
-### Decoder的输入转换（Token → Embedding）
+## Decoder的输入转换（Token → Embedding）
 
 **重要理解：Decoder的输入也需要经过Embedding Table和位置编码的转换**
 
@@ -1301,6 +1301,19 @@ Linear层: 所有5个位置并行映射到vocabulary
 损失计算: 所有5个位置的损失同时计算
 Loss = Loss0 + Loss1 + Loss2 + Loss3 + Loss4
 ```
+
+注意：在训练时，每一个位置的token，都只能看到其前面的token，而看不到后面的token。这是理解Transformer训练的关键。
+
+为什么这很巧妙？
+
+**计算上**：一次性矩阵运算，所有位置同时计算 → **并行**
+
+**逻辑上**：每个位置只看到过去 → **因果**
+
+这就是Transformer训练效率高的根本原因：
+
+- RNN：必须真的按时间顺序计算，T步需要T次前向传播
+- Transformer：1次前向传播搞定所有T步
 
 **训练时的标签对应关系（Shifted Right的结果）：**
 

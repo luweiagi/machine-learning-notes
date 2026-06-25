@@ -1,6 +1,6 @@
 # ChatGPT for Robotics: Design Principles and Model Abilities
 
-* [返回上层目录](../llm-based-control.md)
+* [返回上层目录](../control.md)
 
 
 

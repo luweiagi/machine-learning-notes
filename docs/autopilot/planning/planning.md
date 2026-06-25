@@ -1,11 +1,6 @@
 # 规划
 
 * [返回上层目录](../autopilot.md)
-* [基于LLM大语言模型的规划](llm-based-planning/llm-based-planning.md)
-
-
-
-
 
 
 

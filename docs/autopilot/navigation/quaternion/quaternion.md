@@ -421,15 +421,34 @@ $$
 其实，**这可以扩充到对四元数旋转的变换**：
 
 > qo_f1 = orientation of frame F1(b) as seen from frame F2(n)
+>
+> 即可以理解为qo_f1是：如果人站在大地系（$n$系）的观测点上，看着空中的飞机（$b$系），你眼里看到的飞机的姿态（Roll, Pitch, Yaw）。
+>
 > qo_f2  = orientation of frame F2(n) as seen from F1(b))
+>
+> qo_f2：从机体系（$F_1/b$）看过去的大地系（$F_2/n$）的姿态。即这是 `qo_f1` 的**逆姿态**。
+>
 > q_f1 = some quaternion in F1(b) frame
+>
+> q_f1：在机体系（$F_1/b$）中定义的某个四元数。可以理解为飞机上一个相机低头了15度。
+>
 > q_f2 = q_f1 as seen from F2(n)
+>
+> q_f2：从大地系（$F_2/n$）看过去的那个旋转动作。
 
 则
 
 > q_f2 = qo_f2 * q_f1 * qo_f2.inverse()
 
 参考来源：[Convert Quaternion representing rotation from one coordinate system to another](https://stackoverflow.com/questions/18818102/convert-quaternion-representing-rotation-from-one-coordinate-system-to-another)
+
+直觉认识：
+
+> **右大门（qo_f2.inverse() = qo_f1）：** 把大地的参考系**顺着飞机的姿态转过去**，在空间中与飞机对齐。
+>
+> **中间（q_f1）：** 相机在对齐后的临时舞台上，快乐地低头 $15^\circ$。
+>
+> **左大门（qo_f2）：** 动作做完，把这个舞台**反向转回来**，重新锚定回地面。
 
 下面用matlab来验证
 
@@ -493,7 +512,7 @@ quat_ry_q = quat_roll * quat_yaw
 % 0.8924+0.23912i-0.099046j+0.36964k
 ```
 
-来验证下这个合成后的四元数对不对，将该四元数转换成欧拉角（注意是YXZ顺序）进行验证
+来验证下这个合成后的四元数对不对，将该四元数转换成欧拉角（注意是XYZ顺序）进行验证
 
 ```matlab
 % from quat to euler (XYZ)
@@ -514,6 +533,8 @@ angle_xyz = rotvecd(quat_ry_q)
 可以看出，先绕roll转$30^{\circ}$，然后绕yaw转$45^{\circ}$，这种按顺序的欧拉角旋转，等效于按照矢量[x=28.4280  y=-11.7753   z=43.9459]​进行一次旋转，其中，该矢量的方向代表旋转轴，各轴分量代表旋转轴在各轴分量上的旋转角度。
 
 此外，该矢量[x=28.4280  y=-11.7753   z=43.9459]也可以认为是姿态控制中的角度误差，而不能是欧拉角表示的[x=30  y=-0   z=45]，因为该角度不是一次旋转而成的，而是按顺序旋转得到的。实际控制的时候，肯定会同时转，而不是按欧拉角顺序转。欧拉角顺序只是数学上表示姿态的方式，实际的旋转都是一次旋转到位的。
+
+`rotvecd(quat_ry_q)` 输出的这三个数，即矢量[x=28.4280  y=-11.7753   z=43.9459]，是那个等效旋转轴在大地坐标系（$n$系）下的 $X, Y, Z$ 轴分量大小。
 
 上述代码总结如下：
 
@@ -562,5 +583,4 @@ Graßmann积。纯四元数有一个很重要的特性：如果有两个纯四�
 * [一文详解四元数、欧拉角、旋转矩阵、轴角如何相互转换](https://mp.weixin.qq.com/s?__biz=MzU0NjgzMDIxMQ==&mid=2247487439&idx=1&sn=da8c277d40911b114038a415f5873ac9&chksm=fb56ed23cc216435c3bac0429620492e6b4380a63f30f026c8377f37bd81577a320188e1a404&scene=27)
 
 * [三维旋转：欧拉角、四元数、旋转矩阵、轴角之间的转换](https://zhuanlan.zhihu.com/p/45404840)
-
 

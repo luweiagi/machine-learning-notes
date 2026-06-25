@@ -1,6 +1,6 @@
 # PaLM-E: An Embodied Multimodal Language Model
 
-* [返回上层目录](../llm-based-control.md)
+* [返回上层目录](../control.md)
 
 ![paper](pic/paper.png)
 

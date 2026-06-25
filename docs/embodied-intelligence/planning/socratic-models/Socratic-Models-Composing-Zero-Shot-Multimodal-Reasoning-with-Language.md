@@ -1,6 +1,6 @@
 # Socratic Models: Composing Zero-Shot Multimodal Reasoning with Language
 
-* [返回上层目录](../llm-based-planning.md)
+* [返回上层目录](../planning.md)
 
 
 

@@ -1,6 +1,6 @@
 # RT-1: Robotics Transformer for Real-World Control at Scale
 
-* [返回上层目录](../llm-based-control.md)
+* [返回上层目录](../control.md)
 
 
 

@@ -1,4 +1,4 @@
-# 基于LLM大语言模型的控制
+# 控制
 
 * [返回上层目录](../control.md)
 * [Code as Policies: Language Model Programs for Embodied Control arXiv2022 Google](code-as-policies/Code-as-Policies-Language-Model-Programs-for-Embodied-Control.md)

@@ -433,7 +433,18 @@
       * [TimeChamber大规模并行的大规模自对弈框架](reinforcement-learning/industry-application/inspir-ai/time-chamber/time-chamber/time-chamber.md)
       * [Humanoid Strike人类击剑](reinforcement-learning/industry-application/inspir-ai/time-chamber/humanoid-strike/humanoid-strike.md)
 
+# [AutoML](auto-machine-learning/auto-machine-learning.md)
+
+* [AutoML介绍](auto-machine-learning/auto-machine-learning-introduction/auto-ml-introduction.md)
+* 自动数据清理AutoClean
+* 自动特征工程AutoFE
+* [超参数优化HPO](auto-machine-learning/hyperparameter-optimization/hyperparameter-optimization.md)
+* 元学习MetaLearning
+* [神经网络架构搜索NAS](auto-machine-learning/neural-architecture-search/neural-architecture-search.md)
+  * [Weight-Agnostic-Neural-Networks Google2019](auto-machine-learning/neural-architecture-search/weight-agnostic-nn/Weight-Agnostic-Neural-Networks.md)
+
 # [机器学习训练框架](machine-learning-training-framework/machine-learning-training-framework.md)
+
 * [Anaconda](machine-learning-training-framework/anaconda/anaconda.md)
 * [模型训练云服务器平台](machine-learning-training-framework/cloud-server-platform/cloud-server-platform.md)
   * [AutoDL](machine-learning-training-framework/cloud-server-platform/AutoDL/AutoDL.md)
@@ -481,7 +492,48 @@
   * [华为MindCluster集群调度](machine-learning-training-framework/supercomputing-cluster/huawei-mindcluster/huawei-mindcluster.md)
   * [微软: 用于训练ChatGPT的超算](machine-learning-training-framework/supercomputing-cluster/microsoft-supercomputing-cluster-for-chatgpt/microsoft-supercomputing-cluster-for-chatgpt.md)
 
+# [模型推理优化与部署](model-infer/model-infer.md)
+
+* [模型推理](model-infer/model-inference/model-inference.md)
+  * [矩阵加速算法](model-infer/model-inference/matrix-acceleration-algorithm/matrix-acceleration-algorithm.md)
+    * [im2col: 将卷积转为矩阵乘法来加速计算](model-infer/model-inference/matrix-acceleration-algorithm/im2col/im2col.md)
+    * [winograd: Fast Algorithms for Convolutional Neural Networks CVPR2016](model-infer/model-inference/matrix-acceleration-algorithm/winograd/Fast-Algorithms-for-Convolutional-Neural-Networks.md)
+  * [并行计算](model-infer/model-inference/parallel-computing/parallel-computing.md)
+    * [OpenCL](model-infer/model-inference/parallel-computing/opencl/opencl.md)
+    * [CUDA](model-infer/model-inference/parallel-computing/cuda/cuda.md)
+    * [OpenBlas](model-infer/model-inference/parallel-computing/openblas/openblas.md)
+    * [OpenMP](model-infer/model-inference/parallel-computing/openmp/openmp.md)
+  * [推理引擎开发](model-infer/model-inference/infer-engine-dev/infer-engine-dev.md)
+    * [GPGPU算子开发](model-infer/model-inference/infer-engine-dev/gpgpu-kernel-dev/gpgpu-kernel-dev.md)
+      * [GPGPU算子开发快速入门](model-infer/model-inference/infer-engine-dev/gpgpu-kernel-dev/quick-introduce/gpgpu-kernel-dev-quick-introduce.md)
+      * [CUDA ReLU 全面示例：从 CUDA 内核到 PyTorch 与 ONNX Runtime](model-infer/model-inference/infer-engine-dev/gpgpu-kernel-dev/kernel-pytorch-onnxruntime/kernel-pytorch-onnxruntime.md)
+* [模型优化](model-infer/model-optimization/model-optimization.md)
+  * [模型压缩](model-infer/model-optimization/model-compression/model-compression.md)
+    * [模型压缩概述](model-infer/model-optimization/model-compression/model-compression-introduction/model-compression-introduction.md)
+    * 剪枝
+    * [量化](model-infer/model-optimization/model-compression/quantization/quantization.md)
+    * [混合精度推理](model-infer/model-optimization/model-compression/mixed-precision-inference/mixed-precision-inference.md)
+    * [知识蒸馏](model-infer/model-optimization/model-compression/knowledge-distillation/knowledge-distillation.md)
+* [模型部署](model-infer/model-deployment/model-deployment.md)
+  * [AI编译器](model-infer/model-deployment/ai-compiler/ai-compiler.md)
+  * [具体模型部署实践](model-infer/model-deployment/model-deployment-practice/model-deployment-practice.md)
+    * [TensorRT](model-infer/model-deployment/model-deployment-practice/tensor-rt/tensor-rt.md)
+    * [基于C/C++部署TensorFlow模型](model-infer/model-deployment/model-deployment-practice/tensorflow-cpp-deployment/tensorflow-cpp-deployment.md)
+    * [ONNX](model-infer/model-deployment/model-deployment-practice/onnx/onnx.md)
+    * [JIT](model-infer/model-deployment/model-deployment-practice/jit/jit.md)
+    * [netron模型可视化工具](model-infer/model-deployment/model-deployment-practice/netron/netron.md)
+    * [大模型API-Key调用](model-infer/model-deployment/model-deployment-practice/openai-api/openai-api.md)
+    * [Ollama本地大模型部署与调用指南](model-infer/model-deployment/model-deployment-practice/ollama/ollama.md)
+    * [vLLM](model-infer/model-deployment/model-deployment-practice/vllm/vllm.md)
+  * [单机多卡与多机多卡：从 PCIe 到 RDMA 的大模型训练与推理全景解析](model-infer/model-deployment/multi-gpu-infer/multi-gpu-infer.md)
+* [硬件平台支持](model-infer/hardware-platform/hardware-platform.md)
+  * [Nvidia Jetson平台](model-infer/hardware-platform/nvidia-jetson/nvidia-jetson.md)
+    * [基于NanoLLM开发平台运行大模型](model-infer/hardware-platform/nvidia-jetson/nano-llm-infer/nano-llm-infer.md)
+    * [TensorRT-LLM大语言模型推理](model-infer/hardware-platform/nvidia-jetson/tensor-rt-llm-infer/tensor-rt-llm-infer.md)
+  * [华为昇腾NPU](model-infer/hardware-platform/huawei-npu/huawei-npu.md)
+
 # [计算机视觉](computer-vision/computer-vision.md)
+
 * ResNet 有捷径的(resnet的跳跃连接)
 * InceptionNet 多岔路的(inception的多分支)
 * DenseNet 通往多个地点的捷径的(densenet的密集连接)
@@ -495,216 +547,8 @@
 * Vision Transformer
 * Swin Transformer
 
-# [自然语言处理](natural-language-processing/natural-language-processing.md)
-* [自然语言处理概论](natural-language-processing/natural-language-processing-introduction/natural-language-processing-introduction.md)
-* [自然语言](natural-language-processing/natural-language/natural-language.md)
-* [语言模型和中文分词](natural-language-processing/language-model-and-chinese-word-segmentation/language-model-and-chinese-word-segmentation.md)
-* [TF-IDF词频-逆文档频率](natural-language-processing/tf-idf/tf-idf.md)
-* [word2vec](natural-language-processing/word2vec/word2vec.md)
-* [AttentionMechanism注意力机制](natural-language-processing/attention-mechanism/attention-mechanism.md)
-  * [Self Attention机制](natural-language-processing/attention-mechanism/self-attention/self-attention.md)
-  * [Multi Head Self Attention机制](natural-language-processing/attention-mechanism/multi-head-self-attention/multi-head-self-attention.md)
-  * [Cross Attention机制](natural-language-processing/attention-mechanism/cross-attention/cross-attention.md)
-* [Seq2Seq模型和Attention机制](natural-language-processing/seq2seq-and-attention-mechanism/seq2seq-and-attention-mechanism.md)
-* [Transformer](natural-language-processing/transformer/transformer.md)
-  * [Transformer前传](natural-language-processing/transformer/transformer-prequel/transformer-prequel.md)
-  * [Transformer: Attention Is All You Need  NIPS2017](natural-language-processing/transformer/attention-is-all-you-need/attention-is-all-you-need.md)
-  * Transformer深入理解
-    * Transformer架构
-    * Transformer中的LayerNorm
-    * Transformer中的位置编码
-  * Transformer源码
-    * TensorFlow源码解读
-  * [Transformer模型tensorflow2.0官网demo代码解读](natural-language-processing/transformer/transformer-tf2-demo-code-explain/transformer-tf2-demo-code-explain.md)
-  * [Transformer直觉理解](natural-language-processing/transformer/transformer-intuitive-understanding/transformer-intuitive-understanding.md)
-  * [Transformer的细节问题](natural-language-processing/transformer/transformer-details/transformer-details.md)
-* [BERT](natural-language-processing/bert/bert.md)
-* [Decoder-only架构](natural-language-processing/decoder-only-arch/decoder-only-arch.md)
-
-# [多模态大模型](multimodal-large-model/multimodal-large-model.md)
-
-* 预训练
-  * Scaling Law
-    * 涌现
-
-  * 大模型架构优化
-    * Attention
-      * Flash Attention
-      * GQA
-      * MLA
-
-    * MoE
-      * auxiliary-loss-free by DeepSeek-V3
-
-    * Residual Connect
-      * Attention Residuals by Kimi 20260316
-* 微调
-  * LoRA
-* 对齐与强化学习
-  * RLHF
-  * SFT
-  * Reward Modeling
-  * Multi-Agent LLM Training
-  * RL
-
-* [Foundation Models基础模型](multimodal-large-model/foundation-models/foundation-models.md)
-  * [On the Opportunities and Risks of Foundation Models Stanford2021李飞飞](multimodal-large-model/foundation-models/foundation-models-LeiFeiFei/On-the-Opportunities-and-Risks-of-Foundation-Models.md)
-  * [Can Foundation Models Perform Zero Shot For Robot PMLR2022](multimodal-large-model/foundation-models/Can-Foundation-Models-Perform-Zero-Shot-For-Robot/Can-Foundation-Models-Perform-Zero-Shot-For-Robot.md)
-* [Scaling Law](multimodal-large-model/scaling-law/scaling-law.md)
-* [RLHF基于人工反馈的强化学习方法](multimodal-large-model/rlhf/rlhf.md)
-* [LoRA大语言模型的低秩适应](multimodal-large-model/lora/lora.md)
-* [Prompt Learning](multimodal-large-model/prompt-learning/prompt-learning.md)
-* [Emergence涌现现象](multimodal-large-model/emergence/emergence.md)
-* [AI聊天客户端](multimodal-large-model/ai-chat-client/ai-chat-client.md)
-  * [Chatbox](multimodal-large-model/ai-chat-client/chatbox/chatbox.md)
-
-* [自己运行大语言模型](multimodal-large-model/run-llm-diy/run-llm-diy.md)
-* [自己训练大语言模型](multimodal-large-model/train-llm-diy/train-llm-diy.md)
-* [LLM based Multi Agent](multimodal-large-model/llm-based-multi-agent/llm-based-multi-agent.md)
-  * [Stanford Generative Agents斯坦福小镇技术全景解读：LLM驱动的认知体与社会行为涌现](multimodal-large-model/llm-based-multi-agent/stanford-generative-agents/stanford-generative-agents.md)
-* [业界应用](multimodal-large-model/industry-application/industry-application.md)
-  * [OpenAI](multimodal-large-model/industry-application/openai/openai.md)
-    * 可能大家对于绘画了解的比较多的是midjourney与stable diffusion，实际上这两个产品的基本技术都来源于DALL-E系列，那里的OpenAI还是Open的，它的论文还有足够的内容让我们理解，它里边有什么。于是大家根据它的2021年的DALL-E及CLIP这两个论文，搞出来midjourney，而stable diffusion也是在这个基础上的一个开源方案。
-    * [DALL·E1 2021]
-    * [CLIP 2021]
-    * [DALL-E2 2022]
-    * [DALL-E3 2023] 已融合进GPT4中
-    * [Point-E 202212](multimodal-large-model/industry-application/openai/point-e/point-e.md) 文本生成3D点云模型
-    * [GTP系列介绍](multimodal-large-model/industry-application/openai/gpt-series-introduction/gpt-series-introduction.md)
-    * [GPT前身Unsupervised Sentiment Neuron](multimodal-large-model/industry-application/openai/unsupervised-sentiment-neuron/unsupervised-sentiment-neuron.md)
-      * [Unsupervised Sentiment Neuron](multimodal-large-model/industry-application/openai/unsupervised-sentiment-neuron/unsupervised-sentiment-neuron/unsupervised-sentiment-neuron.md)
-      * [Learning to Generate Reviews and Discovering Sentiment ArXiv2017](multimodal-large-model/industry-application/openai/unsupervised-sentiment-neuron/paper/Learning-to-Generate-Reviews.md)
-    * GPT1
-    * GPT2
-    * GPT3 语言生成模型 根据Lambda官网数据，微软为OpenAI设计了一个包含10000块Nvidia V100 GPU的分布式集群进行GPT-3的模型训练，由于模型参数量较大（共1750亿参数），训练完成共耗费30天，消耗总算力为 3640PF-days。以Nvidia Tesla V100的Lambda GPU实例定价为1.50 美元/小时测算，GPT-3的完整训练成本将达到466万美元/次。
-    * Codex
-    * GPT-3.5
-    * instructGPT
-    * [ChatGPT](multimodal-large-model/industry-application/openai/ChatGPT/ChatGPT.md) 聊天机器人
-    * [GPT-4](multimodal-large-model/industry-application/openai/GPT-4/GPT-4.md) 202303 输入图/文，输出文
-  * [Meta](multimodal-large-model/industry-application/meta/meta.md)
-    * [OPT](multimodal-large-model/industry-application/meta/opt/opt.md) 复现开源了GPT3
-    * 202302 [LLaMa](multimodal-large-model/industry-application/meta/LLaMa/LLaMa.md) **对标OpenAI的ChatGPT，开源**
-  * Stability.ai
-    * Stable Diffusion开源
-  * [Google](multimodal-large-model/industry-application/google/google.md)
-    * LaMDA I/O大会202105
-    * PaLM 202204 5400亿参数
-    * LaMDA-2 I/O大会202205
-    * T5
-    * [Bard聊天机器人 202302](multimodal-large-model/industry-application/google/bard/Bard.md) 对标OpenAI的ChatGPT
-    * [Agents Thinking Fast and Slow: A Talker-Reasoner Architecture ArXiv202410](multimodal-large-model/industry-application/google/talker-reasoner-architecture/talker-reasoner-architecture.md)
-    * [Large Language Models can Learn Rules Arxiv202412](multimodal-large-model/industry-application/google/llms_can_learn_rules/llms_can_learn_rules.md) 消除幻觉，让 LLMs 学会规则库和多步推理，代码开源
-    * [Gemma系列开源模型](multimodal-large-model/industry-application/google/gemma/gemma.md)
-  * MiscroSoft
-    * Copilot MiscroSoft和OpenAI联合打造的AI编程工具，基于OpenAI的大模型Codex，基于GPT-3框架进行训练
-    * Kosmos-1 20230227发布，第二种才是真正的多模态LLM，才是GPT-4的魅力，他的原理目前OpenAI没有公布细节，但是大家可以参考微软在2月27日发布的Kosmos-1的论文（想一想，为什么偏偏是OpenAI的深度合作伙伴发了这篇论文）。
-  * [DeepSeek幻方量化对冲基金](multimodal-large-model/industry-application/deepseek/deepseek.md)
-    * [DeepSeek V3 202412](multimodal-large-model/industry-application/deepseek/deepseek-v3/deepseek-v3.md) 一家中国量化基金公司年底发布了最强开源LLM：DeepSeek V3
-  * 智谱AI
-    * ChatGLM 近日，由清华技术成果转化的公司智谱AI开源了GLM系列模型的新成员——**中英双语对话模型ChatGLM-6B**，支持在单张消费级显卡上进行推理使用。这是继此前开源GLM-130B千亿基座模型之后，智谱AI再次推出大模型方向的研究成果。与此同时，基于千亿基座模型的ChatGLM也同期推出，初具问答和对话功能 [ChatGLM：千亿基座的对话模型启动内测，单卡版模型已全面开源](https://mp.weixin.qq.com/s/08s-BlV5N3jytlSsd5hZ0g)
-  * Together
-    * OpenChatKit ChatGPT的开源平替来了，源代码、模型权重和训练数据集全部公开。由前OpenAI研究员共同打造。[如何看待 Together 推出的开源聊天大模型 OpenChatKit？能否替代 ChatGPT？](https://www.zhihu.com/question/589094770/answer/2934277284)，[ChatGPT开源平替来了，开箱即用！前OpenAI团队打造](https://mp.weixin.qq.com/s/EQk9i6Bu_BMsc6AEYCFI3A)
-  * [阿里](multimodal-large-model/industry-application/alibaba/alibaba.md)
-    * [中文GPT3](multimodal-large-model/industry-application/alibaba/gpt3-chinese/gpt3-chinese.md) 对标GPT-3的开源项目
-    * [Qwen系列开源模型](multimodal-large-model/industry-application/alibaba/qwen/qwen.md)
-  * 元语智能
-    * [PromptCLUE1.0 202210]
-    * [PromptCLUE1.5 202211]
-    * [ChatYuan 202212]
-  * [百度](multimodal-large-model/industry-application/baidu/baidu.md)
-    * [ERNIE-Bot文心一言 202302](multimodal-large-model/industry-application/baidu/ERNIE-Bot/ERNIE-Bot.md)
-  * [BlinkDL](multimodal-large-model/industry-application/blinkdl/blinkdl.md)
-    * [ChatRWKV 202208](multimodal-large-model/industry-application/blinkdl/ChatRWKV/ChatRWKV.md) 对标ChatGPT的开源项目，基于RNN架构
-  * Alpaca 斯坦福大学
-    * Alpaca 近日，斯坦福基于 Meta 的 LLaMA 7B 模型微调出一个新模型 Alpaca。该研究让 OpenAI 的 text-davinci-003 模型以 self-instruct 方式生成 52K 指令遵循（instruction-following）样本，以此作为Alpaca的训练数据。研究团队已将训练数据、生成训练数据的代码和超参数开源，后续还将发布模型权重和训练代码。 [斯坦福70亿参数开源模型媲美GPT-3.5，100美元即可复现](https://mp.weixin.qq.com/s/U6ioEygg5mlVpAIb2L3cZw)
-  * [HPC-AI Tech潞晨科技](multimodal-large-model/industry-application/hpcaitech/hpcaitech.md)
-    * [ColossalChat 202302](multimodal-large-model/industry-application/hpcaitech/colossalChat/ColossalChat.md) 对标ChatGPT的开源项目。ColossalChat开源了第一个完整的RLHF pipeline，斯坦福Alpaca没有做RLHF
-    * [Open-Sora 202406]
-  * [复旦大学自然语言处理实验室邱锡鹏团队](multimodal-large-model/industry-application/fudan-university-nlp-group/fudan-university-nlp-group.md)
-    * [MOSS 202302](multimodal-large-model/industry-application/fudan-university-nlp-group/moss/moss.md) 对标ChatGPT，已开源
-  * [百川智能](multimodal-large-model/industry-application/baichuan-intelligence/baichuan-intelligence.md)
-    * [baichuan-7B 202306](multimodal-large-model/industry-application/baichuan-intelligence/baichuan-7B/baichuan-7B.md) 开源
-  * Salesforce Research
-    * [BLIP-2图生文] 能力堪比ChatGPT
-
-# [AI Agent](ai-agent/ai-agent.md)
-
-* [Agent范式：认知/推理结构](ai-agent/agent-paradigms/agent-paradigms.md)--定义“智能体如何思考”，聚焦认知和推理结构
-  * [ReAct](ai-agent/agent-paradigms/react/react.md)
-    * [ReAct: Synergizing Reasoning and Acting in Language Models arXiv202212 Google](ai-agent/agent-paradigms/react/react-paper/react-paper.md)
-    * [ReAct代码实现](ai-agent/agent-paradigms/react/react-code/react-code.md)
-  * Plan-and-Execute 计划 + 执行的推理链
-  * Reflexion 自我反思/修正机制
-  * Tool Use
-    * 工具选择策略（API / 模型 / DB）
-    * 调用顺序与条件判断
-    * 失败处理 / fallback
-    * 示例：ReAct + Calculator / Browser / SQL / RAG
-* [Agent运行时（Runtime）](runtime)---- 定义“怎么把Agent跑起来”（执行引擎）
-
-  * Agent Loop Executor 执行循环
-
-  * Tool Scheduler 工具调度
-
-  * Memory Manager 记忆管理
-
-    * RAG
-
-  * 常用 Runtime 框架
-
-    * LangChain：单 Agent + pipeline 强
-
-    * AutoGen：多 Agent + 对话驱动 loop
-
-    * LlamaIndex：Memory / RAG 特化 runtime
-
-    * OpenAI Assistants API：官方托管 runtime
-* [Agent系统：完整运行系统](ai-agent/agent-system/agent-system.md)--已经是“一个完整智能体”（end-to-end）,即直接可运行的系统
-
-  * [OpenClaw](ai-agent/agent-system/open-claw/open-claw.md)
-  * AutoGPT
-  * Devin
-* [Agent工程：基础设施](engineering)-- 让系统可用 / 可测 / 可扩展
-  
-  * Harness Engineering
-  * Evaluation / Benchmark
-  * Logging / Tracing
-  * Deployment / Serving
-* [Multi Agent 系统]()
-  * 概念与原理
-  * 协作与竞争模式
-  * 通信与协调机制
-  * 系统示例
-    * 斯坦福小镇（Stanford Town）
-
-
-目录编排：https://chatgpt.com/c/69d7cdf2-9c44-8321-8d66-b6e5de783b49
-
-# [世界模型](world-model/world-model.md)
-
-* [业界应用](world-model/industry-application/industry-application.md)
-  * [OpenAI](world-model/industry-application/openai/openai.md)
-    * [SORA文字生成视频 202402](world-model/industry-application/openai/sora/sora.md)
-  * [DeepMind](world-model/industry-application/deepmind/deepmind.md)
-    * [Genie2 202412](world-model/industry-application/deepmind/genie2/genie2.md)
-  * [Meta](world-model/industry-application/meta/meta.md)
-    * [CWM: Code World Models 20250924](world-model/industry-application/meta/cwm/cwm.md)
-  * [World Labs李飞飞创立](world-model/industry-application/world-labs/world-labs.md)
-    * [Large World Model大世界模型 202412]
-
-# [AutoML](auto-machine-learning/auto-machine-learning.md)
-* [AutoML介绍](auto-machine-learning/auto-machine-learning-introduction/auto-ml-introduction.md)
-* 自动数据清理AutoClean
-* 自动特征工程AutoFE
-* [超参数优化HPO](auto-machine-learning/hyperparameter-optimization/hyperparameter-optimization.md)
-* 元学习MetaLearning
-* [神经网络架构搜索NAS](auto-machine-learning/neural-architecture-search/neural-architecture-search.md)
-  * [Weight-Agnostic-Neural-Networks Google2019](auto-machine-learning/neural-architecture-search/weight-agnostic-nn/Weight-Agnostic-Neural-Networks.md)
-
-# 知识图谱
-
 # [推荐系统](recommender-systems/recommender-systems.md)
+
 * [推荐系统概述](recommender-systems/recommender-systems-introduction/recommender-systems-introduction.md)
 * 基础知识
   * 协同过滤
@@ -766,44 +610,171 @@
   * [Google](recommender-systems/industry-application/google/google.md)
     * [MMoE: Modeling Task Relationships in Multi-task Learning with Multi-gate Mixture-of-Experts KDD2018](recommender-systems/industry-application/google/mmoe/Modeling-Task-Relationships-in-Multi-task-Learning-with-Multi-gate-Mixture-of-Experts.md)
 
-# [模型推理优化与部署](model-infer/model-infer.md)
-* [模型推理](model-infer/model-inference/model-inference.md)
-  * [矩阵加速算法](model-infer/model-inference/matrix-acceleration-algorithm/matrix-acceleration-algorithm.md)
-    * [im2col: 将卷积转为矩阵乘法来加速计算](model-infer/model-inference/matrix-acceleration-algorithm/im2col/im2col.md)
-    * [winograd: Fast Algorithms for Convolutional Neural Networks CVPR2016](model-infer/model-inference/matrix-acceleration-algorithm/winograd/Fast-Algorithms-for-Convolutional-Neural-Networks.md)
-  * [并行计算](model-infer/model-inference/parallel-computing/parallel-computing.md)
-    * [OpenCL](model-infer/model-inference/parallel-computing/opencl/opencl.md)
-    * [CUDA](model-infer/model-inference/parallel-computing/cuda/cuda.md)
-    * [OpenBlas](model-infer/model-inference/parallel-computing/openblas/openblas.md)
-    * [OpenMP](model-infer/model-inference/parallel-computing/openmp/openmp.md)
-  * [推理引擎开发](model-infer/model-inference/infer-engine-dev/infer-engine-dev.md)
-    * [GPGPU算子开发](model-infer/model-inference/infer-engine-dev/gpgpu-kernel-dev/gpgpu-kernel-dev.md)
-      * [GPGPU算子开发快速入门](model-infer/model-inference/infer-engine-dev/gpgpu-kernel-dev/quick-introduce/gpgpu-kernel-dev-quick-introduce.md)
-      * [CUDA ReLU 全面示例：从 CUDA 内核到 PyTorch 与 ONNX Runtime](model-infer/model-inference/infer-engine-dev/gpgpu-kernel-dev/kernel-pytorch-onnxruntime/kernel-pytorch-onnxruntime.md)
-* [模型优化](model-infer/model-optimization/model-optimization.md)
-  * [模型压缩](model-infer/model-optimization/model-compression/model-compression.md)
-    * [模型压缩概述](model-infer/model-optimization/model-compression/model-compression-introduction/model-compression-introduction.md)
-    * 剪枝
-    * [量化](model-infer/model-optimization/model-compression/quantization/quantization.md)
-    * [混合精度推理](model-infer/model-optimization/model-compression/mixed-precision-inference/mixed-precision-inference.md)
-    * [知识蒸馏](model-infer/model-optimization/model-compression/knowledge-distillation/knowledge-distillation.md)
-* [模型部署](model-infer/model-deployment/model-deployment.md)
-  * [AI编译器](model-infer/model-deployment/ai-compiler/ai-compiler.md)
-  * [具体模型部署实践](model-infer/model-deployment/model-deployment-practice/model-deployment-practice.md)
-    * [TensorRT](model-infer/model-deployment/model-deployment-practice/tensor-rt/tensor-rt.md)
-    * [基于C/C++部署TensorFlow模型](model-infer/model-deployment/model-deployment-practice/tensorflow-cpp-deployment/tensorflow-cpp-deployment.md)
-    * [ONNX](model-infer/model-deployment/model-deployment-practice/onnx/onnx.md)
-    * [JIT](model-infer/model-deployment/model-deployment-practice/jit/jit.md)
-    * [netron模型可视化工具](model-infer/model-deployment/model-deployment-practice/netron/netron.md)
-    * [大模型API-Key调用](model-infer/model-deployment/model-deployment-practice/openai-api/openai-api.md)
-    * [Ollama本地大模型部署与调用指南](model-infer/model-deployment/model-deployment-practice/ollama/ollama.md)
-    * [vLLM](model-infer/model-deployment/model-deployment-practice/vllm/vllm.md)
-  * [单机多卡与多机多卡：从 PCIe 到 RDMA 的大模型训练与推理全景解析](model-infer/model-deployment/multi-gpu-infer/multi-gpu-infer.md)
-* [硬件平台支持](model-infer/hardware-platform/hardware-platform.md)
-  * [Nvidia Jetson平台](model-infer/hardware-platform/nvidia-jetson/nvidia-jetson.md)
-    * [基于NanoLLM开发平台运行大模型](model-infer/hardware-platform/nvidia-jetson/nano-llm-infer/nano-llm-infer.md)
-    * [TensorRT-LLM大语言模型推理](model-infer/hardware-platform/nvidia-jetson/tensor-rt-llm-infer/tensor-rt-llm-infer.md)
-  * [华为昇腾NPU](model-infer/hardware-platform/huawei-npu/huawei-npu.md)
+# [自然语言处理](natural-language-processing/natural-language-processing.md)
+* [自然语言处理概论](natural-language-processing/natural-language-processing-introduction/natural-language-processing-introduction.md)
+* [自然语言](natural-language-processing/natural-language/natural-language.md)
+* [语言模型和中文分词](natural-language-processing/language-model-and-chinese-word-segmentation/language-model-and-chinese-word-segmentation.md)
+* [TF-IDF词频-逆文档频率](natural-language-processing/tf-idf/tf-idf.md)
+* [word2vec](natural-language-processing/word2vec/word2vec.md)
+* [AttentionMechanism注意力机制](natural-language-processing/attention-mechanism/attention-mechanism.md)
+  * [Self Attention机制](natural-language-processing/attention-mechanism/self-attention/self-attention.md)
+  * [Multi Head Self Attention机制](natural-language-processing/attention-mechanism/multi-head-self-attention/multi-head-self-attention.md)
+  * [Cross Attention机制](natural-language-processing/attention-mechanism/cross-attention/cross-attention.md)
+* [Seq2Seq模型和Attention机制](natural-language-processing/seq2seq-and-attention-mechanism/seq2seq-and-attention-mechanism.md)
+* [Transformer](natural-language-processing/transformer/transformer.md)
+  * [Transformer前传](natural-language-processing/transformer/transformer-prequel/transformer-prequel.md)
+  * [Transformer: Attention Is All You Need  NIPS2017](natural-language-processing/transformer/attention-is-all-you-need/attention-is-all-you-need.md)
+  * Transformer深入理解
+    * Transformer架构
+    * Transformer中的LayerNorm
+    * Transformer中的位置编码
+  * Transformer源码
+    * TensorFlow源码解读
+  * [Transformer模型tensorflow2.0官网demo代码解读](natural-language-processing/transformer/transformer-tf2-demo-code-explain/transformer-tf2-demo-code-explain.md)
+  * [Transformer直觉理解](natural-language-processing/transformer/transformer-intuitive-understanding/transformer-intuitive-understanding.md)
+  * [Transformer的细节问题](natural-language-processing/transformer/transformer-details/transformer-details.md)
+* [BERT](natural-language-processing/bert/bert.md)
+* [Decoder-only架构](natural-language-processing/decoder-only-arch/decoder-only-arch.md)
+
+# [多模态大模型](multimodal-large-model/multimodal-large-model.md)
+
+* 预训练
+  * Scaling Law
+    * 涌现
+
+  * 大模型架构优化
+    * Attention
+      * Flash Attention
+      * GQA
+      * MLA
+
+    * MoE
+      * auxiliary-loss-free by DeepSeek-V3
+
+    * Residual Connect
+      * Attention Residuals by Kimi 20260316
+* 微调
+  * LoRA
+* 对齐与强化学习
+  * RLHF
+  * SFT
+  * Reward Modeling
+  * Multi-Agent LLM Training
+  * RL
+* [Foundation Models基础模型](multimodal-large-model/foundation-models/foundation-models.md)
+  * [On the Opportunities and Risks of Foundation Models Stanford2021李飞飞](multimodal-large-model/foundation-models/foundation-models-LeiFeiFei/On-the-Opportunities-and-Risks-of-Foundation-Models.md)
+  * [Can Foundation Models Perform Zero Shot For Robot PMLR2022](multimodal-large-model/foundation-models/Can-Foundation-Models-Perform-Zero-Shot-For-Robot/Can-Foundation-Models-Perform-Zero-Shot-For-Robot.md)
+* [Scaling Law](multimodal-large-model/scaling-law/scaling-law.md)
+* [RLHF基于人工反馈的强化学习方法](multimodal-large-model/rlhf/rlhf.md)
+* [LoRA大语言模型的低秩适应](multimodal-large-model/lora/lora.md)
+* [Prompt Learning](multimodal-large-model/prompt-learning/prompt-learning.md)
+* [Emergence涌现现象](multimodal-large-model/emergence/emergence.md)
+* [AI聊天客户端](multimodal-large-model/ai-chat-client/ai-chat-client.md)
+  * [Chatbox](multimodal-large-model/ai-chat-client/chatbox/chatbox.md)
+* [自己运行大语言模型](multimodal-large-model/run-llm-diy/run-llm-diy.md)
+* [自己训练大语言模型](multimodal-large-model/train-llm-diy/train-llm-diy.md)
+* [LLM based Multi Agent](multimodal-large-model/llm-based-multi-agent/llm-based-multi-agent.md)
+  * [Stanford Generative Agents斯坦福小镇技术全景解读：LLM驱动的认知体与社会行为涌现](multimodal-large-model/llm-based-multi-agent/stanford-generative-agents/stanford-generative-agents.md)
+* [业界应用](multimodal-large-model/industry-application/industry-application.md)
+  * [OpenAI](multimodal-large-model/industry-application/openai/openai.md)
+    * 可能大家对于绘画了解的比较多的是midjourney与stable diffusion，实际上这两个产品的基本技术都来源于DALL-E系列，那里的OpenAI还是Open的，它的论文还有足够的内容让我们理解，它里边有什么。于是大家根据它的2021年的DALL-E及CLIP这两个论文，搞出来midjourney，而stable diffusion也是在这个基础上的一个开源方案。
+    * [DALL·E1 2021]
+    * [CLIP 2021]
+    * [DALL-E2 2022]
+    * [DALL-E3 2023] 已融合进GPT4中
+    * [Point-E 202212](multimodal-large-model/industry-application/openai/point-e/point-e.md) 文本生成3D点云模型
+    * [GTP系列介绍](multimodal-large-model/industry-application/openai/gpt-series-introduction/gpt-series-introduction.md)
+    * [GPT前身Unsupervised Sentiment Neuron](multimodal-large-model/industry-application/openai/unsupervised-sentiment-neuron/unsupervised-sentiment-neuron.md)
+      * [Unsupervised Sentiment Neuron](multimodal-large-model/industry-application/openai/unsupervised-sentiment-neuron/unsupervised-sentiment-neuron/unsupervised-sentiment-neuron.md)
+      * [Learning to Generate Reviews and Discovering Sentiment ArXiv2017](multimodal-large-model/industry-application/openai/unsupervised-sentiment-neuron/paper/Learning-to-Generate-Reviews.md)
+    * GPT1
+    * GPT2
+    * GPT3 语言生成模型 根据Lambda官网数据，微软为OpenAI设计了一个包含10000块Nvidia V100 GPU的分布式集群进行GPT-3的模型训练，由于模型参数量较大（共1750亿参数），训练完成共耗费30天，消耗总算力为 3640PF-days。以Nvidia Tesla V100的Lambda GPU实例定价为1.50 美元/小时测算，GPT-3的完整训练成本将达到466万美元/次。
+    * Codex
+    * GPT-3.5
+    * instructGPT
+    * [ChatGPT](multimodal-large-model/industry-application/openai/ChatGPT/ChatGPT.md) 聊天机器人
+    * [GPT-4](multimodal-large-model/industry-application/openai/GPT-4/GPT-4.md) 202303 输入图/文，输出文
+  * [Meta](multimodal-large-model/industry-application/meta/meta.md)
+    * [OPT](multimodal-large-model/industry-application/meta/opt/opt.md) 复现开源了GPT3
+    * 202302 [LLaMa](multimodal-large-model/industry-application/meta/LLaMa/LLaMa.md) **对标OpenAI的ChatGPT，开源**
+  * Stability.ai
+    * Stable Diffusion开源
+  * [Google](multimodal-large-model/industry-application/google/google.md)
+    * LaMDA I/O大会202105
+    * PaLM 202204 5400亿参数
+    * LaMDA-2 I/O大会202205
+    * T5
+    * [Bard聊天机器人 202302](multimodal-large-model/industry-application/google/bard/Bard.md) 对标OpenAI的ChatGPT
+    * [Agents Thinking Fast and Slow: A Talker-Reasoner Architecture ArXiv202410](multimodal-large-model/industry-application/google/talker-reasoner-architecture/talker-reasoner-architecture.md)
+    * [Large Language Models can Learn Rules Arxiv202412](multimodal-large-model/industry-application/google/llms_can_learn_rules/llms_can_learn_rules.md) 消除幻觉，让 LLMs 学会规则库和多步推理，代码开源
+    * [Gemma系列开源模型](multimodal-large-model/industry-application/google/gemma/gemma.md)
+  * [DeepSeek幻方量化对冲基金](multimodal-large-model/industry-application/deepseek/deepseek.md)
+    * [DeepSeek V3 202412](multimodal-large-model/industry-application/deepseek/deepseek-v3/deepseek-v3.md) 一家中国量化基金公司年底发布了最强开源LLM：DeepSeek V3
+  * 智谱AI
+    * ChatGLM 近日，由清华技术成果转化的公司智谱AI开源了GLM系列模型的新成员——**中英双语对话模型ChatGLM-6B**，支持在单张消费级显卡上进行推理使用。这是继此前开源GLM-130B千亿基座模型之后，智谱AI再次推出大模型方向的研究成果。与此同时，基于千亿基座模型的ChatGLM也同期推出，初具问答和对话功能 [ChatGLM：千亿基座的对话模型启动内测，单卡版模型已全面开源](https://mp.weixin.qq.com/s/08s-BlV5N3jytlSsd5hZ0g)
+  * Together
+    * OpenChatKit ChatGPT的开源平替来了，源代码、模型权重和训练数据集全部公开。由前OpenAI研究员共同打造。[如何看待 Together 推出的开源聊天大模型 OpenChatKit？能否替代 ChatGPT？](https://www.zhihu.com/question/589094770/answer/2934277284)，[ChatGPT开源平替来了，开箱即用！前OpenAI团队打造](https://mp.weixin.qq.com/s/EQk9i6Bu_BMsc6AEYCFI3A)
+  * [阿里](multimodal-large-model/industry-application/alibaba/alibaba.md)
+    * [中文GPT3](multimodal-large-model/industry-application/alibaba/gpt3-chinese/gpt3-chinese.md) 对标GPT-3的开源项目
+    * [Qwen系列开源模型](multimodal-large-model/industry-application/alibaba/qwen/qwen.md)
+  * [百度](multimodal-large-model/industry-application/baidu/baidu.md)
+    * [ERNIE-Bot文心一言 202302](multimodal-large-model/industry-application/baidu/ERNIE-Bot/ERNIE-Bot.md)
+  * [BlinkDL](multimodal-large-model/industry-application/blinkdl/blinkdl.md)
+    * [ChatRWKV 202208](multimodal-large-model/industry-application/blinkdl/ChatRWKV/ChatRWKV.md) 对标ChatGPT的开源项目，基于RNN架构
+
+# [AI Agent](ai-agent/ai-agent.md)
+
+* [Agent范式：认知/推理结构](ai-agent/agent-paradigms/agent-paradigms.md)--定义“智能体如何思考”，聚焦认知和推理结构
+  * [ReAct](ai-agent/agent-paradigms/react/react.md)
+    * [ReAct: Synergizing Reasoning and Acting in Language Models arXiv202212 Google](ai-agent/agent-paradigms/react/react-paper/react-paper.md)
+    * [ReAct代码实现](ai-agent/agent-paradigms/react/react-code/react-code.md)
+  * Plan-and-Execute 计划 + 执行的推理链
+  * Reflexion 自我反思/修正机制
+  * Tool Use
+    * 工具选择策略（API / 模型 / DB）
+    * 调用顺序与条件判断
+    * 失败处理 / fallback
+    * 示例：ReAct + Calculator / Browser / SQL / RAG
+* [Agent运行时（Runtime）](runtime)---- 定义“怎么把Agent跑起来”（执行引擎）
+
+  * Agent Loop Executor 执行循环
+
+  * Tool Scheduler 工具调度
+
+  * Memory Manager 记忆管理
+
+    * RAG
+
+  * 常用 Runtime 框架
+
+    * LangChain：单 Agent + pipeline 强
+
+    * AutoGen：多 Agent + 对话驱动 loop
+
+    * LlamaIndex：Memory / RAG 特化 runtime
+
+    * OpenAI Assistants API：官方托管 runtime
+* [Agent系统：完整运行系统](ai-agent/agent-system/agent-system.md)--已经是“一个完整智能体”（end-to-end）,即直接可运行的系统
+
+  * [OpenClaw](ai-agent/agent-system/open-claw/open-claw.md)
+  * AutoGPT
+  * Devin
+* [Agent工程：基础设施](engineering)-- 让系统可用 / 可测 / 可扩展
+  
+  * Harness Engineering
+  * Evaluation / Benchmark
+  * Logging / Tracing
+  * Deployment / Serving
+* [Multi Agent 系统]()
+  * 概念与原理
+  * 协作与竞争模式
+  * 通信与协调机制
+  * 系统示例
+    * 斯坦福小镇（Stanford Town）
+
+
+目录编排：https://chatgpt.com/c/69d7cdf2-9c44-8321-8d66-b6e5de783b49
 
 # [自动驾驶](autopilot/autopilot.md)
 * [传感器](autopilot/sensor/sensor.md)
@@ -832,13 +803,6 @@
 * [规划](autopilot/planning/planning.md)
   * 路径规划
   * 轨迹规划
-  * [基于LLM大语言模型的规划](autopilot/planning/llm-based-planning/llm-based-planning.md)
-    * [Socratic Models: Composing Zero-Shot Multimodal Reasoning with Language arXiv2022 Google](autopilot/planning/llm-based-planning/socratic-models/Socratic-Models-Composing-Zero-Shot-Multimodal-Reasoning-with-Language.md)
-    * [Towards Helpful Robots: Grounding Language in Robotic Affordances Google2022](autopilot/planning/llm-based-planning/towards-helpful-robots-grounding/Towards-Helpful-Robots-Grounding-Language-in-Robotic-Affordances.md)
-    * [Value Function Spaces: Skill-Centric State Abstractions for Long-Horizon Reasoning arXiv2022 Google](autopilot/planning/llm-based-planning/value-function-spaces/Value-Function-Spaces-Skill-Centric-State-Abstractions-for-Long-Horizon-Reasoning.md)
-    * [Inner Monologue: Embodied Reasoning through Planning with Language Models arXiv2022 Google](autopilot/planning/llm-based-planning/inner-monologue/Inner-Monologue-Embodied-Reasoning-through-Planning-with-Language-Models.md)
-    * [Interactive Language: Talking to Robots in Real Time arXiv2022 Google](autopilot/planning/llm-based-planning/interactive-language/Interactive-Language-Talking-to-Robots-in-Real-Time.md)
-    * [ChatGPT for Robotics: Design Principles and Model Abilities Microsoft2023](https://www.microsoft.com/en-us/research/uploads/prod/2023/02/ChatGPT___Robotics.pdf)
 * [制导](autopilot/guidance/guidance.md)
 * [控制](autopilot/control/control.md)
   * [传统控制](autopilot/control/traditional-control/traditional-control.md)
@@ -848,14 +812,8 @@
     * [PID控制](autopilot/control/traditional-control/pid-control/pid-control.md)
       * [Sqrt Controller开方控制器](autopilot/control/traditional-control/pid-control/sqrt-controller/sqrt-controller.md)
     * [MPC控制](autopilot/control/traditional-control/mpc-control/mpc-control.md)
-  * [基于强化学习的控制](autopilot/control/reinforcement-learning-based-control/reinforcement-learning-based-control.md)
-  * [基于LLM大语言模型的控制](autopilot/control/llm-based-control/llm-based-control.md)
-    * [Code as Policies: Language Model Programs for Embodied Control arXiv2022 Google](autopilot/control/llm-based-control/code-as-policies/Code-as-Policies-Language-Model-Programs-for-Embodied-Control.md)
-    * [RT-1: Robotics Transformer for Real-World Control at Scale arXiv2022 Google](autopilot/control/llm-based-control/rt-1/RT-1-Robotics-Transformer-for-Real-World-Control-at-Scale.md)
-    * [Performer MPC: Learning Model Predictive Controllers with Real-Time Attention for Real-World Navigation Google2022](autopilot/control/llm-based-control/performer-mpc/Learning-Model-Predictive-Controllers-with-Real-Time-Attention-for-Real-World-Navigation.md)
-    * [ChatGPT for Robotics: Design Principles and Model Abilities MicroSoft2023](autopilot/control/llm-based-control/chatGPT-for-robotics/ChatGPT-for-Robotics-Design-Principles-and-Model-Abilities.md) ***
-    * [PaLM-E: An Embodied Multimodal Language Model arXiv2023 Google](autopilot/control/llm-based-control/PaLM-E/PaLM-E.md) ***
-    * [Towards a Robotics Foundation Model ML-Collective协会2023]()
+    * [L1自适应控制](autopilot/control/traditional-control/l1-adaptive-control/l1-adaptive-control.md)
+  * [基于强化学习的控制](autopilot/control/rl-based-control/rl-based-control.md)
 * [动力系统](autopilot/dynamic-system/dynamic-system.md)
   * [多旋翼组装选型](autopilot/dynamic-system/copter-assemble-and-lectotype/copter-assemble-and-lectotype.md)
   * [电调](autopilot/dynamic-system/ESC/ESC.md)
@@ -863,6 +821,9 @@
   * [电机](autopilot/dynamic-system/motor/motor.md)
     * [电机的原理](autopilot/dynamic-system/motor/motor-principle/motor-principle.md)
 * [仿真](autopilot/simulation/simulation.md)
+  * [SITL软件在环仿真](autopilot/simulation/sitl/sitl.md)
+    * [TCP转串口](autopilot/simulation/sitl/tcp2serial/tcp2serial.md)
+
   * [动力学模型](autopilot/simulation/dynamic-model/dynamic-model.md)
     * [三自由度动力学与运动学模型](autopilot/simulation/dynamic-model/three-dof/three-dof.md)
     * 六自由度动力学与运动学模型
@@ -883,8 +844,40 @@
   * ArduPilot
   * PX4
   * [FMT国产开源自驾仪](autopilot/autopilot-system/fmt/fmt.md) 基于模型的设计Model Based Design
+* [地面站](autopilot/gcs/gcs.md)
+
+# [具身智能](embodied-intelligence/embodied-intelligence.md)
+
+* [lebot](embodied-intelligence/lebot/lebot.md)
+* [规划](embodied-intelligence/planning/planning.md)
+  * [Socratic Models: Composing Zero-Shot Multimodal Reasoning with Language arXiv2022 Google](embodied-intelligence/planning/socratic-models/Socratic-Models-Composing-Zero-Shot-Multimodal-Reasoning-with-Language.md)
+  * [Towards Helpful Robots: Grounding Language in Robotic Affordances Google2022](embodied-intelligence/planning/towards-helpful-robots-grounding/Towards-Helpful-Robots-Grounding-Language-in-Robotic-Affordances.md)
+  * [Value Function Spaces: Skill-Centric State Abstractions for Long-Horizon Reasoning arXiv2022 Google](embodied-intelligence/planning/value-function-spaces/Value-Function-Spaces-Skill-Centric-State-Abstractions-for-Long-Horizon-Reasoning.md)
+  * [Inner Monologue: Embodied Reasoning through Planning with Language Models arXiv2022 Google](embodied-intelligence/planning/inner-monologue/Inner-Monologue-Embodied-Reasoning-through-Planning-with-Language-Models.md)
+  * [Interactive Language: Talking to Robots in Real Time arXiv2022 Google](embodied-intelligence/planning/interactive-language/Interactive-Language-Talking-to-Robots-in-Real-Time.md)
+  * [ChatGPT for Robotics: Design Principles and Model Abilities Microsoft2023](https://www.microsoft.com/en-us/research/uploads/prod/2023/02/ChatGPT___Robotics.pdf)
+* [控制](embodied-intelligence/control/control.md)
+  * [Code as Policies: Language Model Programs for Embodied Control arXiv2022 Google](embodied-intelligence/control/code-as-policies/Code-as-Policies-Language-Model-Programs-for-Embodied-Control.md)
+  * [RT-1: Robotics Transformer for Real-World Control at Scale arXiv2022 Google](embodied-intelligence/control/rt-1/RT-1-Robotics-Transformer-for-Real-World-Control-at-Scale.md)
+  * [Performer MPC: Learning Model Predictive Controllers with Real-Time Attention for Real-World Navigation Google2022](embodied-intelligence/control/performer-mpc/Learning-Model-Predictive-Controllers-with-Real-Time-Attention-for-Real-World-Navigation.md)
+  * [ChatGPT for Robotics: Design Principles and Model Abilities MicroSoft2023](embodied-intelligence/control/chatGPT-for-robotics/ChatGPT-for-Robotics-Design-Principles-and-Model-Abilities.md) ***
+  * [PaLM-E: An Embodied Multimodal Language Model arXiv2023 Google](embodied-intelligence/control/PaLM-E/PaLM-E.md) ***
+  * [Towards a Robotics Foundation Model ML-Collective协会2023]()
+
+# [世界模型](world-model/world-model.md)
+
+* [业界应用](world-model/industry-application/industry-application.md)
+  * [OpenAI](world-model/industry-application/openai/openai.md)
+    * [SORA文字生成视频 202402](world-model/industry-application/openai/sora/sora.md)
+  * [DeepMind](world-model/industry-application/deepmind/deepmind.md)
+    * [Genie2 202412](world-model/industry-application/deepmind/genie2/genie2.md)
+  * [Meta](world-model/industry-application/meta/meta.md)
+    * [CWM: Code World Models 20250924](world-model/industry-application/meta/cwm/cwm.md)
+  * [World Labs李飞飞创立](world-model/industry-application/world-labs/world-labs.md)
+    * [Large World Model大世界模型 202412]
 
 # [通用人工智能](artificial-general-intelligence/artificial-general-intelligence.md)
+
 * [业界应用](artificial-general-intelligence/industry-application/industry-application.md)
   * [DeepMind](artificial-general-intelligence/industry-application/deepmind/deepmind.md)
     * [DeepMind介绍](artificial-general-intelligence/industry-application/deepmind/deepmind-introduction/deepmind-introduction.md)

@@ -1,6 +1,6 @@
 # Inner Monologue: Embodied Reasoning through Planning with Language Models
 
-* [返回上层目录](../llm-based-planning.md)
+* [返回上层目录](../planning.md)
 
 
 

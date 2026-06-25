@@ -1,6 +1,6 @@
 # Value Function Spaces: Skill-Centric State Abstractions for Long-Horizon Reasoning
 
-* [返回上层目录](../llm-based-planning.md)
+* [返回上层目录](../planning.md)
 
 
 

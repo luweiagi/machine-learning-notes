@@ -1,10 +1,10 @@
-# Interactive-Language-Talking-to-Robots-in-Real-Time
+# Code as Policies: Language Model Programs for Embodied Control
 
-* [返回上层目录](../llm-based-planning.md)
+* [返回上层目录](../control.md)
 
 
 
-paper: [Interactive Language](https://arxiv.org/pdf/2210.06407.pdf)
+paper: [Code as Policies](https://arxiv.org/abs/2209.07753)
 
 
 
@@ -20,8 +20,8 @@ paper: [Interactive Language](https://arxiv.org/pdf/2210.06407.pdf)
 
 
 
-虽然自然语言使人们更容易指定和修改机器人的任务，但还有一个挑战是对人类描述做出实时反应。
+并且，用LLM 编写代码来控制机器人动作也是一个有前景的研究方向。
 
-研究人员提出了一个大规模的模仿学习框架，用于生产实时的、开放词汇的、以语言为条件的机器人，能够处理超过87,000个独特的指令，估计平均成功率为93.5% ；作为该项目的一部分，谷歌还发布了当下规模最大的语言标注机器人数据集 Language-Table
+研究人员开发的代码编写方法展示了增加任务复杂性的潜力，机器人可以通过自主生成新代码来重新组合 API 调用，合成新函数，并表达反馈循环来在运行时合成为新行为。
 
 [Google AI年终总结第六弹：没有波士顿动力的谷歌机器人，发展得怎么样了？](https://mp.weixin.qq.com/s/JRCQP2S3CbLtUaq8MkP4pQ)

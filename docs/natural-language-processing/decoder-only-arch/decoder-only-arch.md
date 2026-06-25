@@ -67,7 +67,7 @@
 
 - Encoder 和 Decoder 需要协调训练
 - Cross-Attention 增加了计算开销
-- 对于"纯生成任务"（如文本续写、对话），Encoder 的作用可能被高估
+- **对于"纯生成任务"（如文本续写、对话），Encoder 的作用可能被高估**
 
 **问题 3：任务适配性**
 
@@ -159,32 +159,37 @@ Decoder 输入：[\</s\>, "sunny"]
      │
      ▼
   KV Cache: [K_</s>, V_</s>, K_The, V_The, K_weather, V_weather, K_is, V_is]
-  输出：第一个 token 的概率分布
+  输出："sunny" 的概率分布 → 采样得到 "sunny"
 
-阶段 2：Decode（生成 "sunny"）
-当前序列：[</s>, "The", "weather", "is"]
+阶段 2：Decode（生成 "today"）
+当前完整序列：[</s>, "The", "weather", "is", "sunny"]
+需要预测的位置：第 6 个 token（index 5）
+输入 token："sunny"（即位置 4 的 token，它的 Q 会看到之前所有 token 的 K/V）
      │
      ▼
   Decoder
   (Self-Attention)
-  - Q: 当前要生成的 token 的 query
-  - K, V: 从 KV Cache 读取（包括起始符和所有输入："</s>", "The", "weather", "is"）
+  - Q: 当前 token "sunny" 的 query
+  - K, V: 从 KV Cache 读取（包括起始符和所有输入："</s>", "The", "weather", "is"） + 当前 "sunny" 的 K, V
      │
      ▼
-  生成："sunny"
+  输出："today" 的概率分布 → 采样得到 "today"
   KV Cache 追加：[K_sunny, V_sunny]
 
-阶段 3：Decode（生成 "today"）
-当前序列：[</s>, "The", "weather", "is", "sunny"]
+阶段 3：Decode（继续生成，例如生成句号）
+当前完整序列：[</s>, "The", "weather", "is", "sunny", "today"]
+需要预测的位置：第 7 个 token（index 6）
+输入 token："today"（即位置 5 的 token，它的 Q 会看到之前所有 token 的 K/V）
      │
      ▼
   Decoder
   (Self-Attention)
-  - Q: 当前要生成的 token 的 query
-  - K, V: 从 KV Cache 读取（包括所有历史："</s>", "The", "weather", "is", "sunny"）
+  - Q: 当前 token "today" 的 query
+  - K, V: 从 KV Cache 读取（包括所有历史："</s>", "The", "weather", "is", "sunny"） + 当前 "today" 的 K, V
      │
      ▼
-  生成："today"
+  输出："." 的概率分布 → 采样得到 "."
+  KV Cache 追加：[K_today, V_today]
 ```
 
 **关键点**：
@@ -194,7 +199,8 @@ Decoder 输入：[\</s\>, "sunny"]
 
 **为什么 Decoder-only 不需要 Cross-Attention？**
 
-> 在 Encoder-Decoder 中，Cross-Attention 的作用是"让 Decoder 访问 Encoder 的输出"。  
+> 在 Encoder-Decoder 中，Cross-Attention 的作用是"让 Decoder 访问 Encoder 的输出"。
+>
 > 但在 Decoder-only 中，**输入和输出在同一个序列里**，Decoder 的 Self-Attention 可以直接访问所有 token（包括输入和已生成的部分），所以不需要 Cross-Attention。
 
 ### 关键区别：Self-Attention 的"视野"不同
@@ -505,6 +511,7 @@ Time Step 2：生成位置 1 的下一个 token
 **具体对比**：
 
 **Encoder-Decoder：**
+
 ```text
 输入序列："The weather is"  →  Encoder  →  [h1, h2, h3]
 输出序列："sunny today"     →  Decoder  →  需要 Cross-Attention 访问 [h1, h2, h3]
@@ -590,13 +597,13 @@ Decoder Layer（每一层）：
 ```text
 Decoder Layer（每一层）：
 ┌─────────────────────────────────────┐
-│ 1. Masked Self-Attention             │
-│    Q, K, V 都来自输出序列            │
-│    （只能看已生成的部分）            │
+│ 1. Masked Self-Attention            │
+│    Q, K, V 都来自输出序列             │
+│    （只能看已生成的部分）              │
 └──────────────┬──────────────────────┘
                │
 ┌──────────────▼──────────────────────┐
-│ 2. Cross-Attention                   │
+│ 2. Cross-Attention                  │
 │    Q 来自 Decoder                    │
 │    K, V 来自 Encoder                 │
 └──────────────┬──────────────────────┘
@@ -635,7 +642,8 @@ Decoder-only 模型有两个截然不同的工作阶段：
 
 **关键理解**：
 
-> 训练时是"并行学习"，推理时是"逐步生成"。  
+> 训练时是"并行学习"，推理时是"逐步生成"。
+>
 > 训练时通过 Mask 保证每个位置只看历史，推理时通过"只生成一个 token"自然保证只看历史。
 
 ## 训练阶段：并行学习"下一个 token 预测"
@@ -645,6 +653,7 @@ Decoder-only 模型有两个截然不同的工作阶段：
 假设我们要训练模型完成"文本续写"任务：
 
 **原始数据**：
+
 ```text
 "The weather is sunny today"
 ```
@@ -1028,31 +1037,31 @@ Loss = Σ_i loss_i
 输入 prompt："The weather is"（3 个 token）
 
 Prefill 阶段：
-┌──────────────────────────────────────┐
+┌───────────────────────────────────────┐
 │ Decoder（一次性处理所有输入 token）      │
-│                                      │
-│ 输入：["</s>", "The", "weather", "is"]│
-│                                      │
-│ Self-Attention：                     │
-│ - Q, K, V: 都来自这 4 个 token         │
+│                                       │
+│ 输入：["</s>", "The", "weather", "is"] │
+│                                       │
+│ Self-Attention：                      │
+│ - Q, K, V: 都来自这 4 个 token          │
 │ - 计算：每个 token 的 Q 与所有 K 的相似度 │
-│ - 输出：每个 token 的表示               │
-│                                      │
-│ 关键操作：                             │
-│ - 计算这 4 个 token 的 K, V            │
-│ - 把 K, V 写入 KV Cache               │
-│ - 最后一个 token ("is") 的输出 →       │
-│   第一个生成 token 的概率分布           │
-│                                      │
-│ 注意：为什么是最后一个 token 的输出？     │
+│ - 输出：每个 token 的表示                │
+│                                       │
+│ 关键操作：                              │
+│ - 计算这 4 个 token 的 K, V             │
+│ - 把 K, V 写入 KV Cache                │
+│ - 最后一个 token ("is") 的输出 →        │
+│   第一个生成 token 的概率分布            │
+│                                       │
+│ 注意：为什么是最后一个 token 的输出？      │
 │ - 在 Decoder-only 中，每个位置预测的是   │
-│   "下一个 token"                      │
-│ - 位置 3 ("is") 的输出表示"给定历史      │
-│   [</s>, The, weather, is]，下一个    │
-│   token 是什么"                       │
-│ - 所以用最后一个 token 的输出作为        │
-│   第一个生成 token 的概率分布           │
-└──────────────────────────────────────┘
+│   "下一个 token"                       │
+│ - 位置 3 ("is") 的输出表示"给定历史       │
+│   [</s>, The, weather, is]，下一个     │
+│   token 是什么"                        │
+│ - 所以用最后一个 token 的输出作为         │
+│   第一个生成 token 的概率分布            │
+└───────────────────────────────────────┘
 
 KV Cache 状态：
 [K_</s>, V_</s>, K_The, V_The, K_weather, V_weather, K_is, V_is]
@@ -1528,39 +1537,38 @@ Decode 步骤 1（生成 "sunny"）：
 
 **完整的时间线**：
 
-```text
-时间轴 →
-
+```
 t0: Prefill 阶段（一次性）
-    - 输入：["</s>", "The", "weather", "is"]
-    - 计算：所有输入 token 的 K, V
-    - 写入 KV Cache
-    - 输出：第一个生成 token 的概率分布
-    - 耗时：~50-500ms（取决于输入长度）
+    - 输入：["", "The", "weather", "is"] （共 4 个 token）
+    - 计算：并行计算所有输入 token 的 Q, K, V
+    - 写入 KV Cache：保存这 4 个 token 的 K, V
+    - Attention：在输入序列内部做因果注意力计算
+    - 输出：基于最后一个 token ("is") 的位置，输出下一个位置的概率分布
+    - 采样 → 生成第一个新 token："sunny"
+    - 耗时：~50-500ms（取决于输入长度，计算密集型）
 
-t1: Decode 步骤 1（生成 "sunny"）
-    - 基于当前序列最后一个 token ("is") 计算 Q
-    - 从 KV Cache 读取：所有历史的 K, V
-    - Attention：Q_new 与所有历史的 K, V
-    - 输出：下一个 token 的概率分布
-    - 采样 → 生成 "sunny"
-    - 将 "sunny" 加入序列
-    - 更新 KV Cache：计算并追加 K_sunny, V_sunny
-    - 耗时：~10-50ms（单 token，访存密集）
+t1: Decode 步骤 1（输入 "sunny"，生成 "today"）
+    - 输入：上一步生成的单个 token "sunny"
+    - 计算：只计算当前 token ("sunny") 的 Q, K, V
+    - 更新 KV Cache：计算并追加 K_sunny, V_sunny 到 Cache 中
+    - 从 KV Cache 读取：读取历史所有 token 的 K, V（此时包含 "" 到 "sunny" 的完整缓存）
+    - Attention：用当前新计算的 Q_sunny，与完整的 KV Cache 做注意力计算
+    - 输出：输出下一个位置的概率分布
+    - 采样 → 生成新 token："today"
+    - 耗时：~10-50ms（单 token，访存密集型）
 
-t2: Decode 步骤 2（生成 "today"）
-    - 基于当前序列最后一个 token ("sunny") 计算 Q
-    - 从 KV Cache 读取：所有历史的 K, V（包括刚生成的 "sunny"）
-    - Attention：Q_new 与所有历史的 K, V
-    - 输出：下一个 token 的概率分布
-    - 采样 → 生成 "today"
-    - 将 "today" 加入序列
-    - 更新 KV Cache：计算并追加 K_today, V_today
+t2: Decode 步骤 2（输入 "today"，生成 "</eos>"）
+    - 输入：上一步生成的单个 token "today"
+    - 计算：只计算当前 token ("today") 的 Q, K, V
+    - 更新 KV Cache：计算并追加 K_today, V_today 到 Cache 中
+    - 从 KV Cache 读取：读取历史所有 token 的 K, V（此时缓存已包含到 "today"）
+    - Attention：用当前新计算的 Q_today，与完整的 KV Cache 做注意力计算
+    - 输出：输出下一个位置的概率分布
+    - 采样 → 生成结束符："</eos>"
     - 耗时：~10-50ms
 
-t3: Decode 步骤 3（生成 "</eos>"）
-    - 类似步骤 1、2
-    - 生成结束符，完成
+t3: 推理结束
+    - 检测到生成了结束符（或达到最大长度），停止迭代，释放 KV Cache。
 ```
 
 **关键理解**：
@@ -1897,6 +1905,7 @@ vLLM 处理：
 │   Layer N: 对 4 个位置一起做 Self-Attention（带下三角 Mask）→ FFN      │
 │                                                                   │
 │ 补充说明：                                                          │
+│ - Prefill阶段必须带下三角mask,这样才能保持自回归性质，与训练行为一致。      │
 │ - 不是先算 "</s>" 再算 "The" 再算 "weather" 再算 "is" 四次整层前向，    │
 │   而是：在每一层内部，一次性把这 4 个 token 的 Q/K/V 算好，拼成矩阵，      │
 │   用下三角 Mask 做一个 [4,4] 的 Self-Attention，再经过 FFN。           │
@@ -1916,13 +1925,17 @@ vLLM 处理：
 
 - **计算密集**：Q × K 矩阵是 [N, N]（N = 输入长度），GPU 利用率高
 - **一次性处理**：所有输入 token 同时计算，建立 KV Cache
-- **输出概率分布**：Prefill 完成后输出第一个 token 的概率分布（还未采样）
-- **首 token 延迟**：Prefill 完成后才能输出第一个 token，这是"首 token 延迟"的主要来源
+- **输出概率分布**：Prefill 完成后输出第一个 token 的概率分布（还未采样），第一个token的采样认为是在decode阶段。
+- **首 token 延迟**：Prefill 完成后才能输出第一个 token，这是"首 token 延迟（Prefill耗时）"的主要来源
 - **耗时**：取决于输入长度，通常 ~50-500ms（100 token ~50ms，2000 token ~500ms）
 
 ### Decode 阶段：逐步生成后续 token
 
 在 vLLM 中，Decode 阶段充分利用了 KV Cache。**注意**：第一次 Decode 时，Prefill 已经输出了第一个 token 的概率分布，可以直接采样生成。
+
+* **对于新token，Q、K、V都需要计算（因为之前没算过）；**
+
+* **对于历史token，K、V从cache读取（复用），Q不再需要（因为不会再作为query）**
 
 **vLLM 的 Decode 流程**：
 
@@ -1936,8 +1949,8 @@ vLLM 处理：
 Decode 步骤 1（生成第一个输出 token "sunny"）：
 ═══════════════════════════════════════════════════════════
 
-┌────────────────────────────────────────┐
-│ 1. 基于 Prefill 最后一个 token 的输出     │
+┌─────────────────────────────────────────┐
+│ 1. 基于 Prefill 最后一个 token 的输出      │
 │    - Prefill 阶段已经计算了 "is" 的输出    │
 │    - 这个输出就是第一个生成 token 的概率分布 │
 │    - 采样 → 生成 "sunny"                 │
@@ -1979,17 +1992,16 @@ Decode 步骤 2（生成第二个输出 token "today"）：
 ┌──────────────▼─────────────────────────────────────────────┐
 │ 3. 逐层计算（复用 KV Cache）                                  │
 │    - 对新 token "sunny" 来说：                               │
-│      每一层都会根据**本层的输入**重新计算一次 Q/K/V：             │
-│      - Layer 0:                                            │
-│        Q₀(sunny) = embedding("sunny") × W_Q⁽⁰⁾             │
-│        Attention(Q₀(sunny), K₀_all, V₀_all) → h₀(sunny)    │
-│      - Layer 1:                                            │
-│        Q₁(sunny) = h₀(sunny) × W_Q⁽¹⁾                      │
-│        Attention(Q₁(sunny), K₁_all, V₁_all) → h₁(sunny)    │
-│      - ...                                                 │
-│      - Layer N:                                            │
-│        Q_N(sunny) = h_{N-1}(sunny) × W_Q⁽ᴺ⁾                │
-│        Attention(Q_N(sunny), K_N_all, V_N_all) → h_N(sunny)│
+│      每一层都会根据**本层的输入**重新计算一次自身的 Q/K/V：       │
+│    	- 基于该层的输入（上一层的输出）重新计算：                 │
+│    		- Q_sunny（必须计算）                              │
+│       	- K_sunny（必须计算，用于后续的KV Cache）            │
+│       	- V_sunny（必须计算，用于后续的KV Cache）            │
+│     	- 从 KV Cache 读取：                                   │
+│       	- 所有历史token的K（</s>, The, weather, is 的K）    │
+│       	- 所有历史token的V（</s>, The, weather, is 的V）    │
+│     	- 拼接并计算 Attention：                               │
+│       	- Attention(Q_sunny, concat(K_cache, K_sunny), concat(V_cache, V_sunny)) │
 │    - 对旧 token（prompt 中的 4 个）来说：                      │
 │      它们在 Prefill 阶段已经在每一层算过 Q/K/V，                │
 │      之后在 Decode 阶段只从 KV Cache 读取 K/V，                │
@@ -2095,6 +2107,58 @@ PagedAttention（分页管理）：
 >
 > 真正的“每块占多少显存”，是由“每个 token 的 KV 有多大 × block_size”决定的，会随模型结构变化而变化。
 
+Block的完整结构
+
+```
+# 假设模型配置
+num_layers = 32        # 32层
+num_heads = 32         # 32个注意力头
+head_dim = 128         # 每个头的维度
+dtype_bytes = 2        # float16: 2字节
+
+# 一个token的KV大小
+KV_per_token = num_layers * num_heads * head_dim * 2(K和V) * dtype_bytes
+# = 32 * 32 * 128 * 2 * 2 = 524,288 字节 ≈ 0.5 MB
+
+# 一个block (16个token) 的大小
+Block_bytes = 16 * KV_per_token = 16 * 0.5 MB = 8 MB
+```
+
+Block的物理存储
+
+```
+Block (16个token) 的存储结构：
+
+┌──────────────────────────────────────────────────────────────┐
+│ Token 0                                                      │
+│   ├─ Layer 0: K [32 heads × 128 dim], V [32 heads × 128 dim] │
+│   ├─ Layer 1: K [32 heads × 128 dim], V [32 heads × 128 dim] │
+│   ├─ ...                                                     │
+│   └─ Layer 31: K [32 heads × 128 dim], V [32 heads × 128 dim]│
+├──────────────────────────────────────────────────────────────┤
+│ Token 1                                                      │
+│   ├─ Layer 0: K, V                                           │
+│   ├─ Layer 1: K, V                                           │
+│   └─ ...                                                     │
+├──────────────────────────────────────────────────────────────┤
+│ ...                                                          │
+├──────────────────────────────────────────────────────────────┤
+│ Token 15                                                     │
+│   ├─ Layer 0: K, V                                           │
+│   ├─ Layer 1: K, V                                           │
+│   └─ ...                                                     │
+└──────────────────────────────────────────────────────────────┘
+```
+
+**每个Block的实际显存占用**与模型架构强相关：
+
+| 模型        | 层数 | Head数 | Head维度 | 精度 | 每token KV | Block(16)大小 |
+| :---------- | :--- | :----- | :------- | :--- | :--------- | :------------ |
+| GPT-2 small | 12   | 12     | 64       | FP16 | ~0.05 MB   | ~0.8 MB       |
+| LLaMA-7B    | 32   | 32     | 128      | FP16 | ~0.5 MB    | ~8 MB         |
+| LLaMA-13B   | 40   | 40     | 128      | FP16 | ~0.8 MB    | ~12.8 MB      |
+| LLaMA-70B   | 80   | 64     | 128      | FP16 | ~2.5 MB    | ~40 MB        |
+
 **PagedAttention 的工作原理**：
 
 ```text
@@ -2134,6 +2198,79 @@ vLLM 内部维护的三样东西：
 [Block 0][Block 3][Block 1][Block 5][Block 2][Block 4][free][free]
   ↑请求A    ↑请求B   ↑请求A    ↑请求C   ↑请求A   ↑请求B
   └────────逻辑顺序────────┘
+```
+
+PagedAttention结构（按Token切）:
+
+```python
+# ============================================================
+# 1. Block Table: 逻辑块 → 物理页的映射
+# ============================================================
+# 每个逻辑块包含：16个token × 所有层的K和V
+# 所有数据在物理页内连续存放（按层排列）
+
+block_table = {
+    "request_1": {
+        # 逻辑块0: token 0-15
+        0: {
+            "page": 0x1234,  # 一个物理页包含这16个token的所有层KV
+            "num_tokens": 16,  # 实际使用的token数（最后一个块可能不满）
+        },
+        # 逻辑块1: token 16-31
+        1: {
+            "page": 0x5678,
+            "num_tokens": 16,
+        },
+        # 逻辑块2: token 32-47（可能不满）
+        2: {
+            "page": 0x9ABC,
+            "num_tokens": 5,  # 只有5个有效token
+        },
+    },
+}
+
+# ============================================================
+# 2. 物理页的实际数据（按Token切，层内连续）
+# ============================================================
+# 每个物理页存储：16个token × 所有层的K和V
+# 内存布局：[16, num_layers, 2, num_heads, head_dim]
+#           ↑token  ↑layer   ↑K/V
+
+physical_pages = {
+    0x1234: tensor[16, 32, 2, 32, 128],  # 16 tokens × 32层 × (K,V) × heads × dim
+    0x5678: tensor[16, 32, 2, 32, 128],
+    0x9ABC: tensor[16, 32, 2, 32, 128],
+}
+
+# ============================================================
+# 3. 空闲页列表
+# ============================================================
+free_pages = [0x1234, 0x5678, 0x9ABC, ...]
+```
+
+物理页内的内存布局（按Token切）
+
+```
+物理页 0x1234（16个token，32层）的内存布局：
+
+┌─────────────────────────────────────────────────────────────┐
+│ Token 0                                                     │
+│   ├─ Layer0: K[32,128], V[32,128]                          │
+│   ├─ Layer1: K[32,128], V[32,128]                          │
+│   ├─ ...                                                   │
+│   └─ Layer31: K[32,128], V[32,128]                         │
+├─────────────────────────────────────────────────────────────┤
+│ Token 1                                                     │
+│   ├─ Layer0: K[32,128], V[32,128]                          │
+│   └─ ...                                                   │
+├─────────────────────────────────────────────────────────────┤
+│ ...                                                         │
+├─────────────────────────────────────────────────────────────┤
+│ Token 15                                                    │
+│   └─ ...                                                   │
+└─────────────────────────────────────────────────────────────┘
+
+特点：同一token的所有层KV连续存放 ✅
 ```
 
 **为什么 Block 包含所有层？**
@@ -2355,11 +2492,12 @@ vLLM 的 Attention kernel 支持处理不同长度的 Q，所以可以在同一 
 vLLM 选择的是：
 
 - **不强求所有样本的 Q/K/V 形状完全一致**，而是用 offset + length 的方式支持 per-sample 变长；
-- 把很多“形状各不相同的小 Attention 子问题”打包进一次大的 kernel 里，  
+
+- 把很多“形状各不相同的小 Attention 子问题”打包进一次大的 kernel 里，
+
   由 GPU 在线程维度上并行摊开，从而既保留了变长的灵活性，又获得了 batch 的效率。
 
-从外部接口看，这就表现为：**在同一 batch 中同时包含 Prefill 和 Decode 请求**，  
-而从 kernel 内部看，本质上仍然是在对每个样本分别做 `Attention(Q, K, V, mask)`，只是一次性高效并行算完。
+从外部接口看，这就表现为：**在同一 batch 中同时包含 Prefill 和 Decode 请求**，而从 kernel 内部看，本质上仍然是在对每个样本分别做 `Attention(Q, K, V, mask)`，只是一次性高效并行算完。
 
 ### 混合 Prefill/Decode：提高 GPU 利用率
 

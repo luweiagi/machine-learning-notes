@@ -1,6 +1,6 @@
 ## Learning Model Predictive Controllers with Real-Time Attention for Real-World Navigation
 
-* [返回上层目录](../llm-based-control.md)
+* [返回上层目录](../control.md)
 
 
 

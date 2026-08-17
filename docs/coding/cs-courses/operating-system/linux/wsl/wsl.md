@@ -259,6 +259,64 @@ wsl --set-version Ubuntu-22.04 2
 - Ubuntu-22.04    Stopped         2
 ```
 
+## 压缩WLS2的空间
+
+为了确保瘦身效果最佳，推荐的完整操作流程是：
+
+* **在 WSL 终端内清理并执行 TRIM**：
+
+```shell
+# 可选，但建议执行，清理一些系统缓存
+sudo apt clean && sudo apt autoremove
+
+# 关键步骤：标记所有未使用的空间
+sudo fstrim /
+```
+
+这个命令会扫描并通知所有已挂载的文件系统，哪些块是空闲的。
+
+> **非常建议在执行 `diskpart` 压缩前，先在 WSL 中执行 `sudo fstrim /`**。这一步是让压缩生效的关键。
+>
+> 💡 为什么要先执行 `sudo fstrim /`？
+>
+> WSL 的虚拟硬盘（`ext4.vhdx`）文件就像个“气球”，在 WSL 里删除文件只是清空了“气球”内部的空间，但这个“气球”本身并不会自动缩小。
+>
+> `fstrim` 命令的作用，就是通知 Windows 系统，虚拟硬盘里的哪些数据块已经**不再被使用**了。这样一来，后续使用 `diskpart` 压缩时，Windows 才能知道哪些部分是“空闲空间”并可以安全地回收，从而实现瘦身。
+
+* **在 Windows 中彻底关闭 WSL**（**重要**）：
+
+在 **PowerShell** 或 **命令提示符**（以管理员身份运行）中执行：
+
+```shell
+wsl --shutdown
+```
+
+必须确保 WSL 完全关闭，否则 `ext4.vhdx` 文件会被占用，导致压缩失败。
+
+* **在 `diskpart` 中执行压缩**：
+继续在管理员 PowerShell 中，依次执行：
+
+```shell
+diskpart
+```
+
+然后在打开的 `diskpart` 窗口内，按顺序输入以下命令（记得替换成你自己的文件路径）：
+
+```shell
+select vdisk file="D:\software\WSL\Ubuntu\ext4.vhdx"
+attach vdisk readonly
+compact vdisk
+detach vdisk
+exit
+```
+
+其中`attach vdisk readonly` 命令是以只读方式挂载，确保操作的安全性。
+
+⚠️ 重要提醒
+
+- **管理员权限**：所有在 Windows 端的操作（`wsl --shutdown` 和 `diskpart`）都需要在**以管理员身份运行**的终端里执行。
+- **路径确认**：如果文件路径包含空格，请务必用英文双引号`"`将其括起来。
+
 # 使用WSL
 
 ## 如何打开WSL

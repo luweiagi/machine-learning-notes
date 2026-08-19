@@ -1,11 +1,12 @@
 # 控制
 
 * [返回上层目录](../autopilot.md)
+* [对自动控制的直觉理解](intuitive-understanding-of-control/intuitive-understanding-of-control.md)
 * [PID控制](pid-control/pid-control.md)
+* [控制分配与电机混控](control-allocation/copter-control-allocation.md)
+* [MPC控制](mpc-control/mpc-control.md)
+* [L1自适应控制](l1-adaptive-control/l1-adaptive-control.md)
 * [基于强化学习的控制](rl-based-control/rl-based-control.md)
-* [业界应用](industry-application/industry-application.md)
-
-
 
 ===
 

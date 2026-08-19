@@ -1,6 +1,6 @@
 # MPC控制
 
-* [返回上层目录](../traditional-control.md)
+* [返回上层目录](../control.md)
 
 
 

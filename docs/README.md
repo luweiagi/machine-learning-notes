@@ -165,7 +165,6 @@
   * [rsync增量式备份](coding/data-backup/rsync/rsync.md)
   * [Git](coding/data-backup/git/git.md)
 
-
 # [机器学习](machine-learning/machine-learning.md)
 * [机器学习概论](machine-learning/machine-learning-introduction/machine-learning-introduction.md)
   * [机器学习的哲学思想](machine-learning/machine-learning-introduction/philosophy/philosophy.md)
@@ -439,7 +438,6 @@
       * [Humanoid Strike人类击剑](reinforcement-learning/industry-application/inspir-ai/time-chamber/humanoid-strike/humanoid-strike.md)
 
 # [AutoML](auto-machine-learning/auto-machine-learning.md)
-
 * [AutoML介绍](auto-machine-learning/auto-machine-learning-introduction/auto-ml-introduction.md)
 * 自动数据清理AutoClean
 * 自动特征工程AutoFE
@@ -449,7 +447,6 @@
   * [Weight-Agnostic-Neural-Networks Google2019](auto-machine-learning/neural-architecture-search/weight-agnostic-nn/Weight-Agnostic-Neural-Networks.md)
 
 # [机器学习训练框架](machine-learning-training-framework/machine-learning-training-framework.md)
-
 * [Anaconda](machine-learning-training-framework/anaconda/anaconda.md)
 * [模型训练云服务器平台](machine-learning-training-framework/cloud-server-platform/cloud-server-platform.md)
   * [AutoDL](machine-learning-training-framework/cloud-server-platform/AutoDL/AutoDL.md)
@@ -498,7 +495,6 @@
   * [微软: 用于训练ChatGPT的超算](machine-learning-training-framework/supercomputing-cluster/microsoft-supercomputing-cluster-for-chatgpt/microsoft-supercomputing-cluster-for-chatgpt.md)
 
 # [模型推理优化与部署](model-infer/model-infer.md)
-
 * [模型推理](model-infer/model-inference/model-inference.md)
   * [矩阵加速算法](model-infer/model-inference/matrix-acceleration-algorithm/matrix-acceleration-algorithm.md)
     * [im2col: 将卷积转为矩阵乘法来加速计算](model-infer/model-inference/matrix-acceleration-algorithm/im2col/im2col.md)
@@ -538,7 +534,6 @@
   * [华为昇腾NPU](model-infer/hardware-platform/huawei-npu/huawei-npu.md)
 
 # [计算机视觉](computer-vision/computer-vision.md)
-
 * ResNet 有捷径的(resnet的跳跃连接)
 * InceptionNet 多岔路的(inception的多分支)
 * DenseNet 通往多个地点的捷径的(densenet的密集连接)
@@ -553,7 +548,6 @@
 * Swin Transformer
 
 # [推荐系统](recommender-systems/recommender-systems.md)
-
 * [推荐系统概述](recommender-systems/recommender-systems-introduction/recommender-systems-introduction.md)
 * 基础知识
   * 协同过滤
@@ -642,20 +636,16 @@
 * [Decoder-only架构](natural-language-processing/decoder-only-arch/decoder-only-arch.md)
 
 # [多模态大模型](multimodal-large-model/multimodal-large-model.md)
-
 * 预训练
   * Scaling Law
     * 涌现
-
   * 大模型架构优化
     * Attention
       * Flash Attention
       * GQA
       * MLA
-
     * MoE
       * auxiliary-loss-free by DeepSeek-V3
-
     * Residual Connect
       * Attention Residuals by Kimi 20260316
 * 微调
@@ -742,31 +732,20 @@
     * 失败处理 / fallback
     * 示例：ReAct + Calculator / Browser / SQL / RAG
 * [Agent运行时（Runtime）](runtime)---- 定义“怎么把Agent跑起来”（执行引擎）
-
   * Agent Loop Executor 执行循环
-
   * Tool Scheduler 工具调度
-
   * Memory Manager 记忆管理
-
     * RAG
-
   * 常用 Runtime 框架
-
     * LangChain：单 Agent + pipeline 强
-
     * AutoGen：多 Agent + 对话驱动 loop
-
     * LlamaIndex：Memory / RAG 特化 runtime
-
     * OpenAI Assistants API：官方托管 runtime
 * [Agent系统：完整运行系统](ai-agent/agent-system/agent-system.md)--已经是“一个完整智能体”（end-to-end）,即直接可运行的系统
-
   * [OpenClaw](ai-agent/agent-system/open-claw/open-claw.md)
   * AutoGPT
   * Devin
 * [Agent工程：基础设施](engineering)-- 让系统可用 / 可测 / 可扩展
-  
   * Harness Engineering
   * Evaluation / Benchmark
   * Logging / Tracing
@@ -777,7 +756,6 @@
   * 通信与协调机制
   * 系统示例
     * 斯坦福小镇（Stanford Town）
-
 
 目录编排：https://chatgpt.com/c/69d7cdf2-9c44-8321-8d66-b6e5de783b49
 
@@ -810,7 +788,6 @@
   * 轨迹规划
 * [制导](autopilot/guidance/guidance.md)
 * [控制](autopilot/control/control.md)
-  
   * [对自动控制的直觉理解](autopilot/control/intuitive-understanding-of-control/intuitive-understanding-of-control.md)
     * [常微分方程与拉普拉斯变换](autopilot/control/intuitive-understanding-of-control/ode-and-laplace-transforms/ode-and-laplace-transforms.md)
     * [自动控制的本质理解](autopilot/control/intuitive-understanding-of-control/understanding-essence-of-control/understanding-essence-of-control.md)
@@ -821,10 +798,8 @@
     * [多旋翼底层电机混控深度解析——从角速率环输出到电调输入的最后一公里](autopilot/control/control-allocation/multirotor-motor-mixer/multirotor-motor-mixer.md)
   * [MPC控制](autopilot/control/mpc-control/mpc-control.md)
   * [L1自适应控制](autopilot/control/l1-adaptive-control/l1-adaptive-control.md)
-  
   * [基于强化学习的控制](autopilot/control/rl-based-control/rl-based-control.md)
 * [动力系统](autopilot/dynamic-system/dynamic-system.md)
-  
   * [多旋翼组装选型](autopilot/dynamic-system/copter-assemble-and-lectotype/copter-assemble-and-lectotype.md)
   * [电调](autopilot/dynamic-system/ESC/ESC.md)
     * [螺旋桨推力与电调pwm的曲线映射关系](autopilot/dynamic-system/ESC/thrust2pwm_curve/thrust2pwm_curve.md)
@@ -833,7 +808,6 @@
 * [仿真](autopilot/simulation/simulation.md)
   * [SITL软件在环仿真](autopilot/simulation/sitl/sitl.md)
     * [TCP转串口](autopilot/simulation/sitl/tcp2serial/tcp2serial.md)
-
   * [动力学模型](autopilot/simulation/dynamic-model/dynamic-model.md)
     * [三自由度动力学与运动学模型](autopilot/simulation/dynamic-model/three-dof/three-dof.md)
     * 六自由度动力学与运动学模型
@@ -857,7 +831,6 @@
 * [地面站](autopilot/gcs/gcs.md)
 
 # [具身智能](embodied-intelligence/embodied-intelligence.md)
-
 * [lebot](embodied-intelligence/lebot/lebot.md)
 * [规划](embodied-intelligence/planning/planning.md)
   * [Socratic Models: Composing Zero-Shot Multimodal Reasoning with Language arXiv2022 Google](embodied-intelligence/planning/socratic-models/Socratic-Models-Composing-Zero-Shot-Multimodal-Reasoning-with-Language.md)
@@ -875,7 +848,6 @@
   * [Towards a Robotics Foundation Model ML-Collective协会2023]()
 
 # [世界模型](world-model/world-model.md)
-
 * [业界应用](world-model/industry-application/industry-application.md)
   * [OpenAI](world-model/industry-application/openai/openai.md)
     * [SORA文字生成视频 202402](world-model/industry-application/openai/sora/sora.md)
@@ -887,7 +859,6 @@
     * [Large World Model大世界模型 202412]
 
 # [通用人工智能](artificial-general-intelligence/artificial-general-intelligence.md)
-
 * [业界应用](artificial-general-intelligence/industry-application/industry-application.md)
   * [DeepMind](artificial-general-intelligence/industry-application/deepmind/deepmind.md)
     * [DeepMind介绍](artificial-general-intelligence/industry-application/deepmind/deepmind-introduction/deepmind-introduction.md)

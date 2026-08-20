@@ -796,6 +796,8 @@
     * [角速率环前馈控制：多旋翼与固定翼物理机理与工程实践](autopilot/control/pid-control/rate-feedforward-control/rate-feedforward-control.md)
   * [控制分配与电机混控](autopilot/control/control-allocation/control-allocation.md)
     * [多旋翼底层电机混控深度解析——从角速率环输出到电调输入的最后一公里](autopilot/control/control-allocation/multirotor-motor-mixer/multirotor-motor-mixer.md)
+  * [起降安全](autopilot/control/takeoff-landing-safety/takeoff-landing-safety.md)
+    * [现代飞控起落安全防御体系全景解析——从地面操作到离地升空与触地着陆的纵深防御](autopilot/control/takeoff-landing-safety/takeoff-landing-defense-system/takeoff-landing-defense-system.md)
   * [MPC控制](autopilot/control/mpc-control/mpc-control.md)
   * [L1自适应控制](autopilot/control/l1-adaptive-control/l1-adaptive-control.md)
   * [基于强化学习的控制](autopilot/control/rl-based-control/rl-based-control.md)

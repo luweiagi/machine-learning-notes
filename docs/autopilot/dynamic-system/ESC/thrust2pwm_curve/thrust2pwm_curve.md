@@ -128,8 +128,8 @@ plt.show()
 `PWM at MOT_SPIN_MIN`的值为
 $$
 \begin{aligned}
-&\text{PWM_at_MOT_SPIN_MIN}\\
-=&\text{PWM_MIN} + (\text{PWM_MIN}-\text{PWM_MIN})\cdot \text{SPIN_MIN}\\
+&\text{PWM\_at\_MOT\_SPIN\_MIN}\\
+=&\text{PWM\_MIN} + (\text{PWM\_MIN}-\text{PWM\_MIN})\cdot \text{SPIN\_MIN}\\
 =&1000+(2000-1000)*0.15\\
 =&1150
 \end{aligned}
@@ -137,8 +137,8 @@ $$
 `PWM at MOT_SPIN_MAX`的值为
 $$
 \begin{aligned}
-&\text{PWM_at_MOT_SPIN_MAX}\\
-=&\text{PWM_MIN} + (\text{PWM_MIN}-\text{PWM_MIN})\cdot \text{SPIN_MAX}\\
+&\text{PWM\_at\_MOT\_SPIN\_MAX}\\
+=&\text{PWM\_MIN} + (\text{PWM\_MIN}-\text{PWM\_MIN})\cdot \text{SPIN\_MAX}\\
 =&1000+(2000-1000)*0.95\\
 =&1950
 \end{aligned}
@@ -160,7 +160,7 @@ $$
 （1）`Normalized Throttle`为归一化后的油门，归一化的同时，考虑了压降，其定义为
 $$
 \begin{aligned}
-\text{throttle}_{\text{norm}}&=\frac{V}{V_{\text{max}}}max(0, \frac{\text{PWM}-\text{PWM}_{\text{spin_min}}}{\text{PWM}_{\text{spin_max}}-\text{PWM}_{\text{spin_min}}})\\
+\text{throttle}_{\text{norm}}&=\frac{V}{V_{\text{max}}}max(0, \frac{\text{PWM}-\text{PWM}_{\text{spin\_min}}}{\text{PWM}_{\text{spin\_max}}-\text{PWM}_{\text{spin\_min}}})\\
 &=\frac{21.68}{21.72}max(0, \frac{1555-1150}{1950-1150})\\
 &=0.9982\times 0.5063\\
 &=0.5053
@@ -181,7 +181,7 @@ $$
 （3）`Rescaled Thrust`为
 $$
 \begin{aligned}
-\text{thrust}_{\text{rescaled}}&=\frac{\text{thrust}_{\text{real-kgf}}-{\text{thrust}_{\text{spin_min}}}}{\text{thrust}_{\text{norm}}}\\
+\text{thrust}_{\text{rescaled}}&=\frac{\text{thrust}_{\text{real-kgf}}-{\text{thrust}_{\text{spin\_min}}}}{\text{thrust}_{\text{norm}}}\\
 &=\frac{1.039-0.271}{0.3803}\\
 &=2.0193
 \end{aligned}
@@ -191,8 +191,8 @@ $$
 （4）`Corrected Thrust`为修正后的推力，其定义为
 $$
 \begin{aligned}
-\text{thrust}_{\text{corrected}}&=\text{thrust}_{\text{norm}}\cdot mean(\text{thrust}_{\text{rescaled}}) + \text{thrust}_{\text{spin_min}}\\
-&=\text{thrust}_{\text{norm}}\cdot mean(\frac{\text{thrust}_{\text{real-kgf}}-{\text{thrust}_{\text{spin_min}}}}{\text{thrust}_{\text{norm}}}) + \text{thrust}_{\text{spin_min}}
+\text{thrust}_{\text{corrected}}&=\text{thrust}_{\text{norm}}\cdot mean(\text{thrust}_{\text{rescaled}}) + \text{thrust}_{\text{spin\_min}}\\
+&=\text{thrust}_{\text{norm}}\cdot mean(\frac{\text{thrust}_{\text{real-kgf}}-{\text{thrust}_{\text{spin\_min}}}}{\text{thrust}_{\text{norm}}}) + \text{thrust}_{\text{spin\_min}}
 \end{aligned}
 $$
 下面这个xlsx可以自动计算thrust_curve_expo值。
@@ -224,7 +224,9 @@ G7处改为了：
 > 因此，正确定义此参数的唯一方法是测量推力曲线并计算 MOT_THST_EXPO。然而，对于大多数 ESC 和螺旋桨组合，默认值会很好地工作。
 >
 > 那么如何判断这个值是否错误呢？
+>
 > 全油门时会出现振荡，或者在低油门时控制很差。
+>
 > 您发现如果不重新进行调整就无法更改飞机的起飞重量。
 >
 > 这两个都假设你在悬停时有一个近乎完美的曲调（我的意思是我对一个近乎完美的曲调的想法）。您还应该在 MOT_ 参数中设置电压补偿功能。

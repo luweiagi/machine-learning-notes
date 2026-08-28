@@ -757,8 +757,7 @@
   * 通信与协调机制
   * 系统示例
     * 斯坦福小镇（Stanford Town）
-
-目录编排：https://chatgpt.com/c/69d7cdf2-9c44-8321-8d66-b6e5de783b49
+    目录编排：https://chatgpt.com/c/69d7cdf2-9c44-8321-8d66-b6e5de783b49
 
 # [自动驾驶](autopilot/autopilot.md)
 * [传感器](autopilot/sensor/sensor.md)
@@ -778,6 +777,8 @@
   * [导航常用坐标系及变换](autopilot/navigation/navigation-coord-system-and-trans/navigation-coord-system-and-trans.md)
   * [哥氏定理/科里奥利定理](autopilot/navigation/coriolis-theorem/coriolis-theorem.md)
   * [四元数](autopilot/navigation/quaternion/quaternion.md)
+    * [四元数使用手册](autopilot/navigation/quaternion/quaternion-guide/quaternion-guide.md)
+    * [四元数的本质与直觉理解](autopilot/navigation/quaternion/quaternion-intuition/quaternion-intuition.md)
   * [罗德里格斯公式](autopilot/navigation/rodrigues-formula/rodrigues-formula.md)
   * [李群李代数](autopilot/navigation/lie-group-and-lie-algebra/lie-group-and-lie-algebra.md)
   * [基于互补滤波的组合导航](autopilot/navigation/complementary-filtering/complementary-filtering.md)

@@ -818,6 +818,7 @@
     * [空气动力学](autopilot/simulation/dynamic-model/aerodynamics/aerodynamics.md)
       * [熵](autopilot/simulation/dynamic-model/aerodynamics/entropy/entropy.md)
       * [高等空气动力学](autopilot/simulation/dynamic-model/aerodynamics/advanced-aerodynamics/advanced-aerodynamics.md)
+      * [飞机纵向焦点（气动中心）与压心第一性原理剖析](autopilot/simulation/dynamic-model/aerodynamics/longitudinal-focus-and-cp/longitudinal-focus-and-cp.md)
   * [传感器与武器](autopilot/simulation/sensor-and-weapon/sensor-and-weapon.md)
     * 雷达
     * [空空导弹](autopilot/simulation/sensor-and-weapon/air-to-air-missile/air-to-air-missile.md)
